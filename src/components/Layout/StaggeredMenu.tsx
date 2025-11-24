@@ -269,7 +269,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   // Close menu when route changes (but not on initial load or menu toggle)
   React.useEffect(() => {
     const pathChanged = location.pathname !== prevPathnameRef.current;
-    
+
     if (pathChanged && open) {
       // Add a small delay to ensure the page has started loading
       setTimeout(() => {
@@ -581,9 +581,9 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
       </header>
 
       <aside
-        id="staggered-menu-panel"
+        id="staggered-menu-panel "
         ref={panelRef}
-        className="staggered-menu-panel"
+        className="staggered-menu-panel st-m-pnl"
         aria-hidden={!open}
       >
         <div className="sm-panel-content">
@@ -648,7 +648,10 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                               key={subItem.label + subIdx}
                               className="sm-submenu-item"
                             >
-                              {subItem.link.startsWith('#') || subItem.link.startsWith('http') || subItem.link.startsWith('tel:') || subItem.link.startsWith('mailto:') ? (
+                              {subItem.link.startsWith("#") ||
+                              subItem.link.startsWith("http") ||
+                              subItem.link.startsWith("tel:") ||
+                              subItem.link.startsWith("mailto:") ? (
                                 <a
                                   href={subItem.link}
                                   className="sm-submenu-link"
@@ -680,7 +683,10 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                           ))}
                         </ul>
                       </div>
-                    ) : it.link.startsWith('#') || it.link.startsWith('http') || it.link.startsWith('tel:') || it.link.startsWith('mailto:') ? (
+                    ) : it.link.startsWith("#") ||
+                      it.link.startsWith("http") ||
+                      it.link.startsWith("tel:") ||
+                      it.link.startsWith("mailto:") ? (
                       <a
                         className="sm-panel-item"
                         href={it.link}
