@@ -19,7 +19,7 @@ function App() {
     setIsLoading(false);
   };
 
-  const basename = import.meta.env.BASE_URL || "/";
+  const basename = "/";
 
   return (
     <>
