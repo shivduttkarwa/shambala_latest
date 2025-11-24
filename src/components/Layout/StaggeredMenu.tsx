@@ -52,7 +52,15 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
 }) => {
   const location = useLocation();
   const [open, setOpen] = useState(false);
-  const baseUrl = import.meta.env.BASE_URL || '/';
+  // Helper to check if link is internal (should use React Router)
+  const isInternalLink = (link: string) => {
+    return !link.startsWith('#') && 
+           !link.startsWith('http') && 
+           !link.startsWith('https') &&
+           !link.startsWith('tel:') && 
+           !link.startsWith('mailto:');
+  };
+  
   const [openSubmenu, setOpenSubmenu] = useState<number | null>(null);
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
   const openRef = useRef(false);
@@ -649,12 +657,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                               key={subItem.label + subIdx}
                               className="sm-submenu-item"
                             >
-                              {subItem.link.startsWith("#") ||
-                              subItem.link.startsWith("http") ||
-                              subItem.link.startsWith("https") ||
-                              subItem.link.startsWith("tel:") ||
-                              subItem.link.startsWith("mailto:") ||
-                              (!subItem.link.startsWith(baseUrl) && !subItem.link.startsWith("/")) ? (
+                              {!isInternalLink(subItem.link) ? (
                                 <a
                                   href={subItem.link}
                                   className="sm-submenu-link"
@@ -665,19 +668,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                                 <Link
                                   to={subItem.link}
                                   className="sm-submenu-link"
-                                  onClick={() => {
-                                    window.scrollTo(0, 0);
-                                    // Always close menu on navigation - let React Router handle the routing
-                                    if (open) {
-                                      setTimeout(() => {
-                                        setOpen(false);
-                                        openRef.current = false;
-                                        onMenuClose?.();
-                                        playClose();
-                                        setOpenSubmenu(null);
-                                      }, 50);
-                                    }
-                                  }}
+                                  onClick={() => window.scrollTo(0, 0)}
                                 >
                                   {subItem.label}
                                 </Link>
@@ -686,12 +677,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                           ))}
                         </ul>
                       </div>
-                    ) : it.link.startsWith("#") ||
-                      it.link.startsWith("http") ||
-                      it.link.startsWith("https") ||
-                      it.link.startsWith("tel:") ||
-                      it.link.startsWith("mailto:") ||
-                      (!it.link.startsWith(baseUrl) && !it.link.startsWith("/")) ? (
+                    ) : !isInternalLink(it.link) ? (
                       <a
                         className="sm-panel-item"
                         href={it.link}
@@ -719,19 +705,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                         to={it.link}
                         aria-label={it.ariaLabel}
                         data-index={idx + 1}
-                        onClick={() => {
-                          window.scrollTo(0, 0);
-                          // Always close menu on navigation - let React Router handle the routing
-                          if (open) {
-                            setTimeout(() => {
-                              setOpen(false);
-                              openRef.current = false;
-                              onMenuClose?.();
-                              playClose();
-                              setOpenSubmenu(null);
-                            }, 50);
-                          }
-                        }}
+                        onClick={() => window.scrollTo(0, 0)}
                       >
                         <span className="sm-panel-itemLabel">{it.label}</span>
                       </Link>
