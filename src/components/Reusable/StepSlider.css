@@ -1,0 +1,143 @@
+.step-slider-section {
+  position: relative;
+  background: #f5e6d3;
+}
+
+.step-slider-spacer {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: #333;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, sans-serif;
+}
+
+.step-slider {
+  min-height: 100vh;
+  position: relative;
+  background: #f5e6d3;
+}
+
+.step-slider__container {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 2000px;
+  overflow: hidden;
+}
+
+.step-slider__track {
+  position: relative;
+  width: 85%;
+  max-width: 1200px;
+  height: 70vh;
+}
+
+.step-slider__card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  will-change: transform;
+  transform-origin: bottom center;
+}
+
+.step-slider__card-image {
+  position: relative;
+  overflow: hidden;
+  background: #e0e0e0;
+}
+
+.step-slider__card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.step-slider__card-content {
+  background: linear-gradient(135deg, #2c5f7a 0%, #1a4558 100%);
+  color: white;
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.step-slider__counter {
+  font-size: 0.875rem;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+  opacity: 0.8;
+  font-weight: 500;
+}
+
+.step-slider__title {
+  font-size: 3rem;
+  font-weight: 300;
+  line-height: 1.2;
+  margin-bottom: 30px;
+  letter-spacing: -0.5px;
+}
+
+.step-slider__title i {
+  font-style: italic;
+  color: #d4a574;
+}
+
+.step-slider__text {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  opacity: 0.9;
+  font-weight: 300;
+}
+
+.step-slider__progress {
+  position: absolute;
+  right: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 100;
+}
+
+.step-slider__progress-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(44, 95, 122, 0.3);
+  transition: all 0.3s ease;
+}
+
+.step-slider__progress-dot.is-active {
+  background: #2c5f7a;
+  transform: scale(1.4);
+}
+
+@media (max-width: 768px) {
+  .step-slider__card {
+    grid-template-columns: 1fr;
+  }
+
+  .step-slider__card-content {
+    padding: 40px;
+  }
+
+  .step-slider__title {
+    font-size: 2rem;
+  }
+}
