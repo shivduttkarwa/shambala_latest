@@ -1,5 +1,6 @@
 import React, { useCallback, useLayoutEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
+import { Link, useLocation } from "react-router-dom";
 import "./StaggeredMenu.css";
 
 interface SubMenuItem {
@@ -49,6 +50,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   logoText,
   logoAlt = "Logo",
 }) => {
+  const location = useLocation();
   const [open, setOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState<number | null>(null);
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
@@ -67,6 +69,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   const submenuTweens = useRef<Map<number, gsap.core.Timeline>>(new Map());
   const arrowTweens = useRef<Map<number, gsap.core.Tween>>(new Map());
   const lastScrollY = useRef(0);
+  const prevPathnameRef = useRef(location.pathname);
 
   const openTlRef = useRef<gsap.core.Timeline | null>(null);
   const closeTweenRef = useRef<gsap.core.Tween | null>(null);
@@ -262,6 +265,23 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
       },
     });
   }, [position]);
+
+  // Close menu when route changes (but not on initial load or menu toggle)
+  React.useEffect(() => {
+    const pathChanged = location.pathname !== prevPathnameRef.current;
+    
+    if (pathChanged && open) {
+      // Add a small delay to ensure the page has started loading
+      setTimeout(() => {
+        setOpen(false);
+        openRef.current = false;
+        onMenuClose?.();
+        playClose();
+        setOpenSubmenu(null);
+      }, 150);
+    }
+    prevPathnameRef.current = location.pathname;
+  }, [location.pathname, open, playClose, onMenuClose]);
 
   const animateIcon = useCallback((opening: boolean) => {
     const icon = iconRef.current;
@@ -628,17 +648,39 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                               key={subItem.label + subIdx}
                               className="sm-submenu-item"
                             >
-                              <a
-                                href={subItem.link}
-                                className="sm-submenu-link"
-                              >
-                                {subItem.label}
-                              </a>
+                              {subItem.link.startsWith('#') || subItem.link.startsWith('http') || subItem.link.startsWith('tel:') || subItem.link.startsWith('mailto:') ? (
+                                <a
+                                  href={subItem.link}
+                                  className="sm-submenu-link"
+                                >
+                                  {subItem.label}
+                                </a>
+                              ) : (
+                                <Link
+                                  to={subItem.link}
+                                  className="sm-submenu-link"
+                                  onClick={() => {
+                                    window.scrollTo(0, 0);
+                                    // Always close menu on navigation - let React Router handle the routing
+                                    if (open) {
+                                      setTimeout(() => {
+                                        setOpen(false);
+                                        openRef.current = false;
+                                        onMenuClose?.();
+                                        playClose();
+                                        setOpenSubmenu(null);
+                                      }, 50);
+                                    }
+                                  }}
+                                >
+                                  {subItem.label}
+                                </Link>
+                              )}
                             </li>
                           ))}
                         </ul>
                       </div>
-                    ) : (
+                    ) : it.link.startsWith('#') || it.link.startsWith('http') || it.link.startsWith('tel:') || it.link.startsWith('mailto:') ? (
                       <a
                         className="sm-panel-item"
                         href={it.link}
@@ -653,7 +695,6 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                                 behavior: "smooth",
                                 block: "start",
                               });
-                              // Close menu after navigation
                               toggleMenu();
                             }
                           }
@@ -661,6 +702,28 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                       >
                         <span className="sm-panel-itemLabel">{it.label}</span>
                       </a>
+                    ) : (
+                      <Link
+                        className="sm-panel-item"
+                        to={it.link}
+                        aria-label={it.ariaLabel}
+                        data-index={idx + 1}
+                        onClick={() => {
+                          window.scrollTo(0, 0);
+                          // Always close menu on navigation - let React Router handle the routing
+                          if (open) {
+                            setTimeout(() => {
+                              setOpen(false);
+                              openRef.current = false;
+                              onMenuClose?.();
+                              playClose();
+                              setOpenSubmenu(null);
+                            }, 50);
+                          }
+                        }}
+                      >
+                        <span className="sm-panel-itemLabel">{it.label}</span>
+                      </Link>
                     )}
                   </li>
                 ))

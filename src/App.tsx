@@ -10,6 +10,7 @@ import ProjectDetailPage from "./pages/ProjectDetailPage";
 import ServicePage from "./components/Services/ServicePage";
 import { useSiteSettings } from "./hooks/useSiteSettings";
 import BlackHoleLoader from "./components/UI/BlackHoleLoader";
+import ScrollToTop from "./components/UI/ScrollToTop";
 
 function App() {
   const { settings } = useSiteSettings();
@@ -25,6 +26,7 @@ function App() {
       {/* Temporarily disabled loader */}
       {/* {isLoading && <BlackHoleLoader onComplete={handlePreloadComplete} />} */}
       <Router>
+        <ScrollToTop />
         <div className="App">
           <Header settings={settings} />
           <main>
@@ -38,6 +40,8 @@ function App() {
                 path="/projects/:projectId"
                 element={<ProjectDetailPage />}
               />
+              <Route path="/blog" element={<div>Blog page coming soon</div>} />
+              <Route path="/contact" element={<div>Contact page coming soon</div>} />
             </Routes>
           </main>
           <Footer settings={settings} />

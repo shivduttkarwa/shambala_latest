@@ -165,14 +165,14 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
                 <span className="link-arrow">→</span>
                 About
               </Link>
-              <a href={`${publicUrl}blog`} className="footer-link">
+              <Link to="/blog" className="footer-link">
                 <span className="link-arrow">→</span>
                 Blog
-              </a>
-              <a href={`${publicUrl}/contact`} className="footer-link">
+              </Link>
+              <Link to="/contact" className="footer-link">
                 <span className="link-arrow">→</span>
                 Inquire
-              </a>
+              </Link>
             </div>
           </div>
 
