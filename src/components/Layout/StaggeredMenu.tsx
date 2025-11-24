@@ -54,11 +54,13 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   const [open, setOpen] = useState(false);
   // Helper to check if link is internal (should use React Router)
   const isInternalLink = (link: string) => {
-    return !link.startsWith('#') && 
-           !link.startsWith('http') && 
-           !link.startsWith('https') &&
-           !link.startsWith('tel:') && 
-           !link.startsWith('mailto:');
+    const result = !link.startsWith('#') && 
+                   !link.startsWith('http') && 
+                   !link.startsWith('https') &&
+                   !link.startsWith('tel:') && 
+                   !link.startsWith('mailto:');
+    console.log('🔍 Link check:', { link, isInternal: result });
+    return result;
   };
   
   const [openSubmenu, setOpenSubmenu] = useState<number | null>(null);
@@ -668,7 +670,10 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                                 <Link
                                   to={subItem.link}
                                   className="sm-submenu-link"
-                                  onClick={() => window.scrollTo(0, 0)}
+                                  onClick={() => {
+                                    window.scrollTo(0, 0);
+                                    toggleMenu();
+                                  }}
                                 >
                                   {subItem.label}
                                 </Link>

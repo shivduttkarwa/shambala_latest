@@ -21,6 +21,16 @@ const Header: React.FC<HeaderProps> = ({ settings }) => {
     return path;
   }
 
+  // Debug: Log the paths being generated
+  console.log('🔍 DEBUG Menu paths:', {
+    publicUrl,
+    homeLink: normPath("/"),
+    projectsLink: normPath("/projects"),
+    servicesLink: normPath("/services"),
+    aboutLink: normPath("/about"),
+    contactLink: normPath("/#contact"),
+  });
+
   // Fixed menu items with proper routing
   const menuItems = [
     {
