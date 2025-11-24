@@ -19,13 +19,12 @@ function App() {
     setIsLoading(false);
   };
 
-  const basename = "/";
 
   return (
     <>
       {/* Temporarily disabled loader */}
       {/* {isLoading && <BlackHoleLoader onComplete={handlePreloadComplete} />} */}
-      <Router basename={basename}>
+      <Router>
         <div className="App">
           <Header settings={settings} />
           <main>
