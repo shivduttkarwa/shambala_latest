@@ -19,8 +19,7 @@ function App() {
     setIsLoading(false);
   };
 
-  const publicUrl = import.meta.env.BASE_URL || "/";
-  const basename = publicUrl === "/" ? "/" : publicUrl.replace(/\/$/, "");
+  const basename = import.meta.env.BASE_URL || "/";
 
   return (
     <>

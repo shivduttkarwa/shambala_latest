@@ -6,7 +6,7 @@ import { fileURLToPath, URL } from "node:url";
 export default defineConfig({
   base:
     process.env.NODE_ENV === "production"
-      ? "/shambala_latest/"
+      ? "/shambala_frontend/"
       : "/",
   plugins: [react()],
   resolve: {
