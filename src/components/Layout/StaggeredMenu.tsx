@@ -52,6 +52,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
 }) => {
   const location = useLocation();
   const [open, setOpen] = useState(false);
+  const baseUrl = import.meta.env.BASE_URL || '/';
   const [openSubmenu, setOpenSubmenu] = useState<number | null>(null);
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
   const openRef = useRef(false);
@@ -650,8 +651,10 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                             >
                               {subItem.link.startsWith("#") ||
                               subItem.link.startsWith("http") ||
+                              subItem.link.startsWith("https") ||
                               subItem.link.startsWith("tel:") ||
-                              subItem.link.startsWith("mailto:") ? (
+                              subItem.link.startsWith("mailto:") ||
+                              (!subItem.link.startsWith(baseUrl) && !subItem.link.startsWith("/")) ? (
                                 <a
                                   href={subItem.link}
                                   className="sm-submenu-link"
@@ -685,8 +688,10 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                       </div>
                     ) : it.link.startsWith("#") ||
                       it.link.startsWith("http") ||
+                      it.link.startsWith("https") ||
                       it.link.startsWith("tel:") ||
-                      it.link.startsWith("mailto:") ? (
+                      it.link.startsWith("mailto:") ||
+                      (!it.link.startsWith(baseUrl) && !it.link.startsWith("/")) ? (
                       <a
                         className="sm-panel-item"
                         href={it.link}
