@@ -54,15 +54,16 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   const [open, setOpen] = useState(false);
   // Helper to check if link is internal (should use React Router)
   const isInternalLink = (link: string) => {
-    const result = !link.startsWith('#') && 
-                   !link.startsWith('http') && 
-                   !link.startsWith('https') &&
-                   !link.startsWith('tel:') && 
-                   !link.startsWith('mailto:');
-    console.log('🔍 Link check:', { link, isInternal: result });
+    const result =
+      !link.startsWith("#") &&
+      !link.startsWith("http") &&
+      !link.startsWith("https") &&
+      !link.startsWith("tel:") &&
+      !link.startsWith("mailto:");
+    console.log("🔍 Link check:", { link, isInternal: result });
     return result;
   };
-  
+
   const [openSubmenu, setOpenSubmenu] = useState<number | null>(null);
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
   const openRef = useRef(false);
@@ -543,25 +544,6 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
         }`}
         aria-label="Main navigation header"
       >
-        <div
-          className="sm-logo"
-          aria-label="Logo"
-          onClick={() => {
-            const heroSection = document.querySelector("#new-hero-section");
-            if (heroSection) {
-              heroSection.scrollIntoView({ behavior: "smooth" });
-            }
-          }}
-          style={{ cursor: "pointer" }}
-        >
-          {logoSrc ? (
-            <img src={logoSrc} alt={logoAlt} className="sm-logo-image" />
-          ) : logoText ? (
-            <span className="sm-logo-text">{logoText}</span>
-          ) : (
-            <span className="sm-logo-text">SHAMBALA HOMES</span>
-          )}
-        </div>
         <button
           ref={toggleBtnRef}
           className="sm-toggle"

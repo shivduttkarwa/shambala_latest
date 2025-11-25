@@ -1,15 +1,17 @@
 /* Staggered Menu Styles */
 .staggered-menu-wrapper {
   position: relative;
-  z-index: 1000;
+  z-index: 998;
 }
+
+/* Clean header wrapper styles */
 
 .fixed-wrapper {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1000;
+  z-index: 995;
 }
 
 .staggered-menu-wrapper[data-position="left"] .sm-prelayers,
@@ -44,14 +46,12 @@
 /* Header */
 .staggered-menu-header {
   position: relative;
-  z-index: 1001;
+  z-index: 997;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
-  padding: 1.2rem 1.6rem; /* reduced by 20% */
-  background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  padding: 0;
+  background: transparent;
   transition: transform 0.3s ease, background 0.3s ease;
   transform: translateY(0);
 }
@@ -94,29 +94,29 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  font-family: "Cinzel", serif;
-  font-size: 1.04rem; /* reduced from 1.3rem by approx 20% */
-  font-weight: 500;
+  font-family: inherit; /* Use same font as FORMA logo */
+  font-size: 1.5rem; /* Reduced menu button size */
+  font-weight: 200; /* Thinner font weight */
   padding: 0.5rem;
   transition: color 0.3s ease;
-  color: #fff !important;
-  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.8) !important; /* Slightly darker/transparent white */
+  letter-spacing: -0.04em; /* Match FORMA logo spacing */
   text-transform: uppercase;
   outline: none !important;
   -webkit-tap-highlight-color: transparent !important;
   box-shadow: none !important;
 }
 
-/* Mobile: bump header font sizes/padding on smaller screens by +20% (per request) */
+/* Mobile: reduce header height by 20% */
 @media (max-width: 768px) {
   .staggered-menu-header {
-    padding: 1.44rem 1.92rem; /* ~20% larger than desktop mobile padding */
+    padding: 0.408rem 0.4rem; /* 32% smaller than desktop padding with mobile side spacing */
   }
   .sm-logo-text {
     font-size: 0.96rem; /* 20% increase from 0.8rem */
   }
   .sm-toggle {
-    font-size: 0.96rem; /* 20% increase from 0.8rem */
+    font-size: 1.545rem; /* 3% larger than desktop (1.5rem * 1.03) */
   }
   .sm-logo-image {
     height: 48px; /* 20% larger than 40px */
@@ -181,7 +181,7 @@
   background-position: right center;
   background-repeat: no-repeat;
   background-color: #1e1e22;
-  z-index: 1000;
+  z-index: 995;
   overflow-y: auto;
   overflow-x: visible;
   color: #fff;

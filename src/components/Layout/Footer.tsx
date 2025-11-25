@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Footer.css";
 import { SiteSettings } from "../../services/api";
 import gsap from "gsap";
@@ -13,6 +13,7 @@ interface FooterProps {
 
 const Footer: React.FC<FooterProps> = ({ settings }) => {
   const publicUrl = import.meta.env.BASE_URL;
+  const navigate = useNavigate();
   const footerRef = useRef<HTMLElement>(null);
   const brandTextRef = useRef<HTMLHeadingElement>(null);
   const topSectionRef = useRef<HTMLDivElement>(null);
@@ -135,13 +136,26 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
         {/* Main Footer Content */}
         <div className="footer-top-section" ref={topSectionRef}>
           {/* Brand Box */}
-          <div className="footer-brand-box">
-            <div className="footer-brand-circle">
-              <div className="footer-brand-inner">
-                <h2 className="footer-brand-title">Shambala</h2>
-                <p className="footer-brand-subtitle">HOMES</p>
-              </div>
-            </div>
+          <div className="footer-brand-box" style={{ overflow: 'visible', position: 'relative', paddingTop: '80px' }}>
+            <img 
+              src="/images/forma_logo.png"
+              alt="FORMA"
+              onClick={() => {
+                navigate('/');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              style={{
+                position: 'absolute',
+                top: window.innerWidth <= 768 ? '-80px' : '-65px',
+                left: window.innerWidth <= 768 ? '50%' : 'calc(50% - 50px)',
+                transform: 'translateX(-50%) scale(2.4)',
+                transformOrigin: 'center top',
+                height: '80px',
+                width: 'auto',
+                zIndex: 10,
+                cursor: 'pointer'
+              }}
+            />
             <p className="footer-brand-description">
               Creating architectural masterpieces that blend vision with
               craftsmanship, transforming dreams into extraordinary living
@@ -282,25 +296,16 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
         <div className="footer-brand-large">
           <h1 className="footer-brand-text" ref={brandTextRef}>
             <div className="footer-mask">
-              <span className="footer-letter">S</span>
+              <span className="footer-letter">F</span>
             </div>
             <div className="footer-mask">
-              <span className="footer-letter">H</span>
+              <span className="footer-letter">O</span>
             </div>
             <div className="footer-mask">
-              <span className="footer-letter">A</span>
+              <span className="footer-letter">R</span>
             </div>
             <div className="footer-mask">
               <span className="footer-letter">M</span>
-            </div>
-            <div className="footer-mask">
-              <span className="footer-letter">B</span>
-            </div>
-            <div className="footer-mask">
-              <span className="footer-letter">A</span>
-            </div>
-            <div className="footer-mask">
-              <span className="footer-letter">L</span>
             </div>
             <div className="footer-mask">
               <span className="footer-letter">A</span>

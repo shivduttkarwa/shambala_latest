@@ -6,46 +6,40 @@ const publicUrl = import.meta.env.BASE_URL;
 const heroVideo = `${publicUrl}images/home_hero.mp4`;
 
 const ModernHero = () => {
-  const loaderRef = useRef<HTMLDivElement>(null);
-  const loaderSpinnerRef = useRef<HTMLDivElement>(null);
   const curtainRef = useRef<HTMLDivElement>(null);
   const heroVideoRef = useRef<HTMLDivElement>(null);
   const videoElRef = useRef<HTMLVideoElement>(null);
-  const logoTextRef = useRef<HTMLHeadingElement>(null);
+  const text1Ref = useRef<HTMLHeadingElement>(null);
+  const text2Ref = useRef<HTMLHeadingElement>(null);
   const scatterWordRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLDivElement>(null);
   const subtitleDynamicRef = useRef<HTMLSpanElement>(null);
-  const menuRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
   const newsRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const loader = loaderRef.current;
-    const loaderSpinner = loaderSpinnerRef.current;
     const curtain = curtainRef.current;
     const heroVideo = heroVideoRef.current;
     const videoEl = videoElRef.current;
-    const logoTextEl = logoTextRef.current;
+    const text1El = text1Ref.current;
+    const text2El = text2Ref.current;
     const scatterWordEl = scatterWordRef.current;
     const subtitleEl = subtitleRef.current;
     const subtitleDynamicEl = subtitleDynamicRef.current;
-    const menuEl = menuRef.current;
     const ctaEl = ctaRef.current;
     const newsEl = newsRef.current;
     const hero = heroRef.current;
 
     if (
-      !loader ||
-      !loaderSpinner ||
       !curtain ||
       !heroVideo ||
       !videoEl ||
-      !logoTextEl ||
+      !text1El ||
+      !text2El ||
       !scatterWordEl ||
       !subtitleEl ||
       !subtitleDynamicEl ||
-      !menuEl ||
       !ctaEl ||
       !newsEl ||
       !hero
@@ -62,7 +56,11 @@ const ModernHero = () => {
       const spans: HTMLSpanElement[] = [];
       chars.forEach((ch) => {
         const span = document.createElement("span");
-        span.textContent = ch;
+        if (ch === " ") {
+          span.innerHTML = "&nbsp;";
+        } else {
+          span.textContent = ch;
+        }
         if (extraClass) span.classList.add(extraClass);
         element.appendChild(span);
         spans.push(span);
@@ -70,10 +68,12 @@ const ModernHero = () => {
       return spans;
     }
 
-    const LOGO_TEXT = "FORMA";
+    const TEXT1 = "INSPIRE";
+    const TEXT2 = "A TRUE LIVING";
     const SCATTER_TEXT = "CREATE";
 
-    const logoSpans = createCharSpans(logoTextEl, LOGO_TEXT, "mh-logo-letter");
+    const text1Spans = createCharSpans(text1El, TEXT1, "mh-text1-letter");
+    const text2Spans = createCharSpans(text2El, TEXT2, "mh-text2-letter");
     const scatterSpans = createCharSpans(
       scatterWordEl,
       SCATTER_TEXT,
@@ -133,11 +133,11 @@ const ModernHero = () => {
       const heroRect = hero.getBoundingClientRect();
       const vw = heroRect.width;
       const vh = heroRect.height;
-      
+
       // Use window dimensions for more reliable detection
       const windowWidth = window.innerWidth;
       const windowHeight = window.innerHeight;
-      
+
       // Fallback to window dimensions if hero dimensions seem incorrect
       const finalVw = vw > 0 ? vw : windowWidth;
       const finalVh = vh > 0 ? vh : windowHeight;
@@ -154,7 +154,6 @@ const ModernHero = () => {
       }
 
       let logoTargetX: number, logoTargetY: number, assembleY: number;
-      let menuTargetX: number, menuTargetY: number;
       let ctaTargetX: number, ctaTargetY: number;
       let newsTargetX: number, newsTargetY: number;
 
@@ -162,8 +161,6 @@ const ModernHero = () => {
         logoTargetX = -finalVw / 2 + 70;
         logoTargetY = -finalVh / 2 + 25;
         assembleY = -110;
-        menuTargetX = finalVw / 2 - 70;
-        menuTargetY = logoTargetY;
         ctaTargetX = 0;
         ctaTargetY = finalVh / 2 - 70;
         newsTargetX = finalVw / 2 - 115;
@@ -172,8 +169,6 @@ const ModernHero = () => {
         logoTargetX = -finalVw / 2 + 70;
         logoTargetY = -finalVh / 2 + 25;
         assembleY = -110;
-        menuTargetX = finalVw / 2 - 90;
-        menuTargetY = logoTargetY;
         ctaTargetX = -finalVw / 2 + 150;
         ctaTargetY = finalVh / 2 - 90;
         newsTargetX = finalVw / 2 - 140;
@@ -182,15 +177,24 @@ const ModernHero = () => {
         logoTargetX = -finalVw / 2 + 110;
         logoTargetY = -finalVh / 2 + 35;
         assembleY = -220;
-        menuTargetX = finalVw / 2 - 110;
-        menuTargetY = logoTargetY;
         ctaTargetX = -finalVw / 2 + 170;
         ctaTargetY = finalVh / 2 - 100;
         newsTargetX = finalVw / 2 - 160;
         newsTargetY = finalVh / 2 - 110;
       }
 
-      return { logoTargetX, logoTargetY, assembleY, menuTargetX, menuTargetY, ctaTargetX, ctaTargetY, newsTargetX, newsTargetY, sizeLabel, finalVw, finalVh };
+      return {
+        logoTargetX,
+        logoTargetY,
+        assembleY,
+        ctaTargetX,
+        ctaTargetY,
+        newsTargetX,
+        newsTargetY,
+        sizeLabel,
+        finalVw,
+        finalVh,
+      };
     };
 
     const positions = calculatePositions();
@@ -298,19 +302,22 @@ const ModernHero = () => {
       minDistance
     );
 
-    gsap.set(logoTextEl, { opacity: 0 });
+    gsap.set([text1El, text2El], { opacity: 0 });
     gsap.set(scatterSpans, { x: 0, y: 0, opacity: 0, scale: 1 });
 
     videoEl.pause();
     videoEl.currentTime = 0;
 
-    gsap.set(menuEl, { x: positions.menuTargetX + 80, y: positions.menuTargetY });
     gsap.set(ctaEl, { x: positions.ctaTargetX, y: positions.ctaTargetY + 80 });
-    gsap.set(newsEl, { x: positions.newsTargetX + 120, y: positions.newsTargetY });
+    gsap.set(newsEl, {
+      x: positions.newsTargetX + 120,
+      y: positions.newsTargetY,
+    });
 
-    const LOADER_SPIN_DURATION = 1;
-    const LOGO_ENTRANCE_DURATION = 0.8;
-    const LOGO_MOVE_DURATION = 1.1;
+    const TEXT1_ENTRANCE_DURATION = 0.8;
+    const TEXT1_EXIT_DURATION = 0.8;
+    const TEXT2_ENTRANCE_DURATION = 0.8;
+    const TEXT2_EXIT_DURATION = 0.8;
     const VIDEO_EXPAND_DURATION = 1.5;
     const SCATTER_FADE_DURATION = 0.4;
     const SCATTER_ASSEMBLE_DURATION = 1.5;
@@ -318,52 +325,63 @@ const ModernHero = () => {
 
     const tl = gsap.timeline();
 
-    tl.to(loaderSpinner, {
-      rotation: 360,
-      duration: LOADER_SPIN_DURATION,
-      ease: "linear",
-      repeat: 1,
-    })
-      .to(loader, {
-        scale: 0.8,
-        opacity: 0,
-        duration: 0.4,
-        ease: "power2.in",
-      })
-      .to(
+    tl.to(
         curtain,
         {
           x: "0%",
           duration: 1.2,
           ease: "power3.inOut",
-        },
-        "-=0.1"
+        }
       )
       .fromTo(
-        logoSpans,
+        text1Spans,
         { y: positions.finalVh * 0.7 },
         {
           y: 0,
-          duration: LOGO_ENTRANCE_DURATION,
+          duration: TEXT1_ENTRANCE_DURATION,
           ease: "back.out(1.4)",
           stagger: 0.08,
           onStart: () => {
-            gsap.set(logoTextEl, { opacity: 1 });
+            gsap.set(text1El, { opacity: 1 });
           },
         },
         "-=0.3"
       )
-      .to(logoSpans, { y: 0, duration: 0.15 })
+      .to(text1Spans, { y: 0, duration: 0.15 })
       .to(
-        logoTextEl,
+        text1Spans,
         {
-          x: positions.logoTargetX,
-          y: positions.logoTargetY,
-          fontSize: "2rem",
-          duration: LOGO_MOVE_DURATION,
-          ease: "power3.inOut",
+          x: positions.finalVw,
+          duration: TEXT1_EXIT_DURATION,
+          ease: "back.out(1.4)",
+          stagger: 0.08,
         },
-        "logoMove"
+        "+=0.5"
+      )
+      .fromTo(
+        text2Spans,
+        { y: positions.finalVh * 0.7 },
+        {
+          y: 0,
+          duration: TEXT2_ENTRANCE_DURATION,
+          ease: "back.out(1.4)",
+          stagger: 0.08,
+          onStart: () => {
+            gsap.set(text2El, { opacity: 1 });
+          },
+        },
+        "-=0.3"
+      )
+      .to(text2Spans, { y: 0, duration: 0.15 })
+      .to(
+        text2Spans,
+        {
+          x: positions.finalVw,
+          duration: TEXT2_EXIT_DURATION,
+          ease: "back.out(1.4)",
+          stagger: 0.08,
+        },
+        "+=0.5"
       )
       .to(
         heroVideo,
@@ -377,7 +395,7 @@ const ModernHero = () => {
             videoEl.play();
           },
         },
-        "logoMove+=" + LOGO_MOVE_DURATION / 2
+        "-=0.3"
       )
       .set(
         scatterSpans,
@@ -409,7 +427,7 @@ const ModernHero = () => {
           stagger: 0.08,
           ease: "elastic.out(1, 0.5)",
         },
-        "logoMove+=" + (LOGO_MOVE_DURATION / 2 + VIDEO_EXPAND_DURATION)
+        "-=0.5"
       )
       .set(
         scatterSpans,
@@ -419,17 +437,6 @@ const ModernHero = () => {
         "postAssemble"
       )
       .add("postAssemble")
-      .to(
-        menuEl,
-        {
-          x: positions.menuTargetX,
-          y: positions.menuTargetY,
-          opacity: 1,
-          duration: 0.7,
-          ease: "power3.out",
-        },
-        "postAssemble-=0"
-      )
       .to(
         ctaEl,
         {
@@ -479,23 +486,6 @@ const ModernHero = () => {
           background-color: #171717;
         }
 
-        .mh-loader {
-          position: absolute;
-          inset: 0;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          z-index: 50;
-          background: #171717;
-        }
-
-        .mh-loader-spinner {
-          width: 64px;
-          height: 64px;
-          border: 4px solid #34d399;
-          border-top-color: transparent;
-          border-radius: 50%;
-        }
 
         .mh-curtain {
           position: absolute;
@@ -527,6 +517,10 @@ const ModernHero = () => {
 
         .mh-hero-text span {
           display: inline-block;
+        }
+        
+        .mh-text2-letter {
+          margin-right: 0.05em;
         }
 
         .mh-hero-text {
@@ -590,21 +584,6 @@ const ModernHero = () => {
           background-color: rgba(0, 0, 0, 0.35);
         }
 
-        .mh-ui-menu {
-          position: absolute;
-          z-index: 60;
-          text-transform: uppercase;
-          letter-spacing: 0.25em;
-          font-size: 1.9rem;
-          color: #ffffff;
-          pointer-events: auto;
-          opacity: 0;
-          font-weight: 300;
-        }
-
-        .mh-ui-menu span {
-          opacity: 1;
-        }
 
         .mh-ui-cta {
           position: absolute;
@@ -687,7 +666,7 @@ const ModernHero = () => {
         @media (max-width: 575.98px) {
           .mh-hero-text,
           .mh-scatter-word {
-            font-size: 6rem;
+            font-size: 3rem;
             letter-spacing: 3px;
           }
           .mh-scatter-word {
@@ -774,23 +753,16 @@ const ModernHero = () => {
         }
       `}</style>
 
-      <div className="mh-loader" ref={loaderRef}>
-        <div className="mh-loader-spinner" ref={loaderSpinnerRef}></div>
-      </div>
-
       <div className="mh-curtain" ref={curtainRef}></div>
 
       <div className="mh-text-container">
-        <h1 className="mh-hero-text" ref={logoTextRef}></h1>
+        <h1 className="mh-hero-text" ref={text1Ref}></h1>
+        <h1 className="mh-hero-text" ref={text2Ref}></h1>
         <h1 className="mh-scatter-word" ref={scatterWordRef}></h1>
 
         <div className="mh-subtitle" ref={subtitleRef}>
           <span className="mh-subtitle-static">Something </span>
           <span className="mh-subtitle-dynamic" ref={subtitleDynamicRef}></span>
-        </div>
-
-        <div className="mh-ui-menu" ref={menuRef}>
-          <span>Menu</span>
         </div>
 
         <div className="mh-ui-cta" ref={ctaRef}>

@@ -20,7 +20,6 @@ function App() {
     setIsLoading(false);
   };
 
-
   return (
     <>
       {/* Temporarily disabled loader */}
