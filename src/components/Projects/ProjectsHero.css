@@ -1,248 +1,108 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap");
 
-.pr-projects-hero-left,
-.pr-projects-hero-right {
+.pr-hero-shell {
   display: flex;
   flex-direction: column;
-  color: white;
-  z-index: 2;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 7vh 0;
+  color: #fff;
   position: relative;
-  text-align: center;
+  z-index: 2;
 }
 
-.pr-projects-hero-center {
+.pr-hero-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 820px;
+}
+
+.pr-hero-kicker {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  font-size: 0.85rem;
+  color: #c8ddff;
+  font-family: "Inter", sans-serif;
+}
+
+.pr-hero-title {
+  margin: 0;
+  font-size: clamp(2.6rem, 4vw + 1rem, 4.6rem);
+  font-weight: 700;
+  line-height: 1.05;
+  font-family: "Dream Avenue", sans-serif;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.45);
+}
+
+.pr-hero-subtitle {
+  margin: 0;
+  font-size: 1.15rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.86);
+  max-width: 48rem;
+  font-family: "Inter", sans-serif;
+}
+
+.pr-hero-dynamic {
   display: flex;
   align-items: center;
-  justify-content: center;
-  z-index: 2;
-  position: relative;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  font-size: 1rem;
+  color: #dbe8ff;
+  font-family: "Inter", sans-serif;
 }
 
-.pr-projects-hero-right {
-  margin-right: 210px;
-}
-
-.pr-projects-hero-left h1 span,
-.pr-projects-hero-right h1 span {
-  display: inline-block;
-}
-
-.pr-projects-hero-center {
-  z-index: 3;
-  position: absolute;
-  bottom: 5%;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.pr-projects-hero-left h1,
-.pr-projects-hero-right h1,
-.pr-projects-hero-text-wrapper {
-  font-size: 6rem;
-  font-weight: 300;
-  margin: 0;
-  line-height: 1.2;
-  font-family: "Dream Avenue", sans-serif;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-.pr-projects-hero-text-wrapper {
-  width: 25rem;
-  text-align: center;
-  margin: 0 auto;
-}
-
-.pr-projects-slider-container {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-}
-
-.pr-projects-img-after-wrap,
-.pr-projects-img-before-wrap {
-  position: absolute;
-  height: 100vh;
-  width: 100vw;
-  transition: all 0.15s;
-}
-
-.pr-projects-img-before-wrap {
-  overflow: hidden;
-  width: 50vw;
-}
-
-.pr-projects-img-before-wrap img {
-  filter: grayscale(100%);
-}
-
-.pr-projects-img-after-wrap img,
-.pr-projects-img-before-wrap img {
-  width: 100vw;
-  height: 100%;
-  object-fit: cover;
-}
-
-.pr-projects-slider-indicator {
-  position: absolute;
-  width: 5px;
-  height: 100%;
-  left: 50%;
-  transform: translate(-50%, 0%);
-  background-color: #1b2c34;
-  z-index: 30;
-  pointer-events: none;
-  transition: all 0.15s;
-}
-
-.pr-projects-hero-content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  opacity: 0;
-  animation: pr-projectsFadeInUp 1.5s forwards 0.5s;
-  z-index: 5;
-  pointer-events: none;
-}
-
-@keyframes pr-projectsFadeInUp {
-  to {
-    opacity: 1;
-    transform: translate(-50%, -60%);
-  }
-}
-
-.pr-projects-hero-content h1 {
-  font-size: 2.8em;
-  color: #fff;
-  margin-bottom: 20px;
+.pr-hero-dynamic-text {
+  font-size: 1.1rem;
   font-weight: 700;
-  pointer-events: none;
-  z-index: 40;
-  font-family: "Inter", sans-serif;
-}
-
-.pr-projects-hero-content-text {
-  pointer-events: none;
-  z-index: 40;
-  color: #fff;
-  font-size: 1.1em;
-  font-family: "Inter", sans-serif;
-}
-
-.pr-projects-hero-btn {
-  padding: 15px 30px;
-  background-color: rgba(255, 255, 255, 0.2);
-  border: 2px solid #fff;
-  color: #fff;
-  font-size: 1.2em;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s;
-  outline: none;
-  letter-spacing: 1px;
   text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #fff;
+}
+
+.pr-hero-stats {
+  display: none;
+}
+
+.scroll-down-btn {
+  z-index: 150;
   position: absolute;
-  bottom: 30%;
+  bottom: 2.5rem;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 50;
-  font-family: "Inter", sans-serif;
 }
 
-.pr-projects-hero-btn:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-.pr-projects-hero-btn:active {
-  transform: translateX(-50%) scale(0.95);
-}
-
-/* Media Queries */
-@media screen and (max-width: 280px) {
-  .pr-projects-hero-btn {
-    font-size: 1em;
+@media (max-width: 900px) {
+  .pr-hero-shell {
+    padding: 6vh 0;
+    gap: 1.25rem;
   }
-  .pr-projects-hero-content h1 {
-    font-size: 2em;
+
+  .pr-hero-title {
+    font-size: clamp(2.2rem, 5vw + 1rem, 3.6rem);
+  }
+
+  .pr-hero-subtitle {
+    font-size: 1.05rem;
   }
 }
 
-@media screen and (max-width: 376px) {
-  .pr-projects-hero-btn {
-    font-size: 0.9em;
-    bottom: 10%;
-  }
-  .pr-projects-hero-content h1 {
-    font-size: 1.4em;
-  }
-}
-
-@media screen and (max-width: 541px) {
-  .pr-projects-hero-btn {
-    font-size: 1.1em;
-    bottom: 15%;
-  }
-  .pr-projects-hero-content h1 {
-    font-size: 2em;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .pr-projects-hero-btn {
-    font-size: 1.1em;
-    bottom: 18%;
+@media (max-width: 600px) {
+  .pr-hero-shell {
+    padding: 5vh 0 7vh;
   }
 
-  .pr-projects-hero-left h1,
-  .pr-projects-hero-right h1,
-  .pr-projects-hero-text-wrapper {
-    font-size: 2rem;
+  .pr-hero-title {
+    font-size: clamp(2rem, 7vw + 1rem, 3.1rem);
+    line-height: 1.15;
   }
 
-  .pr-projects-hero-text-wrapper {
-    width: 15rem;
-  }
-
-  .pr-projects-hero-right {
-    margin-right: 0;
-  }
-
-  .pr-projects-hero-center {
-    bottom: 10%;
-    transform: translateX(-50%) scale(0.8);
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .pr-projects-hero-left h1,
-  .pr-projects-hero-right h1,
-  .pr-projects-hero-text-wrapper {
-    font-size: 1.5rem;
-  }
-
-  .pr-projects-hero-text-wrapper {
-    width: 12rem;
-  }
-
-  .pr-projects-hero-center {
-    bottom: 5%;
-    transform: translateX(-50%) scale(0.6);
-    width: 130%;
-  }
-}
-
-@media screen and (max-width: 1280px) {
-  .pr-projects-hero-btn {
-    bottom: 18%;
-  }
-}
-
-@media (min-width: 769px) {
-  .pr-projects-hero-center {
-    bottom: auto;
-    top: 50%;
-    transform: translate(-50%, -50%);
+  .pr-hero-stats {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   }
 }

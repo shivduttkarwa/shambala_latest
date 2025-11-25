@@ -7,15 +7,14 @@ import "./ProjectsHero.css";
 
 const publicUrl = import.meta.env.BASE_URL;
 
-const leftTexts = ["EXPERT", "PROFESSIONAL", "RELIABLE"];
-const rightTexts = ["EXCELLENCE", "ASSURANCE", "TRUST"];
+const qualityTexts = ["EXCELLENCE", "ASSURANCE", "TRUST"];
 
 const ProjectsHero: React.FC = () => {
-  const leftTopRef = useRef<HTMLHeadingElement>(null);
-  const rightTopRef = useRef<HTMLHeadingElement>(null);
+  const heroTitleRef = useRef<HTMLHeadingElement>(null);
+  const subtitleRef = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
-    const animateText = (element: HTMLElement) => {
+    const animateText = (element: HTMLElement, stagger = 0.05) => {
       const chars = element.textContent?.split("") || [];
       element.innerHTML = "";
       const spans: HTMLElement[] = [];
@@ -34,29 +33,45 @@ const ProjectsHero: React.FC = () => {
           opacity: 1,
           y: 0,
           filter: "blur(0px)",
-          stagger: 0.05,
+          stagger,
           duration: 0.6,
           ease: "power2.out",
         }
       );
     };
 
-    if (leftTopRef.current) animateText(leftTopRef.current);
-    if (rightTopRef.current) animateText(rightTopRef.current);
+    if (heroTitleRef.current) animateText(heroTitleRef.current, 0.04);
+    if (subtitleRef.current) {
+      gsap.fromTo(
+        subtitleRef.current,
+        { opacity: 0, y: 12 },
+        { opacity: 1, y: 0, duration: 0.6, delay: 0.35, ease: "power2.out" }
+      );
+    }
   }, []);
 
   return (
-    <FullWidthImage imageUrl={`${publicUrl}images/l11.jpg`}>
-      <div className="pr-projects-hero-left">
-        <h1 ref={leftTopRef}>PREMIUM</h1>
-        <div className="pr-projects-hero-text-wrapper">
-          <ChangingText texts={leftTexts} />
-        </div>
-      </div>
-      <div className="pr-projects-hero-right">
-        <h1 ref={rightTopRef}>QUALITY</h1>
-        <div className="pr-projects-hero-text-wrapper">
-          <ChangingText texts={rightTexts} />
+    <FullWidthImage
+      imageUrl={`${publicUrl}images/hero_poster.jpg`}
+      videoUrl={`${publicUrl}images/projects-hero.webm`}
+      posterUrl={`${publicUrl}images/hero_poster.jpg`}
+    >
+      <div className="pr-hero-shell">
+        <div className="pr-hero-body">
+          <p className="pr-hero-kicker">Projects Portfolio</p>
+          <h1 ref={heroTitleRef} className="pr-hero-title">
+            Spaces that feel crafted, trusted, and built to last.
+          </h1>
+          <p ref={subtitleRef} className="pr-hero-subtitle">
+            We blend craftsmanship, technical rigor, and transparent delivery so
+            every project earns confidence on day one and keeps it for years.
+          </p>
+          <div className="pr-hero-dynamic">
+            <span className="pr-hero-dynamic-label">Known for</span>
+            <div className="pr-hero-dynamic-text">
+              <ChangingText texts={qualityTexts} />
+            </div>
+          </div>
         </div>
       </div>
       <ScrollDownButton targetId="projects-slider" />

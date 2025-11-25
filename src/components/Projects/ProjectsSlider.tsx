@@ -15,44 +15,47 @@ type ServiceCard = {
   link: string;
 };
 
+const publicUrl = import.meta.env.BASE_URL;
+const asset = (path: string) => `${publicUrl}${path}`;
+
 const CARDS: ServiceCard[] = [
   {
     title: "Luxury Villa in Brighton",
     desc: "A stunning modern villa with panoramic ocean views and contemporary design.",
-    bg: "/images/l1.jpg",
-    thumb: "/images/sm1.jpg",
+    bg: asset("images/l1.jpg"),
+    thumb: asset("images/sm1.jpg"),
     cta: "View Project",
     link: "/projects/luxury-villa-brighton",
   },
   {
     title: "Contemporary Family Home",
     desc: "Spacious family residence featuring open-plan living and sustainable materials.",
-    bg: "/images/l2.jpg",
-    thumb: "/images/sm2.jpg",
+    bg: asset("images/l2.jpg"),
+    thumb: asset("images/sm2.jpg"),
     cta: "View Project",
     link: "/projects/contemporary-family-home",
   },
   {
     title: "Urban Penthouse Renovation",
     desc: "Complete transformation of a city penthouse with premium finishes and city skyline views.",
-    bg: "/images/l3.jpg",
-    thumb: "/images/sm3.jpg",
+    bg: asset("images/l3.jpg"),
+    thumb: asset("images/sm3.jpg"),
     cta: "View Project",
     link: "/projects/urban-penthouse-renovation",
   },
   {
     title: "Heritage Estate Restoration",
     desc: "Careful restoration of a historic estate preserving character while adding modern amenities.",
-    bg: "/images/l4.jpg",
-    thumb: "/images/sm4.jpg",
+    bg: asset("images/l4.jpg"),
+    thumb: asset("images/sm4.jpg"),
     cta: "View Project",
     link: "/projects/heritage-estate-restoration",
   },
   {
     title: "Eco-Friendly Townhouse",
     desc: "Sustainable townhouse design incorporating green technologies and energy-efficient systems.",
-    bg: "/images/l5.jpg",
-    thumb: "/images/sm5.jpg",
+    bg: asset("images/l5.jpg"),
+    thumb: asset("images/sm5.jpg"),
     cta: "View Project",
     link: "/projects/eco-friendly-townhouse",
   },

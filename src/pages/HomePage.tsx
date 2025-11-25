@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
-import NewHeroSection from "../components/Home/NewHeroSection";
-import MobileHero from "../components/Home/MobileHero";
+import React from "react";
+import ModernHero from "../components/Reusable/ModernHero";
 import {
   EssenceSection,
   PortfolioShowcase,
@@ -21,25 +20,14 @@ interface HomePageProps {
 
 const HomePage: React.FC<HomePageProps> = ({ settings: _ }) => {
   const { bodyBlocks } = useHome();
-  const [isMobile, setIsMobile] = useState(false);
-
-  // Mobile detection
-  useEffect(() => {
-    const checkIsMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-
-    checkIsMobile();
-    window.addEventListener("resize", checkIsMobile);
-
-    return () => window.removeEventListener("resize", checkIsMobile);
-  }, []);
 
   console.log("HomePage bodyBlocks:", bodyBlocks);
 
   return (
     <>
-      <div id="hero">{isMobile ? <MobileHero /> : <NewHeroSection />}</div>
+      <div id="hero">
+        <ModernHero />
+      </div>
       <EssenceSection />
       <div id="services">
         <ServicesSection />

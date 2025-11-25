@@ -5,6 +5,8 @@ import { useNewHero } from "../../hooks/useHome";
 import GlassRainButton from "../UI/GlassRainButton";
 
 const publicUrl = import.meta.env.BASE_URL;
+const posterImage = `${publicUrl}images/Petralithe_Automne.webp`;
+const heroVideo = `${publicUrl}images/home_hero.mp4`;
 
 // Error Boundary Component
 class HeroErrorBoundary extends Component<
@@ -86,61 +88,34 @@ const NewHeroSectionContent: React.FC = () => {
         <div
           className="image-background video-poster"
           style={{
-            backgroundImage: `url(${publicUrl}images/hero_poster.jpg)`,
+            backgroundImage: `url(${posterImage})`,
           }}
         />
 
         {/* Video - loads over the poster image */}
-        {heroData?.background.video_url &&
-          (heroData.background.video_url.includes("vimeo.com") ? (
-            <iframe
-              className="video-background vimeo-iframe"
-              style={{
-                backgroundColor: "transparent",
-              }}
-              src={`https://player.vimeo.com/video/${
-                heroData.background.video_url.match(/vimeo\.com\/(\d+)/)?.[1]
-              }?autoplay=1&loop=1&muted=1&background=1&controls=0&title=0&byline=0&portrait=0&dnt=1&quality=540p&autopause=0&playsinline=1&transparent=0`}
-              allow="autoplay; fullscreen"
-              loading="eager"
-              title="Hero Background Video"
-              onLoad={() => {
-                // Keep poster visible for 2-3 seconds before showing video
-                setTimeout(() => {
-                  const poster = document.querySelector(
-                    "#new-hero-section .video-poster"
-                  );
-                  if (poster) {
-                    (poster as HTMLElement).style.opacity = "0";
-                  }
-                }, 2500); // 2.5 seconds delay
-              }}
-            />
-          ) : (
-            <video
-              className="video-background"
-              autoPlay
-              muted
-              loop
-              playsInline
-              controls={false}
-              disablePictureInPicture
-              preload="auto"
-              onCanPlay={() => {
-                // Keep poster visible for 2-3 seconds before showing video
-                setTimeout(() => {
-                  const poster = document.querySelector(
-                    "#new-hero-section .video-poster"
-                  );
-                  if (poster) {
-                    (poster as HTMLElement).style.opacity = "0";
-                  }
-                }, 2500); // 2.5 seconds delay
-              }}
-            >
-              <source src={heroData.background.video_url} type="video/mp4" />
-            </video>
-          ))}
+        <video
+          className="video-background"
+          autoPlay
+          muted
+          loop
+          playsInline
+          controls={false}
+          disablePictureInPicture
+          preload="auto"
+          onCanPlay={() => {
+            // Keep poster visible for 2-3 seconds before showing video
+            setTimeout(() => {
+              const poster = document.querySelector(
+                "#new-hero-section .video-poster"
+              );
+              if (poster) {
+                (poster as HTMLElement).style.opacity = "0";
+              }
+            }, 2500); // 2.5 seconds delay
+          }}
+        >
+          <source src={heroVideo} type="video/mp4" />
+        </video>
         <div className="hero-overlay"></div>
 
         <div className="hero-content">
