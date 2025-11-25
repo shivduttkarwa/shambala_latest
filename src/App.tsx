@@ -1,5 +1,4 @@
 import "./styles/App.css";
-import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Header, Footer } from "./components/Layout";
 import HomePage from "./pages/HomePage";
@@ -9,22 +8,14 @@ import Projects from "./pages/Projects";
 import ProjectDetailPage from "./pages/ProjectDetailPage";
 import ServicePage from "./components/Services/ServicePage";
 import { useSiteSettings } from "./hooks/useSiteSettings";
-import BlackHoleLoader from "./components/UI/BlackHoleLoader";
 import ScrollToTop from "./components/UI/ScrollToTop";
 
 function App() {
   const { settings } = useSiteSettings();
-  const [isLoading, setIsLoading] = useState(true);
-
-  const handlePreloadComplete = () => {
-    setIsLoading(false);
-  };
 
   return (
     <>
-      {/* Temporarily disabled loader */}
-      {/* {isLoading && <BlackHoleLoader onComplete={handlePreloadComplete} />} */}
-      <Router>
+      <Router basename={import.meta.env.BASE_URL}>
         <ScrollToTop />
         <div className="App">
           <Header settings={settings} />

@@ -15,8 +15,6 @@ const Projects: React.FC = () => {
       <ProjectsSlider />
       <ProjectsShowcase />
       <ProjectModernSlider />
-      <GridGallery />
-      <StepSlider />
     </>
   );
 };
