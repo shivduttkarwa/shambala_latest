@@ -79,7 +79,7 @@ const ProjectModernSlider: React.FC = () => {
     animationFrameRef.current = requestAnimationFrame(() => {
       if (dragBtnRef.current) {
         dragBtnRef.current.style.left = `${x}px`;
-        dragBtnRef.current.style.top = `${y + 80}px`; // Position below cursor
+        dragBtnRef.current.style.top = `${y - 15}px`; // Position slightly above cursor
       }
     });
   };
@@ -124,6 +124,41 @@ const ProjectModernSlider: React.FC = () => {
       if (isInSection && !isOverNavButton) {
         setDragPosition({ x: e.clientX, y: e.clientY });
         updateDragButtonPosition(e.clientX, e.clientY);
+        
+        // Check if drag button overlaps with any buttons
+        // Drag button is 104x104px and positioned at cursor - 15px Y offset
+        const dragBtnCenterX = e.clientX;
+        const dragBtnCenterY = e.clientY - 15;
+        const dragBtnSize = 52; // Half of 104px for radius-based collision
+        
+        const buttonElements = document.querySelectorAll('.pms-swiper-button-next, .pms-swiper-button-prev');
+        let overButton = false;
+        
+        buttonElements.forEach(button => {
+          const rect = button.getBoundingClientRect();
+          // Add some padding to make collision detection more stable
+          const padding = 10;
+          if (dragBtnCenterX >= (rect.left - padding) && dragBtnCenterX <= (rect.right + padding) && 
+              dragBtnCenterY >= (rect.top - padding) && dragBtnCenterY <= (rect.bottom + padding)) {
+            overButton = true;
+          }
+        });
+        
+        if (overButton && showDragBtn) {
+          setShowDragBtn(false);
+          // Add CSS class to show pointer cursor
+          const sliderElement = sliderSectionRef.current;
+          if (sliderElement) {
+            sliderElement.classList.add("show-cursor");
+          }
+        } else if (!overButton && !showDragBtn) {
+          setShowDragBtn(true);
+          // Remove CSS class to hide cursor
+          const sliderElement = sliderSectionRef.current;
+          if (sliderElement) {
+            sliderElement.classList.remove("show-cursor");
+          }
+        }
       }
     };
 
@@ -134,17 +169,17 @@ const ProjectModernSlider: React.FC = () => {
     return () => {
       document.removeEventListener("mousemove", handleMouseMove);
     };
-  }, [isInSection, isOverNavButton]);
+  }, [isInSection, isOverNavButton, showDragBtn]);
 
-  // Check if mouse is over navigation buttons
+  // Check if mouse is over navigation buttons and slide buttons
   useEffect(() => {
-    const handleNavButtonEnter = () => {
+    const handleButtonEnter = () => {
       setIsOverNavButton(true);
       setShowDragBtn(false);
-      document.body.style.cursor = "pointer"; // Show pointer for nav buttons
+      document.body.style.cursor = "pointer"; // Show pointer for buttons
     };
 
-    const handleNavButtonLeave = () => {
+    const handleButtonLeave = () => {
       setIsOverNavButton(false);
       if (isInSection) {
         setShowDragBtn(true);
@@ -156,25 +191,38 @@ const ProjectModernSlider: React.FC = () => {
 
     const nextButton = document.querySelector(".pms-swiper-button-next");
     const prevButton = document.querySelector(".pms-swiper-button-prev");
+    const slideButtons = document.querySelectorAll(".pms-creative-slide--btn");
 
+    // Navigation buttons
     if (nextButton) {
-      nextButton.addEventListener("mouseenter", handleNavButtonEnter);
-      nextButton.addEventListener("mouseleave", handleNavButtonLeave);
+      nextButton.addEventListener("mouseenter", handleButtonEnter);
+      nextButton.addEventListener("mouseleave", handleButtonLeave);
     }
     if (prevButton) {
-      prevButton.addEventListener("mouseenter", handleNavButtonEnter);
-      prevButton.addEventListener("mouseleave", handleNavButtonLeave);
+      prevButton.addEventListener("mouseenter", handleButtonEnter);
+      prevButton.addEventListener("mouseleave", handleButtonLeave);
     }
+
+    // Slide buttons (Explore Projects, View Portfolio, See Designs)
+    slideButtons.forEach(button => {
+      button.addEventListener("mouseenter", handleButtonEnter);
+      button.addEventListener("mouseleave", handleButtonLeave);
+    });
 
     return () => {
       if (nextButton) {
-        nextButton.removeEventListener("mouseenter", handleNavButtonEnter);
-        nextButton.removeEventListener("mouseleave", handleNavButtonLeave);
+        nextButton.removeEventListener("mouseenter", handleButtonEnter);
+        nextButton.removeEventListener("mouseleave", handleButtonLeave);
       }
       if (prevButton) {
-        prevButton.removeEventListener("mouseenter", handleNavButtonEnter);
-        prevButton.removeEventListener("mouseleave", handleNavButtonLeave);
+        prevButton.removeEventListener("mouseenter", handleButtonEnter);
+        prevButton.removeEventListener("mouseleave", handleButtonLeave);
       }
+      
+      slideButtons.forEach(button => {
+        button.removeEventListener("mouseenter", handleButtonEnter);
+        button.removeEventListener("mouseleave", handleButtonLeave);
+      });
     };
   }, [isInSection]);
 
@@ -287,42 +335,6 @@ const ProjectModernSlider: React.FC = () => {
                     </a>
                   </div>
                   <p className="pms-disc">{slide.description}</p>
-                  <div className="pms-creative-btn--wrap">
-                    <a
-                      className="pms-creative-slide--btn"
-                      role="button"
-                      href="#0"
-                    >
-                      <div className="pms-creative-btn--circle">
-                        <div className="pms-circle">
-                          <div className="pms-circle-fill"></div>
-                          <svg
-                            viewBox="0 0 50 50"
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="pms-circle-outline"
-                          >
-                            <circle cx="25" cy="25" r="23"></circle>
-                          </svg>
-                          <div className="pms-circle-icon">
-                            <svg
-                              viewBox="0 0 12 10"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="pms-icon-arrow"
-                            >
-                              <path d="M0 5.65612V4.30388L8.41874 4.31842L5.05997 0.95965L5.99054 0L10.9923 4.97273L6.00508 9.96L5.07451 9.00035L8.43328 5.64158L0 5.65612Z"></path>
-                            </svg>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="pms-creative-btn--label">
-                        <div className="pms-creative-btn__text">
-                          {slide.buttonText}
-                        </div>
-                        <div className="pms-creative-btn__border"></div>
-                      </div>
-                    </a>
-                  </div>
                 </div>
               </div>
             </SwiperSlide>

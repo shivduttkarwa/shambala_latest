@@ -354,8 +354,8 @@
   position: fixed;
   width: 104px; /* 30% larger than 80px */
   height: 104px; /* 30% larger than 80px */
-  background: rgba(60, 60, 60, 0.95); /* Lighter dark background */
-  border: 2px solid #ffffff;
+  background: transparent;
+  border: 1px solid #ffffff;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -367,21 +367,20 @@
   transition: transform 0.1s linear;
   will-change: transform;
   font-family: "Nunito", sans-serif;
-  font-weight: 700;
+  font-weight: 350;
   font-size: 16px;
   color: #ffffff;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(20px);
 }
 
 .pms-drag-btn:hover {
-  background: rgba(80, 80, 80, 0.95); /* Slightly lighter on hover */
+  background: transparent;
   transform: translate(-50%, -50%) scale(1.1);
 }
 
 .pms-drag-btn.pms-dragging {
   cursor: grabbing;
-  background: rgba(100, 100, 100, 0.95); /* Even lighter when dragging */
+  background: transparent;
   transform: translate(-50%, -50%) scale(1.05);
 }
 
@@ -397,6 +396,17 @@
   cursor: none !important; /* Force no cursor in slider section */
   overflow: visible;
 }
+
+.pms-creative-fullpage--slider * {
+  cursor: none !important; /* Force no cursor on all child elements */
+}
+
+.pms-creative-fullpage--slider.show-cursor .pms-creative-slide--btn,
+.pms-creative-fullpage--slider.show-cursor .pms-swiper-button-next,
+.pms-creative-fullpage--slider.show-cursor .pms-swiper-button-prev {
+  cursor: pointer !important; /* Override to show pointer only on buttons */
+}
+
 
 .pms-swiper-container-h {
   overflow: hidden;
