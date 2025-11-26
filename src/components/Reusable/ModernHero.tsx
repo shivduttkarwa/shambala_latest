@@ -325,19 +325,16 @@ const ModernHero = () => {
 
     const tl = gsap.timeline();
 
-    tl.to(
-        curtain,
-        {
-          x: "0%",
-          duration: 1.2,
-          ease: "power3.inOut",
-        }
-      )
-      .fromTo(
+    // Set initial positions with increased gap
+    gsap.set(text1El, { y: -40 }); // INSPIRE 40px above center
+    gsap.set(text2El, { y: 40 });  // A TRUE LIVING 40px below center
+    
+    // Both texts enter simultaneously - INSPIRE from top, A TRUE LIVING from bottom
+    tl.fromTo(
         text1Spans,
-        { y: positions.finalVh * 0.7 },
+        { y: -positions.finalVh * 0.7 },
         {
-          y: 0,
+          y: -40, // Stay 40px above center
           duration: TEXT1_ENTRANCE_DURATION,
           ease: "back.out(1.4)",
           stagger: 0.08,
@@ -345,9 +342,25 @@ const ModernHero = () => {
             gsap.set(text1El, { opacity: 1 });
           },
         },
-        "-=0.3"
+        0
       )
-      .to(text1Spans, { y: 0, duration: 0.15 })
+      .fromTo(
+        text2Spans,
+        { y: positions.finalVh * 0.7 },
+        {
+          y: 40, // Stay 40px below center
+          duration: TEXT2_ENTRANCE_DURATION,
+          ease: "back.out(1.4)",
+          stagger: 0.08,
+          onStart: () => {
+            gsap.set(text2El, { opacity: 1 });
+          },
+        },
+        0
+      )
+      .to(text1Spans, { y: -40, duration: 0.15 })
+      .to(text2Spans, { y: 40, duration: 0.15 }, "<")
+      // Texts exit in opposite directions - text1 to right, text2 to left
       .to(
         text1Spans,
         {
@@ -358,30 +371,15 @@ const ModernHero = () => {
         },
         "+=0.5"
       )
-      .fromTo(
-        text2Spans,
-        { y: positions.finalVh * 0.7 },
-        {
-          y: 0,
-          duration: TEXT2_ENTRANCE_DURATION,
-          ease: "back.out(1.4)",
-          stagger: 0.08,
-          onStart: () => {
-            gsap.set(text2El, { opacity: 1 });
-          },
-        },
-        "-=0.3"
-      )
-      .to(text2Spans, { y: 0, duration: 0.15 })
       .to(
         text2Spans,
         {
-          x: positions.finalVw,
+          x: -positions.finalVw,
           duration: TEXT2_EXIT_DURATION,
           ease: "back.out(1.4)",
           stagger: 0.08,
         },
-        "+=0.5"
+        "<"
       )
       .to(
         heroVideo,

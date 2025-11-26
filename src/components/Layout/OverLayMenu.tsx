@@ -90,7 +90,7 @@ const OverlayMenu: React.FC = () => {
       tl.to(
         ".olm-overlay",
         {
-          duration: 0.35,
+          duration: 0.28,
           opacity: 1,
           ease: power2,
         },
@@ -100,7 +100,7 @@ const OverlayMenu: React.FC = () => {
       tl.to(
         path,
         {
-          duration: 0.8,
+          duration: 0.64,
           attr: { d: start },
           ease: power2,
         },
@@ -108,85 +108,85 @@ const OverlayMenu: React.FC = () => {
       ).to(
         path,
         {
-          duration: 0.8,
+          duration: 0.64,
           attr: { d: end },
           ease: power2,
         },
-        "-=0.5"
+        "-=0.4"
       );
 
       // Menu appears AFTER background completes
       tl.to(
         ".olm-menu",
         {
-          duration: 0.5,
+          duration: 0.4,
           visibility: "visible",
         },
-        "-=0.4"
+        "-=0.32"
       );
 
       // Primary menu items
       tl.to(
         ".olm-primary-menu .olm-menu-item>a",
         {
-          duration: 0.4,
+          duration: 0.32,
           top: 0,
           ease: "power3.in",
           stagger: {
-            amount: 0.3,
+            amount: 0.24,
           },
         },
-        "-=0.6"
+        "-=0.48"
       )
         // Secondary menu background image
         .to(
           ".olm-secondary-menu-bg",
           {
-            duration: 0.3,
+            duration: 0.24,
             top: 0,
             ease: "power3.in",
           },
-          "-=0.2"
+          "-=0.16"
         )
         // First contact button
         .to(
           ".olm-contact-btn",
           {
-            duration: 0.2,
+            duration: 0.16,
             top: 0,
             ease: "power3.in",
           },
-          "-=0.1"
+          "-=0.08"
         )
         // Second contact button
         .to(
           ".olm-email-btn",
           {
-            duration: 0.2,
+            duration: 0.16,
             top: 0,
             ease: "power3.in",
           },
-          "+=0.02"
+          "+=0.016"
         )
         // Social section
         .to(
           ".olm-menu-item .olm-social-content",
           {
-            duration: 0.2,
+            duration: 0.16,
             top: 0,
             ease: "power3.in",
           },
-          "+=0.02"
+          "+=0.016"
         )
         // Footer section
         .to(
           ".olm-menu-item .olm-footer-content",
           {
-            duration: 0.2,
+            duration: 0.16,
             top: 0,
             ease: "power3.in",
           },
-          "+=0.02"
+          "+=0.016"
         )
         .reverse(); // start in reversed (closed) state
     };

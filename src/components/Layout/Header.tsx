@@ -71,12 +71,12 @@ const Header: React.FC<HeaderProps> = ({ settings }) => {
     // Only animate on homepage
     if (location.pathname === "/" || location.pathname === publicUrl) {
       // Header starts hidden above viewport, slides down after hero video expands
-      // Timeline: curtain (1.2s) + text1 (0.8s + pause 0.5s + exit 0.8s) + text2 (0.8s + pause 0.5s + exit 0.8s) + video expand (1.5s) = ~7.9s
+      // New timing: texts (simultaneous) + video expand (1.5s) = ~3.5s total
       gsap.to(headerRef.current, {
         y: 0,
         duration: 0.8,
         ease: "power3.out",
-        delay: 8.2
+        delay: 4.0 // Slide in after video expands
       });
     } else {
       // On other pages, header is immediately visible
@@ -85,7 +85,7 @@ const Header: React.FC<HeaderProps> = ({ settings }) => {
   }, [location.pathname, publicUrl]);
 
   return (
-    <div 
+    <header 
       ref={headerRef}
       style={{
         position: 'fixed',
@@ -97,52 +97,64 @@ const Header: React.FC<HeaderProps> = ({ settings }) => {
         transition: 'none'
       }}
     >
+      {/* Background that appears on scroll up */}
+      <div 
+        ref={headerBgRef}
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'rgba(0, 0, 0, 0.3)',
+          backdropFilter: 'blur(10px)',
+          opacity: 0,
+          zIndex: -1
+        }}
+      />
+      
       <div style={{
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        padding: window.innerWidth <= 768 ? '0.544rem 0.4rem' : '0.8rem 1.6rem',
-        background: 'transparent'
+        padding: '1rem 2rem',
+        height: '84px'
       }}>
-        {/* Background that appears on scroll up */}
+        {/* Logo - Left Side */}
         <div 
-          ref={headerBgRef}
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background: 'rgba(0, 0, 0, 0.3)',
-            backdropFilter: 'blur(10px)',
-            opacity: 0,
-            zIndex: -1
-          }}
-        />
-        
-        <img 
-          src={logoSrc}
-          alt="FORMA"
           onClick={() => navigate('/')}
           style={{
-            position: 'absolute',
-            left: window.innerWidth <= 768 ? 'calc(0.4rem - 55px)' : 'calc(1.6rem - 50px)',
-            top: '56%',
-            transform: window.innerWidth <= 768 ? 'translateY(-50%) scale(1.7)' : 'translateY(-50%) scale(2)',
-            transformOrigin: 'left center',
-            height: '80px',
-            width: 'auto',
-            filter: 'brightness(0) invert(1)',
-            cursor: 'pointer'
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center'
           }}
-        />
+        >
+          <img 
+            src={logoSrc}
+            alt="FORMA"
+            style={{
+              height: '80px',
+              width: 'auto',
+              filter: 'brightness(0) invert(1)',
+              transform: 'scale(2)',
+              transformOrigin: 'left center'
+            }}
+          />
+        </div>
         
-        {/* Spacer to maintain flexbox layout */}
-        <div style={{ width: '160px' }}></div>
-        
-        <OverLayMenu />
+        {/* Hamburger Menu - Right Side */}
+        <div>
+          <style>
+            {`
+              #toggle-btn.olm-btn {
+                transform: scale(0.72) translateY(-60px) !important;
+              }
+            `}
+          </style>
+          <OverLayMenu />
+        </div>
       </div>
-    </div>
+    </header>
   );
 };
 
