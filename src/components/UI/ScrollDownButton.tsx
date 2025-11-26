@@ -17,23 +17,26 @@ const ScrollDownButton: React.FC<ScrollDownButtonProps> = ({ targetId, onClick }
   };
 
   return (
-    <div className="scroll-down-btn" onClick={handleClick} aria-label="Scroll down">
-      <div className="scroll-down-btn-inner">
-        <svg
-          className="scroll-down-icon"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <line x1="12" y1="-0.8" x2="12" y2="19"></line>
-          <polyline points="19,12 12,19 5,12"></polyline>
-        </svg>
-      </div>
-    </div>
+    <button
+      type="button"
+      className="scroll-down-btn"
+      onClick={handleClick}
+      aria-label="Scroll down"
+    >
+      <svg
+        className="scroll-down-icon"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <line x1="12" y1="-0.8" x2="12" y2="19"></line>
+        <polyline points="19,12 12,19 5,12"></polyline>
+      </svg>
+    </button>
   );
 };
 

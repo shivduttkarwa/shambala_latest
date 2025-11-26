@@ -54,6 +54,24 @@ const ProjectsHero: React.FC = () => {
 
   return (
     <div className="pr-hero-container">
+      <div className="pr-hero-bg">
+        <video
+          className="pr-hero-video"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+        >
+          <source
+            src={`${publicUrl}images/projects-hero.webm`}
+            type="video/webm"
+          />
+          <source src={`${publicUrl}images/home_hero.mp4`} type="video/mp4" />
+        </video>
+        <div className="pr-hero-overlay" />
+      </div>
+
       <div className="pr-hero-content">
         <h1 ref={heroTitleRef} className="pr-hero-title">
           PROJECTS

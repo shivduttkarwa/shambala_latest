@@ -9,21 +9,9 @@
   pointer-events: auto;
 }
 
-.scroll-down-btn-inner {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.scroll-down-icon {
   width: 70px;
   height: 70px;
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  background: rgba(0, 0, 0, 0.3);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
-}
-
-.scroll-down-icon {
-  width: 42px;
-  height: 42px;
   color: rgba(255, 255, 255, 0.8);
   transition: color 0.3s ease;
   animation: arrowBounce 2s ease-in-out infinite;
@@ -47,21 +35,16 @@
   .scroll-down-btn {
     bottom: 1.5rem;
   }
-  
-  .scroll-down-btn-inner {
-    width: 54px;
-    height: 54px;
-  }
-  
+
   .scroll-down-text {
     font-size: 0.7rem;
   }
-  
+
   .scroll-down-icon {
-    width: 30px;
-    height: 30px;
+    width: 50px;
+    height: 50px;
   }
-  
+
   .scroll-down-arrow {
     width: 10px;
     height: 10px;
@@ -77,11 +60,5 @@
 @media (max-width: 480px) {
   .scroll-down-btn {
     bottom: 1rem;
-  }
-  
-  .scroll-down-btn-inner {
-    width: 48px;
-    height: 48px;
-    gap: 0.3rem;
   }
 }
