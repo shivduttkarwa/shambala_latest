@@ -13,7 +13,8 @@ const Header: React.FC<HeaderProps> = ({ settings }) => {
   const headerBgRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
   const navigate = useNavigate();
-  const publicUrl = import.meta.env.BASE_URL || "/";
+  const publicUrl = (import.meta.env.BASE_URL || "/").replace(/\/?$/, "/");
+  const logoSrc = `${publicUrl}images/forma_logo.png`;
   
   useEffect(() => {
     let lastScrollY = window.scrollY;
@@ -120,13 +121,13 @@ const Header: React.FC<HeaderProps> = ({ settings }) => {
         />
         
         <img 
-          src="/images/forma_logo.png"
+          src={logoSrc}
           alt="FORMA"
           onClick={() => navigate('/')}
           style={{
             position: 'absolute',
             left: window.innerWidth <= 768 ? 'calc(0.4rem - 55px)' : 'calc(1.6rem - 50px)',
-            top: '50%',
+            top: '56%',
             transform: window.innerWidth <= 768 ? 'translateY(-50%) scale(1.7)' : 'translateY(-50%) scale(2)',
             transformOrigin: 'left center',
             height: '80px',

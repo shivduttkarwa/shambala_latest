@@ -15,8 +15,8 @@ type ServiceCard = {
   link: string;
 };
 
-const publicUrl = import.meta.env.BASE_URL;
-const asset = (path: string) => `${publicUrl}${path}`;
+const publicUrl = (import.meta.env.BASE_URL || "/").replace(/\/?$/, "/");
+const asset = (path: string) => `${publicUrl}${path.replace(/^\/+/, "")}`;
 
 const CARDS: ServiceCard[] = [
   {
