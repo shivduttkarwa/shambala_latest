@@ -28,6 +28,7 @@ const OverlayMenu: React.FC = () => {
 
     // Initial menu state - hidden by default
     gsap.set(".olm-menu", { visibility: "hidden" });
+    gsap.set(".olm-overlay", { opacity: 0 });
 
     const revealMenuItems = () => {
       if (!path) return;
@@ -86,6 +87,16 @@ const OverlayMenu: React.FC = () => {
       );
 
       // SVG Background Animation
+      tl.to(
+        ".olm-overlay",
+        {
+          duration: 0.35,
+          opacity: 1,
+          ease: power2,
+        },
+        "<"
+      );
+
       tl.to(
         path,
         {
@@ -290,7 +301,7 @@ const OverlayMenu: React.FC = () => {
               {/* 1 - HOME */}
               <div className="olm-menu-item olm-modern-menu-item olm-menu-item-home">
                 <div className="olm-menu-line"></div>
-                <a href="#hero">
+                <a href="/">
                   <span className="olm-menu-number">00.</span>
                   <div className="olm-menu-arrow">
                     <svg width="40" height="25" viewBox="0 0 40 25">
@@ -316,7 +327,7 @@ const OverlayMenu: React.FC = () => {
               {/* 2 - Services */}
               <div className="olm-menu-item olm-modern-menu-item olm-menu-item-services">
                 <div className="olm-menu-line"></div>
-                <a href="#services">
+                <a href="/services">
                   <span className="olm-menu-number">01.</span>
                   <div className="olm-menu-arrow">
                     <svg width="40" height="25" viewBox="0 0 40 25">
@@ -342,7 +353,7 @@ const OverlayMenu: React.FC = () => {
               {/* 3 - Projects */}
               <div className="olm-menu-item olm-modern-menu-item olm-menu-item-projects">
                 <div className="olm-menu-line"></div>
-                <a href="#projects">
+                <a href="/projects">
                   <span className="olm-menu-number">02.</span>
                   <div className="olm-menu-arrow">
                     <svg width="40" height="25" viewBox="0 0 40 25">
@@ -368,7 +379,7 @@ const OverlayMenu: React.FC = () => {
               {/* 4 - About Us */}
               <div className="olm-menu-item olm-modern-menu-item olm-menu-item-about">
                 <div className="olm-menu-line"></div>
-                <a href="#about">
+                <a href="/about">
                   <span className="olm-menu-number">03.</span>
                   <div className="olm-menu-arrow">
                     <svg width="40" height="25" viewBox="0 0 40 25">
@@ -394,7 +405,7 @@ const OverlayMenu: React.FC = () => {
               {/* 5 - Contact Us */}
               <div className="olm-menu-item olm-modern-menu-item olm-menu-item-contact">
                 <div className="olm-menu-line"></div>
-                <a href="#contact">
+                <a href="/contact">
                   <span className="olm-menu-number">04.</span>
                   <div className="olm-menu-arrow">
                     <svg width="40" height="25" viewBox="0 0 40 25">
@@ -427,7 +438,7 @@ const OverlayMenu: React.FC = () => {
             {/* Contact Section */}
             <div className="olm-contact-section">
               <div className="olm-menu-item olm-secondary-menu-item">
-                <a href="#contact" className="olm-premium-btn olm-contact-btn">
+                <a href="/contact" className="olm-premium-btn olm-contact-btn">
                   Contact Me
                 </a>
                 <div className="olm-menu-item-revealer"></div>

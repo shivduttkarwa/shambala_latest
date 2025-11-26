@@ -15,6 +15,7 @@
   z-index: 9999;
   pointer-events: none;
   visibility: visible;
+  opacity: 0;
 }
 
 .olm-overlay svg {
@@ -271,10 +272,11 @@ body.menu-open {
 }
 
 .olm-menu-text {
-  font-size: 80px !important;
-  font-weight: 900 !important;
+  font-size: 64px !important;
+  font-weight: 450 !important;
   letter-spacing: -0.02em;
   transition: all 0.3s ease;
+  white-space: nowrap;
 }
 
 /* Individual Menu Item Colors */

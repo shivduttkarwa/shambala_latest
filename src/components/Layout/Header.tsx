@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import gsap from "gsap";
-import { StaggeredMenu } from "./StaggeredMenu";
+import OverLayMenu from "./OverLayMenu";
 import { SiteSettings } from "../../services/api";
 
 interface HeaderProps {
@@ -83,57 +83,6 @@ const Header: React.FC<HeaderProps> = ({ settings }) => {
     }
   }, [location.pathname, publicUrl]);
 
-  function normPath(path: string) {
-    if (!path) return publicUrl;
-    if (path === "/") return publicUrl;
-    if (path.startsWith("/")) {
-      // avoid double-slash
-      return publicUrl.endsWith("/")
-        ? publicUrl + path.slice(1)
-        : publicUrl + path;
-    }
-    return path;
-  }
-
-  // Debug: Log the paths being generated
-  console.log('🔍 DEBUG Menu paths:', {
-    publicUrl,
-    homeLink: normPath("/"),
-    projectsLink: normPath("/projects"),
-    servicesLink: normPath("/services"),
-    aboutLink: normPath("/about"),
-    contactLink: normPath("/#contact"),
-  });
-
-  // Fixed menu items with proper routing
-  const menuItems = [
-    {
-      label: "HOME",
-      ariaLabel: "Go to home page",
-      link: normPath("/"),
-    },
-    {
-      label: "PROJECTS",
-      ariaLabel: "View our projects",
-      link: normPath("/projects"),
-    },
-    {
-      label: "SERVICES",
-      ariaLabel: "View our services",
-      link: normPath("/services"),
-    },
-    {
-      label: "ABOUT",
-      ariaLabel: "Learn about us",
-      link: normPath("/about"),
-    },
-    {
-      label: "CONTACT US",
-      ariaLabel: "Get in touch",
-      link: normPath("/#contact"),
-    },
-  ];
-
   return (
     <div 
       ref={headerRef}
@@ -190,20 +139,7 @@ const Header: React.FC<HeaderProps> = ({ settings }) => {
         {/* Spacer to maintain flexbox layout */}
         <div style={{ width: '160px' }}></div>
         
-        <StaggeredMenu
-          position="left"
-          items={menuItems}
-          logoText=""
-          displayItemNumbering={true}
-          menuButtonColor="#2C2C2C"
-          openMenuButtonColor="#FAF8F3"
-          changeMenuColorOnOpen={true}
-          colors={["#5B7C4F", "#2C2C2C"]}
-          accentColor="#5B7C4F"
-          isFixed={false}
-          onMenuOpen={() => {}}
-          onMenuClose={() => {}}
-        />
+        <OverLayMenu />
       </div>
     </div>
   );
