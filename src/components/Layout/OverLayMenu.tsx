@@ -2,7 +2,15 @@
 import React, { useEffect } from "react";
 import gsap from "gsap";
 import { CSSRulePlugin } from "gsap/CSSRulePlugin";
+import { Link } from "react-router-dom";
 import "./OverLayMenu.css";
+
+const publicUrl = import.meta.env.BASE_URL || "/";
+const getImagePath = (imageName: string) => {
+  return publicUrl.endsWith("/") 
+    ? `${publicUrl}images/${imageName}`
+    : `${publicUrl}/images/${imageName}`;
+};
 
 gsap.registerPlugin(CSSRulePlugin);
 
@@ -219,42 +227,40 @@ const OverlayMenu: React.FC = () => {
     toggleBtn?.addEventListener("click", handleToggle);
     toggleBtn?.addEventListener("touchend", handleToggle);
 
-    // Menu link click behaviour (close + scroll)
+    // Menu link click behaviour (close menu for React Router Links)
     const menuLinks =
       document.querySelectorAll<HTMLAnchorElement>(".olm-menu-item a");
 
     const handleMenuLinkClick = (e: Event) => {
-      e.preventDefault();
       const link = e.currentTarget as HTMLAnchorElement;
       const href = link.getAttribute("href") || "";
 
+      // Only handle hash links and external links, let React Router handle the rest
+      if (href.startsWith("#")) {
+        e.preventDefault();
+        const targetSection = document.querySelector(
+          href
+        ) as HTMLElement | null;
+        if (targetSection) {
+          const scrollInstance = (window as any).scroll;
+          if (scrollInstance) {
+            scrollInstance.scrollTo(targetSection);
+          } else {
+            targetSection.scrollIntoView({ behavior: "smooth" });
+          }
+        }
+      } else if (href.startsWith("mailto:") || href.startsWith("http")) {
+        // Allow external links and email to work normally
+        return;
+      }
+
+      // Close menu for all internal navigation
       if (hamburger && hamburger.classList.contains("active")) {
         hamburger.classList.remove("active");
         tl.reverse();
         document.body.style.overflow = "";
         document.body.classList.remove("menu-open");
       }
-
-      // Wait for menu close animation to complete
-      setTimeout(() => {
-        if (href.startsWith("#")) {
-          const targetSection = document.querySelector(
-            href
-          ) as HTMLElement | null;
-          if (targetSection) {
-            const scrollInstance = (window as any).scroll;
-            if (scrollInstance) {
-              // locomotive scroll instance if present
-              scrollInstance.scrollTo(targetSection);
-            } else {
-              // native smooth scroll
-              targetSection.scrollIntoView({ behavior: "smooth" });
-            }
-          }
-        } else if (href && href !== "#") {
-          window.location.href = href;
-        }
-      }, 800);
     };
 
     menuLinks.forEach((link) =>
@@ -301,7 +307,7 @@ const OverlayMenu: React.FC = () => {
               {/* 1 - HOME */}
               <div className="olm-menu-item olm-modern-menu-item olm-menu-item-home">
                 <div className="olm-menu-line"></div>
-                <a href="/">
+                <Link to="/">
                   <span className="olm-menu-number">00.</span>
                   <div className="olm-menu-arrow">
                     <svg width="40" height="25" viewBox="0 0 40 25">
@@ -320,14 +326,14 @@ const OverlayMenu: React.FC = () => {
                     </svg>
                   </div>
                   <span className="olm-menu-text">HOME</span>
-                </a>
+                </Link>
                 <div className="olm-menu-item-revealer"></div>
               </div>
 
               {/* 2 - Services */}
               <div className="olm-menu-item olm-modern-menu-item olm-menu-item-services">
                 <div className="olm-menu-line"></div>
-                <a href="/services">
+                <Link to="/services">
                   <span className="olm-menu-number">01.</span>
                   <div className="olm-menu-arrow">
                     <svg width="40" height="25" viewBox="0 0 40 25">
@@ -346,14 +352,14 @@ const OverlayMenu: React.FC = () => {
                     </svg>
                   </div>
                   <span className="olm-menu-text">Services</span>
-                </a>
+                </Link>
                 <div className="olm-menu-item-revealer"></div>
               </div>
 
               {/* 3 - Projects */}
               <div className="olm-menu-item olm-modern-menu-item olm-menu-item-projects">
                 <div className="olm-menu-line"></div>
-                <a href="/projects">
+                <Link to="/projects">
                   <span className="olm-menu-number">02.</span>
                   <div className="olm-menu-arrow">
                     <svg width="40" height="25" viewBox="0 0 40 25">
@@ -372,14 +378,14 @@ const OverlayMenu: React.FC = () => {
                     </svg>
                   </div>
                   <span className="olm-menu-text">Projects</span>
-                </a>
+                </Link>
                 <div className="olm-menu-item-revealer"></div>
               </div>
 
               {/* 4 - About Us */}
               <div className="olm-menu-item olm-modern-menu-item olm-menu-item-about">
                 <div className="olm-menu-line"></div>
-                <a href="/about">
+                <Link to="/about">
                   <span className="olm-menu-number">03.</span>
                   <div className="olm-menu-arrow">
                     <svg width="40" height="25" viewBox="0 0 40 25">
@@ -398,14 +404,14 @@ const OverlayMenu: React.FC = () => {
                     </svg>
                   </div>
                   <span className="olm-menu-text">About Us</span>
-                </a>
+                </Link>
                 <div className="olm-menu-item-revealer"></div>
               </div>
 
               {/* 5 - Contact Us */}
               <div className="olm-menu-item olm-modern-menu-item olm-menu-item-contact">
                 <div className="olm-menu-line"></div>
-                <a href="/contact">
+                <Link to="/contact">
                   <span className="olm-menu-number">04.</span>
                   <div className="olm-menu-arrow">
                     <svg width="40" height="25" viewBox="0 0 40 25">
@@ -424,7 +430,7 @@ const OverlayMenu: React.FC = () => {
                     </svg>
                   </div>
                   <span className="olm-menu-text">Contact Us</span>
-                </a>
+                </Link>
                 <div className="olm-menu-item-revealer"></div>
               </div>
             </div>
@@ -433,14 +439,22 @@ const OverlayMenu: React.FC = () => {
 
         {/* Secondary menu */}
         <div className="olm-secondary-menu">
-          <div className="olm-secondary-menu-bg"></div>
+          <div 
+            className="olm-secondary-menu-bg"
+            style={{
+              backgroundImage: `url(${getImagePath("bg.png")})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'right center',
+              backgroundRepeat: 'no-repeat'
+            }}
+          ></div>
           <div className="olm-menu-container">
             {/* Contact Section */}
             <div className="olm-contact-section">
               <div className="olm-menu-item olm-secondary-menu-item">
-                <a href="/contact" className="olm-premium-btn olm-contact-btn">
+                <Link to="/contact" className="olm-premium-btn olm-contact-btn">
                   Contact Me
-                </a>
+                </Link>
                 <div className="olm-menu-item-revealer"></div>
               </div>
 

@@ -1,14 +1,19 @@
 import React, { useEffect, useRef } from "react";
-import FullWidthImage from "../Reusable/FullWidthImage";
 import ScrollDownButton from "../UI/ScrollDownButton";
 import gsap from "gsap";
 import "./ProjectsHero.css";
 
-const publicUrl = import.meta.env.BASE_URL;
+const publicUrl = import.meta.env.BASE_URL || "/";
+const getVideoPath = (videoName: string) => {
+  return publicUrl.endsWith("/") 
+    ? `${publicUrl}images/${videoName}`
+    : `${publicUrl}/images/${videoName}`;
+};
 
 const ProjectsHero: React.FC = () => {
   const heroTitleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     const animateText = (element: HTMLElement, stagger = 0.05) => {
@@ -50,10 +55,35 @@ const ProjectsHero: React.FC = () => {
         { opacity: 1, y: 0, duration: 1, delay: 1.5, ease: "power2.out" }
       );
     }
+
+    // Auto-play video
+    if (videoRef.current) {
+      videoRef.current.play().catch(() => {
+        // Handle autoplay failure silently
+      });
+    }
   }, []);
 
   return (
     <div className="pr-hero-container">
+      {/* Background Video */}
+      <div className="pr-hero-video">
+        <video 
+          ref={videoRef}
+          src={getVideoPath("projects-hero.webm")}
+          muted 
+          loop 
+          playsInline
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover'
+          }}
+        />
+        <div className="pr-hero-overlay"></div>
+      </div>
+
+      {/* Content */}
       <div className="pr-hero-content">
         <h1 ref={heroTitleRef} className="pr-hero-title">
           PROJECTS
