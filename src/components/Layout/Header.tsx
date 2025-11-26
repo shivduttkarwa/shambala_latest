@@ -151,7 +151,7 @@ const Header: React.FC<HeaderProps> = ({ settings }) => {
           <style>
             {`
               #toggle-btn.olm-btn {
-                transform: scale(0.72) translateY(-60px) !important;
+                transform: scale(0.72) translateY(-54px) !important;
               }
               
               /* Mobile Styles */
