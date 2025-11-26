@@ -125,6 +125,7 @@ const Header: React.FC<HeaderProps> = ({ settings }) => {
         {/* Logo - Left Side */}
         <div 
           onClick={() => navigate('/')}
+          className="header-logo-container"
           style={{
             cursor: 'pointer',
             display: 'flex',
@@ -134,6 +135,7 @@ const Header: React.FC<HeaderProps> = ({ settings }) => {
           <img 
             src={logoSrc}
             alt="FORMA"
+            className="header-logo"
             style={{
               height: '80px',
               width: 'auto',
@@ -145,11 +147,30 @@ const Header: React.FC<HeaderProps> = ({ settings }) => {
         </div>
         
         {/* Hamburger Menu - Right Side */}
-        <div>
+        <div className="header-hamburger-container">
           <style>
             {`
               #toggle-btn.olm-btn {
                 transform: scale(0.72) translateY(-60px) !important;
+              }
+              
+              /* Mobile Styles */
+              @media (max-width: 768px) {
+                .header-logo {
+                  transform: scale(1.6) !important;
+                  transform-origin: left center !important;
+                }
+                
+                .header-logo-container {
+                  position: absolute !important;
+                  left: -14px !important;
+                  top: 50% !important;
+                  transform: translateY(-50%) !important;
+                }
+                
+                #toggle-btn.olm-btn {
+                  transform: scale(0.94) translateY(-10px) !important;
+                }
               }
             `}
           </style>
