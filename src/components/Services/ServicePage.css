@@ -39,7 +39,7 @@
 }
 
 .ser-services-page body {
-  font-family: "Inter", -apple-system, sans-serif;
+  font-family: "Nunito", -apple-system, sans-serif;
   background: var(--ser-color-off-white);
   color: var(--ser-color-black);
   line-height: 1.6;
@@ -57,18 +57,7 @@
 }
 
 .ser-hero-section {
-  background: radial-gradient(
-      circle at top left,
-      rgba(0, 0, 0, 0.35) 0,
-      transparent 60%
-    ),
-    linear-gradient(
-      160deg,
-      rgba(0, 0, 0, 0.75) 0%,
-      rgba(0, 0, 0, 0.55) 35%,
-      rgba(0, 0, 0, 0.65) 100%
-    ),
-    url("/images/bg.png");
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("/images/bg.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -118,23 +107,25 @@
 }
 
 .ser-hero-text-container h1 {
-  font-size: clamp(32px, 4vw, 40px);
+  font-size: clamp(38.4px, 4.8vw, 48px);
   font-weight: 900;
   margin-bottom: 1rem;
   line-height: 1.1;
-  color: var(--ser-color-gold);
+  color: #ffffff;
+  font-family: "Nunito", sans-serif;
 }
 
 .ser-hero-text-container p {
   margin-bottom: 2rem;
-  color: var(--ser-color-border-soft);
+  color: #ffffff;
   line-height: 1.7;
   max-width: 480px;
-  font-size: 0.95rem;
+  font-size: 1.09rem;
+  font-family: "Nunito", sans-serif;
 }
 
 .ser-hero-text-container .ser-text-yellow-400 {
-  color: var(--ser-color-gold-light);
+  color: #ffffff;
 }
 
 .ser-hero-buttons {
@@ -144,45 +135,30 @@
   flex-wrap: wrap;
 }
 
-/* ====== BUTTONS (THEMED) ====== */
-.ser-btn-primary {
-  background-color: var(--ser-color-green);
-  color: var(--ser-color-off-white);
-  border-radius: 9999px;
+/* ====== GLASSRAIN BUTTONS ====== */
+.ser-btn-primary,
+.ser-btn-red {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
   padding: 0.75rem 1.5rem;
   font-weight: 600;
   font-size: 0.9rem;
-  border: none;
+  font-family: "Nunito", sans-serif;
   cursor: pointer;
-  transition: transform 0.25s ease, box-shadow 0.25s ease,
-    background-color 0.25s ease;
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
-.ser-btn-primary:hover {
-  background-color: #384c3f;
-  transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.3);
-}
-
-.ser-btn-red {
-  background-color: var(--ser-color-gold);
-  color: var(--ser-color-black);
-  border-radius: 9999px;
-  padding: 0.75rem 1.5rem;
-  font-weight: 700;
-  font-size: 0.9rem;
-  border: none;
-  cursor: pointer;
-  transition: transform 0.25s ease, box-shadow 0.25s ease,
-    background-color 0.25s ease;
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
-}
-
+.ser-btn-primary:hover,
 .ser-btn-red:hover {
-  background-color: var(--ser-color-gold-light);
-  transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
 }
 
 /* ====== CARDS / FEATURES ====== */
@@ -260,14 +236,14 @@
 }
 
 /* ====== OUR PROCESS SECTION ====== */
-.ser-process-section {
+.forma-process-section {
   background: var(--ser-color-border-soft);
   padding: 100px 0;
   position: relative;
   z-index: 1;
 }
 
-.ser-process-title {
+.forma-process-title {
   font-size: clamp(48px, 8vw, 90px);
   font-weight: 400;
   padding: 0 40px;
@@ -275,7 +251,7 @@
   color: var(--ser-color-black);
 }
 
-.ser-process-step {
+.forma-process-step {
   display: grid;
   grid-template-columns: 1fr 1fr;
   min-height: 70vh;
@@ -283,26 +259,26 @@
   border-top: 1px solid rgba(134, 127, 120, 0.35);
 }
 
-.ser-process-step:last-of-type {
+.forma-process-step:last-of-type {
   border-bottom: 1px solid rgba(134, 127, 120, 0.35);
 }
 
-.ser-process-step.ser-reverse {
+.forma-process-step.forma-process-reverse {
   direction: rtl;
 }
 
-.ser-process-step.ser-reverse > * {
+.forma-process-step.forma-process-reverse > * {
   direction: ltr;
 }
 
-.ser-step-image-wrap {
+.forma-process-image-wrap {
   position: relative;
   overflow: hidden;
   background: var(--ser-color-border-soft);
   min-height: 70vh;
 }
 
-.ser-step-image-container {
+.forma-process-image-container {
   position: absolute;
   top: 0;
   left: 0;
@@ -312,14 +288,14 @@
   will-change: clip-path;
 }
 
-.ser-step-image {
+.forma-process-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
   filter: grayscale(100%);
 }
 
-.ser-step-content {
+.forma-process-step-content {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -327,7 +303,7 @@
   position: relative;
 }
 
-.ser-step-number {
+.forma-process-step-number {
   position: absolute;
   top: 40px;
   right: 80px;
@@ -337,12 +313,12 @@
   line-height: 1;
 }
 
-.ser-process-step.ser-reverse .ser-step-number {
+.forma-process-step.forma-process-reverse .forma-process-step-number {
   right: auto;
   left: 80px;
 }
 
-.ser-step-title {
+.forma-process-step-title {
   font-size: clamp(28px, 3vw, 38px);
   font-weight: 400;
   margin-bottom: 8px;
@@ -350,7 +326,7 @@
   color: var(--ser-color-black);
 }
 
-.ser-step-subtitle {
+.forma-process-step-subtitle {
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 1.5px;
@@ -359,7 +335,7 @@
   margin-bottom: 28px;
 }
 
-.ser-step-desc {
+.forma-process-step-desc {
   font-size: 15px;
   color: var(--ser-color-tertiary-brown);
   line-height: 1.75;
@@ -367,7 +343,7 @@
   max-width: 520px;
 }
 
-.ser-outcome-box {
+.forma-process-outcome-box {
   background: var(--ser-color-yellow-soft);
   border-radius: 6px;
   padding: 20px 24px;
@@ -375,7 +351,7 @@
   border-left: 3px solid var(--ser-color-green);
 }
 
-.ser-outcome-label {
+.forma-process-outcome-label {
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 1.5px;
@@ -384,7 +360,7 @@
   color: var(--ser-color-black);
 }
 
-.ser-outcome-text {
+.forma-process-outcome-text {
   font-size: 14px;
   color: var(--ser-color-black);
   line-height: 1.65;
@@ -392,7 +368,7 @@
 
 /* ====== TESTIMONIALS + CARDS SECTION ====== */
 .ser-testimonials-section {
-  background: var(--ser-color-yellow-soft);
+  background: #e8e8e8;
   padding: 120px 24px 100px;
   position: relative;
   z-index: 1;
@@ -495,6 +471,12 @@
   font-weight: bold;
 }
 
+.ser-testimonial-author {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(134, 127, 120, 0.2);
+}
+
 .ser-btn-action {
   background: var(--ser-color-green);
   color: var(--ser-color-white);
@@ -512,20 +494,20 @@
 
 /* Mobile tweaks */
 @media (max-width: 900px) {
-  .ser-process-step {
+  .forma-process-step {
     grid-template-columns: 1fr;
     min-height: auto;
   }
-  .ser-process-step.ser-reverse {
+  .forma-process-step.forma-process-reverse {
     direction: ltr;
   }
-  .ser-step-image-wrap {
+  .forma-process-image-wrap {
     min-height: 40vh;
   }
-  .ser-step-content {
+  .forma-process-step-content {
     padding: 50px 24px;
   }
-  .ser-step-number {
+  .forma-process-step-number {
     position: relative;
     top: auto;
     right: auto;
@@ -533,7 +515,7 @@
     margin-bottom: 20px;
     font-size: 56px;
   }
-  .ser-process-step.ser-reverse .ser-step-number {
+  .forma-process-step.forma-process-reverse .forma-process-step-number {
     left: auto;
   }
 }

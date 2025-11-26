@@ -457,7 +457,9 @@
   }
 
   .footer-brand-text {
-    font-size: 8rem;
+    font-size: 10.4rem;
+    transform: translateX(10px);
+    letter-spacing: 0.24em;
   }
 }
 
@@ -501,6 +503,8 @@
   }
 
   .footer-brand-text {
-    font-size: 4.5rem;
+    font-size: 5.85rem;
+    transform: translateX(10px);
+    letter-spacing: 0.24em;
   }
 }
