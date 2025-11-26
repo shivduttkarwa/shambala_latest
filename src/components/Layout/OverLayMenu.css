@@ -54,7 +54,7 @@
   position: absolute;
   width: 100px;
   height: 100px;
-  border: 1px solid var(--text);
+  border: 1px solid #fff;
 }
 
 .olm-btn-outline-1 {
@@ -93,7 +93,7 @@
   width: 20px;
   transform: translate(14px, -2.5px);
   height: 1.25px;
-  background: var(--text);
+  background: #fff;
   transition: transform 0.25s;
 }
 
@@ -103,13 +103,13 @@
   height: 1.25px;
   right: 0;
   transform: translate(-6px, 2.5px);
-  background: var(--text);
+  background: #fff;
   transition: transform 0.25s;
 }
 
 /* Generic line class for GSAP animation */
 #hamburger .line {
-  background: var(--text);
+  background: #fff;
   transition: transform 0.25s;
 }
 

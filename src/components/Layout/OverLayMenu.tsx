@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import gsap from "gsap";
 import { CSSRulePlugin } from "gsap/CSSRulePlugin";
-import "./overlayMenu.css";
+import "./OverLayMenu.css";
 
 gsap.registerPlugin(CSSRulePlugin);
 
