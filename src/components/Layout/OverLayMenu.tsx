@@ -11,7 +11,7 @@ const OverlayMenu: React.FC = () => {
     const tl = gsap.timeline({ paused: true });
 
     const path = document.querySelector(
-      ".overlay svg path"
+      ".olm-overlay svg path"
     ) as SVGPathElement | null;
 
     let spanBefore: CSSRule | null = null;
@@ -27,7 +27,7 @@ const OverlayMenu: React.FC = () => {
     }
 
     // Initial menu state - hidden by default
-    gsap.set(".menu", { visibility: "hidden" });
+    gsap.set(".olm-menu", { visibility: "hidden" });
 
     const revealMenuItems = () => {
       if (!path) return;
@@ -72,7 +72,7 @@ const OverlayMenu: React.FC = () => {
 
       // Animate button outline circles
       tl.to(
-        ".btn .btn-outline",
+        ".olm-btn .olm-btn-outline",
         {
           duration: 1.25,
           x: isMobile ? -20 : -40,
@@ -106,7 +106,7 @@ const OverlayMenu: React.FC = () => {
 
       // Menu appears AFTER background completes
       tl.to(
-        ".menu",
+        ".olm-menu",
         {
           duration: 0.5,
           visibility: "visible",
@@ -116,7 +116,7 @@ const OverlayMenu: React.FC = () => {
 
       // Primary menu items
       tl.to(
-        ".primary-menu .menu-item>a",
+        ".olm-primary-menu .olm-menu-item>a",
         {
           duration: 0.4,
           top: 0,
@@ -129,7 +129,7 @@ const OverlayMenu: React.FC = () => {
       )
         // Secondary menu background image
         .to(
-          ".secondary-menu-bg",
+          ".olm-secondary-menu-bg",
           {
             duration: 0.3,
             top: 0,
@@ -139,7 +139,7 @@ const OverlayMenu: React.FC = () => {
         )
         // First contact button
         .to(
-          ".contact-btn",
+          ".olm-contact-btn",
           {
             duration: 0.2,
             top: 0,
@@ -149,7 +149,7 @@ const OverlayMenu: React.FC = () => {
         )
         // Second contact button
         .to(
-          ".email-btn",
+          ".olm-email-btn",
           {
             duration: 0.2,
             top: 0,
@@ -159,7 +159,7 @@ const OverlayMenu: React.FC = () => {
         )
         // Social section
         .to(
-          ".menu-item .social-content",
+          ".olm-menu-item .olm-social-content",
           {
             duration: 0.2,
             top: 0,
@@ -169,7 +169,7 @@ const OverlayMenu: React.FC = () => {
         )
         // Footer section
         .to(
-          ".menu-item .footer-content",
+          ".olm-menu-item .olm-footer-content",
           {
             duration: 0.2,
             top: 0,
@@ -210,7 +210,7 @@ const OverlayMenu: React.FC = () => {
 
     // Menu link click behaviour (close + scroll)
     const menuLinks =
-      document.querySelectorAll<HTMLAnchorElement>(".menu-item a");
+      document.querySelectorAll<HTMLAnchorElement>(".olm-menu-item a");
 
     const handleMenuLinkClick = (e: Event) => {
       e.preventDefault();
@@ -265,9 +265,9 @@ const OverlayMenu: React.FC = () => {
   return (
     <>
       {/* Toggle Button */}
-      <div id="toggle-btn" className="btn">
-        <div className="btn-outline btn-outline-1"></div>
-        <div className="btn-outline btn-outline-2"></div>
+      <div id="toggle-btn" className="olm-btn">
+        <div className="olm-btn-outline olm-btn-outline-1"></div>
+        <div className="olm-btn-outline olm-btn-outline-2"></div>
         <div id="hamburger">
           <span className="line line-1"></span>
           <span className="line line-2"></span>
@@ -275,210 +275,215 @@ const OverlayMenu: React.FC = () => {
       </div>
 
       {/* SVG Overlay */}
-      <div className="overlay">
+      <div className="olm-overlay">
         <svg viewBox="0 0 1000 1000" preserveAspectRatio="none">
           <path d="M0 2S175 1 500 1s500 1 500 1V0H0Z"></path>
         </svg>
       </div>
 
       {/* Full Screen Menu */}
-      <div className="menu">
+      <div className="olm-menu">
         {/* Primary navigation items */}
-        <div className="primary-menu">
-          <div className="menu-container">
-            <div className="wrapper">
-              <div className="menu-item modern-menu-item menu-item-home">
-                <div className="menu-line"></div>
+        <div className="olm-primary-menu">
+          <div className="olm-menu-container">
+            <div className="olm-wrapper">
+              {/* 1 - HOME */}
+              <div className="olm-menu-item olm-modern-menu-item olm-menu-item-home">
+                <div className="olm-menu-line"></div>
                 <a href="#hero">
-                  <span className="menu-number">00.</span>
-                  <div className="menu-arrow">
+                  <span className="olm-menu-number">00.</span>
+                  <div className="olm-menu-arrow">
                     <svg width="40" height="25" viewBox="0 0 40 25">
                       <path
-                        className="arrow-line"
+                        className="olm-arrow-line"
                         d="M2 25 L2 5 L25 5"
                         stroke="currentColor"
                         strokeWidth="2"
                         fill="none"
                       />
                       <polygon
-                        className="arrow-tip"
+                        className="olm-arrow-tip"
                         points="25,1 37,5 25,9"
                         fill="currentColor"
                       />
                     </svg>
                   </div>
-                  <span className="menu-text">HOME</span>
+                  <span className="olm-menu-text">HOME</span>
                 </a>
-                <div className="menu-item-revealer"></div>
+                <div className="olm-menu-item-revealer"></div>
               </div>
 
-              <div className="menu-item modern-menu-item menu-item-services">
-                <div className="menu-line"></div>
+              {/* 2 - Services */}
+              <div className="olm-menu-item olm-modern-menu-item olm-menu-item-services">
+                <div className="olm-menu-line"></div>
                 <a href="#services">
-                  <span className="menu-number">01.</span>
-                  <div className="menu-arrow">
+                  <span className="olm-menu-number">01.</span>
+                  <div className="olm-menu-arrow">
                     <svg width="40" height="25" viewBox="0 0 40 25">
                       <path
-                        className="arrow-line"
+                        className="olm-arrow-line"
                         d="M2 25 L2 5 L25 5"
                         stroke="currentColor"
                         strokeWidth="2"
                         fill="none"
                       />
                       <polygon
-                        className="arrow-tip"
+                        className="olm-arrow-tip"
                         points="25,1 37,5 25,9"
                         fill="currentColor"
                       />
                     </svg>
                   </div>
-                  <span className="menu-text">SERVICES</span>
+                  <span className="olm-menu-text">Services</span>
                 </a>
-                <div className="menu-item-revealer"></div>
+                <div className="olm-menu-item-revealer"></div>
               </div>
 
-              <div className="menu-item modern-menu-item menu-item-work">
-                <div className="menu-line"></div>
-                <a href="#work">
-                  <span className="menu-number">02.</span>
-                  <div className="menu-arrow">
+              {/* 3 - Projects */}
+              <div className="olm-menu-item olm-modern-menu-item olm-menu-item-projects">
+                <div className="olm-menu-line"></div>
+                <a href="#projects">
+                  <span className="olm-menu-number">02.</span>
+                  <div className="olm-menu-arrow">
                     <svg width="40" height="25" viewBox="0 0 40 25">
                       <path
-                        className="arrow-line"
+                        className="olm-arrow-line"
                         d="M2 25 L2 5 L25 5"
                         stroke="currentColor"
                         strokeWidth="2"
                         fill="none"
                       />
                       <polygon
-                        className="arrow-tip"
+                        className="olm-arrow-tip"
                         points="25,1 37,5 25,9"
                         fill="currentColor"
                       />
                     </svg>
                   </div>
-                  <span className="menu-text">WORK</span>
+                  <span className="olm-menu-text">Projects</span>
                 </a>
-                <div className="menu-item-revealer"></div>
+                <div className="olm-menu-item-revealer"></div>
               </div>
 
-              <div className="menu-item modern-menu-item menu-item-testimonials">
-                <div className="menu-line"></div>
-                <a href="#testimonials">
-                  <span className="menu-number">03.</span>
-                  <div className="menu-arrow">
-                    <svg width="40" height="25" viewBox="0 0 40 25">
-                      <path
-                        className="arrow-line"
-                        d="M2 25 L2 5 L25 5"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        fill="none"
-                      />
-                      <polygon
-                        className="arrow-tip"
-                        points="25,1 37,5 25,9"
-                        fill="currentColor"
-                      />
-                    </svg>
-                  </div>
-                  <span className="menu-text">TESTIMONIALS</span>
-                </a>
-                <div className="menu-item-revealer"></div>
-              </div>
-
-              <div className="menu-item modern-menu-item menu-item-about">
-                <div className="menu-line"></div>
+              {/* 4 - About Us */}
+              <div className="olm-menu-item olm-modern-menu-item olm-menu-item-about">
+                <div className="olm-menu-line"></div>
                 <a href="#about">
-                  <span className="menu-number">04.</span>
-                  <div className="menu-arrow">
+                  <span className="olm-menu-number">03.</span>
+                  <div className="olm-menu-arrow">
                     <svg width="40" height="25" viewBox="0 0 40 25">
                       <path
-                        className="arrow-line"
+                        className="olm-arrow-line"
                         d="M2 25 L2 5 L25 5"
                         stroke="currentColor"
                         strokeWidth="2"
                         fill="none"
                       />
                       <polygon
-                        className="arrow-tip"
+                        className="olm-arrow-tip"
                         points="25,1 37,5 25,9"
                         fill="currentColor"
                       />
                     </svg>
                   </div>
-                  <span className="menu-text">ABOUT</span>
+                  <span className="olm-menu-text">About Us</span>
                 </a>
-                <div className="menu-item-revealer"></div>
+                <div className="olm-menu-item-revealer"></div>
+              </div>
+
+              {/* 5 - Contact Us */}
+              <div className="olm-menu-item olm-modern-menu-item olm-menu-item-contact">
+                <div className="olm-menu-line"></div>
+                <a href="#contact">
+                  <span className="olm-menu-number">04.</span>
+                  <div className="olm-menu-arrow">
+                    <svg width="40" height="25" viewBox="0 0 40 25">
+                      <path
+                        className="olm-arrow-line"
+                        d="M2 25 L2 5 L25 5"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        fill="none"
+                      />
+                      <polygon
+                        className="olm-arrow-tip"
+                        points="25,1 37,5 25,9"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  </div>
+                  <span className="olm-menu-text">Contact Us</span>
+                </a>
+                <div className="olm-menu-item-revealer"></div>
               </div>
             </div>
           </div>
         </div>
 
         {/* Secondary menu */}
-        <div className="secondary-menu">
-          <div className="secondary-menu-bg"></div>
-          <div className="menu-container">
+        <div className="olm-secondary-menu">
+          <div className="olm-secondary-menu-bg"></div>
+          <div className="olm-menu-container">
             {/* Contact Section */}
-            <div className="contact-section">
-              <div className="menu-item secondary-menu-item">
-                <a href="#contact" className="premium-btn contact-btn">
+            <div className="olm-contact-section">
+              <div className="olm-menu-item olm-secondary-menu-item">
+                <a href="#contact" className="olm-premium-btn olm-contact-btn">
                   Contact Me
                 </a>
-                <div className="menu-item-revealer"></div>
+                <div className="olm-menu-item-revealer"></div>
               </div>
 
-              <div className="menu-item secondary-menu-item">
+              <div className="olm-menu-item olm-secondary-menu-item">
                 <a
                   href="mailto:shivduttkarwa@gmail.com"
-                  className="premium-btn email-btn"
+                  className="olm-premium-btn olm-email-btn"
                 >
                   Send Email
                 </a>
-                <div className="menu-item-revealer"></div>
+                <div className="olm-menu-item-revealer"></div>
               </div>
             </div>
 
             {/* Social media */}
-            <div className="menu-item social-menu-item">
-              <div className="social-content">
-                <div className="social-grid">
-                  <a href="#" className="social-card instagram">
+            <div className="olm-menu-item olm-social-menu-item">
+              <div className="olm-social-content">
+                <div className="olm-social-grid">
+                  <a href="#" className="olm-social-card olm-instagram">
                     <i className="fab fa-instagram" />
                   </a>
-                  <a href="#" className="social-card linkedin">
+                  <a href="#" className="olm-social-card olm-linkedin">
                     <i className="fab fa-linkedin-in" />
                   </a>
-                  <a href="#" className="social-card github">
+                  <a href="#" className="olm-social-card olm-github">
                     <i className="fab fa-github" />
                   </a>
-                  <a href="#" className="social-card twitter">
+                  <a href="#" className="olm-social-card olm-twitter">
                     <i className="fab fa-twitter" />
                   </a>
                 </div>
               </div>
-              <div className="menu-item-revealer"></div>
+              <div className="olm-menu-item-revealer"></div>
             </div>
 
             {/* Footer */}
-            <div className="menu-item footer-menu-item">
-              <div className="footer-content">
-                <div className="footer-links">
-                  <a href="#" className="footer-link">
+            <div className="olm-menu-item olm-footer-menu-item">
+              <div className="olm-footer-content">
+                <div className="olm-footer-links">
+                  <a href="#" className="olm-footer-link">
                     Privacy
                   </a>
-                  <a href="#" className="footer-link">
+                  <a href="#" className="olm-footer-link">
                     Terms
                   </a>
-                  <a href="#" className="footer-link">
+                  <a href="#" className="olm-footer-link">
                     Cookies
                   </a>
                 </div>
-                <div className="copyright">
-                  <p>© 2025 Shivdutt Karwa. All rights reserved.</p>
+                <div className="olm-copyright">
+                  <p>© 2025 FORMA. All rights reserved.</p>
                 </div>
               </div>
-              <div className="menu-item-revealer"></div>
+              <div className="olm-menu-item-revealer"></div>
             </div>
           </div>
         </div>
