@@ -7,6 +7,9 @@ import About from "./pages/About";
 import Projects from "./pages/Projects";
 import ProjectDetailPage from "./pages/ProjectDetailPage";
 import ServicePage from "./components/Services/ServicePage";
+import Contact from "./pages/Contact";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsAndConditions from "./pages/TermsAndConditions";
 import { useSiteSettings } from "./hooks/useSiteSettings";
 import ScrollToTop from "./components/UI/ScrollToTop";
 
@@ -31,7 +34,9 @@ function App() {
                 element={<ProjectDetailPage />}
               />
               <Route path="/blog" element={<div>Blog page coming soon</div>} />
-              <Route path="/contact" element={<div>Contact page coming soon</div>} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
             </Routes>
           </main>
           <Footer settings={settings} />

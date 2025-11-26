@@ -59,15 +59,19 @@
 .ser-hero-section {
   background: radial-gradient(
       circle at top left,
-      rgba(217, 181, 125, 0.25) 0,
-      transparent 55%
+      rgba(0, 0, 0, 0.35) 0,
+      transparent 60%
     ),
     linear-gradient(
-      135deg,
-      var(--ser-color-green) 0%,
-      var(--ser-color-tertiary-brown) 55%,
-      var(--ser-color-black) 100%
-    );
+      160deg,
+      rgba(0, 0, 0, 0.75) 0%,
+      rgba(0, 0, 0, 0.55) 35%,
+      rgba(0, 0, 0, 0.65) 100%
+    ),
+    url("/images/bg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   color: var(--ser-color-off-white);
   border-radius: 0;
   border: none;
@@ -101,7 +105,7 @@
 
 .ser-hero-image-container {
   width: 100%;
-  border-radius: 1.5rem;
+  border-radius: 0;
   overflow: hidden;
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
 }

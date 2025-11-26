@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./ServicePage.css";
+import { FormaServices } from "./FormaServices";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -221,41 +222,36 @@ const ServicesPage: React.FC = () => {
             {/* Image (2/3) */}
             <div className="ser-hero-image-container">
               <img
-                src="https://agrifarmug.com/wp-content/uploads/2025/07/IMG_0442.jpg"
-                alt="Man with headphones and microphone"
+                src="/images/l2.jpg"
+                alt="Architectural service showcase"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
                   target.onerror = null;
-                  target.src =
-                    "https://placehold.co/800x600/222222/FFFFFF?text=Image";
+                  target.src = "/images/l1.jpg";
                 }}
               />
             </div>
             {/* Text Content (1/3) */}
             <div className="ser-hero-text-container">
               <h1 className="ser-hero-title">
-                We Are <span className="ser-text-yellow-400">Digitotally</span>{" "}
-                Here
+                Crafting <span className="ser-text-yellow-400">spaces</span>{" "}
+                that feel like home
               </h1>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat.
+                Tailored architecture, interiors, and landscapes designed to
+                mirror the way you live—thoughtful materials, mindful light,
+                and a calm rhythm in every room.
               </p>
               <div className="ser-hero-buttons">
-                <button className="ser-btn-primary">About Us</button>
-                <button className="ser-btn-red">Our Services</button>
+                <button className="ser-btn-primary">Explore Services</button>
+                <button className="ser-btn-red">Start a Project</button>
               </div>
             </div>
           </div>
         </section>
       </section>
 
-      {/* PINNED FULL-WIDTH IMAGE */}
-      <section className="ser-image-pin">
-        <div className="ser-image-pin-bg"></div>
-      </section>
+      <FormaServices />
 
       {/* OUR PROCESS */}
       <section className="ser-process-section">

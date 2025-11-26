@@ -339,6 +339,7 @@
   text-transform: uppercase;
   user-select: none;
   white-space: nowrap;
+  transform: translateX(40px);
 }
 
 .footer-mask {

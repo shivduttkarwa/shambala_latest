@@ -175,13 +175,13 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
                 <span className="link-arrow">→</span>
                 Projects
               </Link>
+              <Link to="/services" className="footer-link">
+                <span className="link-arrow">→</span>
+                Services
+              </Link>
               <Link to="/about" className="footer-link">
                 <span className="link-arrow">→</span>
                 About
-              </Link>
-              <Link to="/blog" className="footer-link">
-                <span className="link-arrow">→</span>
-                Blog
               </Link>
               <Link to="/contact" className="footer-link">
                 <span className="link-arrow">→</span>
@@ -237,18 +237,15 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
             </div>
 
             <div className="footer-legal">
-              <a
-                href={`${publicUrl}/privacy`}
-                className="footer-link legal-link"
-              >
+              <Link to="/privacy-policy" className="footer-link legal-link">
                 Privacy Policy
-              </a>
+              </Link>
+              <Link to="/terms-and-conditions" className="footer-link legal-link">
+                Terms & Conditions
+              </Link>
               <span className="footer-copyright">
-                © 2025 Shambala Homes. All rights reserved.
+                © 2025 FORMA. All rights reserved.
               </span>
-              <p className="footer-developer-credit-inline">
-                Designed and developed by Shivdutt Karwa
-              </p>
             </div>
           </div>
 
