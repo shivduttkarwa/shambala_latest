@@ -6,7 +6,7 @@
 }
 
 /* SVG Overlay Background - Gets animated with GSAP morphing */
-.olm-overlay {
+.overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -17,7 +17,7 @@
   visibility: visible;
 }
 
-.olm-overlay svg {
+.overlay svg {
   width: 100vw;
   height: 100vh;
   position: absolute;
@@ -28,12 +28,12 @@
 }
 
 /* SVG Path - Animated with GSAP attr morphing */
-.olm-overlay svg path {
+svg path {
   fill: var(--clr-overlay-bg);
 }
 
 /* Toggle Button Container - Fixed position button with morphing circles */
-#toggle-btn.olm-btn {
+#toggle-btn {
   position: fixed;
   top: 0;
   right: 0;
@@ -49,23 +49,23 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-.olm-btn-outline {
+.btn-outline {
   position: absolute;
   width: 100px;
   height: 100px;
   border: 1px solid var(--text);
 }
 
-.olm-btn-outline-1 {
+.btn-outline-1 {
   border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-  animation: olm-morph 4s linear infinite;
+  animation: morph 4s linear infinite;
 }
 
-.olm-btn-outline-2 {
+.btn-outline-2 {
   border-radius: 53% 47% 43% 58% / 51% 39% 61% 49%;
 }
 
-@keyframes olm-morph {
+@keyframes morph {
   0% {
     border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
   }
@@ -124,7 +124,7 @@
 }
 
 /* Full Screen Menu Container - Animated by GSAP visibility */
-.olm-menu {
+.menu {
   position: fixed;
   top: 0;
   left: 0;
@@ -144,12 +144,12 @@ body.menu-open {
   height: 100% !important;
 }
 
-.olm-menu > div {
+.menu > div {
   height: 100%;
   display: flex;
 }
 
-.olm-primary-menu .olm-menu-item a {
+.primary-menu .menu-item a {
   position: relative;
   top: 100vh;
   line-height: 50%;
@@ -157,16 +157,16 @@ body.menu-open {
   color: var(--clr-link);
 }
 
-.olm-menu a span {
+.menu a span {
   font-size: 20px;
   margin-right: 2em;
 }
 
-.olm-menu-item {
+.menu-item {
   position: relative;
 }
 
-.olm-menu-container {
+.menu-container {
   width: 70%;
   height: 50%;
   display: flex;
@@ -174,7 +174,7 @@ body.menu-open {
   justify-content: space-between;
 }
 
-.olm-primary-menu {
+.primary-menu {
   flex: 3;
   display: flex;
   flex-direction: column;
@@ -184,7 +184,7 @@ body.menu-open {
   margin-top: -100px;
 }
 
-.olm-primary-menu .olm-menu-container .olm-wrapper {
+.primary-menu .menu-container .wrapper {
   width: 100%;
   height: 100%;
   display: flex;
@@ -193,18 +193,18 @@ body.menu-open {
 }
 
 /* Modern Primary Menu Design */
-.olm-modern-menu-item {
+.modern-menu-item {
   position: relative;
   padding: 2.3rem 0;
   border-bottom: 1px solid rgba(229, 227, 220, 0.1);
 }
 
-.olm-modern-menu-item:last-child {
+.modern-menu-item:last-child {
   border-bottom: none;
 }
 
 /* Menu Line Above Each Item */
-.olm-menu-line {
+.menu-line {
   position: absolute;
   top: 0;
   left: 0;
@@ -215,7 +215,7 @@ body.menu-open {
   width: 750px;
 }
 
-.olm-menu-line::before {
+.menu-line::before {
   content: "";
   position: absolute;
   top: 0;
@@ -225,12 +225,12 @@ body.menu-open {
   transition: width 0.6s ease;
 }
 
-.olm-modern-menu-item a {
+.modern-menu-item a {
   display: flex;
   align-items: center;
   font-family: "Instrument Sans", sans-serif !important;
   font-size: 80px !important;
-  font-weight: 400 !important;
+  font-weight: 900 !important;
   text-transform: uppercase !important;
   text-decoration: none !important;
   color: var(--clr-link) !important;
@@ -238,7 +238,7 @@ body.menu-open {
   transition: all 0.3s ease;
 }
 
-.olm-menu-number {
+.menu-number {
   font-size: 24px !important;
   font-weight: 400 !important;
   margin-right: 2rem;
@@ -247,7 +247,7 @@ body.menu-open {
 }
 
 /* Arrow */
-.olm-menu-arrow {
+.menu-arrow {
   position: relative;
   width: 60px;
   height: 40px;
@@ -257,111 +257,111 @@ body.menu-open {
   transition: all 0.6s ease;
 }
 
-.olm-arrow-line {
+.arrow-line {
   stroke-dasharray: 43;
   stroke-dashoffset: 43;
   transition: stroke-dashoffset 0.5s linear;
 }
 
-.olm-arrow-tip {
+.arrow-tip {
   opacity: 0;
   transform: scale(0);
   transform-origin: 25px 5px;
   transition: all 0.15s ease 0.45s;
 }
 
-.olm-menu-text {
-  font-size: 60px !important;
-  font-weight: 400 !important;
+.menu-text {
+  font-size: 80px !important;
+  font-weight: 900 !important;
   letter-spacing: -0.02em;
   transition: all 0.3s ease;
 }
 
 /* Individual Menu Item Colors */
-.olm-menu-item-home .olm-menu-number {
+.menu-item-home .menu-number {
   color: #ff5e1a;
 }
-.olm-menu-item-home .olm-menu-arrow {
+.menu-item-home .menu-arrow {
   color: #ff5e1a;
 }
-.olm-menu-item-home:hover .olm-menu-line::before {
+.menu-item-home:hover .menu-line::before {
   width: 100%;
   background: #ff5e1a;
   box-shadow: 0 0 10px rgba(255, 94, 26, 0.5);
 }
 
-.olm-menu-item-services .olm-menu-number {
+.menu-item-services .menu-number {
   color: #1affd5;
 }
-.olm-menu-item-services .olm-menu-arrow {
+.menu-item-services .menu-arrow {
   color: #1affd5;
 }
-.olm-menu-item-services:hover .olm-menu-line::before {
+.menu-item-services:hover .menu-line::before {
   width: 100%;
   background: #1affd5;
   box-shadow: 0 0 10px rgba(26, 255, 213, 0.5);
 }
 
-.olm-menu-item-projects .olm-menu-number {
+.menu-item-work .menu-number {
   color: #ff1a6a;
 }
-.olm-menu-item-projects .olm-menu-arrow {
+.menu-item-work .menu-arrow {
   color: #ff1a6a;
 }
-.olm-menu-item-projects:hover .olm-menu-line::before {
+.menu-item-work:hover .menu-line::before {
   width: 100%;
   background: #ff1a6a;
   box-shadow: 0 0 10px rgba(255, 26, 106, 0.5);
 }
 
-.olm-menu-item-about .olm-menu-number {
+.menu-item-testimonials .menu-number {
   color: #6a5acd;
 }
-.olm-menu-item-about .olm-menu-arrow {
+.menu-item-testimonials .menu-arrow {
   color: #6a5acd;
 }
-.olm-menu-item-about:hover .olm-menu-line::before {
+.menu-item-testimonials:hover .menu-line::before {
   width: 100%;
   background: #6a5acd;
   box-shadow: 0 0 10px rgba(106, 90, 205, 0.5);
 }
 
-.olm-menu-item-contact .olm-menu-number {
+.menu-item-about .menu-number {
   color: #ffd700;
 }
-.olm-menu-item-contact .olm-menu-arrow {
+.menu-item-about .menu-arrow {
   color: #ffd700;
 }
-.olm-menu-item-contact:hover .olm-menu-line::before {
+.menu-item-about:hover .menu-line::before {
   width: 100%;
   background: #ffd700;
   box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
 }
 
 /* General Hover Effects */
-.olm-modern-menu-item:hover .olm-menu-number {
+.modern-menu-item:hover .menu-number {
   transform: translateX(10px);
 }
-.olm-modern-menu-item:hover .olm-menu-arrow {
+.modern-menu-item:hover .menu-arrow {
   opacity: 1;
   transform: translateX(0) translateY(-8px);
 }
-.olm-modern-menu-item:hover .olm-menu-text {
+.modern-menu-item:hover .menu-text {
   color: #ffffff;
   transform: translateX(10px);
 }
 
 /* Arrow Line Growing Animation on Hover */
-.olm-modern-menu-item:hover .olm-arrow-line {
+.modern-menu-item:hover .arrow-line {
   stroke-dashoffset: 0;
 }
-.olm-modern-menu-item:hover .olm-arrow-tip {
+.modern-menu-item:hover .arrow-tip {
   opacity: 1;
   transform: scale(1);
 }
 
 /* Secondary Menu */
-.olm-secondary-menu {
+.secondary-menu {
   position: relative;
   flex: 2;
   display: flex;
@@ -376,7 +376,7 @@ body.menu-open {
   overflow: hidden;
 }
 
-.olm-secondary-menu-bg {
+.secondary-menu-bg {
   position: absolute;
   top: 100vh;
   left: 0;
@@ -391,7 +391,7 @@ body.menu-open {
   pointer-events: none;
 }
 
-.olm-secondary-menu .olm-menu-container {
+.secondary-menu .menu-container {
   width: 100%;
   max-width: 300px;
   display: flex;
@@ -402,17 +402,17 @@ body.menu-open {
 }
 
 /* Contact Section */
-.olm-contact-section {
+.contact-section {
   width: 100%;
 }
 
 /* Simple Contact Buttons */
-.olm-secondary-menu-item {
+.secondary-menu-item {
   width: 100%;
   margin-bottom: 1rem;
 }
 
-.olm-premium-btn {
+.premium-btn {
   position: relative;
   top: 100vh;
   display: block;
@@ -434,7 +434,7 @@ body.menu-open {
   z-index: 2;
 }
 
-.olm-premium-btn::before {
+.premium-btn::before {
   content: "";
   position: absolute;
   top: 0;
@@ -448,11 +448,11 @@ body.menu-open {
   z-index: -1;
 }
 
-.olm-premium-btn:hover::before {
+.premium-btn:hover::before {
   opacity: 1;
 }
 
-.olm-premium-btn:hover {
+.premium-btn:hover {
   background: rgba(255, 255, 255, 0.12);
   border-color: rgba(229, 227, 220, 0.4);
   color: #ffffff;
@@ -460,13 +460,13 @@ body.menu-open {
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
 
-.olm-contact-btn:hover {
+.contact-btn:hover {
   background: rgba(255, 94, 26, 0.15);
   border-color: var(--primary);
   box-shadow: 0 8px 25px rgba(255, 94, 26, 0.3), 0 0 20px rgba(255, 94, 26, 0.2);
 }
 
-.olm-email-btn:hover {
+.email-btn:hover {
   background: rgba(26, 255, 213, 0.15);
   border-color: var(--tertiary);
   box-shadow: 0 8px 25px rgba(26, 255, 213, 0.3),
@@ -474,27 +474,27 @@ body.menu-open {
 }
 
 /* Social Media Section */
-.olm-social-menu-item {
+.social-menu-item {
   width: 100%;
   margin: 2rem 0;
   position: relative;
   color: var(--clr-link);
 }
 
-.olm-social-content {
+.social-content {
   width: 100%;
   position: relative;
   top: 100vh;
 }
 
-.olm-social-grid {
+.social-grid {
   display: flex;
   justify-content: center;
   gap: 1rem;
   flex-wrap: wrap;
 }
 
-.olm-social-card {
+.social-card {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -507,42 +507,42 @@ body.menu-open {
   color: white;
 }
 
-.olm-instagram {
+.social-card.instagram {
   background: linear-gradient(45deg, #e4405f, #c13584, #833ab4);
 }
-.olm-linkedin {
+.social-card.linkedin {
   background: #0077b5;
 }
-.olm-github {
+.social-card.github {
   background: #333;
 }
-.olm-twitter {
+.social-card.twitter {
   background: #1da1f2;
 }
 
-.olm-social-card:hover {
+.social-card:hover {
   transform: translateY(-3px) scale(1.1);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 /* Footer Section */
-.olm-footer-menu-item {
+.footer-menu-item {
   width: 100%;
   margin-top: 2rem;
 }
 
-.olm-footer-menu-item .olm-footer-content {
+.footer-menu-item .footer-content {
   position: relative;
   top: 100vh;
 }
 
-.olm-footer-content {
+.footer-content {
   text-align: center;
   padding-top: 2rem;
   border-top: 1px solid rgba(229, 227, 220, 0.1);
 }
 
-.olm-footer-links {
+.footer-links {
   display: flex;
   justify-content: center;
   gap: 2rem;
@@ -550,7 +550,7 @@ body.menu-open {
   margin-bottom: 1.5rem;
 }
 
-.olm-footer-link {
+.footer-link {
   font-family: var(--font2);
   font-size: 1rem;
   font-weight: 400;
@@ -562,7 +562,7 @@ body.menu-open {
   position: relative;
 }
 
-.olm-footer-link::after {
+.footer-link::after {
   content: "";
   position: absolute;
   bottom: -2px;
@@ -573,19 +573,19 @@ body.menu-open {
   transition: width 0.3s ease;
 }
 
-.olm-footer-link:hover {
+.footer-link:hover {
   color: rgba(229, 227, 220, 0.8);
 }
 
-.olm-footer-link:hover::after {
+.footer-link:hover::after {
   width: 100%;
 }
 
-.olm-copyright {
+.copyright {
   text-align: center;
 }
 
-.olm-copyright p {
+.copyright p {
   font-family: var(--font2);
   font-size: 0.95rem;
   font-weight: 300;
@@ -594,8 +594,8 @@ body.menu-open {
   letter-spacing: 0.5px;
 }
 
-/* Contact styles (if you use them later) */
-.olm-contact-title-link {
+/* Contact styles */
+.contact-title-link {
   font-family: "Instrument Sans", sans-serif !important;
   font-size: 28px !important;
   font-weight: 500 !important;
@@ -603,7 +603,7 @@ body.menu-open {
   text-decoration: none !important;
 }
 
-.olm-contact-link {
+.contact-link {
   font-family: "Instrument Sans", sans-serif !important;
   font-size: 24px !important;
   font-weight: 400 !important;
@@ -614,7 +614,7 @@ body.menu-open {
   line-height: 1.2 !important;
 }
 
-.olm-contact-label {
+.contact-label {
   font-size: 12px !important;
   font-weight: 300 !important;
   color: rgba(229, 227, 220, 0.6) !important;
@@ -625,83 +625,83 @@ body.menu-open {
 
 /* Mobile Responsive Styles for Contact Info */
 @media screen and (max-width: 768px) {
-  .olm-contact-title-link {
+  .contact-title-link {
     font-size: 22px !important;
   }
-  .olm-contact-link {
+  .contact-link {
     font-size: 18px !important;
   }
-  .olm-social-link {
+  .social-link {
     font-size: 16px;
   }
-  .olm-social-links {
+  .social-links {
     gap: 1.5rem;
   }
 }
 
 @media screen and (max-width: 480px) {
-  .olm-contact-title-link {
+  .contact-title-link {
     font-size: 20px !important;
   }
-  .olm-contact-link {
+  .contact-link {
     font-size: 16px !important;
   }
-  .olm-social-link {
+  .social-link {
     font-size: 14px;
   }
-  .olm-social-links {
+  .social-links {
     gap: 1.2rem;
   }
 }
 
 /* Mobile Responsiveness */
 @media screen and (max-width: 1024px) {
-  .olm-primary-menu a {
+  .primary-menu a {
     font-size: 100px;
   }
-  .olm-secondary-menu .olm-menu-item a {
+  .secondary-menu .menu-item a {
     font-size: 32px;
   }
 }
 
 @media screen and (max-width: 768px) {
-  .olm-modern-menu-item {
+  .modern-menu-item {
     position: relative;
     padding: 0.3rem 0px;
     border-bottom: 1px solid rgba(229, 227, 220, 0.1);
   }
 
-  #toggle-btn.olm-btn {
+  #toggle-btn {
     width: 80px;
     height: 80px;
     margin: 1.5em;
   }
 
-  .olm-btn-outline {
+  .btn-outline {
     width: 80px;
     height: 80px;
   }
 
   /* Hide secondary menu on mobile */
-  .olm-secondary-menu {
+  .secondary-menu {
     display: none !important;
   }
 
-  .olm-primary-menu {
+  .primary-menu {
     justify-content: center;
     align-items: center;
     text-align: center;
     padding-top: 2rem;
   }
 
-  .olm-primary-menu .olm-menu-container {
+  .primary-menu .menu-container {
     width: 100%;
     height: auto;
     justify-content: center;
     align-items: center;
   }
 
-  .olm-primary-menu .olm-menu-container .olm-wrapper {
+  .primary-menu .menu-container .wrapper {
     width: 100%;
     height: auto;
     justify-content: center;
@@ -710,107 +710,107 @@ body.menu-open {
     margin-top: -140px;
   }
 
-  .olm-menu .olm-primary-menu .olm-modern-menu-item a {
+  .menu .primary-menu .modern-menu-item a {
     font-size: 35px;
     line-height: 1;
     text-align: center;
     display: block;
   }
 
-  .olm-menu .olm-primary-menu .olm-menu-text {
+  .menu .primary-menu .menu-text {
     font-size: 35px;
     line-height: 1;
   }
 
-  .olm-menu .olm-primary-menu .olm-menu-number {
+  .menu .primary-menu .menu-number {
     font-size: 14px;
     margin-right: 0.8rem;
   }
 
-  .olm-menu .olm-primary-menu a span {
+  .menu .primary-menu a span {
     font-size: 14px;
     margin-right: 0.8rem;
   }
 
   /* Hide decorative elements on mobile */
-  .olm-menu-arrow,
-  .olm-menu-line {
+  .menu-arrow,
+  .menu-line {
     display: none;
   }
 }
 
 @media screen and (max-width: 480px) {
-  #toggle-btn.olm-btn {
+  #toggle-btn {
     width: 70px;
     height: 70px;
     margin: 1rem;
   }
 
-  .olm-btn-outline {
+  .btn-outline {
     width: 70px;
     height: 70px;
   }
 
-  .olm-menu {
+  .menu {
     padding: 1.5rem 0.5rem;
   }
 
-  .olm-primary-menu .olm-menu-container .olm-wrapper {
+  .primary-menu .menu-container .wrapper {
     gap: 0.3rem;
   }
 
-  .olm-menu .olm-primary-menu .olm-modern-menu-item a {
+  .menu .primary-menu .modern-menu-item a {
     font-size: 30px;
     line-height: 1;
     text-align: center;
   }
 
-  .olm-menu .olm-primary-menu .olm-menu-text {
+  .menu .primary-menu .menu-text {
     font-size: 30px !important;
     line-height: 1 !important;
   }
 
-  .olm-menu .olm-primary-menu .olm-menu-number {
+  .menu .primary-menu .menu-number {
     font-size: 12px !important;
     margin-right: 0.6rem !important;
   }
 
-  .olm-menu .olm-primary-menu a span {
+  .menu .primary-menu a span {
     font-size: 12px;
     margin-right: 0.6rem;
   }
 }
 
 @media screen and (max-width: 360px) {
-  #toggle-btn.olm-btn {
+  #toggle-btn {
     width: 60px;
     height: 60px;
     margin: 0.8rem;
   }
 
-  .olm-btn-outline {
+  .btn-outline {
     width: 60px;
     height: 60px;
   }
 
-  .olm-primary-menu .olm-menu-container .olm-wrapper {
+  .primary-menu .menu-container .wrapper {
     gap: 0.2rem;
   }
 
-  .olm-menu .olm-primary-menu .olm-modern-menu-item a {
+  .menu .primary-menu .modern-menu-item a {
     font-size: 26px;
   }
 
-  .olm-menu .olm-primary-menu .olm-menu-text {
+  .menu .primary-menu .menu-text {
     font-size: 26px;
   }
 
-  .olm-menu .olm-primary-menu .olm-menu-number {
+  .menu .primary-menu .menu-number {
     font-size: 10px;
     margin-right: 0.5rem;
   }
 
-  .olm-menu .olm-primary-menu a span {
+  .menu .primary-menu a span {
     font-size: 10px;
     margin-right: 0.5rem;
   }
@@ -818,16 +818,16 @@ body.menu-open {
 
 /* Tablet Portrait */
 @media screen and (min-width: 768px) and (max-width: 1024px) {
-  .olm-secondary-menu {
+  .secondary-menu {
     padding: 2rem 1.5rem 2rem 2rem;
     margin-right: 60px;
   }
 
-  .olm-secondary-menu .olm-menu-container {
+  .secondary-menu .menu-container {
     max-width: 280px;
   }
 
-  .olm-premium-btn {
+  .premium-btn {
     padding: 1rem 1.5rem;
     font-size: 1.1rem;
   }
@@ -835,7 +835,7 @@ body.menu-open {
 
 /* Desktop adjustments */
 @media screen and (min-width: 1025px) and (max-width: 1199px) {
-  .olm-secondary-menu {
+  .secondary-menu {
     padding: 2rem 1.5rem 2rem 3rem;
     margin-right: 80px;
   }
