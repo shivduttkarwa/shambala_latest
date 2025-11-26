@@ -2,8 +2,10 @@ import { memo, useEffect, useRef } from "react";
 import gsap from "gsap";
 import GlassRainButton from "../UI/GlassRainButton";
 
-const publicUrl = import.meta.env.BASE_URL;
-const heroVideo = `${publicUrl}images/home_hero.mp4`;
+const publicUrl = import.meta.env.BASE_URL || "/";
+const heroVideo = publicUrl.endsWith("/") 
+  ? `${publicUrl}images/home_hero.mp4`
+  : `${publicUrl}/images/home_hero.mp4`;
 
 const ModernHero = () => {
   const curtainRef = useRef<HTMLDivElement>(null);

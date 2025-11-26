@@ -13,8 +13,10 @@ const Header: React.FC<HeaderProps> = ({ settings }) => {
   const headerBgRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
   const navigate = useNavigate();
-  const publicUrl = (import.meta.env.BASE_URL || "/").replace(/\/?$/, "/");
-  const logoSrc = `${publicUrl}images/forma_logo.png`;
+  const publicUrl = import.meta.env.BASE_URL || "/";
+  const logoSrc = publicUrl.endsWith("/") 
+    ? `${publicUrl}images/forma_logo.png`
+    : `${publicUrl}/images/forma_logo.png`;
   
   useEffect(() => {
     let lastScrollY = window.scrollY;
