@@ -94,16 +94,53 @@ const ProjectModernSlider: React.FC = () => {
       }
     };
 
-    const handleMouseLeave = () => {
-      setIsInSection(false);
-      setShowDragBtn(false);
-      document.body.style.cursor = "default"; // Restore cursor
+    const handleMouseLeave = (e: MouseEvent) => {
+      // Check if mouse is actually leaving the section bounds
+      const section = sliderSectionRef.current;
+      if (section) {
+        const rect = section.getBoundingClientRect();
+        const { clientX, clientY } = e;
+        
+        // Only trigger leave if mouse is actually outside the section
+        if (clientX < rect.left || clientX > rect.right || 
+            clientY < rect.top || clientY > rect.bottom) {
+          setIsInSection(false);
+          setShowDragBtn(false);
+          setIsDragging(false);
+          document.body.style.cursor = "default"; // Restore cursor
+          
+          // Remove any lingering classes
+          section.classList.remove("show-cursor");
+        }
+      }
+    };
+
+    // Global mouse move handler to detect when leaving section bounds
+    const handleGlobalMouseMove = (e: MouseEvent) => {
+      if (isInSection) {
+        const section = sliderSectionRef.current;
+        if (section) {
+          const rect = section.getBoundingClientRect();
+          const { clientX, clientY } = e;
+          
+          // If mouse is outside section bounds, trigger leave
+          if (clientX < rect.left || clientX > rect.right || 
+              clientY < rect.top || clientY > rect.bottom) {
+            setIsInSection(false);
+            setShowDragBtn(false);
+            setIsDragging(false);
+            document.body.style.cursor = "default";
+            section.classList.remove("show-cursor");
+          }
+        }
+      }
     };
 
     const section = sliderSectionRef.current;
     if (section) {
       section.addEventListener("mouseenter", handleMouseEnter);
       section.addEventListener("mouseleave", handleMouseLeave);
+      document.addEventListener("mousemove", handleGlobalMouseMove);
     }
 
     return () => {
@@ -111,12 +148,13 @@ const ProjectModernSlider: React.FC = () => {
         section.removeEventListener("mouseenter", handleMouseEnter);
         section.removeEventListener("mouseleave", handleMouseLeave);
       }
+      document.removeEventListener("mousemove", handleGlobalMouseMove);
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
       }
       document.body.style.cursor = "default"; // Ensure cursor is restored
     };
-  }, [isOverNavButton]);
+  }, [isOverNavButton, isInSection]);
 
   // Handle mouse move for drag button position
   useEffect(() => {

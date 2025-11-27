@@ -31,7 +31,11 @@
 
 .gsap-text-left,
 .gsap-text-right {
-  font-size: clamp(4rem, 10vw, 14rem);
+  font-size: clamp(
+    3.2rem,
+    8vw,
+    11.2rem
+  ); /* Reduced by 20% from 4rem, 10vw, 14rem */
   font-weight: 500;
   letter-spacing: -0.04em;
   line-height: 0.9;
@@ -66,7 +70,11 @@
 
   .gsap-text-left,
   .gsap-text-right {
-    font-size: clamp(3rem, 10vw, 10rem);
+    font-size: clamp(
+      3rem,
+      8vw,
+      10rem
+    ); /* Tablet size - larger than base for this breakpoint */
   }
 
   .gsap-video-container {
@@ -82,7 +90,7 @@
   }
   .gsap-text-left,
   .gsap-text-right {
-    font-size: clamp(2.5rem, 12vw, 6rem);
+    font-size: clamp(2.5rem, 8vw, 6rem);
   }
 
   .gsap-video-container {

@@ -10,6 +10,7 @@ import OurVisionSection from "../components/Home/OurVisionSection";
 import CTASection from "../components/Home/CTASection";
 import ServicesSection from "../components/Home/ServicesSection";
 import BlogSection from "../components/Home/BlogSection";
+import ProjectModernSlider from "../components/Projects/ProjectModernSlider";
 import BodyRenderer from "../components/BodyRenderer";
 import { useHome } from "../hooks/useHome";
 import { SiteSettings } from "../services/api";
@@ -32,7 +33,8 @@ const HomePage: React.FC<HomePageProps> = ({ settings: _ }) => {
       <div id="services">
         <ServicesSection />
       </div>
-      <BenefitsSection />
+      <ProjectModernSlider />
+      <BenefitsSection sectionTitle="Get in touch to" />
       <div id="projects">
         <PortfolioShowcase />
       </div>

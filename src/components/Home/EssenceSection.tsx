@@ -30,7 +30,7 @@ const EssenceSection: React.FC<EssenceSectionProps> = ({
   logo,
   tagline: _tagline = "WHY SHAMBALA HOMES?",
   heading = "WE SHAPE THE ESSENCE OF LIVING",
-  description = "We envision spaces that are not just lived in, but felt — where every element has been curated to inspire connection, serenity, and belonging.",
+  description = "We envision spaces that are not just lived in, but felt — where every element has been curated to inspire connection, serenity, and belonging. Our approach transcends traditional architecture, creating environments that nurture the soul and elevate everyday moments into extraordinary experiences of comfort and beauty.",
   ctaText = "VIEW OUR DESIGNS",
   ctaHref = "#house-designs",
   image = {
