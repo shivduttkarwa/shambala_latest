@@ -14,15 +14,20 @@ const ServicesPage: React.FC = () => {
 
   useEffect(() => {
     // PIN THE FULL-WIDTH IMAGE WHILE PROCESS + TESTIMONIALS SCROLL OVER
-    ScrollTrigger.create({
-      trigger: ".ser-image-pin",
-      start: "top top",
-      endTrigger: ".ser-testimonials-section",
-      end: "bottom top",
-      pin: ".ser-image-pin",
-      pinSpacing: false,
-      anticipatePin: 1,
-    });
+    const pinEl = document.querySelector(".ser-image-pin");
+    const endEl = document.querySelector(".ser-testimonials-section");
+    let pinTrigger: ScrollTrigger | undefined;
+    if (pinEl && endEl) {
+      pinTrigger = ScrollTrigger.create({
+        trigger: pinEl,
+        start: "top top",
+        endTrigger: endEl,
+        end: "bottom top",
+        pin: pinEl,
+        pinSpacing: false,
+        anticipatePin: 1,
+      });
+    }
 
     // REVEAL ANIMATIONS FOR HERO + CARDS (.ser-animate-in)
     gsap.utils.toArray(".ser-animate-in").forEach((elem: any) => {
@@ -84,6 +89,10 @@ const ServicesPage: React.FC = () => {
         hero.removeEventListener("mouseleave", handleMouseLeave);
       };
     }
+
+    return () => {
+      pinTrigger?.kill();
+    };
   }, []);
 
   useEffect(() => {

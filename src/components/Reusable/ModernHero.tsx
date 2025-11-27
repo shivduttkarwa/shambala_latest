@@ -1,6 +1,7 @@
 import { memo, useEffect, useRef } from "react";
 import gsap from "gsap";
 import GlassRainButton from "../UI/GlassRainButton";
+import HomeHeroSlider from "../Home/HomeHeroSlider";
 
 const publicUrl = import.meta.env.BASE_URL || "/";
 const heroVideo = publicUrl.endsWith("/") 
@@ -769,16 +770,7 @@ const ModernHero = () => {
           <GlassRainButton>Start a Project</GlassRainButton>
         </div>
 
-        <div className="mh-ui-news" ref={newsRef}>
-          <div className="mh-ui-news-card">
-            <div className="mh-ui-news-label">Latest</div>
-            <div className="mh-ui-news-title">New case study: Forma Studio</div>
-            <div className="mh-ui-news-meta">
-              <span>2025</span>
-              <span>Read →</span>
-            </div>
-          </div>
-        </div>
+        <HomeHeroSlider ref={newsRef} />
       </div>
 
       <div className="mh-hero-video" ref={heroVideoRef}>
