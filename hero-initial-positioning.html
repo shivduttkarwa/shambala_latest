@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hero Initial Positioning</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Comic Neue:wght@100;300;400;700;900&display=swap");
+
+        /* Local fonts - using absolute paths from public folder */
+        @font-face {
+            font-family: "Dream Avenue";
+            src: url("./public/fonts/Dream-Avenue.ttf") format("truetype");
+            font-weight: 400 900;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #000;
+            overflow: hidden;
+        }
+
+        /* HERO SECTION CONTAINER */
+        .hero-section {
+            height: 100vh;
+            position: relative;
+            background: #ffffff;
+            background-image: url('./public/images/bg.png');
+            background-size: cover;
+            background-position: center;
+            background-color: rgba(0,0,0,0.15);
+            background-blend-mode: multiply;
+        }
+
+        .hero-sticky {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* HERO TEXT CONTAINER - INITIAL POSITIONING */
+        .hero-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            white-space: nowrap;
+            font-family: "Dream Avenue", serif;
+        }
+
+        /* TEXT LINES INITIAL STATE */
+        .text-line {
+            font-size: clamp(4rem, 11vw, 16rem);
+            font-weight: 900;
+            line-height: 0.85;
+            text-transform: uppercase;
+            letter-spacing: -0.05em;
+            color: #ffffff;
+            margin-bottom: 0.1em;
+            text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.7);
+        }
+
+        .text-line span {
+            display: inline-block;
+            white-space: pre;
+            will-change: transform, opacity, filter;
+            /* Initial state from GSAP setup */
+            opacity: 1;
+            transform: translateY(0);
+            filter: blur(0px);
+        }
+
+        .line-1 {
+            text-align: left;
+        }
+
+        .line-2 {
+            text-align: center;
+        }
+
+        .line-3 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        /* VIDEO IN THE EXACT INITIAL POSITION */
+        .video-space {
+            width: 300px;
+            height: 180px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            flex-shrink: 0;
+            position: relative;
+            z-index: 5;
+            will-change: transform;
+            transform-origin: center center;
+            /* Initial GSAP state */
+            transform: translateX(0) translateY(0) scale(1);
+        }
+
+        .video-space video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: translateZ(0);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        /* GALLERY INITIAL POSITIONING - TOP CENTER */
+        .gallery {
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 40px;
+            z-index: 20;
+            opacity: 1;
+            will-change: transform, opacity;
+        }
+
+        .gallery-item {
+            width: 120px;
+            height: 120px;
+            border-radius: 10px;
+            overflow: hidden;
+            opacity: 1;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            flex-shrink: 0;
+            will-change: transform, opacity;
+            /* Initial GSAP state - offset positioning */
+            transform: translateY(-70px) scale(0.98);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%) saturate(0%);
+            -webkit-filter: grayscale(100%) saturate(0%);
+        }
+
+        /* Overlay text initial positioning */
+        .hero-overlay-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(calc(-50% - 410px), calc(-50% - 40px));
+            z-index: 30;
+            text-align: center;
+            pointer-events: none;
+            will-change: transform, opacity;
+            max-width: 90vw;
+        }
+
+        .overlay-line {
+            display: block;
+            font-family: "Dream Avenue", serif;
+            font-size: clamp(4.2rem, 9vw, 7.4rem);
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 0.9;
+            white-space: nowrap;
+            text-shadow: 0 0 20px rgba(0, 0, 0, 0.9), 0 0 40px rgba(0, 0, 0, 0.7),
+                2px 2px 4px rgba(0, 0, 0, 0.8), -1px -1px 2px rgba(0, 0, 0, 0.6);
+            -webkit-text-stroke: 1px rgba(0, 0, 0, 0.3);
+        }
+
+        .overlay-char {
+            display: inline-block;
+            /* Initial GSAP state - hidden */
+            opacity: 0;
+            transform: translateY(40px);
+            will-change: transform, opacity;
+        }
+
+        /* Company description initial positioning */
+        .hero-description {
+            position: absolute;
+            top: 140px;
+            right: 48px;
+            z-index: 25;
+            max-width: 300px;
+            text-align: left;
+            /* Initial state - visible */
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero-description-inner {
+            background: rgba(255, 255, 255, 0.92);
+            color: #333;
+            padding: 10px 14px;
+            border-radius: 6px;
+            font-size: 1.15rem;
+            font-weight: 500;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            line-height: 1.35;
+        }
+
+        /* CTA initial positioning */
+        .hero-cta {
+            position: absolute;
+            right: 100px;
+            top: calc(50% + 150px);
+            transform: translateY(-50%);
+            display: inline-flex;
+            border-radius: 0;
+            background: rgba(0, 0, 0, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            z-index: 40;
+            /* Initial GSAP state - hidden */
+            opacity: 0;
+            transform: translateX(200px) translateY(-50%) scale(0.8);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .text-line {
+                font-size: clamp(3rem, 10vw, 8rem);
+            }
+
+            .video-space {
+                width: 250px;
+                height: 150px;
+            }
+
+            .line-3 {
+                gap: 1rem;
+            }
+
+            .gallery-item {
+                width: 90px;
+                height: 90px;
+            }
+
+            .gallery-item:nth-child(n + 4) {
+                display: none;
+            }
+
+            .gallery {
+                gap: 24px;
+            }
+
+            .overlay-line {
+                font-size: clamp(1.6rem, 5vw, 3rem);
+                white-space: normal;
+            }
+
+            .hero-description {
+                display: none;
+            }
+
+            .hero-cta {
+                right: 50%;
+                left: auto;
+                transform: translateX(50%);
+                bottom: 8vh;
+                top: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero-section" id="animated-hero-section">
+        <div class="hero-sticky">
+            <!-- Hero Text -->
+            <div class="hero-text">
+                <div class="text-line line-1">DESIGN</div>
+                <div class="text-line line-2">BEYOND</div>
+                <div class="text-line line-3">
+                    <span>THE</span>
+                    <div class="video-space">
+                        <video autoPlay muted loop playsInline>
+                            <source src="./public/images/hero2.mp4" type="video/mp4" />
+                            <source src="./public/images/hero1.mp4" type="video/mp4" />
+                            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
+                        </video>
+                    </div>
+                    <span>ORDINARY</span>
+                </div>
+            </div>
+
+            <!-- Overlay Text -->
+            <div class="hero-overlay-text" aria-label="Live Better Feel More">
+                <div class="overlay-line" data-text="Live Better"></div>
+                <div class="overlay-line" data-text="Feel More"></div>
+            </div>
+
+            <!-- Company description in top-right -->
+            <div class="hero-description">
+                <div class="hero-description-inner">
+                    We design spaces that feel like home — thoughtful, timeless, human.
+                </div>
+            </div>
+
+            <!-- Gallery -->
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="./public/images/l11.jpg" alt="Gallery 1" />
+                </div>
+                <div class="gallery-item">
+                    <img src="./public/images/l4.jpg" alt="Gallery 2" />
+                </div>
+                <div class="gallery-item">
+                    <img src="./public/images/l5.jpg" alt="Gallery 3" />
+                </div>
+                <div class="gallery-item">
+                    <img src="./public/images/l6.jpg" alt="Gallery 4" />
+                </div>
+                <div class="gallery-item">
+                    <img src="./public/images/l8.jpg" alt="Gallery 5" />
+                </div>
+                <div class="gallery-item">
+                    <img src="./public/images/pexels-asphotography-94818.jpg" alt="Gallery 6" />
+                </div>
+                <div class="gallery-item">
+                    <img src="./public/images/pexels-fotoaibe-1571460.jpg" alt="Gallery 7" />
+                </div>
+                <div class="gallery-item">
+                    <img src="./public/images/pexels-jvdm-1457842.jpg" alt="Gallery 8" />
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="hero-cta">
+                <a href="#next-section" style="color: white; text-decoration: none; padding: 12px 24px; display: block;">Explore Homes</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Extract only the initial positioning logic from AnimatedHero.tsx
+        
+        // Split text into characters function
+        const splitTextToChars = (el) => {
+            if (!el) return;
+            const text = el.textContent || "";
+            if (el.querySelector("span")) return;
+            el.setAttribute("aria-label", text.trim());
+            el.innerHTML = "";
+            text.split("").forEach((char) => {
+                const ch = document.createElement("span");
+                ch.textContent = char === " " ? "\u00A0" : char;
+                ch.setAttribute("aria-hidden", "true");
+                el.appendChild(ch);
+            });
+        };
+
+        // Split overlay lines into characters
+        const splitOverlayToChars = () => {
+            const overlayLines = document.querySelectorAll(".overlay-line");
+            overlayLines.forEach((line) => {
+                const text = line.getAttribute("data-text") || "";
+                line.textContent = "";
+                for (let i = 0; i < text.length; i++) {
+                    const ch = text[i];
+                    const span = document.createElement("span");
+                    span.classList.add("overlay-char");
+                    span.setAttribute("aria-hidden", "true");
+                    span.textContent = ch === " " ? "\u00A0" : ch;
+                    line.appendChild(span);
+                }
+            });
+        };
+
+        // Initialize positioning on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Split text into characters
+            const textLine1 = document.querySelector(".line-1");
+            const textLine2 = document.querySelector(".line-2");
+            const textLine3Spans = document.querySelectorAll(".line-3 > span");
+
+            splitTextToChars(textLine1);
+            splitTextToChars(textLine2);
+            textLine3Spans.forEach(span => splitTextToChars(span));
+            splitOverlayToChars();
+
+            // Set initial states using GSAP (from buildTimelines function)
+            const videoSpace = document.querySelector('.video-space');
+            const heroText = document.querySelectorAll('.line-1, .line-2, .line-3 span');
+            const textSpans = document.querySelectorAll('.hero-text .text-line span');
+            const gallery = document.querySelector('.gallery');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            const overlayChars = document.querySelectorAll('.overlay-char');
+            const heroCta = document.querySelector('.hero-cta');
+
+            // Video space initial state
+            gsap.set(videoSpace, {
+                x: 0,
+                y: 0,
+                scale: 1,
+                borderRadius: 12,
+                zIndex: 5,
+            });
+
+            // Hero text initial state
+            gsap.set(heroText, {
+                scale: 1,
+                opacity: 1,
+            });
+
+            gsap.set(textSpans, {
+                opacity: 1,
+                y: 0,
+                filter: "blur(0px)",
+            });
+
+            // Gallery initial positioning - top center
+            gsap.set(gallery, {
+                x: 0,
+                y: 0,
+                position: "absolute",
+                top: -50,
+                left: "50%",
+                transform: "translateX(-50%)",
+            });
+
+            // Gallery items initial state with offset positioning
+            galleryItems.forEach((item, index) => {
+                const offset = -70 * (index + 1); // ANIMATION_CONTROLS.galleryItemOffset
+                gsap.set(item, { 
+                    autoAlpha: 1, 
+                    y: offset, 
+                    scale: 0.98 
+                });
+            });
+
+            // Overlay characters initial state
+            gsap.set(overlayChars, {
+                opacity: 0,
+                y: 40, // ANIMATION_CONTROLS.overlayStartY
+            });
+
+            // CTA initial state
+            gsap.set(heroCta, {
+                opacity: 0,
+                x: 200, // Start from right side
+                y: 0,
+                scale: 0.8,
+            });
+
+            console.log('Hero initial positioning complete');
+        });
+    </script>
+</body>
+</html>

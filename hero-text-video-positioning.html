@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hero Text and Video Initial Positioning</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Comic Neue:wght@100;300;400;700;900&display=swap");
+
+        /* Local fonts */
+        @font-face {
+            font-family: "Dream Avenue";
+            src: url("./public/fonts/Dream-Avenue.ttf") format("truetype");
+            font-weight: 400 900;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #000;
+            overflow: hidden;
+        }
+
+        /* HERO SECTION CONTAINER */
+        .hero-section {
+            height: 100vh;
+            position: relative;
+            background: #ffffff;
+            background-image: url('./public/images/bg.png');
+            background-size: cover;
+            background-position: center;
+            background-color: rgba(0,0,0,0.15);
+            background-blend-mode: multiply;
+        }
+
+        .hero-sticky {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* HERO TEXT CONTAINER - INITIAL POSITIONING */
+        .hero-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            white-space: nowrap;
+            font-family: "Dream Avenue", serif;
+        }
+
+        /* TEXT LINES INITIAL STATE */
+        .text-line {
+            font-size: clamp(4rem, 11vw, 16rem);
+            font-weight: 900;
+            line-height: 0.85;
+            text-transform: uppercase;
+            letter-spacing: -0.05em;
+            color: #ffffff;
+            margin-bottom: 0.1em;
+            text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.7);
+        }
+
+        .line-1 {
+            text-align: left;
+        }
+
+        .line-2 {
+            text-align: center;
+        }
+
+        .line-3 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        /* VIDEO IN THE EXACT INITIAL POSITION */
+        .video-space {
+            width: 300px;
+            height: 180px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            flex-shrink: 0;
+            position: relative;
+            z-index: 5;
+            transform-origin: center center;
+        }
+
+        .video-space video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: translateZ(0);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .text-line {
+                font-size: clamp(3rem, 10vw, 8rem);
+            }
+
+            .video-space {
+                width: 250px;
+                height: 150px;
+            }
+
+            .line-3 {
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero-section">
+        <div class="hero-sticky">
+            <!-- Hero Text -->
+            <div class="hero-text">
+                <div class="text-line line-1">DESIGN</div>
+                <div class="text-line line-2">BEYOND</div>
+                <div class="text-line line-3">
+                    <span>THE</span>
+                    <div class="video-space">
+                        <video autoPlay muted loop playsInline>
+                            <source src="./public/images/hero2.mp4" type="video/mp4" />
+                            <source src="./public/images/hero1.mp4" type="video/mp4" />
+                            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
+                        </video>
+                    </div>
+                    <span>ORDINARY</span>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

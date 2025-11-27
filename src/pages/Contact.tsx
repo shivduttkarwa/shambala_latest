@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import GalleryOverlaySection from '../components/Home/GalleryOverlaySection';
 import './Contact.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -107,6 +108,9 @@ const Contact: React.FC = () => {
           </p>
         </div>
       </section>
+
+      {/* Gallery Overlay Section */}
+      <GalleryOverlaySection />
 
       {/* Main Contact Section */}
       <section className="contact-main">
