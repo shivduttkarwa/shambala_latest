@@ -90,11 +90,11 @@ const AnimatedGallerySlider: React.FC = () => {
       .to(
         galleryItems,
         {
-          y: 630, // No additional movement, already positioned by gallery container
+          y: 630,
           scale: 1,
-          stagger: 0.15, // Same as GalleryOverlaySection
-          duration: 3.4,
-          ease: "expo.inOut(3)",
+          stagger: 0.3,
+          duration: 5,
+          ease: "back.out(1.7)",
         },
         1.5
       )
@@ -120,9 +120,9 @@ const AnimatedGallerySlider: React.FC = () => {
         galleryItems,
         {
           x: -window.innerWidth - 300,
-          stagger: 0.56, // 30% faster than 0.8
-          duration: 5.6, // 30% faster than 8
-          ease: "power2.inOut", // Smoother exit
+          stagger: 0.8,
+          duration: 8,
+          ease: "power2.inOut",
         },
         7
       );
@@ -137,14 +137,13 @@ const AnimatedGallerySlider: React.FC = () => {
       slidesSectionRef.current.querySelectorAll(".slide")
     ) as HTMLElement[];
 
-    // Timeline for slides section
     const slidesTimeline = gsap.timeline({
       scrollTrigger: {
         trigger: slidesSectionRef.current,
         start: "top top",
-        end: `+=${slides.length * 400}vh`, // 4 scrolls per slide (much slower)
+        end: `+=${slides.length * 800}vh`,
         pin: slidesSectionRef.current,
-        scrub: 3,
+        scrub: 5,
         invalidateOnRefresh: true,
       },
     });
@@ -157,30 +156,16 @@ const AnimatedGallerySlider: React.FC = () => {
       });
     });
 
-    // Each slide comes from left to right, much slower
     slides.forEach((slide, index) => {
       slidesTimeline.to(
         slide,
         {
           x: 0,
-          duration: 6, // Much slower
+          duration: 1,
           ease: "power1.inOut",
         },
-        index * 4
-      ); // Much slower stagger timing
-    });
-
-    // After all slides are in, continue sliding them to the right very slowly
-    slides.forEach((slide, index) => {
-      slidesTimeline.to(
-        slide,
-        {
-          x: window.innerWidth,
-          duration: 6, // Much slower
-          ease: "power1.inOut",
-        },
-        slides.length * 6 + index * 4
-      ); // Much slower timing
+        index * 1.5
+      );
     });
   };
 
@@ -285,31 +270,51 @@ const AnimatedGallerySlider: React.FC = () => {
 
         {/* Slides */}
         <div className="slide">
-          <img src={`${publicUrl}images/l11.jpg`} alt="Slide 1" />
+          <div className="slide-image">
+            <img src={`${publicUrl}images/l11.jpg`} alt="Modern Architecture" />
+          </div>
+          <div className="slide-content">
+            <h2>Modern Architecture</h2>
+            <p>Contemporary design meets functional living spaces that blend aesthetics with practicality. Our approach to modern architecture focuses on clean lines, open spaces, and innovative use of materials that create environments where people truly want to live and work.</p>
+            <p>We believe that great architecture should respond to its surroundings while pushing the boundaries of what's possible. Every project begins with understanding the site, the climate, and most importantly, the people who will inhabit the space.</p>
+            <p>From residential homes to commercial spaces, our modern architectural solutions prioritize sustainability, functionality, and timeless beauty. We integrate smart home technology, energy-efficient systems, and flexible layouts that adapt to changing needs over time.</p>
+          </div>
         </div>
         <div className="slide">
-          <img src={`${publicUrl}images/l4.jpg`} alt="Slide 2" />
+          <div className="slide-image">
+            <img src={`${publicUrl}images/l4.jpg`} alt="Interior Design" />
+          </div>
+          <div className="slide-content">
+            <h2>Interior Design</h2>
+            <p>Thoughtful interiors that inspire and elevate everyday experiences through careful attention to detail. Our interior design philosophy centers on creating spaces that feel both sophisticated and deeply personal.</p>
+            <p>We curate every element from custom furniture and lighting to artwork and textiles, ensuring each piece contributes to a cohesive vision. Our team works closely with clients to understand their lifestyle, preferences, and functional needs.</p>
+            <p>Whether it's a cozy residential living room or a dynamic office environment, we create interiors that tell stories and enhance daily life. Our designs balance comfort with style, functionality with beauty, and innovation with timeless appeal.</p>
+            <p>From space planning and color consultation to custom millwork and styling, we handle every aspect of the interior design process with meticulous care and creative vision.</p>
+          </div>
         </div>
         <div className="slide">
-          <img src={`${publicUrl}images/l5.jpg`} alt="Slide 3" />
+          <div className="slide-image">
+            <img src={`${publicUrl}images/l5.jpg`} alt="Sustainable Spaces" />
+          </div>
+          <div className="slide-content">
+            <h2>Sustainable Spaces</h2>
+            <p>Environmentally conscious design for the future, creating spaces that respect both people and planet. Sustainability isn't just a trend for us—it's a core principle that guides every decision we make.</p>
+            <p>Our sustainable design approach incorporates renewable materials, energy-efficient systems, and passive design strategies that reduce environmental impact while enhancing occupant comfort and health.</p>
+            <p>We prioritize locally sourced materials, low-VOC finishes, and designs that maximize natural light and ventilation. Our projects often feature green roofs, rainwater harvesting, solar panels, and smart building systems.</p>
+            <p>By designing for longevity and adaptability, we create buildings that serve communities for generations while minimizing their carbon footprint. Every sustainable choice we make contributes to a healthier planet and more resilient built environment.</p>
+          </div>
         </div>
         <div className="slide">
-          <img src={`${publicUrl}images/l6.jpg`} alt="Slide 4" />
-        </div>
-        <div className="slide">
-          <img src={`${publicUrl}images/l8.jpg`} alt="Slide 5" />
-        </div>
-        <div className="slide">
-          <img
-            src={`${publicUrl}images/pexels-asphotography-94818.jpg`}
-            alt="Slide 6"
-          />
-        </div>
-        <div className="slide">
-          <img
-            src={`${publicUrl}images/pexels-fotoaibe-1571460.jpg`}
-            alt="Slide 7"
-          />
+          <div className="slide-image">
+            <img src={`${publicUrl}images/l6.jpg`} alt="Residential Projects" />
+          </div>
+          <div className="slide-content">
+            <h2>Residential Projects</h2>
+            <p>Creating homes that feel uniquely yours, where every space tells your personal story. Our residential design process is deeply collaborative, ensuring that each home reflects the personality, lifestyle, and dreams of its inhabitants.</p>
+            <p>From intimate urban apartments to sprawling suburban estates, we design homes that grow with families and adapt to changing needs. Our expertise spans new construction, renovations, and additions.</p>
+            <p>We pay special attention to how families live today—incorporating home offices, flexible multi-use spaces, outdoor living areas, and storage solutions that keep homes organized and functional.</p>
+            <p>Every residential project begins with listening. We learn about daily routines, entertaining styles, and long-term goals to create spaces that truly enhance the way our clients live. The result is a home that's not just beautiful, but perfectly suited to its inhabitants.</p>
+          </div>
         </div>
       </section>
     </>
