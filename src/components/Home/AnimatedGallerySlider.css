@@ -1,0 +1,361 @@
+@import url("https://fonts.googleapis.com/css2?family=Comic Neue:wght@100;300;400;700;900&display=swap");
+
+/* Local fonts - using absolute paths from public folder */
+@font-face {
+  font-family: "Dream Avenue";
+  src: url("/fonts/Dream-Avenue.ttf") format("truetype");
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* GALLERY SECTION */
+.gallery-section {
+  height: 100vh;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-color: rgba(0, 0, 0, 0.15);
+  background-blend-mode: multiply;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.section-container {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Overlay text that animates with gallery items */
+.section-overlay-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(
+    calc(-50% - 410px),
+    calc(-50% - 40px)
+  ); /* pushed left 410px, up 40px */
+  z-index: 30;
+  text-align: center;
+  pointer-events: none;
+  will-change: transform, opacity;
+  max-width: 90vw;
+}
+
+.overlay-line {
+  display: block;
+  font-family: "Dream Avenue", serif;
+  font-size: clamp(4.2rem, 9vw, 7.4rem);
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 0.9;
+  white-space: nowrap;
+  overflow-wrap: normal;
+  word-break: keep-all;
+  hyphens: none;
+  text-shadow: 0 0 20px rgba(0, 0, 0, 0.9), 0 0 40px rgba(0, 0, 0, 0.7),
+    2px 2px 4px rgba(0, 0, 0, 0.8), -1px -1px 2px rgba(0, 0, 0, 0.6);
+  -webkit-text-stroke: 1px rgba(0, 0, 0, 0.3);
+}
+
+.overlay-line:first-child {
+  text-align: center;
+  margin-bottom: 0.5em;
+}
+
+.overlay-char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(40px);
+  will-change: transform, opacity;
+}
+
+/* GALLERY POSITIONED FROM TOP CENTER */
+.gallery {
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 40px;
+  z-index: 20;
+  opacity: 1;
+  will-change: transform, opacity;
+}
+
+/* Prevent flash while JS initializes */
+.gallery-section .gallery,
+.gallery-section .gallery-item {
+  visibility: hidden;
+}
+
+.gallery-item {
+  width: 120px;
+  height: 120px;
+  border-radius: 10px;
+  overflow: hidden;
+  opacity: 1;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  flex-shrink: 0;
+  transition: box-shadow 300ms ease;
+  will-change: transform, opacity;
+  cursor: pointer;
+  position: relative;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 300ms ease;
+  will-change: transform;
+}
+
+/* When gallery item is expanding, ensure image covers full screen */
+.gallery-item.expanding,
+.gallery-item[style*="position: fixed"] {
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+}
+
+.gallery-item.expanding img,
+.gallery-item[style*="position: fixed"] img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+}
+
+/* HOVER & FOCUS STATES */
+.gallery-item:focus,
+.gallery-item:hover {
+  transform: translateY(-6px) scale(1.06);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+  outline: none;
+}
+
+/* Image hover effects */
+.gallery-item:focus img,
+.gallery-item:hover img {
+  transform: scale(1.05);
+}
+
+/* SLIDER CONTAINER */
+.slider-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.slider-track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  will-change: transform;
+}
+
+.slider-item {
+  width: 100vw;
+  height: 100vh;
+  flex-shrink: 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slider-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: none;
+  -webkit-filter: none;
+}
+
+/* Gallery item expansion animation states */
+.gallery-item.expanding {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  border-radius: 0 !important;
+  z-index: 1000 !important;
+}
+
+.gallery-item.expanding img {
+  filter: none !important;
+  -webkit-filter: none !important;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .gallery-item {
+    width: 90px;
+    height: 90px;
+  }
+
+  /* Hide gallery items after the 3rd on mobile */
+  .gallery-item:nth-child(n + 4) {
+    display: none;
+  }
+
+  .gallery {
+    gap: 24px;
+  }
+
+  /* Make overlay font smaller on narrow screens */
+  .overlay-line {
+    font-size: clamp(1.6rem, 5vw, 3rem);
+    white-space: normal;
+  }
+
+  /* Adjust overlay text positioning on mobile */
+  .section-overlay-text {
+    transform: translate(-50%, calc(-50% - 20px));
+    max-width: 95vw;
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery-item {
+    width: 70px;
+    height: 70px;
+  }
+
+  .gallery {
+    gap: 16px;
+  }
+
+  .overlay-line {
+    font-size: clamp(1.2rem, 4vw, 2.5rem);
+  }
+
+  /* Smaller slider items on mobile for better performance */
+  .slider-item img {
+    object-fit: contain;
+    max-height: 80vh;
+  }
+}
+
+/* SLIDES SECTION */
+.slides-section {
+  height: 100vh;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Background Text Content */
+.slides-bg-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  text-align: center;
+  pointer-events: none;
+}
+
+.bg-text-line {
+  font-family: "Dream Avenue", serif;
+  font-size: clamp(8rem, 15vw, 12rem);
+  font-weight: 900;
+  color: rgba(255, 255, 255, 1);
+  line-height: 0.8;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+/* Dark Overlay */
+.slides-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+}
+
+/* Individual slides */
+.slide {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.8);
+}
+
+
+/* RESPONSIVE SLIDES SECTION */
+@media (max-width: 768px) {
+  .bg-text-line {
+    font-size: clamp(4rem, 12vw, 8rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .bg-text-line {
+    font-size: clamp(3rem, 10vw, 6rem);
+  }
+}
+
+/* Animation performance optimizations */
+.gallery-item,
+.slider-item,
+.overlay-char {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+}
+
+/* Smooth transitions for all animated elements */
+* {
+  box-sizing: border-box;
+}
+
+.gallery-section *,
+.slides-section * {
+  will-change: transform, opacity, filter;
+}

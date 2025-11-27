@@ -95,15 +95,15 @@ const GalleryOverlaySection: React.FC = () => {
       ? allGalleryItems.slice(0, 3)
       : allGalleryItems;
 
-    // Main timeline with ScrollTrigger - pin section with smooth scrub
+    // Main timeline with ScrollTrigger - pin section with bidirectional support
     timelineRef.current = gsap.timeline({
       scrollTrigger: {
         trigger: sectionRef.current,
         start: "top top",
-        end: "bottom top",
+        end: "+=300vh", // 3 viewport heights for much slower animation (50% slower)
         pin: sectionRef.current,
         pinSpacing: true,
-        scrub: 1.2,
+        scrub: 3, // Slower scrub for much slower feel
         anticipatePin: 1,
         invalidateOnRefresh: true,
         onUpdate: () => {
@@ -148,7 +148,7 @@ const GalleryOverlaySection: React.FC = () => {
         {
           x: galleryTransform.translateX,
           y: galleryTransform.translateY,
-          duration: 0.6,
+          duration: 1.2, // 50% slower (0.8 → 1.2)
           ease: "power2.inOut",
         },
         0
@@ -158,11 +158,11 @@ const GalleryOverlaySection: React.FC = () => {
         {
           y: 0,
           scale: 1,
-          stagger: ANIMATION_CONTROLS.overlayCharStagger,
-          duration: ANIMATION_CONTROLS.overlayCharDuration,
+          stagger: ANIMATION_CONTROLS.overlayCharStagger * 3, // 50% slower (1.5 → 3)
+          duration: ANIMATION_CONTROLS.overlayCharDuration * 3, // 50% slower (0.6 → 1.2)
           ease: ANIMATION_CONTROLS.overlayCharEase,
         },
-        0.2
+        0.45 // 50% slower start timing (0.3 → 0.45)
       )
       .fromTo(
         sectionRef.current.querySelectorAll(".overlay-char"),
@@ -173,12 +173,12 @@ const GalleryOverlaySection: React.FC = () => {
         {
           opacity: 1,
           y: 0,
-          duration: ANIMATION_CONTROLS.overlayCharDuration,
+          duration: ANIMATION_CONTROLS.overlayCharDuration * 3, // 50% slower (0.6 → 1.2)
           ease: ANIMATION_CONTROLS.overlayCharEase,
-          stagger: ANIMATION_CONTROLS.overlayCharStagger,
+          stagger: ANIMATION_CONTROLS.overlayCharStagger * 3, // 50% slower (1.5 → 3)
           force3D: true,
         },
-        0.2
+        0.45 // 50% slower start timing (0.3 → 0.45)
       );
 
     // Set initial states for gallery items with offset positioning

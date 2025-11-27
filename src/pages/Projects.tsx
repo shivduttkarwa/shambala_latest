@@ -7,6 +7,7 @@ import ProjectModernSlider from "@/components/Projects/ProjectModernSlider";
 import ProjectsShowcase from "../components/Projects/ProjectsShowcase";
 import GridGallery from "@/components/Reusable/GridGallery";
 import StepSlider from "@/components/Reusable/StepSlider";
+import AnimatedGallerySlider from "../components/Home/AnimatedGallerySlider";
 
 const Projects: React.FC = () => {
   return (
@@ -15,6 +16,7 @@ const Projects: React.FC = () => {
       <ProjectsSlider />
       <ProjectsShowcase />
       <ProjectModernSlider />
+      <AnimatedGallerySlider />
     </>
   );
 };
