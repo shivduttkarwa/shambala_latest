@@ -33,6 +33,18 @@ const projects = [
     thumb: getImagePath("project2.jpg"),
     tags: ["2 Bed", "2 Bath", "1,200 Sqft", "Family Friendly", "Affordable"],
   },
+  {
+    title: "Contemporary Loft",
+    bg: getImagePath("l3.jpg"),
+    thumb: getImagePath("l1.jpg"),
+    tags: ["1 Bed", "1 Bath", "900 Sqft", "City View", "Modern"],
+  },
+  {
+    title: "Suburban Dream House",
+    bg: getImagePath("l2.jpg"),
+    thumb: getImagePath("l3.jpg"),
+    tags: ["5 Bed", "4 Bath", "3,200 Sqft", "Garage", "Luxury"],
+  },
 ];
 
 const PortfolioShowcase: React.FC = () => {

@@ -11,6 +11,7 @@ import CTASection from "../components/Home/CTASection";
 import ServicesSection from "../components/Home/ServicesSection";
 import BlogSection from "../components/Home/BlogSection";
 import ProjectModernSlider from "../components/Projects/ProjectModernSlider";
+// import TextVid from "../components/UI/TextVid";
 import BodyRenderer from "../components/BodyRenderer";
 import { useHome } from "../hooks/useHome";
 import { SiteSettings } from "../services/api";
@@ -38,6 +39,9 @@ const HomePage: React.FC<HomePageProps> = ({ settings: _ }) => {
       <div id="projects">
         <PortfolioShowcase />
       </div>
+      {/* <div id="projects">
+        <TextVid />
+      </div> */}
 
       <div id="vision">
         <OurVisionSection />
