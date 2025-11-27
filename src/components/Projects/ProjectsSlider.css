@@ -84,48 +84,12 @@
   }
 }
 
-/* Navigation buttons */
-.pr-nav-btn {
-  width: 2.5rem;
-  height: 2.5rem;
-  border: none;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.1);
-  color: var(--text);
-  font-size: 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.pr-nav-btn:hover {
-  background: #5b7c4f;
-}
-
-.pr-nav-btn:disabled {
-  opacity: 0.3;
-  cursor: default;
-}
-
 /* Slider wrapper */
 .pr-slider {
   max-width: 1400px;
   margin: auto;
   overflow: visible;
   padding-top: 20px;
-}
-
-/* Controls wrapper */
-.pr-controls {
-  display: flex;
-  flex-direction: row;
-  gap: 0.5rem;
-  position: absolute;
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
 }
 
 /* Track */
@@ -148,7 +112,7 @@
 .pr-project-card {
   position: relative;
   flex: 0 0 var(--closed);
-  height: 26rem;
+  height: 23.4rem; /* reduced ~10% */
   border-radius: 1rem;
   overflow: hidden;
   cursor: pointer;
@@ -266,7 +230,7 @@
 /* Description */
 .pr-project-card__desc {
   color: #ddd;
-  font-size: 1rem;
+  font-size: 1rem; /* reverted */
   line-height: 1.4;
   max-width: 16rem;
 }
@@ -311,9 +275,20 @@
   transition: 0.3s;
 }
 
-.pr-dot.active {
+.pr-dot.pr-active {
   background: #4a6541;
   transform: scale(1.2);
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --closed: 5.75rem; /* +15% width */
+    --open: 34.5rem;   /* +15% width */
+  }
+
+  .pr-project-card {
+    height: 30.4rem; /* reduced ~10% from previous laptop height */
+  }
 }
 
 /* Tablet / below */
@@ -336,7 +311,7 @@
   }
 
   .pr-project-card {
-    height: 20rem;
+    height: 18rem; /* reduced ~10% */
   }
 
   .pr-project-card__title {
@@ -345,12 +320,6 @@
     transform: none;
     text-align: center;
     padding-inline: 0.3rem;
-  }
-
-  .pr-nav-btn {
-    width: 2rem;
-    height: 2rem;
-    font-size: 1.2rem;
   }
 }
 
@@ -381,8 +350,8 @@
   }
 
   .pr-project-card {
-    height: 80px;
-    min-height: 80px;
+    height: 72px;
+    min-height: 72px;
     flex: 0 0 auto;
     width: 100%;
     scroll-snap-align: start;
@@ -392,7 +361,7 @@
 
   .pr-project-card[data-active="true"] {
     height: auto;
-    min-height: 350px;
+    min-height: 315px; /* reduced ~10% */
     transform: none;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
   }
@@ -455,7 +424,7 @@
 
   .pr-project-card[data-active="true"] .pr-project-card__desc {
     display: block;
-    font-size: 1rem;
+    font-size: 1rem; /* reverted */
     max-width: 100%;
     margin-bottom: 0;
     color: #ddd;
@@ -487,14 +456,6 @@
     display: none;
   }
 
-  .pr-controls {
-    display: none;
-  }
-
-  .pr-nav-btn {
-    position: static;
-    transform: none;
-  }
 }
 
 /* Mobile card content animation */

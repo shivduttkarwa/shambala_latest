@@ -13,18 +13,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 70px;
-  height: 70px;
+  width: 100px; /* enlarged */
+  height: 100px; /* enlarged */
   border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  background: rgba(0, 0, 0, 0.3);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+  border: none;
+  background: transparent;
+  box-shadow: none;
 }
 
 .scroll-down-icon {
-  width: 42px;
-  height: 42px;
-  color: rgba(255, 255, 255, 0.8);
+  width: 60px; /* enlarged */
+  height: 60px; /* enlarged */
+  color: rgba(255, 255, 255, 0.9);
   transition: color 0.3s ease;
   animation: arrowBounce 2s ease-in-out infinite;
 }
@@ -49,8 +49,8 @@
   }
   
   .scroll-down-btn-inner {
-    width: 54px;
-    height: 54px;
+    width: 84px;
+    height: 84px;
   }
   
   .scroll-down-text {
@@ -58,8 +58,8 @@
   }
   
   .scroll-down-icon {
-    width: 30px;
-    height: 30px;
+    width: 48px;
+    height: 48px;
   }
   
   .scroll-down-arrow {
@@ -80,8 +80,8 @@
   }
   
   .scroll-down-btn-inner {
-    width: 48px;
-    height: 48px;
+    width: 76px;
+    height: 76px;
     gap: 0.3rem;
   }
 }

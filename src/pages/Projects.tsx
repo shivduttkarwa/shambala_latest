@@ -15,7 +15,7 @@ const Projects: React.FC = () => {
       <ProjectsHero />
       <ProjectsSlider />
       <ProjectsShowcase />
-      <ProjectModernSlider />
+      {/* <ProjectModernSlider /> */}
       <AnimatedGallerySlider />
     </>
   );

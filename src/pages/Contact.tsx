@@ -1,18 +1,18 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import GalleryOverlaySection from '../components/Home/GalleryOverlaySection';
-import './Contact.css';
+import React, { useState, useRef, useEffect } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+import "./Contact.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    subject: '',
-    message: ''
+    name: "",
+    email: "",
+    phone: "",
+    subject: "",
+    message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -23,76 +23,92 @@ const Contact: React.FC = () => {
   useEffect(() => {
     const ctx = gsap.context(() => {
       // Hero animation
-      gsap.fromTo(heroRef.current, {
-        opacity: 0,
-        y: 50
-      }, {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        ease: "power3.out"
-      });
+      gsap.fromTo(
+        heroRef.current,
+        {
+          opacity: 0,
+          y: 50,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "power3.out",
+        }
+      );
 
       // Form animation
-      gsap.fromTo(formRef.current, {
-        opacity: 0,
-        x: -50
-      }, {
-        opacity: 1,
-        x: 0,
-        duration: 1.2,
-        delay: 0.3,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: formRef.current,
-          start: "top 80%",
-          toggleActions: "play none none reverse"
+      gsap.fromTo(
+        formRef.current,
+        {
+          opacity: 0,
+          x: -50,
+        },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 1.2,
+          delay: 0.3,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: formRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse",
+          },
         }
-      });
+      );
 
       // Info animation
-      gsap.fromTo(infoRef.current, {
-        opacity: 0,
-        x: 50
-      }, {
-        opacity: 1,
-        x: 0,
-        duration: 1.2,
-        delay: 0.5,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: infoRef.current,
-          start: "top 80%",
-          toggleActions: "play none none reverse"
+      gsap.fromTo(
+        infoRef.current,
+        {
+          opacity: 0,
+          x: 50,
+        },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 1.2,
+          delay: 0.5,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: infoRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse",
+          },
         }
-      });
+      );
     });
 
     return () => ctx.revert();
   }, []);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     // Simulate form submission
     setTimeout(() => {
       setIsSubmitting(false);
-      alert('Thank you! Your message has been sent successfully.');
+      alert("Thank you! Your message has been sent successfully.");
       setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        subject: '',
-        message: ''
+        name: "",
+        email: "",
+        phone: "",
+        subject: "",
+        message: "",
       });
     }, 2000);
   };
@@ -102,15 +118,15 @@ const Contact: React.FC = () => {
       {/* Hero Section */}
       <section className="contact-hero" ref={heroRef}>
         <div className="contact-hero__content">
-          <h1 className="contact-hero__title">Let's Create Something Amazing Together</h1>
+          <h1 className="contact-hero__title">
+            Let's Create Something Amazing Together
+          </h1>
           <p className="contact-hero__subtitle">
-            Ready to transform your vision into reality? We'd love to hear about your project.
+            Ready to transform your vision into reality? We'd love to hear about
+            your project.
           </p>
         </div>
       </section>
-
-      {/* Gallery Overlay Section */}
-      <GalleryOverlaySection />
 
       {/* Main Contact Section */}
       <section className="contact-main">
@@ -119,9 +135,12 @@ const Contact: React.FC = () => {
           <div className="contact-form-section" ref={formRef}>
             <div className="contact-form__header">
               <h2>Send us a Message</h2>
-              <p>Tell us about your project and we'll get back to you within 24 hours.</p>
+              <p>
+                Tell us about your project and we'll get back to you within 24
+                hours.
+              </p>
             </div>
-            
+
             <form className="contact-form" onSubmit={handleSubmit}>
               <div className="form-group">
                 <label htmlFor="name">Full Name *</label>
@@ -172,7 +191,9 @@ const Contact: React.FC = () => {
                 >
                   <option value="">Select project type</option>
                   <option value="Residential Design">Residential Design</option>
-                  <option value="Commercial Architecture">Commercial Architecture</option>
+                  <option value="Commercial Architecture">
+                    Commercial Architecture
+                  </option>
                   <option value="Interior Design">Interior Design</option>
                   <option value="Landscape Design">Landscape Design</option>
                   <option value="Consultation">Consultation</option>
@@ -193,8 +214,8 @@ const Contact: React.FC = () => {
                 ></textarea>
               </div>
 
-              <button 
-                type="submit" 
+              <button
+                type="submit"
                 className="submit-btn"
                 disabled={isSubmitting}
               >
@@ -204,7 +225,7 @@ const Contact: React.FC = () => {
                     Sending...
                   </span>
                 ) : (
-                  'Send Message'
+                  "Send Message"
                 )}
               </button>
             </form>
@@ -214,8 +235,11 @@ const Contact: React.FC = () => {
           <div className="contact-info-section" ref={infoRef}>
             <div className="contact-info">
               <h3>Get in Touch</h3>
-              <p>We're here to help bring your vision to life. Reach out through any of these channels.</p>
-              
+              <p>
+                We're here to help bring your vision to life. Reach out through
+                any of these channels.
+              </p>
+
               <div className="contact-methods">
                 <div className="contact-method">
                   <div className="method-icon">
@@ -246,8 +270,10 @@ const Contact: React.FC = () => {
                   <div className="method-content">
                     <h4>Office</h4>
                     <address>
-                      123 Design Avenue<br />
-                      Creative District<br />
+                      123 Design Avenue
+                      <br />
+                      Creative District
+                      <br />
                       New York, NY 10001
                     </address>
                   </div>
@@ -269,20 +295,32 @@ const Contact: React.FC = () => {
             {/* FAQ Section */}
             <div className="contact-faq">
               <h3>Frequently Asked Questions</h3>
-              
+
               <div className="faq-item">
                 <h4>What's your typical project timeline?</h4>
-                <p>Most residential projects take 8-12 weeks from concept to completion, while commercial projects can range from 3-6 months depending on scope.</p>
+                <p>
+                  Most residential projects take 8-12 weeks from concept to
+                  completion, while commercial projects can range from 3-6
+                  months depending on scope.
+                </p>
               </div>
 
               <div className="faq-item">
                 <h4>Do you work remotely?</h4>
-                <p>Yes! We work with clients worldwide. We use virtual consultations, 3D renderings, and detailed plans to ensure seamless remote collaboration.</p>
+                <p>
+                  Yes! We work with clients worldwide. We use virtual
+                  consultations, 3D renderings, and detailed plans to ensure
+                  seamless remote collaboration.
+                </p>
               </div>
 
               <div className="faq-item">
                 <h4>What's included in your design packages?</h4>
-                <p>Our packages include initial consultation, concept development, 3D visualizations, detailed plans, and project management support.</p>
+                <p>
+                  Our packages include initial consultation, concept
+                  development, 3D visualizations, detailed plans, and project
+                  management support.
+                </p>
               </div>
             </div>
           </div>

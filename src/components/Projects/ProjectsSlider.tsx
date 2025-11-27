@@ -21,7 +21,7 @@ const asset = (path: string) => `${publicUrl}${path.replace(/^\/+/, "")}`;
 const CARDS: ServiceCard[] = [
   {
     title: "Luxury Villa in Brighton",
-    desc: "A stunning modern villa with panoramic ocean views and contemporary design.",
+    desc: "Modern villa with ocean views, clean lines, and sunlit open spaces.",
     bg: asset("images/l1.jpg"),
     thumb: asset("images/sm1.jpg"),
     cta: "View Project",
@@ -29,7 +29,7 @@ const CARDS: ServiceCard[] = [
   },
   {
     title: "Contemporary Family Home",
-    desc: "Spacious family residence featuring open-plan living and sustainable materials.",
+    desc: "Open-plan family home built with warm tones and sustainable finishes.",
     bg: asset("images/l2.jpg"),
     thumb: asset("images/sm2.jpg"),
     cta: "View Project",
@@ -37,7 +37,7 @@ const CARDS: ServiceCard[] = [
   },
   {
     title: "Urban Penthouse Renovation",
-    desc: "Complete transformation of a city penthouse with premium finishes and city skyline views.",
+    desc: "City penthouse makeover with premium details and skyline views.",
     bg: asset("images/l3.jpg"),
     thumb: asset("images/sm3.jpg"),
     cta: "View Project",
@@ -45,7 +45,7 @@ const CARDS: ServiceCard[] = [
   },
   {
     title: "Heritage Estate Restoration",
-    desc: "Careful restoration of a historic estate preserving character while adding modern amenities.",
+    desc: "Historic estate refreshed—character preserved, comfort upgraded.",
     bg: asset("images/l4.jpg"),
     thumb: asset("images/sm4.jpg"),
     cta: "View Project",
@@ -53,7 +53,7 @@ const CARDS: ServiceCard[] = [
   },
   {
     title: "Eco-Friendly Townhouse",
-    desc: "Sustainable townhouse design incorporating green technologies and energy-efficient systems.",
+    desc: "Eco townhouse with green tech and light-filled living.",
     bg: asset("images/l5.jpg"),
     thumb: asset("images/sm5.jpg"),
     cta: "View Project",
@@ -248,27 +248,6 @@ const ProjectsSlider: React.FC = () => {
         <h1 className="pr-projects-slider-title" ref={titleRef}>
           {splitTextIntoLines("Our Projects")}
         </h1>
-
-        <div className="pr-controls">
-          <button
-            id="prev"
-            className="pr-nav-btn"
-            aria-label="Previous"
-            onClick={() => goStep(-1)}
-            disabled={activeIndex === 0}
-          >
-            ‹
-          </button>
-          <button
-            id="next"
-            className="pr-nav-btn"
-            aria-label="Next"
-            onClick={() => goStep(1)}
-            disabled={activeIndex === CARDS.length - 1}
-          >
-            ›
-          </button>
-        </div>
       </div>
 
       <div

@@ -25,7 +25,7 @@ const ScrollDownButton: React.FC<ScrollDownButtonProps> = ({ targetId, onClick }
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           stroke="currentColor"
-          strokeWidth="1.5"
+          strokeWidth="0.75"
           strokeLinecap="round"
           strokeLinejoin="round"
         >
