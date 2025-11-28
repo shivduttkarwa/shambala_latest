@@ -37,7 +37,7 @@ const defaultServices: ServiceCard[] = [
     imageSrc: `${publicUrl}images/sm1.jpg`,
     alt: "New Home Construction",
     ctaText: "Learn More",
-    ctaLink: "#",
+    ctaLink: "/services",
   },
   {
     id: "2",
@@ -47,7 +47,7 @@ const defaultServices: ServiceCard[] = [
     imageSrc: `${publicUrl}images/sm2.jpg`,
     alt: "Home Renovations",
     ctaText: "Learn More",
-    ctaLink: "#",
+    ctaLink: "/services",
   },
   {
     id: "3",
@@ -57,7 +57,7 @@ const defaultServices: ServiceCard[] = [
     imageSrc: `${publicUrl}images/sm3.jpg`,
     alt: "Home Extensions",
     ctaText: "Learn More",
-    ctaLink: "#",
+    ctaLink: "/services",
   },
   {
     id: "4",
@@ -67,16 +67,16 @@ const defaultServices: ServiceCard[] = [
     imageSrc: `${publicUrl}images/sm4.jpg`,
     alt: "Downsizing Solutions",
     ctaText: "Learn More",
-    ctaLink: "#",
+    ctaLink: "/services",
   },
 ];
 
 const ServicesSection: React.FC<ServicesSectionProps> = ({
-  title = "BUILDING EXCELLENCE ACROSS AUSTRALIA",
+  title = "BUILDING EXCELLENCE",
   subtitle = "",
   description = "Shambala Homes delivers comprehensive construction services from new home builds to complete renovations. With decades of experience and unwavering commitment to quality, we transform architectural visions into lasting realities.",
   ctaText = "View All Services",
-  ctaLink = "#",
+  ctaLink = "/services",
   services = defaultServices,
 }) => {
   const sectionRef = useRef<HTMLDivElement>(null);

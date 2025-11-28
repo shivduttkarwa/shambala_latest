@@ -364,6 +364,11 @@
   .services-title {
     font-size: clamp(2.5rem, 8vw, 3.5rem);
     line-height: 1.15;
+    margin-bottom: 20px;
+  }
+
+  .services-content .tilt-text-heading {
+    margin-bottom: 20px !important;
   }
 
   .services-description {

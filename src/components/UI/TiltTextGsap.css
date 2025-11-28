@@ -15,6 +15,15 @@
   gap: 0.18em;
   position: relative;
   visibility: hidden; /* Initially hidden until GSAP reveals it */
+  word-spacing: 0.21em;
+}
+
+.tilt-text-word {
+  margin-right: 0.21em;
+}
+
+.tilt-text-word:last-child {
+  margin-right: 0;
 }
 
 .tilt-text-word {
@@ -41,11 +50,12 @@
     white-space: normal !important;
     flex-wrap: wrap !important;
     max-width: 100% !important;
+    word-spacing: 0.21em;
   }
 
   .tilt-text-word {
     overflow: hidden;
-    margin-right: 0.3em;
+    margin-right: 0.21em;
   }
 
   .tilt-text-word:last-child {

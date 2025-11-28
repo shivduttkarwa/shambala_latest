@@ -15,6 +15,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 import "./ProjectModernSlider.css";
+import TiltTextGsap from "../UI/TiltTextGsap";
 
 const publicUrl = import.meta.env.BASE_URL;
 
@@ -368,9 +369,19 @@ const ProjectModernSlider: React.FC = () => {
                 <div className="pms-swiper-content" data-swiper-parallax="2000">
                   <div className="pms-title-area">
                     {slide.tag && <p className="pms-tag">{slide.tag}</p>}
-                    <a href="#" className="pms-title">
-                      {slide.title}
-                    </a>
+                    {slide.id === 1 ? (
+                      <TiltTextGsap
+                        startTrigger="top 80%"
+                        endTrigger="bottom -1000%"
+                        className="pms-title pms-title-tilt"
+                      >
+                        {slide.title}
+                      </TiltTextGsap>
+                    ) : (
+                      <a href="#" className="pms-title">
+                        {slide.title}
+                      </a>
+                    )}
                   </div>
                   <p className="pms-disc">{slide.description}</p>
                 </div>

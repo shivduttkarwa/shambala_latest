@@ -14,19 +14,10 @@
   justify-content: center;
 }
 
-/* Desktop: Keep Benefits title on single line with proper word spacing */
+/* Desktop: Keep Benefits title on single line */
 .benefits-inside-title .tilt-text-heading {
   white-space: nowrap !important;
   line-height: 1.2 !important;
-  word-spacing: 0.3em !important;
-}
-
-.benefits-inside-title .tilt-text-word {
-  margin-right: 0.3em !important;
-}
-
-.benefits-inside-title .tilt-text-word:last-child {
-  margin-right: 0 !important;
 }
 
 /* Mobile: Force Benefits title to wrap to 2 lines */
