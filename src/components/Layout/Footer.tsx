@@ -17,6 +17,8 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
   const footerRef = useRef<HTMLElement>(null);
   const brandTextRef = useRef<HTMLHeadingElement>(null);
   const topSectionRef = useRef<HTMLDivElement>(null);
+  const phone = settings?.contact?.phone || "+61 3 1234 5678";
+  const email = (settings?.contact?.email || "info@shambalahomes.com").toLowerCase();
 
   // Footer animations
   useEffect(() => {
@@ -26,13 +28,13 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
       // Animate top section elements - only if in viewport
       const topSection = topSectionRef.current;
       if (topSection) {
-        const brandBox = topSection.querySelector(".footer-brand-box");
-        const linksSection = topSection.querySelector(".footer-links-section");
+        const brandBox = topSection.querySelector(".forma-footer-brand-box");
+        const linksSection = topSection.querySelector(".forma-footer-links-section");
         const contactSection = topSection.querySelector(
-          ".footer-contact-section"
+          ".forma-footer-contact-section"
         );
         const followSection = topSection.querySelector(
-          ".footer-follow-us-section"
+          ".forma-footer-follow-us-section"
         );
 
         // Ensure elements are visible by default, animate only when scrolling into view
@@ -57,7 +59,7 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
 
         // Animate individual links within sections
         const allLinks = topSection.querySelectorAll(
-          ".footer-link, .social-link, .footer-contact-item"
+          ".forma-footer-link, .forma-social-link, .forma-footer-contact-item"
         );
 
         gsap.set(allLinks, { opacity: 1, x: 0 });
@@ -79,7 +81,7 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
       }
 
       // Large brand text animation
-      const letters = brandTextRef.current?.querySelectorAll(".footer-letter");
+      const letters = brandTextRef.current?.querySelectorAll(".forma-footer-letter");
       if (letters && letters.length > 0) {
         const isMobile = window.innerWidth <= 768;
         
@@ -264,12 +266,12 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
     };
   }, []);
   return (
-    <footer className="footer" ref={footerRef}>
-      <div className="footer-container">
+    <footer className="forma-footer" ref={footerRef}>
+      <div className="forma-footer-container">
         {/* Main Footer Content */}
-        <div className="footer-top-section" ref={topSectionRef}>
+        <div className="forma-footer-top-section" ref={topSectionRef}>
           {/* Brand Box */}
-          <div className="footer-brand-box" style={{ overflow: 'visible', position: 'relative', paddingTop: '80px' }}>
+          <div className="forma-footer-brand-box" style={{ overflow: 'visible', position: 'relative', paddingTop: '80px' }}>
             <img 
               src="/images/forma_logo.png"
               alt="FORMA"
@@ -289,7 +291,7 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
                 cursor: 'pointer'
               }}
             />
-            <p className="footer-brand-description">
+            <p className="forma-footer-brand-description">
               Creating architectural masterpieces that blend vision with
               craftsmanship, transforming dreams into extraordinary living
               spaces across Australia.
@@ -297,47 +299,72 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
           </div>
 
           {/* Navigation Links */}
-          <div className="footer-links-section">
-            <h3 className="footer-section-title">Explore</h3>
-            <div className="footer-links">
-              <Link to="/house-designs" className="footer-link">
-                <span className="link-arrow">→</span>
-                Portfolio
+          <div className="forma-footer-links-section">
+            <h3 className="forma-footer-section-title">Explore</h3>
+            <div className="forma-footer-links">
+              <Link to="/house-designs" className="forma-footer-link">
+                <span className="forma-link-arrow">→</span>
+                <span className="forma-link-window">
+                  <span className="forma-link-track">
+                    <span className="forma-link-text">Portfolio</span>
+                    <span className="forma-link-text">Portfolio</span>
+                  </span>
+                </span>
               </Link>
-              <Link to="/projects" className="footer-link">
-                <span className="link-arrow">→</span>
-                Projects
+              <Link to="/projects" className="forma-footer-link">
+                <span className="forma-link-arrow">→</span>
+                <span className="forma-link-window">
+                  <span className="forma-link-track">
+                    <span className="forma-link-text">Projects</span>
+                    <span className="forma-link-text">Projects</span>
+                  </span>
+                </span>
               </Link>
-              <Link to="/services" className="footer-link">
-                <span className="link-arrow">→</span>
-                Services
+              <Link to="/services" className="forma-footer-link">
+                <span className="forma-link-arrow">→</span>
+                <span className="forma-link-window">
+                  <span className="forma-link-track">
+                    <span className="forma-link-text">Services</span>
+                    <span className="forma-link-text">Services</span>
+                  </span>
+                </span>
               </Link>
-              <Link to="/about" className="footer-link">
-                <span className="link-arrow">→</span>
-                About
+              <Link to="/about" className="forma-footer-link">
+                <span className="forma-link-arrow">→</span>
+                <span className="forma-link-window">
+                  <span className="forma-link-track">
+                    <span className="forma-link-text">About</span>
+                    <span className="forma-link-text">About</span>
+                  </span>
+                </span>
               </Link>
-              <Link to="/contact" className="footer-link">
-                <span className="link-arrow">→</span>
-                Inquire
+              <Link to="/contact" className="forma-footer-link">
+                <span className="forma-link-arrow">→</span>
+                <span className="forma-link-window">
+                  <span className="forma-link-track">
+                    <span className="forma-link-text">Inquire</span>
+                    <span className="forma-link-text">Inquire</span>
+                  </span>
+                </span>
               </Link>
             </div>
           </div>
 
           {/* Contact Section */}
-          <div className="footer-contact-section">
-            <h3 className="footer-section-title">Get in Touch</h3>
-            <div className="footer-contact-info">
-              <div className="contact-item">
-                <div className="contact-label">Visit Us</div>
+          <div className="forma-footer-contact-section">
+            <h3 className="forma-footer-section-title">Get in Touch</h3>
+            <div className="forma-footer-contact-info">
+              <div className="forma-contact-item">
+                <div className="forma-contact-label">Visit Us</div>
                 {settings?.contact?.address ? (
                   <div
-                    className="footer-contact-item"
+                    className="forma-footer-contact-item"
                     dangerouslySetInnerHTML={{
                       __html: settings.contact.address.replace(/\n/g, "<br/>"),
                     }}
                   />
                 ) : (
-                  <div className="footer-contact-item">
+                  <div className="forma-footer-contact-item">
                     123 Garden Street
                     <br />
                     Melbourne, VIC 3000
@@ -345,100 +372,139 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
                 )}
               </div>
 
-              <div className="contact-item">
-                <div className="contact-label">Call Us</div>
+              <div className="forma-contact-item">
+                <div className="forma-contact-label">Call Us</div>
                 <a
                   href={`tel:${settings?.contact?.phone || "+61312345678"}`}
-                  className="footer-contact-item"
+                  className="forma-footer-contact-item"
                 >
-                  {settings?.contact?.phone || "+61 3 1234 5678"}
+                  <span className="forma-link-window">
+                    <span className="forma-link-track">
+                      <span className="forma-link-text">{phone}</span>
+                      <span className="forma-link-text">{phone}</span>
+                    </span>
+                  </span>
                 </a>
               </div>
 
-              <div className="contact-item">
-                <div className="contact-label">Email Us</div>
+              <div className="forma-contact-item">
+                <div className="forma-contact-label">Email Us</div>
                 <a
                   href={`mailto:${
                     settings?.contact?.email || "info@shambalahomes.com"
                   }`}
-                  className="footer-contact-item"
+                  className="forma-footer-contact-item"
                 >
-                  {settings?.contact?.email?.toUpperCase() ||
-                    "INFO@SHAMBALAHOMES.COM"}
+                  <span className="forma-link-window">
+                    <span className="forma-link-track">
+                      <span className="forma-link-text">{email}</span>
+                      <span className="forma-link-text">{email}</span>
+                    </span>
+                  </span>
                 </a>
               </div>
             </div>
 
-            <div className="footer-legal">
-              <Link to="/privacy-policy" className="footer-link legal-link">
-                Privacy Policy
+            <div className="forma-footer-legal">
+              <Link to="/privacy-policy" className="forma-footer-link forma-legal-link">
+                <span className="forma-link-window">
+                  <span className="forma-link-track">
+                    <span className="forma-link-text">Privacy Policy</span>
+                    <span className="forma-link-text">Privacy Policy</span>
+                  </span>
+                </span>
               </Link>
-              <Link to="/terms-and-conditions" className="footer-link legal-link">
-                Terms & Conditions
+              <Link to="/terms-and-conditions" className="forma-footer-link forma-legal-link">
+                <span className="forma-link-window">
+                  <span className="forma-link-track">
+                    <span className="forma-link-text">Terms & Conditions</span>
+                    <span className="forma-link-text">Terms & Conditions</span>
+                  </span>
+                </span>
               </Link>
-              <span className="footer-copyright">
+              <span className="forma-footer-copyright">
                 © 2025 FORMA. All rights reserved.
               </span>
             </div>
           </div>
 
           {/* Follow Us Section */}
-          <div className="footer-follow-us-section">
-            <h3 className="footer-section-title">Follow Us</h3>
-            <div className="footer-follow-links">
+          <div className="forma-footer-follow-us-section">
+            <h3 className="forma-footer-section-title">Follow Us</h3>
+            <div className="forma-footer-follow-links">
               <a
                 href={settings?.social?.instagram || "https://instagram.com"}
-                className="follow-link"
+                className="forma-follow-link"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Instagram
+                <span className="forma-link-window">
+                  <span className="forma-link-track">
+                    <span className="forma-link-text">Instagram</span>
+                    <span className="forma-link-text">Instagram</span>
+                  </span>
+                </span>
               </a>
               <a
                 href={settings?.social?.facebook || "https://facebook.com"}
-                className="follow-link"
+                className="forma-follow-link"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Facebook
+                <span className="forma-link-window">
+                  <span className="forma-link-track">
+                    <span className="forma-link-text">Facebook</span>
+                    <span className="forma-link-text">Facebook</span>
+                  </span>
+                </span>
               </a>
               <a
                 href={settings?.social?.linkedin || "https://linkedin.com"}
-                className="follow-link"
+                className="forma-follow-link"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                LinkedIn
+                <span className="forma-link-window">
+                  <span className="forma-link-track">
+                    <span className="forma-link-text">LinkedIn</span>
+                    <span className="forma-link-text">LinkedIn</span>
+                  </span>
+                </span>
               </a>
               <a
                 href={settings?.social?.youtube || "https://youtube.com"}
-                className="follow-link"
+                className="forma-follow-link"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                YouTube
+                <span className="forma-link-window">
+                  <span className="forma-link-track">
+                    <span className="forma-link-text">YouTube</span>
+                    <span className="forma-link-text">YouTube</span>
+                  </span>
+                </span>
               </a>
             </div>
           </div>
         </div>
 
         {/* Large Brand Name at Bottom */}
-        <div className="footer-brand-large">
-          <h1 className="footer-brand-text" ref={brandTextRef}>
-            <div className="footer-mask">
-              <span className="footer-letter">F</span>
+        <div className="forma-footer-brand-large">
+          <h1 className="forma-footer-brand-text" ref={brandTextRef}>
+            <div className="forma-footer-mask">
+              <span className="forma-footer-letter">F</span>
             </div>
-            <div className="footer-mask">
-              <span className="footer-letter">O</span>
+            <div className="forma-footer-mask">
+              <span className="forma-footer-letter">O</span>
             </div>
-            <div className="footer-mask">
-              <span className="footer-letter">R</span>
+            <div className="forma-footer-mask">
+              <span className="forma-footer-letter">R</span>
             </div>
-            <div className="footer-mask">
-              <span className="footer-letter">M</span>
+            <div className="forma-footer-mask">
+              <span className="forma-footer-letter">M</span>
             </div>
-            <div className="footer-mask">
-              <span className="footer-letter">A</span>
+            <div className="forma-footer-mask">
+              <span className="forma-footer-letter">A</span>
             </div>
           </h1>
         </div>

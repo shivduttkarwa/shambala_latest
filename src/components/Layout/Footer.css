@@ -1,12 +1,12 @@
 /* MODERN ANIMATED FOOTER */
-.footer {
+.forma-footer {
   background: linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 100%);
   color: #ffffff;
   position: relative;
   overflow: hidden;
 }
 
-.footer::before {
+.forma-footer::before {
   content: "";
   position: absolute;
   top: 0;
@@ -31,7 +31,7 @@
   pointer-events: none;
 }
 
-.footer-container {
+.forma-footer-container {
   max-width: 1400px;
   margin: 0 auto;
   padding: 80px 40px 20px;
@@ -40,7 +40,7 @@
 }
 
 /* Main Footer Content Grid */
-.footer-top-section {
+.forma-footer-top-section {
   display: grid;
   grid-template-columns: 1.2fr 0.8fr 0.8fr 1fr;
   gap: 60px;
@@ -48,13 +48,13 @@
 }
 
 /* Brand Box */
-.footer-brand-box {
+.forma-footer-brand-box {
   display: flex;
   flex-direction: column;
   gap: 30px;
 }
 
-.footer-brand-circle {
+.forma-footer-brand-circle {
   width: 120px;
   height: 120px;
   background: linear-gradient(135deg, #fff 0%, #f8f8f8 100%);
@@ -68,7 +68,7 @@
   margin-bottom: 10px;
 }
 
-.footer-brand-circle::before {
+.forma-footer-brand-circle::before {
   content: "";
   position: absolute;
   top: -2px;
@@ -84,12 +84,12 @@
   z-index: -1;
 }
 
-.footer-brand-inner {
+.forma-footer-brand-inner {
   text-align: center;
   color: #1a1a1a;
 }
 
-.footer-brand-title {
+.forma-footer-brand-title {
   font-family: "Dream Avenue", serif;
   font-size: 18px;
   font-weight: 600;
@@ -98,7 +98,7 @@
   line-height: 1;
 }
 
-.footer-brand-subtitle {
+.forma-footer-brand-subtitle {
   font-family: "Nunito", sans-serif;
   font-size: 10px;
   font-weight: 700;
@@ -107,7 +107,7 @@
   opacity: 0.8;
 }
 
-.footer-brand-description {
+.forma-footer-brand-description {
   font-family: "Nunito", sans-serif;
   font-size: 16px;
   line-height: 1.6;
@@ -117,7 +117,7 @@
 }
 
 /* Section Titles */
-.footer-section-title {
+.forma-footer-section-title {
   font-family: "Dream Avenue", serif;
   font-size: 24px;
   font-weight: 400;
@@ -128,7 +128,7 @@
   display: inline-block;
 }
 
-.footer-section-title::after {
+.forma-footer-section-title::after {
   content: "";
   position: absolute;
   bottom: -8px;
@@ -139,13 +139,13 @@
 }
 
 /* Connect Section - Social Links */
-.footer-social-grid {
+.forma-footer-social-grid {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.social-link {
+.forma-social-link {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -159,78 +159,77 @@
   position: relative;
 }
 
-.social-link:hover {
+.forma-social-link:hover {
   color: #ffffff;
   transform: translateX(8px);
 }
 
-.social-instagram:hover {
+.forma-social-instagram:hover {
   color: #e4405f;
 }
 
-.social-facebook:hover {
+.forma-social-facebook:hover {
   color: #1877f2;
 }
 
-.social-linkedin:hover {
+.forma-social-linkedin:hover {
   color: #0077b5;
 }
 
-.social-youtube:hover {
+.forma-social-youtube:hover {
   color: #ff0000;
 }
 
 /* Navigation Links */
-.footer-links {
+.forma-footer-links {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.footer-link {
+.forma-footer-link {
   color: rgba(255, 255, 255, 0.8);
   text-decoration: none;
   font-family: "Nunito", sans-serif;
   font-size: 15px;
   font-weight: 500;
-  transition: all 0.3s ease;
+  transition: color 0.3s ease, border-color 0.3s ease;
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 8px 0;
   position: relative;
+  overflow: hidden;
 }
 
-.footer-link:hover {
+.forma-footer-link:hover {
   color: #ffffff;
-  transform: translateX(8px);
 }
 
-.link-arrow {
+.forma-link-arrow {
   font-size: 14px;
-  transition: all 0.3s ease;
+  transition: opacity 0.3s ease;
   opacity: 0.6;
 }
 
-.footer-link:hover .link-arrow {
+.forma-footer-link:hover .forma-link-arrow {
   opacity: 1;
-  transform: translateX(4px);
 }
 
 /* Contact Section */
-.footer-contact-info {
+.forma-footer-contact-info {
   display: flex;
   flex-direction: column;
   gap: 24px;
 }
 
-.contact-item {
+.forma-contact-item {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.contact-label {
+.forma-contact-label {
   font-family: "Nunito", sans-serif;
   font-size: 12px;
   font-weight: 700;
@@ -239,23 +238,22 @@
   letter-spacing: 1px;
 }
 
-.footer-contact-item {
+.forma-footer-contact-item {
   color: rgba(255, 255, 255, 0.9);
   text-decoration: none;
   font-family: "Nunito", sans-serif;
   font-size: 15px;
   font-weight: 500;
   line-height: 1.4;
-  transition: all 0.3s ease;
+  transition: color 0.3s ease;
+  overflow: hidden;
 }
 
-.footer-contact-item:hover {
+.forma-footer-contact-item:hover {
   color: #ffffff;
-  transform: translateX(4px);
 }
-
 /* Legal Section */
-.footer-legal {
+.forma-footer-legal {
   margin-top: 30px;
   padding-top: 20px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -264,19 +262,19 @@
   gap: 12px;
 }
 
-.legal-link {
+.forma-legal-link {
   font-size: 13px;
   opacity: 0.7;
 }
 
-.footer-copyright {
+.forma-footer-copyright {
   font-family: "Nunito", sans-serif;
   font-size: 12px;
   color: rgba(255, 255, 255, 0.5);
   margin: 0;
 }
 
-.footer-developer-credit-inline {
+.forma-footer-developer-credit-inline {
   font-family: "Dancing Script", cursive;
   font-size: 14px;
   color: rgba(255, 255, 255, 0.6);
@@ -288,37 +286,64 @@
 }
 
 /* Follow Us Section */
-.footer-follow-us-section {
+.forma-footer-follow-us-section {
   display: flex;
   flex-direction: column;
   gap: 24px;
 }
 
-.footer-follow-links {
+.forma-footer-follow-links {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-.follow-link {
+.forma-follow-link {
   color: rgba(255, 255, 255, 0.8);
   text-decoration: none;
   font-family: "Nunito", sans-serif;
   font-size: 15px;
   font-weight: 500;
-  transition: all 0.3s ease;
+  transition: color 0.3s ease, border-color 0.3s ease;
   padding: 8px 0;
-  border-bottom: 1px solid transparent;
+  border-bottom: none;
+  overflow: hidden;
 }
 
-.follow-link:hover {
+.forma-follow-link:hover {
   color: #ffffff;
-  transform: translateX(4px);
-  border-bottom-color: rgba(255, 255, 255, 0.2);
+}
+
+.forma-link-window {
+  display: inline-block;
+  height: 1.2em;
+  overflow: hidden;
+}
+
+.forma-link-track {
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.588s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.forma-link-text {
+  white-space: nowrap;
+  font-size: 16.8px;
+  letter-spacing: 0.16em;
+  text-transform: none;
+  font-weight: 500;
+  line-height: 1.2;
+  font-family: "Nunito", sans-serif;
+}
+
+.forma-footer-link:hover .forma-link-track,
+.forma-follow-link:hover .forma-link-track,
+.forma-footer-contact-item:hover .forma-link-track {
+  transform: translateY(-50%);
 }
 
 /* Large Brand Name at Bottom */
-.footer-brand-large {
+.forma-footer-brand-large {
   width: 100vw;
   text-align: center;
   margin-top: 60px;
@@ -328,7 +353,7 @@
   transform: translateX(-50%);
 }
 
-.footer-brand-text {
+.forma-footer-brand-text {
   font-family: "Dream Avenue", sans-serif;
   font-size: 17.2rem;
   font-weight: 400;
@@ -342,14 +367,14 @@
   transform: translateX(40px);
 }
 
-.footer-mask {
+.forma-footer-mask {
   display: inline-block;
   overflow: hidden;
   vertical-align: bottom;
   height: 1em;
 }
 
-.footer-letter {
+.forma-footer-letter {
   display: inline-block;
   transition: color 0.3s ease, transform 0.3s ease;
   cursor: pointer;
@@ -357,106 +382,106 @@
   transform: translateY(0%);
 }
 
-.footer-letter:hover {
+.forma-footer-letter:hover {
   transform: translateY(-5px) scale(1.05);
 }
 
 /* Different paint colors for each letter on hover */
-.footer-mask:nth-child(1) .footer-letter:hover {
+.forma-footer-mask:nth-child(1) .forma-footer-letter:hover {
   color: #ff6b6b; /* Coral Red */
 }
 
-.footer-mask:nth-child(2) .footer-letter:hover {
+.forma-footer-mask:nth-child(2) .forma-footer-letter:hover {
   color: #4ecdc4; /* Turquoise */
 }
 
-.footer-mask:nth-child(3) .footer-letter:hover {
+.forma-footer-mask:nth-child(3) .forma-footer-letter:hover {
   color: #ffe66d; /* Sunny Yellow */
 }
 
-.footer-mask:nth-child(4) .footer-letter:hover {
+.forma-footer-mask:nth-child(4) .forma-footer-letter:hover {
   color: #a8e6cf; /* Mint Green */
 }
 
-.footer-mask:nth-child(5) .footer-letter:hover {
+.forma-footer-mask:nth-child(5) .forma-footer-letter:hover {
   color: #ff8b94; /* Pink */
 }
 
-.footer-mask:nth-child(6) .footer-letter:hover {
+.forma-footer-mask:nth-child(6) .forma-footer-letter:hover {
   color: #c7ceea; /* Lavender */
 }
 
-.footer-mask:nth-child(7) .footer-letter:hover {
+.forma-footer-mask:nth-child(7) .forma-footer-letter:hover {
   color: #ffdac1; /* Peach */
 }
 
-.footer-mask:nth-child(8) .footer-letter:hover {
+.forma-footer-mask:nth-child(8) .forma-footer-letter:hover {
   color: #b5ead7; /* Seafoam */
 }
 
 /* Responsive Design */
 @media (max-width: 1200px) {
-  .footer-top-section {
+  .forma-footer-top-section {
     grid-template-columns: 1fr 1fr;
     gap: 40px;
   }
 
-  .footer-brand-box {
+  .forma-footer-brand-box {
     grid-column: 1 / -1;
   }
 }
 
 @media (max-width: 768px) {
-  .footer-container {
+  .forma-footer-container {
     padding: 60px 20px 20px;
   }
 
-  .footer-top-section {
+  .forma-footer-top-section {
     grid-template-columns: 1fr;
     gap: 40px;
     margin-bottom: 60px;
   }
 
-  .footer-brand-circle {
+  .forma-footer-brand-circle {
     width: 100px;
     height: 100px;
   }
 
-  .footer-brand-title {
+  .forma-footer-brand-title {
     font-size: 16px;
   }
 
-  .footer-brand-subtitle {
+  .forma-footer-brand-subtitle {
     font-size: 9px;
   }
 
-  .footer-brand-description {
+  .forma-footer-brand-description {
     font-size: 15px;
     max-width: 100%;
   }
 
-  .footer-section-title {
+  .forma-footer-section-title {
     font-size: 20px;
     margin-bottom: 20px;
   }
 
-  .footer-social-grid {
+  .forma-footer-social-grid {
     flex-direction: row;
     flex-wrap: wrap;
     gap: 20px;
   }
 
-  .footer-links {
+  .forma-footer-links {
     flex-direction: row;
     flex-wrap: wrap;
     gap: 20px;
   }
 
-  .footer-contact-info {
+  .forma-footer-contact-info {
     gap: 20px;
   }
 
-  .footer-brand-text {
+  .forma-footer-brand-text {
     font-size: 10.4rem;
     transform: translateX(10px);
     letter-spacing: 0.24em;
@@ -464,45 +489,45 @@
 }
 
 @media (max-width: 480px) {
-  .footer-container {
+  .forma-footer-container {
     padding: 40px 16px 20px;
   }
 
-  .footer-top-section {
+  .forma-footer-top-section {
     gap: 30px;
     margin-bottom: 40px;
   }
 
-  .footer-brand-circle {
+  .forma-footer-brand-circle {
     width: 80px;
     height: 80px;
   }
 
-  .footer-brand-title {
+  .forma-footer-brand-title {
     font-size: 14px;
   }
 
-  .footer-brand-subtitle {
+  .forma-footer-brand-subtitle {
     font-size: 8px;
   }
 
-  .footer-brand-description {
+  .forma-footer-brand-description {
     font-size: 14px;
     line-height: 1.5;
   }
 
-  .footer-section-title {
+  .forma-footer-section-title {
     font-size: 18px;
     margin-bottom: 16px;
   }
 
-  .social-link,
-  .footer-link,
-  .footer-contact-item {
+  .forma-social-link,
+  .forma-footer-link,
+  .forma-footer-contact-item {
     font-size: 14px;
   }
 
-  .footer-brand-text {
+  .forma-footer-brand-text {
     font-size: 5.85rem;
     transform: translateX(10px);
     letter-spacing: 0.24em;

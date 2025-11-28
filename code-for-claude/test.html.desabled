@@ -2,189 +2,74 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Measured Motion Heading</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <!-- GSAP + ScrollTrigger -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      body {
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
-          "Segoe UI", sans-serif;
-        background: radial-gradient(
-          circle at top left,
-          #ffffff,
-          #f6f6f9 55%,
-          #eeeeee
-        );
-        color: #151515;
-        overflow-x: hidden;
-      }
-
-      .mm-section {
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 4rem 1.5rem;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.03);
-        background: linear-gradient(
-          135deg,
-          rgba(255, 255, 255, 0.9),
-          rgba(245, 245, 247, 0.9)
-        );
-      }
-
-      .mm-inner {
-        width: min(960px, 100%);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 3rem;
-      }
-
-      .mm-index {
-        font-size: 0.75rem;
-        text-transform: uppercase;
-        letter-spacing: 0.22em;
-        color: #b0b0b6;
-        writing-mode: vertical-rl;
-        text-orientation: mixed;
-        opacity: 0.7;
-      }
-
-      .mm-heading-wrap {
-        flex: 1;
-        overflow: visible;
-      }
-
-      .mm-heading {
-        font-size: clamp(2.4rem, 6vw, 4.4rem);
-        font-weight: 500;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        line-height: 1.1;
-        display: inline-flex;
-        flex-wrap: wrap;
-        gap: 0.18em;
-        position: relative;
-      }
-
-      .mm-word {
-        display: inline-block;
-        overflow: hidden;
-        position: relative;
-      }
-
-      .mm-char {
-        display: inline-block;
-        will-change: transform, opacity, filter;
-      }
-
-      @media (max-width: 768px) {
-        .mm-inner {
-          justify-content: center;
-          gap: 1.5rem;
-        }
-
-        .mm-index {
-          display: none;
-        }
-
-        .mm-heading {
-          text-align: center;
-          justify-content: center;
-        }
-      }
-    </style>
+    <title>Document</title>
   </head>
   <body>
-    <main>
-      <section class="mm-section">
-        <div class="mm-inner">
-          <div class="mm-index">03</div>
-          <div class="mm-heading-wrap">
-            <h2 class="mm-heading">Measured Motion</h2>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <script>
-      gsap.registerPlugin(ScrollTrigger);
-
-      const heading = document.querySelector(".mm-heading");
-
-      function splitHeading(headingEl) {
-        const raw = headingEl.textContent.trim();
-        headingEl.textContent = "";
-
-        const words = raw.split(" ");
-
-        words.forEach((word, wIndex) => {
-          const wordSpan = document.createElement("span");
-          wordSpan.classList.add("mm-word");
-
-          word.split("").forEach((char) => {
-            const charSpan = document.createElement("span");
-            charSpan.classList.add("mm-char");
-            charSpan.textContent = char;
-            wordSpan.appendChild(charSpan);
-          });
-
-          headingEl.appendChild(wordSpan);
-
-          if (wIndex !== words.length - 1) {
-            const spacer = document.createTextNode(" ");
-            headingEl.appendChild(spacer);
-          }
-        });
-
-        const charEls = headingEl.querySelectorAll(".mm-char");
-        return { charEls };
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
       }
 
-      const { charEls } = splitHeading(heading);
+      a {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 200px;
+        height: 60px;
+        line-height: 60px;
+        text-align: center;
+        border: 2px solid #262626;
+        font-size: 30px;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-family: sans-serif;
+        color: #262626;
+        overflow: hidden;
+      }
 
-      gsap.set(charEls, {
-        opacity: 0,
-        scaleY: 0.2,
-        skewY: 12,
-        transformOrigin: "50% 100%",
-        filter: "blur(4px)",
-      });
+      a span {
+        display: inline-block;
+        transition: 0.5s;
+      }
 
-      const tl = gsap.timeline({ paused: true });
+      a span:nth-child(odd) {
+        transform: translateY(-100%);
+      }
 
-      tl.to(charEls, {
-        opacity: 1,
-        scaleY: 1,
-        skewY: 0,
-        filter: "blur(0px)",
-        duration: 1.9,
-        ease: "power4.out",
-        stagger: {
-          each: 0.018,
-          from: "random",
-        },
-      });
+      a:hover span:nth-child(odd) {
+        transform: translateY(0);
+      }
 
-      ScrollTrigger.create({
-        trigger: ".mm-section",
-        start: "top 70%",
-        end: "bottom 30%",
-        onEnter: () => tl.restart(),
-        onEnterBack: () => tl.restart(),
-        // markers: true,
-      });
-    </script>
+      a span:nth-child(odd):before {
+        content: attr(data-text);
+        position: absolute;
+        transform: translateY(100%);
+      }
+
+      a span:nth-child(even) {
+        transform: translateY(100%);
+      }
+
+      a:hover span:nth-child(even) {
+        transform: translateY(0);
+      }
+
+      a span:nth-child(even):before {
+        content: attr(data-text);
+        position: absolute;
+        transform: translateY(-100%);
+      }
+    </style>
+    <a href="#">
+      <span data-text="B">B</span>
+      <span data-text="U">U</span>
+      <span data-text="T">T</span>
+      <span data-text="T">T</span>
+      <span data-text="O">O</span>
+      <span data-text="N">N</span>
+    </a>
   </body>
 </html>

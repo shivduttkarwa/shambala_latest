@@ -79,15 +79,258 @@ const FeaturedProperties: React.FC<FeaturedPropertiesProps> = ({
   properties = defaultProperties,
 }) => {
   const swiperRef = useRef<any>(null);
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const dragBtnRef = useRef<HTMLDivElement | null>(null);
+  const animationFrameRef = useRef<number | null>(null);
+  const [showDragBtn, setShowDragBtn] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const [isInSection, setIsInSection] = useState(false);
+  const [isOverNavButton, setIsOverNavButton] = useState(false);
+  const [dragPosition, setDragPosition] = useState({ x: 0, y: 0 });
+  const dragStartXRef = useRef<number | null>(null);
+  const updateDragPosition = (x: number, y: number) => {
+    if (!dragBtnRef.current) return;
+    if (animationFrameRef.current) {
+      cancelAnimationFrame(animationFrameRef.current);
+    }
+    animationFrameRef.current = requestAnimationFrame(() => {
+      if (dragBtnRef.current) {
+        dragBtnRef.current.style.left = `${x}px`;
+        dragBtnRef.current.style.top = `${y - 15}px`;
+      }
+    });
+  };
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const isDesktop = () => window.innerWidth >= 1024;
+
+    const updateDragPosition = (x: number, y: number) => {
+      if (!dragBtnRef.current) return;
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+      animationFrameRef.current = requestAnimationFrame(() => {
+        if (dragBtnRef.current) {
+          dragBtnRef.current.style.left = `${x}px`;
+          dragBtnRef.current.style.top = `${y - 15}px`;
+        }
+      });
+    };
+
+    const handleMouseEnter = (e: MouseEvent) => {
+      if (!isDesktop()) return;
+      setIsInSection(true);
+      setShowDragBtn(true);
+      document.body.style.cursor = "none";
+      const rect = section.getBoundingClientRect();
+      const initialX = e.clientX || rect.left + rect.width / 2;
+      const initialY = e.clientY || rect.top + rect.height / 2;
+      updateDragPosition(initialX, initialY);
+    };
+
+    const handleMouseLeave = (e: MouseEvent) => {
+      const rect = section.getBoundingClientRect();
+      const { clientX, clientY } = e;
+      if (
+        clientX < rect.left ||
+        clientX > rect.right ||
+        clientY < rect.top ||
+        clientY > rect.bottom
+      ) {
+        setIsInSection(false);
+        setShowDragBtn(false);
+        setIsDragging(false);
+        document.body.style.cursor = "default";
+        section.classList.remove("show-cursor");
+      }
+    };
+
+    const handleGlobalMouseMove = (e: MouseEvent) => {
+      if (isInSection) {
+        const rect = section.getBoundingClientRect();
+        const { clientX, clientY } = e;
+        if (
+          clientX < rect.left ||
+          clientX > rect.right ||
+          clientY < rect.top ||
+          clientY > rect.bottom
+        ) {
+          setIsInSection(false);
+          setShowDragBtn(false);
+          setIsDragging(false);
+          document.body.style.cursor = "default";
+          section.classList.remove("show-cursor");
+        }
+      }
+    };
+
+    section.addEventListener("mouseenter", handleMouseEnter);
+    section.addEventListener("mouseleave", handleMouseLeave);
+    document.addEventListener("mousemove", handleGlobalMouseMove);
+
+    return () => {
+      section.removeEventListener("mouseenter", handleMouseEnter);
+      section.removeEventListener("mouseleave", handleMouseLeave);
+      document.removeEventListener("mousemove", handleGlobalMouseMove);
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+      document.body.style.cursor = "default";
+    };
+  }, [isInSection]);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (isInSection && !isOverNavButton) {
+        setDragPosition({ x: e.clientX, y: e.clientY });
+        const section = sectionRef.current;
+        if (section) {
+          section.classList.remove("show-cursor");
+        }
+        updateDragPosition(e.clientX, e.clientY);
+
+        const dragBtnCenterX = e.clientX;
+        const dragBtnCenterY = e.clientY - 15;
+        const padding = 10;
+
+        const buttonElements = document.querySelectorAll(
+          ".fp-swiper-button-next, .fp-swiper-button-prev"
+        );
+        let overButton = false;
+
+        buttonElements.forEach((button) => {
+          const rect = button.getBoundingClientRect();
+          if (
+            dragBtnCenterX >= rect.left - padding &&
+            dragBtnCenterX <= rect.right + padding &&
+            dragBtnCenterY >= rect.top - padding &&
+            dragBtnCenterY <= rect.bottom + padding
+          ) {
+            overButton = true;
+          }
+        });
+
+        if (overButton && showDragBtn) {
+          setShowDragBtn(false);
+          const sliderElement = sectionRef.current;
+          if (sliderElement) {
+            sliderElement.classList.add("show-cursor");
+          }
+        } else if (!overButton && !showDragBtn) {
+          setShowDragBtn(true);
+          const sliderElement = sectionRef.current;
+          if (sliderElement) {
+            sliderElement.classList.remove("show-cursor");
+          }
+        }
+      }
+    };
+
+    if (isInSection && !isOverNavButton) {
+      document.addEventListener("mousemove", handleMouseMove);
+    }
+
+    return () => {
+      document.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, [isInSection, isOverNavButton, showDragBtn]);
+
+  useEffect(() => {
+    const handleButtonEnter = () => {
+      setIsOverNavButton(true);
+      setShowDragBtn(false);
+      document.body.style.cursor = "pointer";
+    };
+
+    const handleButtonLeave = () => {
+      setIsOverNavButton(false);
+      if (isInSection) {
+        setShowDragBtn(true);
+        document.body.style.cursor = "none";
+      } else {
+        document.body.style.cursor = "default";
+      }
+    };
+
+    const nextButton = document.querySelector(".fp-swiper-button-next");
+    const prevButton = document.querySelector(".fp-swiper-button-prev");
+
+    if (nextButton) {
+      nextButton.addEventListener("mouseenter", handleButtonEnter);
+      nextButton.addEventListener("mouseleave", handleButtonLeave);
+    }
+    if (prevButton) {
+      prevButton.addEventListener("mouseenter", handleButtonEnter);
+      prevButton.addEventListener("mouseleave", handleButtonLeave);
+    }
+
+    return () => {
+      if (nextButton) {
+        nextButton.removeEventListener("mouseenter", handleButtonEnter);
+        nextButton.removeEventListener("mouseleave", handleButtonLeave);
+      }
+      if (prevButton) {
+        prevButton.removeEventListener("mouseenter", handleButtonEnter);
+        prevButton.removeEventListener("mouseleave", handleButtonLeave);
+      }
+    };
+  }, [isInSection]);
+
+  const handleDragStart = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(true);
+    dragStartXRef.current = e.clientX;
+  };
+  const handleDragEnd = () => {
+    setIsDragging(false);
+    dragStartXRef.current = null;
+  };
+
+  const handleDragMove = (e: MouseEvent) => {
+    if (!isDragging || !swiperRef.current) return;
+    const deltaX = e.movementX;
+    if (Math.abs(deltaX) > 2) {
+      const swiperInstance = swiperRef.current.swiper || swiperRef.current;
+      if (deltaX > 0) {
+        swiperInstance?.slidePrev?.();
+      } else {
+        swiperInstance?.slideNext?.();
+      }
+    }
+    setDragPosition({ x: e.clientX, y: e.clientY });
+    updateDragPosition(e.clientX, e.clientY);
+  };
+
+  useEffect(() => {
+    if (isDragging) {
+      document.addEventListener("mousemove", handleDragMove);
+      document.addEventListener("mouseup", handleDragEnd);
+      document.body.style.userSelect = "none";
+    } else {
+      document.removeEventListener("mousemove", handleDragMove);
+      document.removeEventListener("mouseup", handleDragEnd);
+      document.body.style.userSelect = "";
+    }
+
+    return () => {
+      document.removeEventListener("mousemove", handleDragMove);
+      document.removeEventListener("mouseup", handleDragEnd);
+      document.body.style.userSelect = "";
+    };
+  }, [isDragging]);
 
   return (
-    <section id="home_accommodation">
+    <section id="fp-home_accommodation" ref={sectionRef}>
       {/* Navigation buttons positioned to overlay exactly where they were */}
-      <div className="left-navigation">
-        <button className="nav-btn swiper-button-prev">
-          <div className="btn-outline btn-outline-1"></div>
-          <div className="btn-outline btn-outline-2"></div>
-          <div className="arrow-container">
+      <div className="fp-left-navigation">
+        <button className="fp-nav-btn fp-swiper-button-prev">
+          <div className="fp-btn-outline fp-btn-outline-1"></div>
+          <div className="fp-btn-outline fp-btn-outline-2"></div>
+          <div className="fp-arrow-container">
             <svg
               width="30"
               height="12"
@@ -105,10 +348,10 @@ const FeaturedProperties: React.FC<FeaturedPropertiesProps> = ({
             </svg>
           </div>
         </button>
-        <button className="nav-btn swiper-button-next">
-          <div className="btn-outline btn-outline-1"></div>
-          <div className="btn-outline btn-outline-2"></div>
-          <div className="arrow-container">
+        <button className="fp-nav-btn fp-swiper-button-next">
+          <div className="fp-btn-outline fp-btn-outline-1"></div>
+          <div className="fp-btn-outline fp-btn-outline-2"></div>
+          <div className="fp-arrow-container">
             <svg
               width="30"
               height="12"
@@ -128,52 +371,66 @@ const FeaturedProperties: React.FC<FeaturedPropertiesProps> = ({
         </button>
       </div>
 
-      <div className="swiper accommodation_swipe">
+      <div className="fp-accommodation_swipe">
         <Swiper
           ref={swiperRef}
+          onSwiper={(swiper) => {
+            swiperRef.current = swiper;
+          }}
           modules={[Navigation]}
           slidesPerView={1}
           spaceBetween={20}
           loop={true}
           speed={1000}
           navigation={{
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
+            nextEl: ".fp-swiper-button-next",
+            prevEl: ".fp-swiper-button-prev",
           }}
-          className="swiper"
+          className="fp-swiper swiper"
         >
-          <div className="swiper-wrapper">
-            {properties.map((property) => (
-              <SwiperSlide key={property.id} className="swiper-slide">
-                <div className="left">
-                  {property.category && <p>{property.category}</p>}
-                  <h2>{property.title}</h2>
-                  <div className="image">
-                    <img src={property.leftImage} alt={property.subtitle} />
-                    <img
-                      className="image-tablet"
-                      src={property.tabletImage}
-                      alt={property.subtitle}
-                    />
-                  </div>
+          {properties.map((property) => (
+            <SwiperSlide key={property.id} className="fp-swiper-slide">
+              <div className="fp-left">
+                {property.category && <p>{property.category}</p>}
+                <h2>{property.title}</h2>
+                <div className="fp-image">
+                  <img src={property.leftImage} alt={property.subtitle} />
+                  <img
+                    className="fp-image-tablet"
+                    src={property.tabletImage}
+                    alt={property.subtitle}
+                  />
                 </div>
-                <div className="right">
-                  <div className="image">
-                    <img src={property.rightImage} alt={property.subtitle} />
-                  </div>
-                  <div className="content-wrapper">
-                    <h4>{property.subtitle}</h4>
-                    <div className="text">
-                      <p>{property.description}</p>
-                    </div>
-                    <GlassButton href={property.link}>Discover</GlassButton>
-                  </div>
+              </div>
+              <div className="fp-right">
+                <div className="fp-image">
+                  <img src={property.rightImage} alt={property.subtitle} />
                 </div>
-              </SwiperSlide>
-            ))}
-          </div>
+                <div className="fp-content-wrapper">
+                  <h4>{property.subtitle}</h4>
+                  <div className="fp-text">
+                    <p>{property.description}</p>
+                  </div>
+                  <GlassButton href={property.link}>Discover</GlassButton>
+                </div>
+              </div>
+            </SwiperSlide>
+          ))}
         </Swiper>
       </div>
+
+      {showDragBtn && (
+        <div
+          ref={dragBtnRef}
+          className={`fp-drag-btn ${isDragging ? "fp-dragging" : ""}`}
+          onMouseDown={handleDragStart}
+          onMouseUp={handleDragEnd}
+          onMouseLeave={handleDragEnd}
+          onDragStart={(e) => e.preventDefault()}
+        >
+          DRAG
+        </div>
+      )}
     </section>
   );
 };

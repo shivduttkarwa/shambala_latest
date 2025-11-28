@@ -24,6 +24,7 @@ const FallingTextVideoComponent: React.FC<FallingTextVideoComponentProps> = ({
 }) => {
   const wrapperRef = useRef<HTMLElement>(null);
   const videoContainerRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const textLeftRef = useRef<HTMLDivElement>(null);
   const textRightRef = useRef<HTMLDivElement>(null);
   const bottomLeftRef = useRef<HTMLDivElement>(null);
@@ -66,6 +67,48 @@ const FallingTextVideoComponent: React.FC<FallingTextVideoComponentProps> = ({
 
     // Initialize falling text
     initFallingText();
+
+    // Force video play on mobile
+    const handleVideoLoad = async () => {
+      if (videoRef.current) {
+        try {
+          // Remove controls to hide play button
+          videoRef.current.controls = false;
+          videoRef.current.setAttribute('webkit-playsinline', 'true');
+          videoRef.current.setAttribute('playsinline', 'true');
+          
+          // Try to play the video
+          await videoRef.current.play();
+        } catch (error) {
+          console.log('Video autoplay prevented:', error);
+          
+          // If autoplay fails, add a one-time click handler to start video
+          const handleFirstInteraction = async () => {
+            try {
+              if (videoRef.current) {
+                await videoRef.current.play();
+                document.removeEventListener('touchstart', handleFirstInteraction);
+                document.removeEventListener('click', handleFirstInteraction);
+              }
+            } catch (e) {
+              console.log('Failed to play video on interaction:', e);
+            }
+          };
+          
+          document.addEventListener('touchstart', handleFirstInteraction, { once: true });
+          document.addEventListener('click', handleFirstInteraction, { once: true });
+        }
+      }
+    };
+
+    // Set up video load handler
+    if (videoRef.current) {
+      if (videoRef.current.readyState >= 3) {
+        handleVideoLoad();
+      } else {
+        videoRef.current.addEventListener('canplaythrough', handleVideoLoad, { once: true });
+      }
+    }
 
     const ctx = gsap.context(() => {
       // Initial state for top text
@@ -205,7 +248,16 @@ const FallingTextVideoComponent: React.FC<FallingTextVideoComponentProps> = ({
 
         {/* Center video */}
         <div ref={videoContainerRef} className="ftv-video-container">
-          <video autoPlay muted loop playsInline>
+          <video 
+            ref={videoRef}
+            autoPlay 
+            muted 
+            loop 
+            playsInline
+            controls={false}
+            preload="auto"
+            webkit-playsinline="true"
+          >
             <source src={videoSrc} type="video/mp4" />
             Your browser does not support the video tag.
           </video>

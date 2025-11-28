@@ -145,10 +145,10 @@ const BlogSection: React.FC<BlogSectionProps> = ({
         <div className="blog-title-container">
           <div className="blog-title-line"></div>
           <ScrollVelocity
-            texts={[`${sectionTitle} •`]}
-            velocity={30}
+            texts={[`${sectionTitle} • `]}
+            velocity={39}
             className="blog-scroll-title"
-            numCopies={4}
+            numCopies={6}
             parallaxClassName="blog-parallax"
             scrollerClassName="blog-scroller"
           />
