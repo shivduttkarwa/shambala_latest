@@ -109,7 +109,7 @@
 
 .forma-footer-brand-description {
   font-family: "Nunito", sans-serif;
-  font-size: 16px;
+  font-size: 17px;
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.8);
   margin: 0;
@@ -360,7 +360,7 @@
   color: rgba(255, 255, 255, 0.08);
   margin: 0;
   line-height: 1;
-  letter-spacing: 0.30em;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
   user-select: none;
   white-space: nowrap;
@@ -456,7 +456,7 @@
   }
 
   .forma-footer-brand-description {
-    font-size: 15px;
+    font-size: 18px;
     max-width: 100%;
   }
 
@@ -512,7 +512,7 @@
   }
 
   .forma-footer-brand-description {
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.5;
   }
 

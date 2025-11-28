@@ -30,7 +30,7 @@ const defaultProperties: PropertySlide[] = [
     tabletImage: `${publicUrl}images/zz.jpg`,
     subtitle: "Creating exceptional living spaces",
     description:
-      "Building tomorrow's homes today.\n\nOur vision is to transform how Australians live by creating homes that harmonize with nature, embrace sustainability, and foster community connections. Every Shambala home is designed to enhance your lifestyle while respecting the environment.",
+      "Building tomorrow's homes today. Our vision is to transform how Australians live by creating homes that harmonize with nature, embrace sustainability, and foster community connections. Every Shambala home is designed to enhance your lifestyle while respecting the environment. Thoughtful design, timeless comfort.",
     link: "#",
   },
   {
@@ -42,7 +42,7 @@ const defaultProperties: PropertySlide[] = [
     tabletImage: `${publicUrl}images/pexels-fotoaibe-1571460.jpg`,
     subtitle: "Sustainable design philosophy",
     description:
-      "Innovation meets responsibility.\n\nWe believe in building homes that give back to the environment. Our sustainable design philosophy incorporates renewable materials, energy-efficient systems, and water conservation technologies to create homes that care for our planet.",
+      "Innovation meets responsibility. We believe in building homes that give back to the environment through renewable materials and energy-efficient systems. Our sustainable design philosophy creates homes that care for our planet. Efficiency without compromise.",
     link: "#",
   },
   {
@@ -54,7 +54,7 @@ const defaultProperties: PropertySlide[] = [
     tabletImage: `${publicUrl}images/pr1.jpg`,
     subtitle: "Community-centered approach",
     description:
-      "Building connections, not just homes.\n\nOur vision extends beyond individual homes to creating vibrant communities. We design neighborhoods that encourage interaction, promote wellbeing, and foster lasting relationships between residents and their environment.",
+      "Building connections, not just homes. Our vision extends beyond individual homes to creating vibrant communities that encourage interaction and wellbeing. We design neighborhoods that foster lasting relationships between residents and their environment. Spaces that bring people together.",
     link: "#",
   },
   {
@@ -66,7 +66,7 @@ const defaultProperties: PropertySlide[] = [
     tabletImage: `${publicUrl}images/pr2.jpg`,
     subtitle: "Excellence in craftsmanship",
     description:
-      "Where quality meets artistry.\n\nOur commitment to excellence drives everything we do. From initial concept to final handover, we maintain the highest standards of craftsmanship, ensuring every Shambala home is a testament to quality, durability, and timeless design.",
+      "Where quality meets artistry. Our commitment to excellence drives everything we do, from concept to final handover. We maintain the highest standards of craftsmanship, ensuring every Shambala home is a testament to durability and timeless design. Details that endure.",
     link: "#",
   },
 ];
