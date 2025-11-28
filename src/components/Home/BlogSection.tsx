@@ -178,7 +178,6 @@ const BlogSection: React.FC<BlogSectionProps> = ({
           <div className="blog-featured-content">
             <TiltTextGsap
               tag="h1"
-              className="blog-featured-title home-blog-heading"
               startTrigger="top 80%"
               endTrigger="bottom -10%"
             >

@@ -51,17 +51,7 @@
   max-width: 100%;
 }
 
-.essence-tilt-title {
-  font-family: "Dream Avenue", cursive !important;
-  text-transform: uppercase !important;
-  letter-spacing: 0.04em !important;
-  line-height: 1.2 !important;
-  white-space: normal !important;
-  font-size: clamp(2rem, 4vw, 3.2rem);
-  font-weight: 600;
-  color: var(--text);
-  margin: 0;
-}
+/* Essence section title styles now handled by TiltTextGsap component */
 
 /* Laptop and above screens */
 @media (min-width: 1024px) {
@@ -244,10 +234,7 @@
     text-align: center; /* Keep center alignment like 968px breakpoint */
   }
 
-  .essence-tilt-title {
-    font-size: clamp(2.5rem, 8vw, 3.5rem);
-    line-height: 1.15;
-  }
+  /* Essence section title styles now handled by TiltTextGsap component */
 
   .essence-description {
     margin-bottom: 0; /* Remove bottom margin */

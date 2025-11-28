@@ -179,7 +179,6 @@ const EssenceSection: React.FC<EssenceSectionProps> = ({
 
             <div className="essence-heading" ref={headingRef}>
               <TiltTextGsap
-                className="essence-tilt-title"
                 startTrigger="top 70%"
                 endTrigger="bottom -10%"
               >

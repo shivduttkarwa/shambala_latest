@@ -61,34 +61,29 @@ section.project-feature .block-text .block-text-col {
   width: 100%;
 }
 
-section.project-feature .block-text h3,
-section.project-feature .block-text .portfolio-showcase-title {
-  color: #1a1810;
-  font-size: clamp(3.5rem, 5vw, 4.5rem);
-  font-weight: 500;
-  font-family: "Dream Avenue", cursive;
-  text-transform: uppercase;
-  white-space: nowrap;
-  flex-wrap: nowrap !important;
-  overflow: hidden;
-  max-width: 100%;
-}
+/* Portfolio section title styles now handled by TiltTextGsap component */
 
 @media (max-width: 768px) {
-  section.project-feature .block-text h3,
-  section.project-feature .block-text .portfolio-showcase-title {
-    white-space: normal !important;
-    font-size: clamp(2.5rem, 8vw, 3.5rem);
-    line-height: 1.15;
-    text-align: center;
-    overflow: visible;
-    font-weight: 600;
-    letter-spacing: 0.04em;
+  /* Portfolio section title styles now handled by TiltTextGsap component */
+  
+  /* Force proper word spacing for Portfolio section TiltTextGsap on mobile */
+  section.project-feature .tilt-text-heading {
+    word-spacing: 0.3em !important;
+    gap: 0.25em !important;
+  }
+  
+  section.project-feature .tilt-text-word {
+    margin-right: 0.3em !important;
+  }
+  
+  section.project-feature .tilt-text-word:last-child {
+    margin-right: 0 !important;
   }
 
   section.project-feature .block-text {
     width: 100%;
-    padding: 0 1.5rem;
+    padding: 0 1rem;
+    overflow: visible;
   }
 }
 

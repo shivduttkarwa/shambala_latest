@@ -205,7 +205,6 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
           {/* Right side - Sticky Content */}
           <div className="services-content">
             <TiltTextGsap
-              className="services-title"
               startTrigger="top 70%"
               endTrigger="bottom -1000%"
             >

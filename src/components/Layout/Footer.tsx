@@ -83,20 +83,90 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
       if (letters && letters.length > 0) {
         const isMobile = window.innerWidth <= 768;
         
-        // On mobile, use simpler animation
+        // On mobile, use same animation as desktop
         if (isMobile) {
-          gsap.set(letters, { yPercent: 0 });
-          gsap.from(letters, {
-            yPercent: 50,
-            opacity: 0,
-            duration: 0.8,
-            stagger: 0.1,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: brandTextRef.current,
-              start: "top 90%",
-              toggleActions: "play none none none",
-              once: true,
+          const colors = [
+            "#ff6b6b", // Coral Red (F)
+            "#4ecdc4", // Turquoise (O)
+            "#ffe66d", // Sunny Yellow (R)
+            "#a8e6cf", // Mint Green (M)
+            "#ff8b94", // Pink (A)
+          ];
+
+          // Set initial position (hidden below)
+          gsap.set(letters, { yPercent: 100 });
+
+          ScrollTrigger.create({
+            trigger: brandTextRef.current,
+            start: "top 90%",
+            end: "bottom 10%",
+            onEnter: () => {
+              // Slide up animation
+              gsap.to(letters, {
+                yPercent: 0,
+                duration: 0.6,
+                stagger: 0.06,
+                ease: "back.out(2.7)",
+                onComplete: () => {
+                  // Color flash animation after slide up completes
+                  letters.forEach((letter, index) => {
+                    gsap.to(letter, {
+                      color: colors[index],
+                      duration: 0.3,
+                      delay: index * 0.1,
+                      yoyo: true,
+                      repeat: 1,
+                      ease: "power2.inOut",
+                      onComplete: () => {
+                        gsap.set(letter, { clearProps: "color" });
+                      },
+                    });
+                  });
+                },
+              });
+            },
+            onLeave: () => {
+              // Slide down animation when leaving
+              gsap.to(letters, {
+                yPercent: 100,
+                duration: 0.4,
+                stagger: 0.03,
+                ease: "power2.in",
+              });
+            },
+            onEnterBack: () => {
+              // Slide up animation when coming back
+              gsap.to(letters, {
+                yPercent: 0,
+                duration: 0.6,
+                stagger: 0.06,
+                ease: "back.out(2.7)",
+                onComplete: () => {
+                  // Color flash animation
+                  letters.forEach((letter, index) => {
+                    gsap.to(letter, {
+                      color: colors[index],
+                      duration: 0.3,
+                      delay: index * 0.1,
+                      yoyo: true,
+                      repeat: 1,
+                      ease: "power2.inOut",
+                      onComplete: () => {
+                        gsap.set(letter, { clearProps: "color" });
+                      },
+                    });
+                  });
+                },
+              });
+            },
+            onLeaveBack: () => {
+              // Slide down animation when scrolling back up past footer
+              gsap.to(letters, {
+                yPercent: 100,
+                duration: 0.4,
+                stagger: 0.03,
+                ease: "power2.in",
+              });
             },
           });
         } else {

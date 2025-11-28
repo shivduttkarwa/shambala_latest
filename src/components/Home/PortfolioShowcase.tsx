@@ -171,7 +171,6 @@ const PortfolioShowcase: React.FC = () => {
         <div className="block-text-col">
           <TiltTextGsap
             tag="h3"
-            className="portfolio-showcase-title"
             startTrigger="top 70%"
             endTrigger="bottom -10%"
           >

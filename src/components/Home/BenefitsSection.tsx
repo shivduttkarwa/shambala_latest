@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./BenefitsSection.css";
 import GlassButton from "../UI/GlassButton";
 import TiltTextGsap from "../UI/TiltTextGsap";
@@ -102,7 +103,7 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = ({
     },
   ],
   ctaText = "Start Your Journey Today",
-  ctaLink = "#",
+  ctaLink = "/contact",
 }) => {
   return (
     <section data-block-type="blockBenefits">
@@ -110,11 +111,10 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = ({
       {sectionTitle && (
         <div className="benefits-inside-title">
           <TiltTextGsap
-            className="benefits-section-title"
             startTrigger="top 70%"
             endTrigger="bottom -200%"
           >
-            {sectionTitle}
+            {sectionTitle}...
           </TiltTextGsap>
         </div>
       )}
@@ -127,12 +127,12 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = ({
             <div className="benefits-hidden benefits-lg-grid benefits-desktop-grid">
               {/* Column 1 */}
               <div className="benefits-w-full">
-                <div className="benefits-card benefits-card-active">
+                <Link to="/contact" className="benefits-card benefits-card-active">
                   <span className="benefits-block">
                     <div className="benefits-icon">{benefits[0].icon}</div>
                     <h2 className="benefits-title">{benefits[0].title}</h2>
                   </span>
-                </div>
+                </Link>
                 <div className="benefits-spacer"></div>
                 <div className="benefits-spacer"></div>
                 <div className="benefits-spacer"></div>
@@ -141,12 +141,12 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = ({
               {/* Column 2 */}
               <div className="benefits-w-full">
                 <div className="benefits-spacer"></div>
-                <div className="benefits-card benefits-card-active">
+                <Link to="/contact" className="benefits-card benefits-card-active">
                   <span className="benefits-block">
                     <div className="benefits-icon">{benefits[1].icon}</div>
                     <h2 className="benefits-title">{benefits[1].title}</h2>
                   </span>
-                </div>
+                </Link>
                 <div className="benefits-spacer"></div>
                 <div className="benefits-spacer"></div>
               </div>
@@ -155,12 +155,12 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = ({
               <div className="benefits-w-full">
                 <div className="benefits-spacer"></div>
                 <div className="benefits-spacer"></div>
-                <div className="benefits-card benefits-card-active">
+                <Link to="/contact" className="benefits-card benefits-card-active">
                   <span className="benefits-block">
                     <div className="benefits-icon">{benefits[2].icon}</div>
                     <h2 className="benefits-title">{benefits[2].title}</h2>
                   </span>
-                </div>
+                </Link>
                 <div className="benefits-spacer"></div>
               </div>
 
@@ -169,57 +169,57 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = ({
                 <div className="benefits-spacer"></div>
                 <div className="benefits-spacer"></div>
                 <div className="benefits-spacer"></div>
-                <div className="benefits-card benefits-card-active">
+                <Link to="/contact" className="benefits-card benefits-card-active">
                   <span className="benefits-block">
                     <div className="benefits-icon">{benefits[3].icon}</div>
                     <h2 className="benefits-title">{benefits[3].title}</h2>
                   </span>
-                </div>
+                </Link>
               </div>
             </div>
 
             {/* Mobile Layout */}
             <div className="benefits-grid benefits-grid-cols-2 benefits-lg-hidden">
               <div>
-                <div className="benefits-card benefits-card-mobile">
+                <Link to="/contact" className="benefits-card benefits-card-mobile">
                   <span className="benefits-block">
                     <div className="benefits-icon">{benefits[0].icon}</div>
                     <h2 className="benefits-title">{benefits[0].title}</h2>
                   </span>
-                </div>
+                </Link>
               </div>
             </div>
 
             <div className="benefits-grid benefits-grid-cols-2 benefits-lg-hidden">
               <div className="benefits-col-start-2">
-                <div className="benefits-card benefits-card-mobile">
+                <Link to="/contact" className="benefits-card benefits-card-mobile">
                   <span className="benefits-block">
                     <div className="benefits-icon">{benefits[1].icon}</div>
                     <h2 className="benefits-title">{benefits[1].title}</h2>
                   </span>
-                </div>
+                </Link>
               </div>
             </div>
 
             <div className="benefits-grid benefits-grid-cols-2 benefits-lg-hidden">
               <div>
-                <div className="benefits-card benefits-card-mobile">
+                <Link to="/contact" className="benefits-card benefits-card-mobile">
                   <span className="benefits-block">
                     <div className="benefits-icon">{benefits[2].icon}</div>
                     <h2 className="benefits-title">{benefits[2].title}</h2>
                   </span>
-                </div>
+                </Link>
               </div>
             </div>
 
             <div className="benefits-grid benefits-grid-cols-2 benefits-lg-hidden">
               <div className="benefits-col-start-2">
-                <div className="benefits-card benefits-card-mobile">
+                <Link to="/contact" className="benefits-card benefits-card-mobile">
                   <span className="benefits-block">
                     <div className="benefits-icon">{benefits[3].icon}</div>
                     <h2 className="benefits-title">{benefits[3].title}</h2>
                   </span>
-                </div>
+                </Link>
               </div>
             </div>
 
