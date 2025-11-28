@@ -323,7 +323,9 @@
   }
 
   .blog-scroller {
-    font-size: clamp(3rem, 8vw, 4rem);
+    font-size: clamp(2.5rem, 8vw, 3.5rem);
+    font-weight: 600;
+    letter-spacing: 0.04em;
   }
 
   .blog-featured-section {
@@ -346,7 +348,10 @@
   }
 
   .blog-featured-title {
+    font-size: clamp(2.5rem, 8vw, 3.5rem);
+    font-weight: 600;
     margin-bottom: 1.5rem;
+    text-align: center;
   }
 
   .blog-featured-description {

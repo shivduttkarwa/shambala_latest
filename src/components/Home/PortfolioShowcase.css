@@ -48,6 +48,17 @@ section.project-feature .block-text {
   margin-bottom: clamp(2rem, 2.25352vw + 1.47183rem, 3.5rem);
   margin-left: auto;
   margin-right: auto;
+  font-size: clamp(2rem, 4vw, 4.2rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+section.project-feature .block-text .block-text-col {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 section.project-feature .block-text h3,
@@ -68,9 +79,16 @@ section.project-feature .block-text .portfolio-showcase-title {
   section.project-feature .block-text .portfolio-showcase-title {
     white-space: normal !important;
     font-size: clamp(2.5rem, 8vw, 3.5rem);
-    line-height: 1.1;
+    line-height: 1.15;
     text-align: center;
     overflow: visible;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+
+  section.project-feature .block-text {
+    width: 100%;
+    padding: 0 1.5rem;
   }
 }
 

@@ -449,8 +449,9 @@
   }
 
   .left h2 {
-    font-size: 48px;
+    font-size: clamp(2.5rem, 8vw, 3.5rem);
     margin-bottom: 120px;
+    line-height: 1.15;
   }
 }
 
@@ -466,10 +467,11 @@
   }
 
   .left h2 {
-    font-size: 48px;
+    font-size: clamp(2.5rem, 8vw, 3.5rem);
     margin-bottom: 40px;
     margin-left: 0;
     margin-top: 30px; /* Pushed title down 30px on mobile */
+    line-height: 1.15;
   }
 
   .left p {
@@ -502,8 +504,9 @@
   }
 
   .right h4 {
-    font-size: 36px;
+    font-size: clamp(2.3rem, 7vw, 3.2rem);
     margin-bottom: 16px;
+    line-height: 1.15;
   }
 
   .right .text p {
@@ -533,7 +536,7 @@
 
 @media (max-width: 480px) {
   .left h2 {
-    font-size: 48px;
+    font-size: clamp(2.5rem, 8vw, 3.5rem);
   }
 
   .left-navigation {
@@ -543,7 +546,7 @@
   }
 
   .right h4 {
-    font-size: 36px;
+    font-size: clamp(2.3rem, 7vw, 3.2rem);
   }
 
   .right .text p {

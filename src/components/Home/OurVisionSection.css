@@ -121,7 +121,8 @@
   }
 
   .vision-large-text {
-    font-size: clamp(2.5rem, 12vw, 6rem);
+    font-size: clamp(2.5rem, 8vw, 3.5rem);
+    line-height: 1.15;
   }
 
   .vision-image-container {
@@ -145,7 +146,8 @@
   }
 
   .vision-large-text {
-    font-size: clamp(2rem, 12vw, 4rem);
+    font-size: clamp(2.5rem, 8vw, 3.5rem);
+    line-height: 1.15;
   }
 
   .vision-image-container {

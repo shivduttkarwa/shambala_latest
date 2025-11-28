@@ -321,6 +321,11 @@
 
   .cta-title {
     font-size: clamp(2.5rem, 8vw, 3.5rem);
+    font-family: "Dream Avenue", cursive;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-weight: 600;
+    line-height: 1.15;
   }
 
   .cta-form-wrapper {

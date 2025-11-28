@@ -244,6 +244,11 @@
     text-align: center; /* Keep center alignment like 968px breakpoint */
   }
 
+  .essence-tilt-title {
+    font-size: clamp(2.5rem, 8vw, 3.5rem);
+    line-height: 1.15;
+  }
+
   .essence-description {
     margin-bottom: 0; /* Remove bottom margin */
   }

@@ -138,13 +138,15 @@
 }
 
 .services-title {
-  font-size: 48px;
-  font-family: "Dream Avenue", serif;
-  font-weight: 400;
-  line-height: 1.2;
-  margin-bottom: 24px;
-  color: #1a1a1a;
-  letter-spacing: -1px;
+  font-family: "Dream Avenue", cursive !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.04em !important;
+  line-height: 1.2 !important;
+  white-space: normal !important;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 600;
+  color: var(--text);
+  margin: 0;
 }
 
 .services-description {
@@ -270,7 +272,8 @@
   }
 
   .services-title {
-    font-size: 48px;
+    font-size: clamp(2.5rem, 7vw, 3.4rem);
+    line-height: 1.15;
   }
 }
 
@@ -323,7 +326,8 @@
   }
 
   .services-title {
-    font-size: 48px;
+    font-size: clamp(2.5rem, 8vw, 3.5rem);
+    line-height: 1.15;
   }
 
   .services-description {
@@ -358,8 +362,8 @@
   }
 
   .services-title {
-    font-size: 36px;
-    line-height: 1.1;
+    font-size: clamp(2.5rem, 8vw, 3.5rem);
+    line-height: 1.15;
   }
 
   .services-description {

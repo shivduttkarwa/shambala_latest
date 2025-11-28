@@ -15,16 +15,15 @@
 }
 
 .benefits-section-title {
-  font-family: "Dream Avenue", cursive;
-  font-size: 72px;
-  font-weight: 400;
+  font-family: "Dream Avenue", cursive !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.04em !important;
+  line-height: 1.2 !important;
+  white-space: normal !important;
+  font-size: clamp(2rem, 4vw, 4.2rem);
+  font-weight: 600;
   color: var(--text);
-  line-height: 1.2;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
   margin: 0;
-  max-width: 100%;
-  overflow: hidden;
 }
 
 @media (max-width: 768px) {
