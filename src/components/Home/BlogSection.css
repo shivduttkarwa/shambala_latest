@@ -272,7 +272,7 @@
   overflow: hidden;
 }
 
-.blog-section-wrapper .home-blog-heading span {
+.blog-section-wrapper .home-blog-heading:not(.tilt-text-heading) span {
   display: inline-block;
   transform: translateY(130%);
   opacity: 0;

@@ -50,12 +50,28 @@ section.project-feature .block-text {
   margin-right: auto;
 }
 
-section.project-feature .block-text h3 {
+section.project-feature .block-text h3,
+section.project-feature .block-text .portfolio-showcase-title {
   color: #1a1810;
   font-size: clamp(3.5rem, 5vw, 4.5rem);
   font-weight: 500;
   font-family: "Dream Avenue", cursive;
   text-transform: uppercase;
+  white-space: nowrap;
+  flex-wrap: nowrap !important;
+  overflow: hidden;
+  max-width: 100%;
+}
+
+@media (max-width: 768px) {
+  section.project-feature .block-text h3,
+  section.project-feature .block-text .portfolio-showcase-title {
+    white-space: normal !important;
+    font-size: clamp(2.5rem, 8vw, 3.5rem);
+    line-height: 1.1;
+    text-align: center;
+    overflow: visible;
+  }
 }
 
 section.project-feature .block-text h3 .mask {

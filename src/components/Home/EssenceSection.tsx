@@ -4,6 +4,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./EssenceSection.css";
 import GlassButton from "../UI/GlassButton";
 import FallingTextVideoComponent from "../UI/FallingTextVideoComponent";
+import HoverText from "../UI/HoverText";
+import TiltTextGsap from "../UI/TiltTextGsap";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -86,7 +88,6 @@ const EssenceSection: React.FC<EssenceSectionProps> = ({
 
     const ctx = gsap.context(() => {
       const taglineChars = taglineRef.current?.querySelectorAll(".char");
-      const headingLines = headingRef.current?.querySelectorAll(".line");
 
       // Set initial states (prevents layout shift)
       if (taglineChars && taglineChars.length > 0) {
@@ -95,9 +96,9 @@ const EssenceSection: React.FC<EssenceSectionProps> = ({
           y: 20,
         });
       }
-      if (headingLines && headingLines.length > 0) {
-        gsap.set(headingLines, {
-          yPercent: 100,
+      if (headingRef.current) {
+        gsap.set(headingRef.current, {
+          opacity: 1,
         });
       }
       if (ctaRef.current) {
@@ -112,7 +113,8 @@ const EssenceSection: React.FC<EssenceSectionProps> = ({
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top 60%",
-          toggleActions: "play none none none",
+          end: "bottom 40%",
+          toggleActions: "play reverse play reverse",
         },
       });
 
@@ -128,20 +130,6 @@ const EssenceSection: React.FC<EssenceSectionProps> = ({
             ease: "power2.out",
           },
           0
-        );
-      }
-
-      // Heading lines - slide up
-      if (headingLines && headingLines.length > 0) {
-        tl.to(
-          headingLines,
-          {
-            yPercent: 0,
-            duration: 1.8,
-            stagger: 0.8,
-            ease: "power1.out",
-          },
-          0.2
         );
       }
 
@@ -189,11 +177,26 @@ const EssenceSection: React.FC<EssenceSectionProps> = ({
               </div>
             )}
 
-            <h2 className="essence-heading" ref={headingRef}>
-              {splitTextIntoLines(heading)}
-            </h2>
+            <div className="essence-heading" ref={headingRef}>
+              <TiltTextGsap
+                className="essence-tilt-title"
+                startTrigger="top 70%"
+                endTrigger="bottom -10%"
+              >
+                {heading}
+              </TiltTextGsap>
+            </div>
 
-            <p className="essence-description">{description}</p>
+            <div className="essence-description">
+              <HoverText
+                fromSettings="'wght' 400"
+                toSettings="'wght' 700"
+                radius={100}
+                falloff="gaussian"
+              >
+                {description}
+              </HoverText>
+            </div>
 
             <div ref={ctaRef} className="essence-cta-desktop">
               <GlassButton href={ctaHref}>{ctaText}</GlassButton>

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import "./PortfolioShowcase.css";
 import GlassButton from "../UI/GlassButton";
+import TiltTextGsap from "../UI/TiltTextGsap";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -168,7 +169,14 @@ const PortfolioShowcase: React.FC = () => {
     <section className="project-feature" ref={sectionRef}>
       <div className="block-text">
         <div className="block-text-col">
-          <h3 ref={titleRef}>{splitTextIntoLines("OUR LATEST PROJECTS")}</h3>
+          <TiltTextGsap
+            tag="h3"
+            className="portfolio-showcase-title"
+            startTrigger="top 70%"
+            endTrigger="bottom -10%"
+          >
+            OUR LATEST PROJECTS
+          </TiltTextGsap>
         </div>
       </div>
 

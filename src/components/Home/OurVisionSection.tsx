@@ -72,7 +72,7 @@ const OurVisionSection: React.FC<OurVisionSectionProps> = ({
             end: "+=100%",
             scrub: true,
             pin: true,
-            pinSpacing: false, // This prevents artificial spacing that causes lag
+            pinSpacing: false,
             anticipatePin: 1,
           },
         });
@@ -80,14 +80,14 @@ const OurVisionSection: React.FC<OurVisionSectionProps> = ({
         tl.to(
           ".vision-image-container",
           {
-            scale: 1.6, // 2X image size
+            scale: 1.6,
             ease: "none",
           },
           0
         ).to(
           ".vision-text-right .vision-large-text",
           {
-            y: -560, // your existing value
+            y: -500,
             ease: "none",
           },
           0

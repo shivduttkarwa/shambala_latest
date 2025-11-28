@@ -407,7 +407,6 @@
   cursor: pointer !important; /* Override to show pointer only on buttons */
 }
 
-
 .pms-swiper-container-h {
   overflow: hidden;
 }
@@ -500,7 +499,7 @@
 
   .pms-swiper-container-h {
     height: 100vh;
-    overflow: visible;
+    overflow: hidden;
   }
 
   .pms-swiper-content {

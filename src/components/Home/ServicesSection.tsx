@@ -3,6 +3,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./ServicesSection.css";
 import GlassButton from "../UI/GlassButton";
+import TiltTextGsap from "../UI/TiltTextGsap";
 
 const publicUrl = import.meta.env.BASE_URL;
 
@@ -87,17 +88,21 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
       // Get all cards
       const cards = gsap.utils.toArray(".service-card");
 
-      // Set initial state for all cards
-      gsap.set(cards, {
-        opacity: 0,
-        x: 150,
-        y: 100,
-        rotation: -16,
-        transformOrigin: "center center",
-      });
-
       // Animate each card on scroll with stagger
       cards.forEach((card, index) => {
+        // Alternate direction: even indexes (0,2,4...) from left, odd indexes (1,3,5...) from right
+        const isFromLeft = index % 2 === 0;
+        const startX = isFromLeft ? -150 : 150;
+
+        // Set initial state for each card individually
+        gsap.set(card as gsap.TweenTarget, {
+          opacity: 0,
+          x: startX,
+          y: 100,
+          rotation: isFromLeft ? 16 : -16,
+          transformOrigin: "center center",
+        });
+
         gsap.to(card as gsap.TweenTarget, {
           opacity: 1,
           x: 0,
@@ -133,16 +138,6 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
 
       // Fade in content elements on desktop only
       if (window.innerWidth > 1024) {
-        gsap.from(".services-title", {
-          scrollTrigger: {
-            trigger: ".services-content",
-            start: "top 70%",
-          },
-          opacity: 0,
-          y: 30,
-          duration: 0.6,
-          ease: "linear",
-        });
 
         gsap.from(".services-description", {
           scrollTrigger: {
@@ -209,11 +204,13 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
 
           {/* Right side - Sticky Content */}
           <div className="services-content">
-            <h2 className="services-title">
-              {title}
-              <br />
-              {subtitle}
-            </h2>
+            <TiltTextGsap
+              className="services-title"
+              startTrigger="top 70%"
+              endTrigger="bottom -1000%"
+            >
+              {title} {subtitle}
+            </TiltTextGsap>
             <p className="services-description">{description}</p>
             <GlassButton href={ctaLink}>{ctaText}</GlassButton>
           </div>

@@ -284,63 +284,63 @@ body.menu-open {
 
 /* Individual Menu Item Colors */
 .olm-menu-item-home .olm-menu-number {
-  color: #ff5e1a;
+  color: #ff6b6b;
 }
 .olm-menu-item-home .olm-menu-arrow {
-  color: #ff5e1a;
+  color: #ff6b6b;
 }
 .olm-menu-item-home:hover .olm-menu-line::before {
   width: 100%;
-  background: #ff5e1a;
-  box-shadow: 0 0 10px rgba(255, 94, 26, 0.5);
+  background: #ff6b6b;
+  box-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
 }
 
 .olm-menu-item-services .olm-menu-number {
-  color: #1affd5;
+  color: #4ecdc4;
 }
 .olm-menu-item-services .olm-menu-arrow {
-  color: #1affd5;
+  color: #4ecdc4;
 }
 .olm-menu-item-services:hover .olm-menu-line::before {
   width: 100%;
-  background: #1affd5;
-  box-shadow: 0 0 10px rgba(26, 255, 213, 0.5);
+  background: #4ecdc4;
+  box-shadow: 0 0 10px rgba(78, 205, 196, 0.5);
 }
 
 .olm-menu-item-projects .olm-menu-number {
-  color: #ff1a6a;
+  color: #ffe66d;
 }
 .olm-menu-item-projects .olm-menu-arrow {
-  color: #ff1a6a;
+  color: #ffe66d;
 }
 .olm-menu-item-projects:hover .olm-menu-line::before {
   width: 100%;
-  background: #ff1a6a;
-  box-shadow: 0 0 10px rgba(255, 26, 106, 0.5);
+  background: #ffe66d;
+  box-shadow: 0 0 10px rgba(255, 230, 109, 0.5);
 }
 
 .olm-menu-item-about .olm-menu-number {
-  color: #6a5acd;
+  color: #a8e6cf;
 }
 .olm-menu-item-about .olm-menu-arrow {
-  color: #6a5acd;
+  color: #a8e6cf;
 }
 .olm-menu-item-about:hover .olm-menu-line::before {
   width: 100%;
-  background: #6a5acd;
-  box-shadow: 0 0 10px rgba(106, 90, 205, 0.5);
+  background: #a8e6cf;
+  box-shadow: 0 0 10px rgba(168, 230, 207, 0.5);
 }
 
 .olm-menu-item-contact .olm-menu-number {
-  color: #ffd700;
+  color: #ff8b94;
 }
 .olm-menu-item-contact .olm-menu-arrow {
-  color: #ffd700;
+  color: #ff8b94;
 }
 .olm-menu-item-contact:hover .olm-menu-line::before {
   width: 100%;
-  background: #ffd700;
-  box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+  background: #ff8b94;
+  box-shadow: 0 0 10px rgba(255, 139, 148, 0.5);
 }
 
 /* General Hover Effects */
@@ -408,73 +408,52 @@ body.menu-open {
 /* Contact Section */
 .olm-contact-section {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* Simple Contact Buttons */
+/* Glass Rain Button Container */
 .olm-secondary-menu-item {
-  width: 100%;
+  width: 80%;
   margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
 }
 
-.olm-premium-btn {
+.olm-contact-btn,
+.olm-email-btn {
   position: relative;
   top: 100vh;
-  display: block;
   width: 100%;
-  padding: 1.2rem 2rem;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(229, 227, 220, 0.2);
-  border-radius: 12px;
-  text-decoration: none;
-  color: var(--clr-link);
-  font-family: "Instrument Sans", sans-serif;
-  font-size: 1rem;
+  display: block;
+}
+
+/* Override GlassRainButton styles for menu */
+.olm-secondary-menu .glass-rain-btn {
+  width: 100%;
+  height: 58px;
+  font-size: 14px;
   font-weight: 500;
-  text-align: center;
-  letter-spacing: 2px;
-  backdrop-filter: blur(6px);
-  transition: all 0.3s ease;
-  overflow: hidden;
-  z-index: 2;
+  letter-spacing: 1px;
+  border-radius: 8px;
+  padding: 0.9rem 1.5rem;
+  gap: 0.5rem;
+  border: 1px solid rgba(229, 227, 220, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+  cursor: pointer;
 }
 
-.olm-premium-btn::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(255, 255, 255, 0.1);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  border-radius: 12px;
-  z-index: -1;
+.olm-secondary-menu .glass-rain-btn-label {
+  font-size: 14px;
+  font-weight: 500;
 }
 
-.olm-premium-btn:hover::before {
-  opacity: 1;
-}
-
-.olm-premium-btn:hover {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(229, 227, 220, 0.4);
-  color: #ffffff;
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-}
-
-.olm-contact-btn:hover {
-  background: rgba(255, 94, 26, 0.15);
-  border-color: var(--primary);
-  box-shadow: 0 8px 25px rgba(255, 94, 26, 0.3), 0 0 20px rgba(255, 94, 26, 0.2);
-}
-
-.olm-email-btn:hover {
-  background: rgba(26, 255, 213, 0.15);
-  border-color: var(--tertiary);
-  box-shadow: 0 8px 25px rgba(26, 255, 213, 0.3),
-    0 0 20px rgba(26, 255, 213, 0.2);
+.olm-secondary-menu .glass-rain-btn-icon {
+  width: 28px;
+  height: 28px;
+  font-size: 14px;
+  border-radius: 50%;
 }
 
 /* Social Media Section */
@@ -510,6 +489,7 @@ body.menu-open {
   transition: all 0.3s ease;
   color: #fff;
   background: #26292b; /* LinkedIn color for all */
+  cursor: pointer;
 }
 
 .olm-social-card:hover {
@@ -552,6 +532,7 @@ body.menu-open {
   letter-spacing: 1px;
   transition: all 0.3s ease;
   position: relative;
+  cursor: pointer;
 }
 
 .olm-footer-link::after {
@@ -566,7 +547,7 @@ body.menu-open {
 }
 
 .olm-footer-link:hover {
-  color: rgba(229, 227, 220, 0.8);
+  color: #ffffff;
 }
 
 .olm-footer-link:hover::after {
@@ -819,9 +800,22 @@ body.menu-open {
     max-width: 280px;
   }
 
-  .olm-premium-btn {
-    padding: 1rem 1.5rem;
-    font-size: 1.1rem;
+  .olm-secondary-menu .glass-rain-btn {
+    width: 100%;
+    height: 53px;
+    font-size: 13px;
+    padding: 0.8rem 1.2rem;
+    gap: 0.4rem;
+  }
+
+  .olm-secondary-menu .glass-rain-btn-label {
+    font-size: 13px;
+  }
+
+  .olm-secondary-menu .glass-rain-btn-icon {
+    width: 26px;
+    height: 26px;
+    font-size: 13px;
   }
 }
 

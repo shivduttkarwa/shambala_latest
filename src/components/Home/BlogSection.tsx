@@ -5,6 +5,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ScrollVelocity from "../animations/ScrollVelocity";
 import GlassButton from "../UI/GlassButton";
 import SimpleSwiper from "../UI/SimpleSwiper";
+import TiltTextGsap from "../UI/TiltTextGsap";
 import "../UI/SimpleSwiper.css";
 
 const publicUrl = import.meta.env.BASE_URL;
@@ -43,11 +44,11 @@ const BlogSection: React.FC<BlogSectionProps> = ({
   posts = [
     {
       id: 1,
-      title: "Creating Sustainable Living Spaces with Shambala Homes",
+      title: "Sustainable Living with Shambala",
       date: "15 Nov 2025",
       category: "Sustainability",
       excerpt:
-        "Discover how our eco-friendly construction methods and sustainable materials are revolutionizing modern Australian home building while reducing environmental impact.",
+        "Discover how our eco-friendly construction methods and sustainable materials are revolutionizing modern Australian home building while reducing environmental impact. Our innovative approach combines cutting-edge green technology with traditional craftsmanship to create homes that not only minimize carbon footprint but also provide healthier living environments for families across Australia.",
       imageSrc: `${publicUrl}images/port1.jpg`,
       imageAlt: "Sustainable home construction",
       link: "#",
@@ -104,8 +105,8 @@ const BlogSection: React.FC<BlogSectionProps> = ({
         });
       });
 
-      // TEXT HEADING REVEAL
-      document.querySelectorAll(".home-blog-heading").forEach((heading) => {
+      // TEXT HEADING REVEAL (exclude TiltTextGsap components)
+      document.querySelectorAll(".home-blog-heading:not(.tilt-text-heading)").forEach((heading) => {
         const words = (heading.textContent || "").trim().split(" ");
         heading.innerHTML = "";
 
@@ -175,9 +176,14 @@ const BlogSection: React.FC<BlogSectionProps> = ({
 
           {/* Content Half */}
           <div className="blog-featured-content">
-            <h1 className="blog-featured-title home-blog-heading">
+            <TiltTextGsap
+              tag="h1"
+              className="blog-featured-title home-blog-heading"
+              startTrigger="top 80%"
+              endTrigger="bottom -10%"
+            >
               {featuredPost.title}
-            </h1>
+            </TiltTextGsap>
 
             <p className="blog-featured-description">{featuredPost.excerpt}</p>
 

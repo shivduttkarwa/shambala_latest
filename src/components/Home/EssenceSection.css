@@ -47,45 +47,44 @@
 }
 
 .essence-heading {
-  font-family: "Dream Avenue", cursive;
-  font-size: clamp(2.5rem, 8vw, 70px); /* Responsive: 40px min, 8vw fluid, 70px max */
-  font-weight: normal;
-  line-height: 1.4;
-  color: var(--text);
   margin-bottom: 25px;
-  letter-spacing: normal;
-  text-transform: uppercase;
   max-width: 100%;
+}
+
+.essence-tilt-title {
+  font-family: "Dream Avenue", cursive !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.04em !important;
+  line-height: 1.2 !important;
+  white-space: normal !important;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 600;
+  color: var(--text);
+  margin: 0;
 }
 
 /* Laptop and above screens */
 @media (min-width: 1024px) {
-  .essence-heading {
-    font-size: clamp(2.5rem, 6.4vw, 56px); /* Reduced by 20% from 8vw and 70px */
-  }
-  
+
   .essence-layout {
-    height: calc(93.5vh + 20px); /* Reduced from 110vh by 15%, then added 20px total */
+    height: calc(
+      93.5vh + 20px
+    ); /* Reduced from 110vh by 15%, then added 20px total */
     max-height: calc(93.5vh + 20px);
   }
-  
+
   .essence-content {
     min-height: calc(93.5vh + 20px);
   }
 }
 
-.essence-heading .mask {
-  overflow: hidden;
-  display: block;
-}
-
-.essence-heading .line {
-  display: block;
-  will-change: transform, opacity;
-}
 
 .essence-description {
-  font-size: clamp(16px, 2vw, 18px); /* Responsive: 16px min, 2vw fluid, 18px max */
+  font-size: clamp(
+    16px,
+    2vw,
+    18px
+  ); /* Responsive: 16px min, 2vw fluid, 18px max */
   line-height: 1.7;
   color: #4a4a4a;
   margin-bottom: 35px;
@@ -182,7 +181,6 @@
   .essence-content {
     padding: 60px 50px;
   }
-
 }
 
 @media (max-width: 968px) {

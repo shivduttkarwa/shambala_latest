@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import gsap from "gsap";
 import { CSSRulePlugin } from "gsap/CSSRulePlugin";
 import { Link } from "react-router-dom";
+import GlassRainButton from "../UI/GlassRainButton";
 import "./OverLayMenu.css";
 
 const publicUrl = import.meta.env.BASE_URL || "/";
@@ -452,19 +453,20 @@ const OverlayMenu: React.FC = () => {
             {/* Contact Section */}
             <div className="olm-contact-section">
               <div className="olm-menu-item olm-secondary-menu-item">
-                <Link to="/contact" className="olm-premium-btn olm-contact-btn">
-                  Contact Me
-                </Link>
+                <div className="olm-contact-btn" style={{ position: 'relative', top: '100vh' }}>
+                  <GlassRainButton href="/contact">
+                    Contact Us
+                  </GlassRainButton>
+                </div>
                 <div className="olm-menu-item-revealer"></div>
               </div>
 
               <div className="olm-menu-item olm-secondary-menu-item">
-                <a
-                  href="mailto:shivduttkarwa@gmail.com"
-                  className="olm-premium-btn olm-email-btn"
-                >
-                  Send Email
-                </a>
+                <div className="olm-email-btn" style={{ position: 'relative', top: '100vh' }}>
+                  <GlassRainButton href="mailto:shivduttkarwa@gmail.com">
+                    Send Email
+                  </GlassRainButton>
+                </div>
                 <div className="olm-menu-item-revealer"></div>
               </div>
             </div>

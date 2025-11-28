@@ -1,0 +1,62 @@
+/* TiltTextGsap Component Styles */
+
+.tilt-text-heading {
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.18em;
+  position: relative;
+  margin: 0;
+  visibility: hidden; /* Initially hidden until GSAP reveals it */
+}
+
+.tilt-text-word {
+  display: inline-block;
+  overflow: hidden;
+  position: relative;
+}
+
+.tilt-text-char {
+  display: inline-block;
+  will-change: transform, opacity, filter;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .tilt-text-heading {
+    text-align: center;
+    justify-content: center;
+    letter-spacing: 0.1em;
+    gap: 0.15em;
+    white-space: normal !important;
+    flex-wrap: wrap !important;
+    overflow: hidden !important;
+    max-width: 100% !important;
+    line-height: 1.2 !important;
+  }
+  
+  .tilt-text-word {
+    overflow: hidden;
+  }
+  
+  .tilt-text-char {
+    display: inline-block;
+  }
+}
+
+@media (max-width: 480px) {
+  .tilt-text-heading {
+    letter-spacing: 0.08em;
+    gap: 0.12em;
+  }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .tilt-text-char {
+    will-change: auto;
+  }
+}

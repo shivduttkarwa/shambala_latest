@@ -1,0 +1,62 @@
+/* ElasticText Component Styles */
+
+.elastic-text {
+  margin: 0;
+  line-height: 1.1;
+  letter-spacing: 0.08em;
+  user-select: none;
+  white-space: nowrap;
+  text-shadow: none;
+  font-family: "Nunito", sans-serif;
+  will-change: font-weight, font-stretch, transform;
+}
+
+.elastic-char {
+  display: inline-block;
+  padding-top: 0;
+  text-align: center;
+  will-change: font-weight, font-stretch, transform;
+  cursor: grab;
+  transition: all 0.1s ease;
+}
+
+.elastic-char:hover {
+  opacity: 0.8;
+}
+
+.elastic-char:active {
+  cursor: grabbing;
+}
+
+.elastic-grab {
+  cursor: grabbing !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .elastic-text {
+    font-size: 11vw !important;
+    letter-spacing: 0.06em;
+    line-height: 1.2;
+  }
+  
+  .elastic-char {
+    cursor: default;
+  }
+}
+
+@media (max-width: 480px) {
+  .elastic-text {
+    font-size: 14vw !important;
+    letter-spacing: 0.04em;
+  }
+}
+
+/* Ensure smooth animations on different devices */
+@media (prefers-reduced-motion: reduce) {
+  .elastic-text,
+  .elastic-char {
+    animation: none;
+    transition: none;
+  }
+}

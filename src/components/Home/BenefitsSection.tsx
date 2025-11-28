@@ -1,6 +1,7 @@
 import React from "react";
 import "./BenefitsSection.css";
 import GlassButton from "../UI/GlassButton";
+import TiltTextGsap from "../UI/TiltTextGsap";
 
 interface Benefit {
   id: number;
@@ -108,7 +109,13 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = ({
       {/* SECTION TITLE - INSIDE SECTION, BEFORE STICKY CONTEXT */}
       {sectionTitle && (
         <div className="benefits-inside-title">
-          <h1 className="benefits-section-title">{sectionTitle}</h1>
+          <TiltTextGsap
+            className="benefits-section-title"
+            startTrigger="top 70%"
+            endTrigger="bottom -200%"
+          >
+            {sectionTitle}
+          </TiltTextGsap>
         </div>
       )}
 

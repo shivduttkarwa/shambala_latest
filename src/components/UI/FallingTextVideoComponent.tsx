@@ -38,11 +38,11 @@ const FallingTextVideoComponent: React.FC<FallingTextVideoComponentProps> = ({
       
       const text = texts[index];
       const inner = document.createElement("div");
-      inner.className = "falling-text-inner";
+      inner.className = "ftv-falling-text-inner";
 
       text.split("").forEach((ch) => {
         const span = document.createElement("span");
-        span.className = "falling-char";
+        span.className = "ftv-falling-char";
         span.textContent = ch === " " ? "\u00A0" : ch;
         inner.appendChild(span);
       });
@@ -89,7 +89,7 @@ const FallingTextVideoComponent: React.FC<FallingTextVideoComponentProps> = ({
       const bottomContainers = [bottomLeftRef.current, bottomRightRef.current];
       bottomContainers.forEach((container) => {
         if (!container) return;
-        const chars = container.querySelectorAll(".falling-char");
+        const chars = container.querySelectorAll(".ftv-falling-char");
         gsap.set(chars, { 
           y: 0, 
           opacity: 1,
@@ -104,7 +104,7 @@ const FallingTextVideoComponent: React.FC<FallingTextVideoComponentProps> = ({
           start: "top top",
           end: "bottom bottom",
           scrub: 1,
-          pin: ".gsap-video-content",
+          pin: ".ftv-video-content",
           pinSpacing: true,
         },
       });
@@ -113,7 +113,7 @@ const FallingTextVideoComponent: React.FC<FallingTextVideoComponentProps> = ({
       const allChars: Element[] = [];
       bottomContainers.forEach((container) => {
         if (!container) return;
-        const chars = container.querySelectorAll(".falling-char");
+        const chars = container.querySelectorAll(".ftv-falling-char");
         allChars.push(...chars);
       });
 
@@ -189,22 +189,22 @@ const FallingTextVideoComponent: React.FC<FallingTextVideoComponentProps> = ({
   return (
     <section
       ref={wrapperRef}
-      className="gsap-video-wrapper"
+      className="ftv-video-wrapper"
       style={{ backgroundColor }}
     >
-      <div className="gsap-video-content">
+      <div className="ftv-video-content">
         {/* Top big headings */}
-        <div className="gsap-text-container">
-          <div ref={textLeftRef} className="gsap-text-left">
+        <div className="ftv-text-container">
+          <div ref={textLeftRef} className="ftv-text-left">
             {leftText}
           </div>
-          <div ref={textRightRef} className="gsap-text-right">
+          <div ref={textRightRef} className="ftv-text-right">
             {rightText}
           </div>
         </div>
 
         {/* Center video */}
-        <div ref={videoContainerRef} className="gsap-video-container">
+        <div ref={videoContainerRef} className="ftv-video-container">
           <video autoPlay muted loop playsInline>
             <source src={videoSrc} type="video/mp4" />
             Your browser does not support the video tag.
@@ -212,21 +212,21 @@ const FallingTextVideoComponent: React.FC<FallingTextVideoComponentProps> = ({
         </div>
 
         {/* Bottom words with falling text */}
-        <div className="gsap-bottom-text">
-          <div className="gsap-bottom-left">
-            <div ref={bottomLeftRef} className="falling-text-container"></div>
+        <div className="ftv-bottom-text">
+          <div className="ftv-bottom-left">
+            <div ref={bottomLeftRef} className="ftv-falling-text-container"></div>
           </div>
           
           {/* Scroll down indicator */}
-          <div className="scroll-down-indicator">
-            <div className="scroll-arrow">
+          <div className="ftv-scroll-down-indicator">
+            <div className="ftv-scroll-arrow">
               <span>↓</span>
             </div>
-            <div className="scroll-text">Scroll</div>
+            <div className="ftv-scroll-text">Scroll</div>
           </div>
           
-          <div className="gsap-bottom-right">
-            <div ref={bottomRightRef} className="falling-text-container"></div>
+          <div className="ftv-bottom-right">
+            <div ref={bottomRightRef} className="ftv-falling-text-container"></div>
           </div>
         </div>
       </div>

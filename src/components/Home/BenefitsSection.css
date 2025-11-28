@@ -23,6 +23,17 @@
   text-transform: uppercase;
   letter-spacing: 0.02em;
   margin: 0;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .benefits-section-title {
+    font-size: clamp(2.5rem, 8vw, 3.5rem);
+    text-align: center;
+    overflow: visible;
+    white-space: normal;
+  }
 }
 
 /* Benefits icon styling */
