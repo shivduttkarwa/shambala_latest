@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Step Slider Section</title>
+    <title>Modern Scroll Transform</title>
     <style>
       * {
         margin: 0;
@@ -12,397 +12,541 @@
       }
 
       body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-          Oxygen, Ubuntu, Cantarell, sans-serif;
-        background: #f5e6d3;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter",
+          sans-serif;
+        background: #ffffff;
+        color: #0a0a0a;
+        overflow-x: hidden;
+        line-height: 1.6;
       }
 
-      .spacer {
-        height: 100vh;
+      /* Dummy Section 1 */
+      .intro-section {
+        min-height: 100vh;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 2rem;
-        color: #333;
+        background: #fafafa;
+        text-align: center;
+        padding: 2rem;
+        border-bottom: 1px solid #e5e5e5;
       }
 
-      .step-slider {
-        height: 600vh;
+      .intro-content h1 {
+        font-size: clamp(3rem, 8vw, 6rem);
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        color: #0a0a0a;
+        letter-spacing: -0.03em;
+      }
+
+      .intro-content p {
+        font-size: clamp(1.125rem, 2vw, 1.5rem);
+        color: #666;
+        max-width: 700px;
+        margin: 0 auto 3rem;
+        font-weight: 400;
+      }
+
+      .scroll-indicator {
+        width: 24px;
+        height: 40px;
+        border: 2px solid #0a0a0a;
+        border-radius: 12px;
         position: relative;
-        background: #f5e6d3;
+        margin: 0 auto;
       }
 
-      .step-slider__container {
-        position: sticky;
-        top: 0;
+      .scroll-indicator::before {
+        content: "";
+        width: 4px;
+        height: 8px;
+        background: #0a0a0a;
+        position: absolute;
+        top: 8px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 2px;
+        animation: scroll-down 2s infinite;
+      }
+
+      @keyframes scroll-down {
+        0%,
+        100% {
+          transform: translate(-50%, 0);
+          opacity: 1;
+        }
+        50% {
+          transform: translate(-50%, 12px);
+          opacity: 0.3;
+        }
+      }
+
+      /* Hero Text Section */
+      .hero-section {
         height: 100vh;
+        position: relative;
         display: flex;
         align-items: center;
         justify-content: center;
-        perspective: 2000px;
+        background: #ffffff;
+      }
+
+      .hero-content {
+        text-align: center;
+        padding: 2rem;
+        max-width: 1400px;
+      }
+
+      .hero-title {
+        font-size: clamp(4rem, 15vw, 12rem);
+        font-weight: 800;
+        letter-spacing: -0.04em;
+        line-height: 0.95;
+        margin-bottom: 2rem;
+        color: #0a0a0a;
+      }
+
+      .hero-subtitle {
+        font-size: clamp(1.5rem, 4vw, 3rem);
+        color: #666;
+        font-weight: 400;
+        letter-spacing: -0.02em;
+      }
+
+      /* Horizontal Scroll Section */
+      .cards-section {
+        position: relative;
+        background: #ffffff;
+        z-index: 10;
+      }
+
+      .cards-wrapper {
+        height: 100vh;
+        position: relative;
         overflow: hidden;
       }
 
-      .step-slider__track {
-        position: relative;
-        width: 85%;
-        max-width: 1200px;
-        height: 70vh;
+      .cards-container {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 50%;
+        display: flex;
+        gap: 2rem;
+        white-space: nowrap;
       }
 
-      .step-slider__card {
-        position: absolute;
-        top: 0;
-        left: 0;
+      .card {
+        width: 420px;
+        height: 560px;
+        flex-shrink: 0;
+        opacity: 0;
+      }
+
+      .card-inner {
         width: 100%;
         height: 100%;
-        background: #fff;
-        border-radius: 24px;
+        border-radius: 12px;
         overflow: hidden;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        will-change: transform;
-        transform-origin: bottom center;
+        background: #ffffff;
+        border: 1px solid #e5e5e5;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       }
 
-      .step-slider__card-image {
+      .card:hover .card-inner {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+      }
+
+      .card-image {
         position: relative;
+        height: 280px;
         overflow: hidden;
-        background: #e0e0e0;
+        background: #f5f5f5;
       }
 
-      .step-slider__card-image img {
+      .card-image img {
         width: 100%;
         height: 100%;
         object-fit: cover;
+        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
       }
 
-      .step-slider__card-content {
-        background: linear-gradient(135deg, #2c5f7a 0%, #1a4558 100%);
-        color: white;
-        padding: 60px;
+      .card:hover .card-image img {
+        transform: scale(1.05);
+      }
+
+      .card-content {
+        padding: 2rem;
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        height: calc(100% - 280px);
       }
 
-      .step-slider__counter {
+      .card-number {
         font-size: 0.875rem;
-        letter-spacing: 2px;
-        margin-bottom: 20px;
-        opacity: 0.8;
-        font-weight: 500;
+        font-weight: 600;
+        color: #999;
+        letter-spacing: 0.1em;
+        margin-bottom: 1rem;
       }
 
-      .step-slider__title {
-        font-size: 3rem;
-        font-weight: 300;
-        line-height: 1.2;
-        margin-bottom: 30px;
-        letter-spacing: -0.5px;
+      .card-content h3 {
+        font-size: 1.75rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: #0a0a0a;
+        letter-spacing: -0.02em;
       }
 
-      .step-slider__title i {
-        font-style: italic;
-        color: #d4a574;
+      .card-content p {
+        color: #666;
+        font-size: 1rem;
+        line-height: 1.6;
+        margin-bottom: auto;
       }
 
-      .step-slider__text {
-        font-size: 1.1rem;
-        line-height: 1.7;
-        opacity: 0.9;
-        font-weight: 300;
+      .card-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 600;
+        color: #0a0a0a;
+        text-decoration: none;
+        margin-top: 1.5rem;
+        transition: gap 0.3s ease;
       }
 
-      .step-slider__progress {
-        position: absolute;
-        right: 40px;
-        top: 50%;
-        transform: translateY(-50%);
+      .card-link:hover {
+        gap: 0.75rem;
+      }
+
+      .card-link svg {
+        width: 20px;
+        height: 20px;
+        transition: transform 0.3s ease;
+      }
+
+      .card-link:hover svg {
+        transform: translateX(4px);
+      }
+
+      /* Outro Section */
+      .outro-section {
+        min-height: 100vh;
         display: flex;
-        flex-direction: column;
-        gap: 12px;
-        z-index: 100;
+        align-items: center;
+        justify-content: center;
+        background: #fafafa;
+        text-align: center;
+        padding: 2rem;
+        border-top: 1px solid #e5e5e5;
       }
 
-      .step-slider__progress-dot {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background: rgba(44, 95, 122, 0.3);
-        transition: all 0.3s ease;
+      .outro-content h2 {
+        font-size: clamp(3rem, 7vw, 5rem);
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        color: #0a0a0a;
+        letter-spacing: -0.03em;
       }
 
-      .step-slider__progress-dot.is-active {
-        background: #2c5f7a;
-        transform: scale(1.4);
+      .outro-content p {
+        font-size: clamp(1rem, 2vw, 1.25rem);
+        color: #666;
+        max-width: 700px;
+        margin: 0 auto;
       }
 
+      .icon {
+        stroke: currentColor;
+        fill: none;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      /* Responsive */
       @media (max-width: 768px) {
-        .step-slider__card {
-          grid-template-columns: 1fr;
+        .hero-title {
+          font-size: clamp(3rem, 12vw, 6rem);
         }
 
-        .step-slider__card-content {
-          padding: 40px;
-        }
-
-        .step-slider__title {
-          font-size: 2rem;
+        .card {
+          width: 340px;
+          height: 480px;
         }
       }
     </style>
   </head>
   <body>
-    <div class="spacer">Scroll down to see the step slider</div>
+    <!-- Intro Section -->
+    <section class="intro-section">
+      <div class="intro-content">
+        <h1>Excellence in Motion</h1>
+        <p>
+          Experience the art of storytelling through elegant scroll interactions
+        </p>
+        <div class="scroll-indicator"></div>
+      </div>
+    </section>
 
-    <div class="step-slider" id="stepSlider">
-      <div class="step-slider__container">
-        <div class="step-slider__track" id="track">
-          <div class="step-slider__card" data-index="0">
-            <div class="step-slider__card-image">
-              <img
-                src="https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=800&h=1000&fit=crop"
-                alt="Nursery 1"
-              />
-            </div>
-            <div class="step-slider__card-content">
-              <p class="step-slider__counter">1 – 6</p>
-              <h3 class="step-slider__title">
-                Heartwarming and<br />Cosy <i>Nurseries</i>
-              </h3>
-              <p class="step-slider__text">
-                Let your children be surrounded by care and attention. Our
-                kindergarten teachers are both compassionate and highly skilled.
-                With learning games and pure fun, your little ones will have it
-                all!
-              </p>
+    <!-- Hero Text Section -->
+    <section class="hero-section" id="heroSection">
+      <div class="hero-content" id="heroContent">
+        <h1 class="hero-title">Design That Speaks</h1>
+        <p class="hero-subtitle">Creating meaningful experiences</p>
+      </div>
+    </section>
+
+    <!-- Horizontal Scroll Cards Section -->
+    <section class="cards-section" id="cardsSection">
+      <div class="cards-wrapper">
+        <div class="cards-container" id="cardsContainer">
+          <!-- Card 1 -->
+          <div class="card">
+            <div class="card-inner">
+              <div class="card-image">
+                <img
+                  src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&h=600&fit=crop"
+                  alt="Design Excellence"
+                />
+              </div>
+              <div class="card-content">
+                <div class="card-number">01</div>
+                <h3>Design Excellence</h3>
+                <p>
+                  Crafting beautiful digital experiences that resonate with
+                  users and drive engagement
+                </p>
+                <a href="#" class="card-link">
+                  Explore More
+                  <svg class="icon" viewBox="0 0 24 24">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </a>
+              </div>
             </div>
           </div>
 
-          <div class="step-slider__card" data-index="1">
-            <div class="step-slider__card-image">
-              <img
-                src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=800&h=1000&fit=crop"
-                alt="Nursery 2"
-              />
-            </div>
-            <div class="step-slider__card-content">
-              <p class="step-slider__counter">2 – 6</p>
-              <h3 class="step-slider__title">
-                Creative Learning<br /><i>Environments</i>
-              </h3>
-              <p class="step-slider__text">
-                Our spaces are designed to inspire creativity and curiosity.
-                Every corner is a new adventure waiting to be discovered by your
-                children.
-              </p>
-            </div>
-          </div>
-
-          <div class="step-slider__card" data-index="2">
-            <div class="step-slider__card-image">
-              <img
-                src="https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=800&h=1000&fit=crop"
-                alt="Nursery 3"
-              />
-            </div>
-            <div class="step-slider__card-content">
-              <p class="step-slider__counter">3 – 6</p>
-              <h3 class="step-slider__title">
-                Outdoor Play<br /><i>Adventures</i>
-              </h3>
-              <p class="step-slider__text">
-                Fresh air and outdoor activities are essential for development.
-                Our safe outdoor spaces encourage exploration and physical
-                activity.
-              </p>
+          <!-- Card 2 -->
+          <div class="card">
+            <div class="card-inner">
+              <div class="card-image">
+                <img
+                  src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop"
+                  alt="Strategic Thinking"
+                />
+              </div>
+              <div class="card-content">
+                <div class="card-number">02</div>
+                <h3>Strategic Thinking</h3>
+                <p>
+                  Data-driven approaches that transform business challenges into
+                  opportunities
+                </p>
+                <a href="#" class="card-link">
+                  Learn More
+                  <svg class="icon" viewBox="0 0 24 24">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </a>
+              </div>
             </div>
           </div>
 
-          <div class="step-slider__card" data-index="3">
-            <div class="step-slider__card-image">
-              <img
-                src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=1000&fit=crop"
-                alt="Nursery 4"
-              />
-            </div>
-            <div class="step-slider__card-content">
-              <p class="step-slider__counter">4 – 6</p>
-              <h3 class="step-slider__title">
-                Healthy Meals<br /><i>Daily</i>
-              </h3>
-              <p class="step-slider__text">
-                Nutrition matters! We provide balanced, delicious meals prepared
-                with love and care, catering to all dietary requirements.
-              </p>
-            </div>
-          </div>
-
-          <div class="step-slider__card" data-index="4">
-            <div class="step-slider__card-image">
-              <img
-                src="https://images.unsplash.com/photo-1560785496-3c9d27877182?w=800&h=1000&fit=crop"
-                alt="Nursery 5"
-              />
-            </div>
-            <div class="step-slider__card-content">
-              <p class="step-slider__counter">5 – 6</p>
-              <h3 class="step-slider__title">Music and<br /><i>Arts</i></h3>
-              <p class="step-slider__text">
-                Express yourself! Our music and arts programs help children
-                discover their talents and build confidence through creative
-                expression.
-              </p>
+          <!-- Card 3 -->
+          <div class="card">
+            <div class="card-inner">
+              <div class="card-image">
+                <img
+                  src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&h=600&fit=crop"
+                  alt="Team Collaboration"
+                />
+              </div>
+              <div class="card-content">
+                <div class="card-number">03</div>
+                <h3>Team Collaboration</h3>
+                <p>
+                  Building cohesive teams that deliver exceptional results
+                  through unified vision
+                </p>
+                <a href="#" class="card-link">
+                  Discover More
+                  <svg class="icon" viewBox="0 0 24 24">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </a>
+              </div>
             </div>
           </div>
 
-          <div class="step-slider__card" data-index="5">
-            <div class="step-slider__card-image">
-              <img
-                src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=800&h=1000&fit=crop"
-                alt="Nursery 6"
-              />
-            </div>
-            <div class="step-slider__card-content">
-              <p class="step-slider__counter">6 – 6</p>
-              <h3 class="step-slider__title">Safe and<br /><i>Secure</i></h3>
-              <p class="step-slider__text">
-                Your peace of mind is our priority. Our facilities are equipped
-                with modern security systems and our staff are trained in child
-                safety.
-              </p>
+          <!-- Card 4 -->
+          <div class="card">
+            <div class="card-inner">
+              <div class="card-image">
+                <img
+                  src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&h=600&fit=crop"
+                  alt="Innovation"
+                />
+              </div>
+              <div class="card-content">
+                <div class="card-number">04</div>
+                <h3>Innovation</h3>
+                <p>
+                  Pushing boundaries with cutting-edge solutions that redefine
+                  industry standards
+                </p>
+                <a href="#" class="card-link">
+                  View Details
+                  <svg class="icon" viewBox="0 0 24 24">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </a>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="step-slider__progress">
-          <div class="step-slider__progress-dot is-active"></div>
-          <div class="step-slider__progress-dot"></div>
-          <div class="step-slider__progress-dot"></div>
-          <div class="step-slider__progress-dot"></div>
-          <div class="step-slider__progress-dot"></div>
-          <div class="step-slider__progress-dot"></div>
+          <!-- Card 5 -->
+          <div class="card">
+            <div class="card-inner">
+              <div class="card-image">
+                <img
+                  src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&h=600&fit=crop"
+                  alt="Results Driven"
+                />
+              </div>
+              <div class="card-content">
+                <div class="card-number">05</div>
+                <h3>Results Driven</h3>
+                <p>
+                  Measuring success through tangible outcomes and continuous
+                  improvement
+                </p>
+                <a href="#" class="card-link">
+                  See Results
+                  <svg class="icon" viewBox="0 0 24 24">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
 
-    <div class="spacer">Continue scrolling</div>
+    <!-- Outro Section -->
+    <section class="outro-section">
+      <div class="outro-content">
+        <h2>The Journey Continues</h2>
+        <p>Every great design tells a story. Let's write yours together.</p>
+      </div>
+    </section>
+
+    <!-- GSAP Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
     <script>
-      const stepSlider = document.getElementById("stepSlider");
-      const cards = document.querySelectorAll(".step-slider__card");
-      const dots = document.querySelectorAll(".step-slider__progress-dot");
-      const totalCards = cards.length;
+      gsap.registerPlugin(ScrollTrigger);
 
-      function updateCards() {
-        const rect = stepSlider.getBoundingClientRect();
-        const scrollProgress = -rect.top / (rect.height - window.innerHeight);
-        const clampedProgress = Math.max(0, Math.min(1, scrollProgress));
+      const cards = document.querySelectorAll(".card");
+      const cardsContainer = document.getElementById("cardsContainer");
+      // Hero text shrink and fade animation
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: "#heroSection",
+            start: "center center",
+            end: "+=650", // ⬅️ was '+=250' – increased scroll distance
+            scrub: 0.5,
+            pin: true,
+            pinSpacing: false,
+          },
+        })
+        .to(".hero-title", {
+          scale: 0.2,
+          opacity: 0,
+          duration: 1,
+          ease: "power2.inOut",
+        })
+        .to(
+          ".hero-subtitle",
+          {
+            scale: 0.3,
+            opacity: 0,
+            duration: 1,
+            ease: "power2.inOut",
+          },
+          0.1
+        );
 
-        // Calculate progress for each card
-        const totalProgress = clampedProgress * totalCards;
-
-        cards.forEach((card, index) => {
-          if (index === 0) {
-            // First card recedes like others
-            const stackPosition = totalProgress * 2;
-            card.style.transform = `
-                        translateZ(-${stackPosition * 100}px) 
-                        rotateX(-${stackPosition * 5}deg) 
-                        scale(${1 - stackPosition * 0.025})
-                    `;
-            card.style.opacity = (
-              1 - Math.min(1, Math.max(0, totalProgress / 2))
-            ).toString();
-            card.style.zIndex = 100;
-          } else {
-            // Shifted logic for subsequent cards
-            const shiftedIndex = index - 1;
-            const cardStart = shiftedIndex;
-            const cardEnd = shiftedIndex + 1;
-
-            let cardProgress =
-              (totalProgress - cardStart) / (cardEnd - cardStart);
-            cardProgress = Math.max(0, Math.min(1, cardProgress));
-
-            if (totalProgress < cardStart) {
-              const waitDistance = (cardStart - totalProgress) * 5;
-              card.style.transform = `
-                        translateY(${100 + waitDistance}vh) 
-                        rotateX(-12deg) 
-                        scale(${0.85 - waitDistance * 0.01})
-                    `;
-              card.style.opacity = "0";
-              card.style.zIndex = index;
-            } else if (totalProgress >= cardStart && totalProgress < cardEnd) {
-              const yProgress = 1 - cardProgress;
-              const rotation = -12 + cardProgress * 12;
-              const scale = 0.85 + cardProgress * 0.15;
-
-              card.style.transform = `
-                        translateY(${yProgress * 100}vh) 
-                        rotateX(${rotation}deg) 
-                        scale(${scale})
-                    `;
-              card.style.opacity = "1";
-              card.style.zIndex = 100 + index;
-            } else {
-              const stackPosition = (totalProgress - cardEnd) * 2;
-              card.style.transform = `
-                        translateZ(-${stackPosition * 200}px) 
-                        rotateX(-${stackPosition * 10}deg) 
-                        scale(${1 - stackPosition * 0.05})
-                    `;
-              card.style.opacity =
-                index === totalCards - 1
-                  ? "1"
-                  : (
-                      1 - Math.min(1, Math.max(0, (totalProgress - index) / 2))
-                    ).toString();
-              card.style.zIndex = 100 + index;
-            }
-          }
-        });
-
-        // Update progress dots
-        const activeIndex = Math.floor(totalProgress);
-        dots.forEach((dot, i) => {
-          dot.classList.toggle("is-active", i === activeIndex);
-        });
-      }
-
-      // Initialize first card visible, others below
-      cards.forEach((card, index) => {
-        if (index === 0) {
-          card.style.transform = "translateY(0) rotateX(0deg) scale(1)";
-          card.style.opacity = "1";
-          card.style.zIndex = 100;
-        } else {
-          const waitDistance = (index - 1) * 5;
-          card.style.transform = `
-                translateY(${100 + waitDistance}vh) 
-                rotateX(-12deg) 
-                scale(${0.85 - waitDistance * 0.01})
-            `;
-          card.style.opacity = "0";
-          card.style.zIndex = index;
-        }
+      // Calculate total width with proper spacing
+      let totalWidth = 0;
+      cards.forEach((card) => {
+        totalWidth += card.offsetWidth + 32;
       });
 
-      let ticking = false;
-      window.addEventListener("scroll", () => {
-        if (!ticking) {
-          window.requestAnimationFrame(() => {
-            updateCards();
-            ticking = false;
-          });
-          ticking = true;
-        }
+      // Calculate offset to center first and last card
+      const cardWidth = cards[0].offsetWidth;
+      const viewportCenter = window.innerWidth / 2;
+      const cardCenter = cardWidth / 2;
+
+      // Start position: first card centered
+      const startOffset = viewportCenter - cardCenter;
+
+      // End position: last card centered
+      // Total distance to move = total width - one card width - start offset
+      const scrollDistance = totalWidth - cardWidth - startOffset;
+
+      // Set initial position to center first card
+      gsap.set(cardsContainer, {
+        x: startOffset,
+        left: 0,
       });
 
-      updateCards();
+      // Cards fade in as we approach the cards section
+      gsap.fromTo(
+        cards,
+        {
+          opacity: 0,
+          y: 30,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          stagger: 0.1,
+          duration: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: "#cardsSection",
+            start: "top 85%",
+            end: "top 45%",
+            scrub: 0.5,
+          },
+        }
+      );
+
+      // Horizontal scroll animation
+      gsap.to(cardsContainer, {
+        x: -scrollDistance,
+        ease: "none",
+        scrollTrigger: {
+          trigger: "#cardsSection",
+          start: "top top",
+          end: () => `+=${scrollDistance * 2}`,
+          scrub: 0.5,
+          pin: true,
+        },
+      });
     </script>
   </body>
 </html>

@@ -13,37 +13,37 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
       leftBg:
         "https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=1600",
       rightBg: "#141414",
-      leftHeading: "Forma Studio",
+      leftHeading: "Contact Forma Studio",
       leftDesc:
-        "We design calm, precise architecture for homes and hospitality spaces that feel effortless to live in.",
-      leftLink: "View studio profile",
-      rightHeading: "Contact Forma",
+        "FORMA is a small architecture studio working across homes, hospitality and thoughtful commercial spaces.\n\nUse this page to begin a calm, clear conversation about your project.",
+      leftLink: "About the studio",
+      rightHeading: "Start a new enquiry",
       rightDesc:
-        "Use this page to tell us about your site, your timeline and the kind of space you want to create.",
+        "Share where your project is, what type of space it is (home, hospitality, workspace) and the kind of atmosphere you’d like to create.",
     },
     {
       leftBg: "#181818",
       rightBg:
         "https://images.pexels.com/photos/2102587/pexels-photo-2102587.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      leftHeading: "Residential Projects",
+      leftHeading: "For homeowners",
       leftDesc:
-        "Renovations, extensions and new builds — we shape light, volume and material to support the way you live.",
+        "Renovations, extensions and new builds. We consider light, volume, landscape and joinery so your home feels quietly resolved rather than over-designed.",
       leftLink: "Share your home brief",
-      rightHeading: "For homeowners",
+      rightHeading: "What to include",
       rightDesc:
-        "Tell us where your property is, who lives there and how you’d like your days to feel in the finished space.",
+        "• Suburb / site location\n• Existing drawings or photos (if available)\n• Rough budget range\n• Ideal start and completion dates",
     },
     {
       leftBg:
         "https://images.pexels.com/photos/3237819/pexels-photo-3237819.jpeg?auto=compress&cs=tinysrgb&w=1600",
       rightBg: "#191919",
-      leftHeading: "Commercial & Hospitality",
+      leftHeading: "For brands & developers",
       leftDesc:
-        "From lobbies and cafes to boutique stays, we design spaces that quietly communicate your brand.",
+        "We work on boutique hospitality, multi-res and commercial projects where architecture, interiors and brand need to align in a quiet, confident way.",
       leftLink: "Discuss a collaboration",
-      rightHeading: "For brands & developers",
+      rightHeading: "Project outlines",
       rightDesc:
-        "Share your site, program, budget range and opening date so we can respond with a clear way to move forward.",
+        "• Site address and program (rooms, uses)\n• Brand or operator, if confirmed\n• Target opening date\n• Any planning constraints to be aware of",
     },
     {
       leftBg: "#101010",
@@ -51,47 +51,47 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
         "https://images.pexels.com/photos/981781/pexels-photo-981781.jpeg?auto=compress&cs=tinysrgb&w=1600",
       leftHeading: "How we begin",
       leftDesc:
-        "A short call, a site walk-through or a screenshare over your plans — whatever feels easiest for you.",
-      leftLink: "Download our process guide",
-      rightHeading: "What to prepare",
+        "Most projects begin with a short, no-pressure call and, where possible, a site visit. From there we outline a clear fee proposal and staged process.",
+      leftLink: "Download process overview",
+      rightHeading: "What happens next",
       rightDesc:
-        "Any existing drawings, survey, inspiration images and rough budget. Perfect information is not required.",
+        "• We review your enquiry and any material you send\n• We respond within one business day\n• We propose a call or meeting and a simple pathway forward",
     },
     {
       leftBg:
         "https://images.pexels.com/photos/259580/pexels-photo-259580.jpeg?auto=compress&cs=tinysrgb&w=1600",
       rightBg: "#181818",
-      leftHeading: "Ready to talk?",
+      leftHeading: "Studio contact details",
       leftDesc:
-        "Email studio@forma.archi or use the form below. We respond within one business day with a considered next step.",
+        "Prefer to reach out directly? You can email, call or meet us by appointment in Melbourne or Sydney.",
       leftLink: "Email the studio",
-      rightHeading: "Studio details",
+      rightHeading: "Forma Studio — Contact",
       rightDesc:
-        "FORMA ARCHITECTURE · Melbourne & Sydney\nstudio@forma.archi · +61 (0)3 9000 0000",
+        "Email · studio@forma.archi\nPhone · +61 (0)3 9000 0000\n\nMelbourne Studio\nLevel 3, 150 Gertrude Street\nFitzroy, VIC 3065\n\nSydney Studio\nSuite 02, 44 Kippax Street\nSurry Hills, NSW 2010",
     },
   ];
 
-  // MOBILE: 4 plain contact slides for Forma
+  // MOBILE: 4 plain contact slides for Forma + form below
   const mobileSlides = [
     {
       heading: "Tell us about your project",
       label: "Contact Forma",
-      desc: "Share a few lines about your home, site or idea — where it is, who it’s for and what you’d like it to become.",
+      desc: "Share a few lines about your home, site or idea — where it is, who it’s for and what you’d like it to become with Forma.",
     },
     {
-      heading: "How you’d like to work",
-      label: "Process",
-      desc: "Do you prefer a slow, considered process or a tight timeline? Let us know your budget range and ideal completion date.",
+      heading: "Scope & budget",
+      label: "Project scope",
+      desc: "Is this a renovation, extension, new build or hospitality space? Include a rough budget range and any timing constraints you already know.",
     },
     {
-      heading: "Best way to reach you",
+      heading: "How to reach you",
       label: "Details",
-      desc: "Add your name, email, phone and any links to plans or inspiration boards so we can reply with something genuinely useful.",
+      desc: "Add your name, email, phone and any links to plans or inspiration boards so we can respond with something genuinely tailored.",
     },
     {
       heading: "What happens next",
       label: "Next step",
-      desc: "We’ll review your note, then suggest a short call or meeting and outline a clear, simple path to move forward with Forma.",
+      desc: "We review your note, then suggest a short call or meeting and outline a clear, simple path to move forward with Forma Studio.",
     },
   ];
 
@@ -99,10 +99,53 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
     const container = containerRef.current;
     if (!container) return;
 
-    const isMobile = window.innerWidth <= 900;
+    const isMobile = window.matchMedia("(max-width: 900px)").matches;
+
+    // Helper: GSAP reveal for desktop slide
+    const animateDesktopSlide = (index: number) => {
+      const page = container.querySelector(
+        `.skew-page-${index + 1}`
+      ) as HTMLDivElement | null;
+      if (!page) return;
+      const elems = page.querySelectorAll(
+        ".skew-page__heading, .skew-page__description, .skew-page__link"
+      );
+      gsap.fromTo(
+        elems,
+        { autoAlpha: 0, y: 24 },
+        {
+          autoAlpha: 1,
+          y: 0,
+          duration: 0.7,
+          ease: "power3.out",
+          stagger: 0.08,
+        }
+      );
+    };
+
+    // Helper: GSAP reveal for mobile slide
+    const animateMobileSlide = (index: number) => {
+      const mobileEl = container.querySelector(
+        ".skew-mobile"
+      ) as HTMLDivElement | null;
+      if (!mobileEl) return;
+      const slides = mobileEl.querySelectorAll(
+        ".skew-mobile__slide"
+      ) as NodeListOf<HTMLDivElement>;
+      const slide = slides[index];
+      if (!slide) return;
+      const elems = slide.querySelectorAll(
+        ".skew-mobile__label, .skew-mobile__heading, .skew-mobile__desc"
+      );
+      gsap.fromTo(
+        elems,
+        { autoAlpha: 0, y: 20 },
+        { autoAlpha: 1, y: 0, duration: 0.6, ease: "power3.out", stagger: 0.06 }
+      );
+    };
 
     if (isMobile) {
-      // -------- MOBILE: GSAP ScrollTrigger that pins entire section and scrolls 4 text slides --------
+      // -------- MOBILE: GSAP ScrollTrigger that pins only the mobile slider --------
       const mobileEl = container.querySelector(
         ".skew-mobile"
       ) as HTMLDivElement | null;
@@ -117,7 +160,6 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
 
       const total = slides.length;
 
-      // stack slides vertically; inner will be moved with yPercent
       gsap.set(inner, { yPercent: 0 });
 
       const tl = gsap.to(inner, {
@@ -126,8 +168,11 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
         paused: true,
       });
 
+      let currentMobile = 0;
+      animateMobileSlide(0);
+
       const st = ScrollTrigger.create({
-        trigger: container, // pin the whole contact section
+        trigger: mobileEl,
         start: "top top",
         end: () => "+=" + window.innerHeight * (total - 1),
         pin: true,
@@ -142,6 +187,12 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
         },
         onUpdate: (self) => {
           tl.progress(self.progress);
+          const raw = self.progress * (total - 1);
+          const index = Math.round(raw);
+          if (index !== currentMobile) {
+            currentMobile = index;
+            animateMobileSlide(currentMobile);
+          }
         },
       });
 
@@ -151,7 +202,7 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
       };
     }
 
-    // -------- DESKTOP: original skewed slider behaviour (wheel + arrows) --------
+    // -------- DESKTOP: skewed slider behaviour (wheel + arrows) --------
     const pageElements = Array.from(
       container.querySelectorAll<HTMLDivElement>(".skew-page")
     );
@@ -174,6 +225,7 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
     function paginate() {
       isAnimating = true;
       setClasses();
+      animateDesktopSlide(current);
       window.setTimeout(() => {
         isAnimating = false;
       }, animTime);
@@ -242,6 +294,7 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
     window.addEventListener("keydown", keyHandler);
 
     setClasses();
+    animateDesktopSlide(0);
 
     return () => {
       container.removeEventListener("wheel", wheelHandler);
@@ -256,11 +309,9 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
       <style>{`
         .skew-container {
           position: relative;
-          height: 100vh;
           width: 100%;
           background: #111;
           font-family: "Open Sans", Helvetica, Arial, sans-serif;
-          overflow: hidden;
         }
 
         /* ---------- DESKTOP SKEWED CONTACT STORY ---------- */
@@ -328,7 +379,7 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
           top: 0;
           width: 100%;
           height: 100%;
-          padding: 0 30%;
+          padding: 0 24%;
           color: #fff;
           transform: skewX(18deg);
           transition: transform 1s, opacity 1s;
@@ -338,45 +389,68 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
           text-align: center;
         }
 
+        /* Dark overlay over all backgrounds for legibility */
+        .skew-page__content {
+          position: relative;
+        }
+
+        .skew-page__content::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(
+              to bottom,
+              rgba(0, 0, 0, 0.7),
+              rgba(0, 0, 0, 0.9)
+            );
+          mix-blend-mode: normal;
+          z-index: 0;
+        }
+
+        .skew-page__content > * {
+          position: relative;
+          z-index: 1;
+        }
+
         .skew-page__half--left .skew-page__content {
-          padding-left: 30%;
-          padding-right: 30%;
+          padding-left: 24%;
+          padding-right: 24%;
           transform-origin: 100% 0;
         }
 
         .skew-page__half--right .skew-page__content {
-          padding-left: 30%;
-          padding-right: 30%;
+          padding-left: 24%;
+          padding-right: 24%;
           transform-origin: 0 100%;
         }
 
         .skew-page.skew-inactive .skew-page__content {
-          opacity: 0.5;
+          opacity: 0.45;
           transform: skewX(18deg) scale(0.95);
         }
 
         .skew-page__heading {
-          margin-bottom: 15px;
+          margin-bottom: 18px;
           text-transform: uppercase;
-          font-size: 25px;
+          font-size: 34px;
           text-align: center;
-          letter-spacing: 0.14em;
+          letter-spacing: 0.18em;
         }
 
         .skew-page__description {
           font-size: 18px;
           text-align: center;
-          max-width: 28rem;
-          line-height: 1.6;
+          max-width: 30rem;
+          line-height: 1.8;
           white-space: pre-line;
         }
 
         .skew-page__link {
           color: #f2c265;
-          margin-top: 1.5rem;
+          margin-top: 1.75rem;
           text-decoration: none;
           font-size: 0.9rem;
-          letter-spacing: 0.08em;
+          letter-spacing: 0.12em;
           text-transform: uppercase;
           cursor: pointer;
         }
@@ -397,13 +471,99 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
           display: none;
         }
 
-        @media (max-width: 900px) {
+        /* CONTACT FORM (mobile only in this component – desktop form can be separate page section if you want) */
+        .skew-mobile__form-block {
+          padding: 2.4rem 1.9rem 3rem;
+          background: #0c0c0c;
+          color: #f5f5f5;
+        }
+
+        .skew-mobile__form-heading {
+          font-size: 1.8rem;
+          text-transform: uppercase;
+          letter-spacing: 0.18em;
+          margin-bottom: 1.4rem;
+        }
+
+        .skew-mobile__form-grid {
+          display: grid;
+          gap: 1rem;
+          margin-bottom: 1.5rem;
+        }
+
+        .skew-mobile__field {
+          display: flex;
+          flex-direction: column;
+          gap: 0.35rem;
+        }
+
+        .skew-mobile__label {
+          font-size: 0.8rem;
+          letter-spacing: 0.16em;
+          text-transform: uppercase;
+          opacity: 0.7;
+        }
+
+        .skew-mobile__input,
+        .skew-mobile__textarea,
+        .skew-mobile__select {
+          background: #161616;
+          border: 1px solid #333;
+          border-radius: 4px;
+          padding: 0.65rem 0.75rem;
+          font-size: 0.95rem;
+          color: #f5f5f5;
+          outline: none;
+        }
+
+        .skew-mobile__textarea {
+          min-height: 110px;
+          resize: vertical;
+        }
+
+        .skew-mobile__input:focus,
+        .skew-mobile__textarea:focus,
+        .skew-mobile__select:focus {
+          border-color: #f2c265;
+        }
+
+        .skew-mobile__submit {
+          margin-top: 0.8rem;
+          padding: 0.85rem 1.4rem;
+          border-radius: 999px;
+          border: none;
+          font-size: 0.95rem;
+          text-transform: uppercase;
+          letter-spacing: 0.18em;
+          background: #f2c265;
+          color: #111;
+          cursor: pointer;
+        }
+
+        .skew-mobile__submit:hover {
+          opacity: 0.9;
+        }
+
+        .skew-mobile__meta {
+          margin-top: 1.75rem;
+          font-size: 0.9rem;
+          line-height: 1.7;
+          opacity: 0.85;
+        }
+
+        @media (min-width: 901px) {
           .skew-container {
-            height: 100vh; /* important for pinning, avoids weird blank space */
+            height: 100vh;
             overflow: hidden;
           }
+        }
 
-          /* Hide desktop skew on mobile; we use dedicated mobile slider */
+        @media (max-width: 900px) {
+          .skew-container {
+            height: auto;
+            overflow: visible;
+          }
+
           .skew-pages {
             display: none;
           }
@@ -424,7 +584,7 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
 
           .skew-mobile__slide {
             min-height: 100vh;
-            padding: 2.75rem 1.75rem 2.25rem;
+            padding: 3.1rem 1.9rem 2.4rem;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -432,32 +592,32 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
           }
 
           .skew-mobile__label {
-            font-size: 0.7rem;
-            letter-spacing: 0.18em;
+            font-size: 0.8rem;
+            letter-spacing: 0.22em;
             text-transform: uppercase;
-            opacity: 0.55;
-            margin-bottom: 0.9rem;
-          }
-
-          .skew-mobile__heading {
-            font-size: 1.6rem;
-            line-height: 1.2;
-            text-transform: uppercase;
-            letter-spacing: 0.14em;
+            opacity: 0.6;
             margin-bottom: 1rem;
           }
 
+          .skew-mobile__heading {
+            font-size: 2rem;
+            line-height: 1.25;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            margin-bottom: 1.1rem;
+          }
+
           .skew-mobile__desc {
-            font-size: 0.98rem;
-            line-height: 1.7;
-            max-width: 22rem;
-            opacity: 0.9;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            max-width: 24rem;
+            opacity: 0.94;
           }
 
           .skew-hint {
             right: 14px;
             bottom: 14px;
-            font-size: 0.65rem;
+            font-size: 0.68rem;
           }
         }
       `}</style>
@@ -484,7 +644,7 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
                   <h2 className="skew-page__heading">{page.leftHeading}</h2>
                   <p className="skew-page__description">{page.leftDesc}</p>
                   {page.leftLink && (
-                    <a href="#" className="skew-page__link">
+                    <a href="#contact-form" className="skew-page__link">
                       {page.leftLink}
                     </a>
                   )}
@@ -511,18 +671,83 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
         ))}
       </div>
 
-      {/* MOBILE: contact-focused ScrollTrigger slider */}
+      {/* MOBILE: contact-focused ScrollTrigger slider + form */}
       <div className="skew-mobile">
         <div className="skew-mobile__inner">
           {mobileSlides.map((slide, index) => (
             <div key={index} className="skew-mobile__slide">
               <div className="skew-mobile__label">
-                {slide.label} · 0{index + 1}/04
+                {slide.label} · 0{index + 1}/0{mobileSlides.length}
               </div>
               <h2 className="skew-mobile__heading">{slide.heading}</h2>
               <p className="skew-mobile__desc">{slide.desc}</p>
             </div>
           ))}
+        </div>
+      </div>
+
+      {/* MOBILE contact form + contact details (shows after slider finishes pinning) */}
+      <div id="contact-form" className="skew-mobile__form-block">
+        <h2 className="skew-mobile__form-heading">Contact Forma</h2>
+        <div className="skew-mobile__form-grid">
+          <div className="skew-mobile__field">
+            <label className="skew-mobile__label">Name</label>
+            <input
+              className="skew-mobile__input"
+              type="text"
+              placeholder="Your name"
+            />
+          </div>
+          <div className="skew-mobile__field">
+            <label className="skew-mobile__label">Email</label>
+            <input
+              className="skew-mobile__input"
+              type="email"
+              placeholder="you@example.com"
+            />
+          </div>
+          <div className="skew-mobile__field">
+            <label className="skew-mobile__label">Project type</label>
+            <select className="skew-mobile__select" defaultValue="">
+              <option value="" disabled>
+                Select one
+              </option>
+              <option>New home</option>
+              <option>Renovation / extension</option>
+              <option>Hospitality</option>
+              <option>Workspace</option>
+              <option>Multi-residential</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div className="skew-mobile__field">
+            <label className="skew-mobile__label">
+              Approx. budget (optional)
+            </label>
+            <input
+              className="skew-mobile__input"
+              type="text"
+              placeholder="e.g. $600k–$900k"
+            />
+          </div>
+          <div className="skew-mobile__field">
+            <label className="skew-mobile__label">Project notes</label>
+            <textarea
+              className="skew-mobile__textarea"
+              placeholder="Where is your site? What would you like this space to become?"
+            />
+          </div>
+        </div>
+        <button className="skew-mobile__submit" type="button">
+          Send enquiry
+        </button>
+
+        <div className="skew-mobile__meta">
+          Forma Studio · Melbourne & Sydney
+          <br />
+          studio@forma.archi · +61 (0)3 9000 0000
+          <br />
+          Mon–Fri · 9am–5pm AEST
         </div>
       </div>
 

@@ -10,9 +10,11 @@
   font-size: clamp(48px, 8vw, 90px);
   font-weight: 400;
   padding: 0 40px;
-  margin-bottom: 60px;
+  margin: 0 auto 60px;
   font-family: "Dream Avenue", cursive;
   text-transform: uppercase;
+  text-align: center;
+  word-spacing: 12px;
 }
 
 .forma-process-serif {
@@ -74,7 +76,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 60px 80px;
+  padding: 120px 80px 60px;
   position: relative;
 }
 
@@ -82,9 +84,10 @@
   position: absolute;
   top: 40px;
   right: 80px;
-  font-size: 72px;
+  font-size: 86.4px;
   color: #d5d5d5;
   line-height: 1;
+  font-family: "Dream Avenue", cursive;
 }
 
 .forma-process-step.forma-process-reverse .forma-process-step-number {
@@ -101,9 +104,17 @@
   font-family: "Dream Avenue", cursive;
   text-transform: uppercase;
 }
+.forma-title-char {
+  display: inline-block;
+}
+
+.forma-title-space {
+  display: inline-block;
+  width: 0.35em;
+}
 
 .forma-process-step-subtitle {
-  font-size: 11px;
+  font-size: 13.2px;
   text-transform: uppercase;
   letter-spacing: 1.5px;
   font-weight: 600;
@@ -112,7 +123,7 @@
 }
 
 .forma-process-step-desc {
-  font-size: 15px;
+  font-size: 18px;
   color: #444;
   line-height: 1.75;
   margin-bottom: 32px;
@@ -128,7 +139,7 @@
 }
 
 .forma-process-outcome-label {
-  font-size: 11px;
+  font-size: 13.2px;
   text-transform: uppercase;
   letter-spacing: 1.5px;
   font-weight: 700;
@@ -137,7 +148,7 @@
 }
 
 .forma-process-outcome-text {
-  font-size: 14px;
+  font-size: 16.8px;
   color: #555;
   line-height: 1.65;
 }
@@ -156,7 +167,7 @@
   .forma-process-step-image-wrap { 
     min-height: 40vh; 
   }
-  
+
   .forma-process-step-content { 
     padding: 50px 24px; 
   }
@@ -167,7 +178,7 @@
     right: auto;
     left: auto;
     margin-bottom: 20px;
-    font-size: 56px;
+    font-size: 68px;
   }
   
   .forma-process-step.forma-process-reverse .forma-process-step-number {

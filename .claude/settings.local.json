@@ -5,7 +5,9 @@
       "Bash(npm run build:*)",
       "Bash(npm run preview:*)",
       "Bash(rmdir:*)",
-      "Bash(rm:*)"
+      "Bash(rm:*)",
+      "mcp__ide__getDiagnostics",
+      "Bash(npm run typecheck:*)"
     ],
     "deny": []
   }

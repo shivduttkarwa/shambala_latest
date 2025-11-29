@@ -182,25 +182,28 @@ const AnimatedGallerySlider: React.FC = () => {
 
     // Targeted cleanup
     return () => {
-      // Kill specific timelines
-      if (galleryTimeline) {
-        galleryTimeline.kill();
-        galleryTimeline = null;
-      }
-      if (slidesTimeline) {
-        slidesTimeline.kill();
-        slidesTimeline = null;
-      }
-
-      // Kill ScrollTriggers for our specific elements only
+      // First, kill ScrollTriggers to unpin elements before React removes them
       ScrollTrigger.getAll().forEach((trigger) => {
         if (
           trigger.trigger === sectionRef.current ||
           trigger.trigger === slidesSectionRef.current
         ) {
-          trigger.kill();
+          trigger.kill(true); // true = immediately reset/unpin elements
         }
       });
+
+      // Then kill timelines
+      if (galleryTimeline) {
+        galleryTimeline.kill(true); // true = immediately complete/reset
+        galleryTimeline = null;
+      }
+      if (slidesTimeline) {
+        slidesTimeline.kill(true); // true = immediately complete/reset
+        slidesTimeline = null;
+      }
+
+      // Force ScrollTrigger refresh to clean up any remaining state
+      ScrollTrigger.refresh();
     };
   }, []);
 

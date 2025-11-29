@@ -3,12 +3,12 @@ import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./ServicePage.css";
-import { FormaServices } from "./FormaServices";
 import { ProcessSection } from "./ProcessSection";
 import ScrollDownButton from "../UI/ScrollDownButton";
 import ServiceHeroText from "./ServiceHeroText";
 import TiltTextGsap from "../UI/TiltTextGsap";
 import StepSlider from "../Reusable/StepSlider";
+import BigTextHorizontal from "../Home/BigTextHorizontal";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -188,7 +188,7 @@ const ServicesPage: React.FC = () => {
       </section>
 
       <ProcessSection />
-      <FormaServices />
+      <BigTextHorizontal />
       <StepSlider />
 
       {/* TESTIMONIALS SECTION */}
