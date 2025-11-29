@@ -50,13 +50,13 @@
 }
 
 /* ====== FULL-BLEED, FULL-SCREEN HERO ====== */
-.ser-hero-wrapper {
+.ser-page-hero-wrapper {
   width: 100%;
   margin: 0;
   padding: 0;
 }
 
-.ser-hero-section {
+.ser-page-hero-section {
   background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("/images/bg.png");
   background-size: cover;
   background-position: center;
@@ -72,9 +72,9 @@
   align-items: center; /* vertical center */
 }
 
-.ser-rule-of-thirds-grid {
+.ser-page-hero-grid {
   display: grid;
-  grid-template-columns: 3fr 2fr;
+  grid-template-columns: 3.2fr 2fr; /* left side ~10% wider */
   gap: 5rem;
   align-items: center;
   max-width: 1200px;
@@ -82,40 +82,66 @@
 }
 
 @media (max-width: 900px) {
-  .ser-hero-section {
+  .ser-page-hero-section {
     padding: 2.5rem 1.5rem 3rem;
     min-height: 100vh;
   }
-  .ser-rule-of-thirds-grid {
+  .ser-page-hero-grid {
     grid-template-columns: 1fr;
     gap: 2.5rem;
   }
 }
 
-.ser-hero-image-container {
+.ser-page-hero-image-container {
   width: 100%;
   border-radius: 0;
   overflow: hidden;
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
 }
 
-.ser-hero-image-container img {
+.ser-page-hero-image-container img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
 }
 
-.ser-hero-text-container h1 {
-  font-size: clamp(38.4px, 4.8vw, 48px);
-  font-weight: 900;
+.ser-page-hero-text-container h1 {
+  font-size: clamp(70px, 8.68vw, 86.8px); /* ~40% larger */
+  font-weight: 700;
   margin-bottom: 1rem;
   line-height: 1.1;
   color: #ffffff;
-  font-family: "Nunito", sans-serif;
+  font-family: "Dream Avenue", cursive;
+  text-transform: uppercase;
 }
 
-.ser-hero-text-container p {
+.ser-page-hero-title-line {
+  display: block;
+}
+
+.ser-page-hero-title-static {
+  font-size: 1.1em;
+  line-height: 1;
+}
+
+.ser-page-hero-velocity .mm-section {
+  min-height: auto;
+  display: inline-block;
+}
+
+.ser-page-hero-velocity .mm-heading {
+  font-size: clamp(71.4px, 8.856vw, 88.56px); /* Increased by 20% */
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  color: #ffffff;
+  font-family: "Dream Avenue", cursive;
+  text-transform: uppercase;
+  white-space: normal;
+}
+
+.ser-page-hero-text-container p {
   margin-bottom: 2rem;
   color: #ffffff;
   line-height: 1.7;
@@ -124,15 +150,21 @@
   font-family: "Nunito", sans-serif;
 }
 
-.ser-hero-text-container .ser-text-yellow-400 {
+.ser-page-hero-text-container .ser-text-yellow-400 {
   color: #ffffff;
 }
 
-.ser-hero-buttons {
+.ser-page-hero-buttons {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 1rem;
   flex-wrap: wrap;
+}
+
+.ser-page-hero-glass-btn {
+  padding: 1.1rem 1.6rem !important; /* reduced height further */
+  min-height: 46px;
 }
 
 /* ====== GLASSRAIN BUTTONS ====== */

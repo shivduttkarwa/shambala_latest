@@ -11,6 +11,8 @@
   font-weight: 400;
   padding: 0 40px;
   margin-bottom: 60px;
+  font-family: "Dream Avenue", cursive;
+  text-transform: uppercase;
 }
 
 .forma-process-serif {
@@ -96,6 +98,8 @@
   font-weight: 400;
   margin-bottom: 8px;
   line-height: 1.2;
+  font-family: "Dream Avenue", cursive;
+  text-transform: uppercase;
 }
 
 .forma-process-step-subtitle {

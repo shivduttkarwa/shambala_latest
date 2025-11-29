@@ -5,6 +5,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./ServicePage.css";
 import { FormaServices } from "./FormaServices";
 import { ProcessSection } from "./ProcessSection";
+import ScrollDownButton from "../UI/ScrollDownButton";
+import ServiceHeroText from "./ServiceHeroText";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -58,13 +60,13 @@ const ServicesPage: React.FC = () => {
         const xPos = (e.clientX - rect.left) / rect.width - 0.5;
         const yPos = (e.clientY - rect.top) / rect.height - 0.5;
 
-        gsap.to(".ser-hero-image-container", {
+        gsap.to(".ser-page-hero-image-container", {
           duration: 1,
           x: -xPos * 30,
           y: -yPos * 30,
           ease: "power3.out",
         });
-        gsap.to(".ser-hero-text-container", {
+        gsap.to(".ser-page-hero-text-container", {
           duration: 1,
           x: xPos * 30,
           y: yPos * 30,
@@ -73,7 +75,7 @@ const ServicesPage: React.FC = () => {
       };
 
       const handleMouseLeave = () => {
-        gsap.to([".ser-hero-image-container", ".ser-hero-text-container"], {
+        gsap.to([".ser-page-hero-image-container", ".ser-page-hero-text-container"], {
           duration: 1,
           x: 0,
           y: 0,
@@ -152,11 +154,11 @@ const ServicesPage: React.FC = () => {
   return (
     <div className="ser-services-page">
       {/* FULL-BLEED, FULL-SCREEN HERO */}
-      <section className="ser-hero-wrapper">
-        <section className="ser-hero-section ser-animate-in" ref={heroRef}>
-          <div className="ser-rule-of-thirds-grid">
+      <section className="ser-page-hero-wrapper">
+        <section className="ser-page-hero-section ser-animate-in" ref={heroRef}>
+          <div className="ser-page-hero-grid">
             {/* Image (2/3) */}
-            <div className="ser-hero-image-container">
+            <div className="ser-page-hero-image-container">
               <img
                 src="/images/l2.jpg"
                 alt="Architectural service showcase"
@@ -168,22 +170,17 @@ const ServicesPage: React.FC = () => {
               />
             </div>
             {/* Text Content (1/3) */}
-            <div className="ser-hero-text-container">
-              <h1 className="ser-hero-title">
-                Crafting <span className="ser-text-yellow-400">spaces</span>{" "}
-                that feel like home
-              </h1>
-              <p>
-                Tailored architecture, interiors, and landscapes designed to
-                mirror the way you live—thoughtful materials, mindful light,
-                and a calm rhythm in every room.
-              </p>
-              <div className="ser-hero-buttons">
-                <button className="ser-btn-primary">Explore Services</button>
-                <button className="ser-btn-red">Start a Project</button>
+            <div className="ser-page-hero-text-container">
+              <div className="ser-page-hero-velocity">
+                <ServiceHeroText 
+                  text={"Building"} 
+                  secondText={"Dreams"}
+                />
               </div>
             </div>
           </div>
+
+          <ScrollDownButton targetId="services-content" />
         </section>
       </section>
 

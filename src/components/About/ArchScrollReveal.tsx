@@ -57,7 +57,7 @@ const ArchScrollReveal: React.FC = () => {
     handleMobileLayout();
 
     const imgs = gsap.utils.toArray(".arch-img-wrapper img") as Element[];
-    const bgColors = ["#f9ffe7", "#EDF9FF", "#FFECF2", "#FFE8DB"]; // 4 colors for 4 images
+    const bgColors = ["#f4eade", "#efe3d3", "#f6eddf", "#ebdfce"]; // Paper-inspired palette for scroll states
 
     // GSAP Animation with Media Query - EXACT COPY FROM ORIGINAL
     ScrollTrigger.matchMedia({

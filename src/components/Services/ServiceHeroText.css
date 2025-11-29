@@ -1,0 +1,31 @@
+.mm-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.mm-heading {
+  --u-scale: 0;
+  font-size: clamp(4.032rem, 8.64vw, 6.912rem);
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  position: relative;
+  display: block;
+  overflow: visible;
+  text-align: center;
+  line-height: 1.2;
+  width: 100%;
+}
+
+
+.mm-heading span.char {
+  display: inline-block;
+}
+
+.mm-heading span.is-space {
+  width: 0.45em;
+}

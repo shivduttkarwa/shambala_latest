@@ -18,6 +18,8 @@
   font-size: clamp(2.5rem, 4vw, 3.6rem);
   letter-spacing: -0.02em;
   margin: 0 0 1rem;
+  font-family: "Dream Avenue", cursive;
+  text-transform: uppercase;
 }
 
 .forma-services .fs-heading-subtitle {
@@ -64,6 +66,7 @@
   text-transform: uppercase;
   color: #666;
   margin-bottom: 1rem;
+  font-family: "Nunito", sans-serif;
 }
 
 .forma-services .fs-title {
@@ -72,6 +75,7 @@
   text-transform: uppercase;
   max-width: 18ch;
   font-weight: 400;
+  font-family: "Dream Avenue", cursive;
 }
 
 .forma-services .fs-meta {

@@ -4,8 +4,24 @@
 }
 
 .about-page {
+  --paper-base: #f3ebdd;
+  --paper-fiber: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.18'/%3E%3C/svg%3E");
+  --paper-texture: radial-gradient(120% 100% at 50% 0%, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0) 55%),
+    radial-gradient(90% 80% at 12% 28%, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0) 48%),
+    radial-gradient(110% 90% at 82% 78%, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0) 58%),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.05) 0 2px, rgba(0, 0, 0, 0.035) 3px 3.5px),
+    var(--paper-fiber);
+  --paper-size: 130% 130%, 140% 140%, 170% 170%, 100% 100%, 320px 320px;
+  --paper-position: 50% 0%, 12% 28%, 82% 78%, 0 0, 0 0;
+  --paper-repeat: no-repeat, no-repeat, no-repeat, repeat, repeat;
+  --paper-blend: screen, screen, multiply, soft-light, normal;
   font-family: "Nunito", sans-serif;
-  background: linear-gradient(135deg, #e8e4dc 0%, #ddd8d0 50%, #d2cbc0 100%);
+  background-color: var(--paper-base);
+  background-image: var(--paper-texture);
+  background-size: var(--paper-size);
+  background-position: var(--paper-position);
+  background-repeat: var(--paper-repeat);
+  background-blend-mode: var(--paper-blend);
   color: var(--text, #2c2c2c);
   cursor: none; /* Hide default cursor */
   min-height: 100vh;

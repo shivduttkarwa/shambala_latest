@@ -2,7 +2,12 @@
 .arch-scroll-section {
   color: #121212;
   font-family: "Nunito", sans-serif;
-  background-color: #f9ffe7;
+  background-color: var(--paper-base, #f3ebdd);
+  background-image: var(--paper-texture, none);
+  background-size: var(--paper-size, auto);
+  background-position: var(--paper-position, 0 0);
+  background-repeat: var(--paper-repeat, repeat);
+  background-blend-mode: var(--paper-blend, normal);
 }
 
 .arch-container {
