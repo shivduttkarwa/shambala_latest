@@ -69,12 +69,11 @@ const ProjectsSlider: React.FC = () => {
       : false
   );
 
-  const sliderRef = useRef<HTMLDivElement | null>(null); // .slider (scroll container)
-  const trackRef = useRef<HTMLDivElement | null>(null); // .track
+  const sliderRef = useRef<HTMLDivElement | null>(null);
+  const trackRef = useRef<HTMLDivElement | null>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
 
-  // Split text into lines with mask (same as EssenceSection)
   const splitTextIntoLines = (text: string) => {
     const words = text.split(" ");
     const lines: string[] = [];
@@ -101,7 +100,6 @@ const ProjectsSlider: React.FC = () => {
     ));
   };
 
-  // Update mobile flag on resize
   useEffect(() => {
     const update = () => {
       if (typeof window === "undefined") return;
@@ -112,7 +110,6 @@ const ProjectsSlider: React.FC = () => {
     return () => window.removeEventListener("resize", update);
   }, []);
 
-  // Center the active card
   const centerCard = (index: number) => {
     const wrap = sliderRef.current;
     const track = trackRef.current;
@@ -140,26 +137,22 @@ const ProjectsSlider: React.FC = () => {
     }
   };
 
-  // Re-center whenever activeIndex or layout mode changes
   useEffect(() => {
     centerCard(activeIndex);
   }, [activeIndex, isMobile]);
 
-  // Title animation (same as EssenceSection)
   useEffect(() => {
     if (!sectionRef.current || !titleRef.current) return;
 
     const ctx = gsap.context(() => {
       const titleLines = titleRef.current?.querySelectorAll(".line");
 
-      // Set initial state
       if (titleLines && titleLines.length > 0) {
         gsap.set(titleLines, {
           yPercent: 100,
         });
       }
 
-      // Animation timeline
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
@@ -168,7 +161,6 @@ const ProjectsSlider: React.FC = () => {
         },
       });
 
-      // Heading lines - slide up
       if (titleLines && titleLines.length > 0) {
         tl.to(
           titleLines,
@@ -196,7 +188,6 @@ const ProjectsSlider: React.FC = () => {
     goTo(activeIndex + step);
   };
 
-  // Keyboard navigation
   const handleKeyDown: React.KeyboardEventHandler<HTMLDivElement> = (e) => {
     if (e.key === "ArrowRight" || e.key === "ArrowDown") {
       e.preventDefault();
@@ -208,7 +199,6 @@ const ProjectsSlider: React.FC = () => {
     }
   };
 
-  // Touch swipe
   const touchStart = useRef<{ x: number; y: number } | null>(null);
 
   const handleTouchStart: React.TouchEventHandler<HTMLDivElement> = (e) => {
@@ -275,11 +265,6 @@ const ProjectsSlider: React.FC = () => {
                 alt={card.title}
               />
               <div className="pr-project-card__content">
-                <img
-                  className="pr-project-card__thumb"
-                  src={card.thumb}
-                  alt={card.title}
-                />
                 <div>
                   <h3 className="pr-project-card__title">{card.title}</h3>
                   <p className="pr-project-card__desc">{card.desc}</p>
