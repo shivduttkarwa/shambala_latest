@@ -348,49 +348,6 @@
 .pms-swiper-pagination .swiper-pagination-progressbar-fill {
   background: #ffffff;
 }
-
-/* Drag Button Styles */
-.pms-drag-btn {
-  position: fixed;
-  width: 104px; /* 30% larger than 80px */
-  height: 104px; /* 30% larger than 80px */
-  background: transparent;
-  border: 1px solid #ffffff;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: grab;
-  z-index: 1000;
-  transform: translate(-50%, -50%);
-  pointer-events: auto;
-  transition: transform 0.1s linear;
-  will-change: transform;
-  font-family: "Nunito", sans-serif;
-  font-weight: 350;
-  font-size: 16px;
-  color: #ffffff;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-}
-
-.pms-drag-btn:hover {
-  background: transparent;
-  transform: translate(-50%, -50%) scale(1.1);
-}
-
-.pms-drag-btn.pms-dragging {
-  cursor: grabbing;
-  background: transparent;
-  transform: translate(-50%, -50%) scale(1.05);
-}
-
-/* Hide drag button on mobile */
-@media screen and (max-width: 767px) {
-  .pms-drag-btn {
-    display: none;
-  }
-}
-
 /* Ensure normal scroll behavior */
 .pms-creative-fullpage--slider {
   cursor: none !important; /* Force no cursor in slider section */

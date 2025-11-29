@@ -16,6 +16,7 @@ import "swiper/css/pagination";
 
 import "./ProjectModernSlider.css";
 import TiltTextGsap from "../UI/TiltTextGsap";
+import DragBtn from "./DragBtn";
 
 const publicUrl = import.meta.env.BASE_URL;
 
@@ -38,6 +39,7 @@ const ProjectModernSlider: React.FC = () => {
   const [showDragBtn, setShowDragBtn] = useState(false);
   const [isOverNavButton, setIsOverNavButton] = useState(false);
   const animationFrameRef = useRef<number | null>(null);
+  const lastPointerRef = useRef<{ x: number; y: number } | null>(null);
 
   const slidesData: SlideData[] = [
     {
@@ -72,6 +74,9 @@ const ProjectModernSlider: React.FC = () => {
   // Smooth cursor following with requestAnimationFrame
   const updateDragButtonPosition = (x: number, y: number) => {
     if (!dragBtnRef.current) return;
+    const rect = sliderSectionRef.current?.getBoundingClientRect();
+    const clampX = rect ? Math.min(Math.max(x, rect.left), rect.right) : x;
+    const clampY = rect ? Math.min(Math.max(y, rect.top), rect.bottom) : y;
 
     if (animationFrameRef.current) {
       cancelAnimationFrame(animationFrameRef.current);
@@ -79,19 +84,21 @@ const ProjectModernSlider: React.FC = () => {
 
     animationFrameRef.current = requestAnimationFrame(() => {
       if (dragBtnRef.current) {
-        dragBtnRef.current.style.left = `${x}px`;
-        dragBtnRef.current.style.top = `${y - 15}px`; // Position slightly above cursor
+        dragBtnRef.current.style.left = `${clampX}px`;
+        dragBtnRef.current.style.top = `${clampY - 15}px`; // Position slightly above cursor
       }
     });
   };
 
   // Handle mouse enter/leave for drag button
   useEffect(() => {
-    const handleMouseEnter = () => {
+    const handleMouseEnter = (e: MouseEvent) => {
       setIsInSection(true);
       if (!isOverNavButton) {
         setShowDragBtn(true);
         document.body.style.cursor = "none"; // Hide cursor completely
+        lastPointerRef.current = { x: e.clientX, y: e.clientY };
+        updateDragButtonPosition(e.clientX, e.clientY);
       }
     };
 
@@ -160,6 +167,7 @@ const ProjectModernSlider: React.FC = () => {
   // Handle mouse move for drag button position
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
+      lastPointerRef.current = { x: e.clientX, y: e.clientY };
       if (isInSection && !isOverNavButton) {
         setDragPosition({ x: e.clientX, y: e.clientY });
         updateDragButtonPosition(e.clientX, e.clientY);
@@ -264,6 +272,43 @@ const ProjectModernSlider: React.FC = () => {
       });
     };
   }, [isInSection]);
+
+  // Keep drag button visibility in sync with slider bounds even without mouse movement
+  useEffect(() => {
+    const checkPointerInSection = () => {
+      const section = sliderSectionRef.current;
+      const pointer = lastPointerRef.current;
+      if (!section || !pointer) return;
+
+      const rect = section.getBoundingClientRect();
+      const inside =
+        pointer.x >= rect.left &&
+        pointer.x <= rect.right &&
+        pointer.y >= rect.top &&
+        pointer.y <= rect.bottom;
+
+      if (inside && !isOverNavButton) {
+        setIsInSection(true);
+        setShowDragBtn(true);
+        document.body.style.cursor = "none";
+        updateDragButtonPosition(pointer.x, pointer.y);
+      } else if (!inside) {
+        setIsInSection(false);
+        setShowDragBtn(false);
+        setIsDragging(false);
+        document.body.style.cursor = "default";
+      }
+    };
+
+    window.addEventListener("scroll", checkPointerInSection, { passive: true });
+    window.addEventListener("resize", checkPointerInSection);
+    checkPointerInSection();
+
+    return () => {
+      window.removeEventListener("scroll", checkPointerInSection);
+      window.removeEventListener("resize", checkPointerInSection);
+    };
+  }, [isOverNavButton]);
 
   // Drag functionality
   const handleDragStart = (e: React.MouseEvent) => {
@@ -414,13 +459,11 @@ const ProjectModernSlider: React.FC = () => {
 
       {/* Drag Button */}
       {showDragBtn && (
-        <div
+        <DragBtn
           ref={dragBtnRef}
-          className={`pms-drag-btn ${isDragging ? "pms-dragging" : ""}`}
+          dragging={isDragging}
           onMouseDown={handleDragStart}
-        >
-          DRAG
-        </div>
+        />
       )}
     </section>
   );

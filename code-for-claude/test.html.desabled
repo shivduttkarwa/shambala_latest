@@ -1,146 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>GSAP Hero Text Only</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+{/* Toggle Button */}
+      <div id="toggle-btn" className="olm-btn">
+        <div className="olm-btn-outline olm-btn-outline-1"></div>
+        <div className="olm-btn-outline olm-btn-outline-2"></div>
+        
+      </div>
 
-    <!-- GSAP -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+      .olm-btn-outline-1 {
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  animation: olm-morph 4s linear infinite;
+}
 
-    <style>
-      *,
-      *::before,
-      *::after {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
+.olm-btn-outline-2 {
+  border-radius: 53% 47% 43% 58% / 51% 39% 61% 49%;
+}
 
-      body {
-        background: #020617;
-        color: #e5e7eb;
-        font-family: system-ui, sans-serif;
-      }
-
-      .mm-section {
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-        overflow: hidden;
-        background: radial-gradient(circle at top, #0b1120, #020617 60%);
-      }
-
-      .mm-heading {
-        --u-scale: 0;
-        font-size: clamp(2.8rem, 6vw, 4.8rem);
-        font-weight: 600;
-        letter-spacing: 0.22em;
-        text-transform: uppercase;
-        position: relative;
-        display: inline-block;
-        overflow: visible;
-      }
-
-      .mm-heading span.char {
-        display: inline-block;
-      }
-
-      .mm-heading span.is-space {
-        width: 0.45em;
-      }
-    </style>
-  </head>
-
-  <body>
-    <section class="mm-section">
-      <h1 class="mm-heading">Studio&nbsp;Velocity</h1>
-    </section>
-
-    <script>
-      gsap.registerPlugin(ScrollTrigger);
-
-      function splitChars(el) {
-        const text = el.textContent;
-        el.textContent = "";
-        const chars = [];
-
-        [...text].forEach((ch) => {
-          const span = document.createElement("span");
-          span.classList.add("char");
-
-          if (ch === " ") {
-            span.classList.add("is-space");
-            span.innerHTML = "&nbsp;";
-          } else {
-            span.textContent = ch;
-          }
-
-          el.appendChild(span);
-          chars.push(span);
-        });
-
-        return chars.filter((c) => !c.classList.contains("is-space"));
-      }
-
-      document.addEventListener("DOMContentLoaded", () => {
-        const heading = document.querySelector(".mm-heading");
-        const chars = splitChars(heading);
-        const section = heading.closest(".mm-section");
-
-        // pre-random offsets
-        const config = chars.map(() => ({
-          x: gsap.utils.random(-220, 220),
-          y: gsap.utils.random(-140, 140),
-          r: gsap.utils.random(-40, 40),
-          s: gsap.utils.random(0.6, 0.9),
-        }));
-
-        const tl = gsap.timeline({ paused: true });
-
-        tl.fromTo(
-          chars,
-          {
-            x: (i) => config[i].x,
-            y: (i) => config[i].y,
-            rotation: (i) => config[i].r,
-            scale: (i) => config[i].s,
-            opacity: 0,
-            filter: "blur(14px)",
-          },
-          {
-            x: 0,
-            y: 0,
-            rotation: 0,
-            scale: 1,
-            opacity: 1,
-            filter: "blur(0px)",
-            duration: 1.4,
-            ease: "expo.out",
-            stagger: { each: 0.035, from: "center" },
-          }
-        );
-
-        tl.to(
-          heading,
-          {
-            "--u-scale": 1,
-            duration: 0.9,
-            ease: "power2.out",
-          },
-          "-=0.7"
-        );
-
-        ScrollTrigger.create({
-          trigger: section,
-          start: "top 80%",
-          onEnter: () => tl.restart(),
-          onEnterBack: () => tl.restart(),
-        });
-      });
-    </script>
-  </body>
-</html>
+@keyframes olm-morph {
+  0% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+  50% {
+    border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+  }
+  100% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+}

@@ -114,7 +114,7 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = ({
             startTrigger="top 70%"
             endTrigger="bottom -200%"
           >
-            {sectionTitle}...
+            {`${sectionTitle}...`}
           </TiltTextGsap>
         </div>
       )}

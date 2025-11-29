@@ -5,6 +5,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "./FeaturedProperties.css";
 import GlassButton from "../UI/GlassButton";
+import DragBtn from "../Projects/DragBtn";
 
 const publicUrl = import.meta.env.BASE_URL;
 
@@ -88,15 +89,19 @@ const FeaturedProperties: React.FC<FeaturedPropertiesProps> = ({
   const [isOverNavButton, setIsOverNavButton] = useState(false);
   const [dragPosition, setDragPosition] = useState({ x: 0, y: 0 });
   const dragStartXRef = useRef<number | null>(null);
+  const lastPointerRef = useRef<{ x: number; y: number } | null>(null);
   const updateDragPosition = (x: number, y: number) => {
+    const rect = sectionRef.current?.getBoundingClientRect();
+    const clampX = rect ? Math.min(Math.max(x, rect.left), rect.right) : x;
+    const clampY = rect ? Math.min(Math.max(y, rect.top), rect.bottom) : y;
     if (!dragBtnRef.current) return;
     if (animationFrameRef.current) {
       cancelAnimationFrame(animationFrameRef.current);
     }
     animationFrameRef.current = requestAnimationFrame(() => {
       if (dragBtnRef.current) {
-        dragBtnRef.current.style.left = `${x}px`;
-        dragBtnRef.current.style.top = `${y - 15}px`;
+        dragBtnRef.current.style.left = `${clampX}px`;
+        dragBtnRef.current.style.top = `${clampY - 15}px`;
       }
     });
   };
@@ -107,28 +112,13 @@ const FeaturedProperties: React.FC<FeaturedPropertiesProps> = ({
 
     const isDesktop = () => window.innerWidth >= 1024;
 
-    const updateDragPosition = (x: number, y: number) => {
-      if (!dragBtnRef.current) return;
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current);
-      }
-      animationFrameRef.current = requestAnimationFrame(() => {
-        if (dragBtnRef.current) {
-          dragBtnRef.current.style.left = `${x}px`;
-          dragBtnRef.current.style.top = `${y - 15}px`;
-        }
-      });
-    };
-
     const handleMouseEnter = (e: MouseEvent) => {
       if (!isDesktop()) return;
       setIsInSection(true);
       setShowDragBtn(true);
       document.body.style.cursor = "none";
-      const rect = section.getBoundingClientRect();
-      const initialX = e.clientX || rect.left + rect.width / 2;
-      const initialY = e.clientY || rect.top + rect.height / 2;
-      updateDragPosition(initialX, initialY);
+      lastPointerRef.current = { x: e.clientX, y: e.clientY };
+      updateDragPosition(e.clientX, e.clientY);
     };
 
     const handleMouseLeave = (e: MouseEvent) => {
@@ -148,33 +138,12 @@ const FeaturedProperties: React.FC<FeaturedPropertiesProps> = ({
       }
     };
 
-    const handleGlobalMouseMove = (e: MouseEvent) => {
-      if (isInSection) {
-        const rect = section.getBoundingClientRect();
-        const { clientX, clientY } = e;
-        if (
-          clientX < rect.left ||
-          clientX > rect.right ||
-          clientY < rect.top ||
-          clientY > rect.bottom
-        ) {
-          setIsInSection(false);
-          setShowDragBtn(false);
-          setIsDragging(false);
-          document.body.style.cursor = "default";
-          section.classList.remove("show-cursor");
-        }
-      }
-    };
-
     section.addEventListener("mouseenter", handleMouseEnter);
     section.addEventListener("mouseleave", handleMouseLeave);
-    document.addEventListener("mousemove", handleGlobalMouseMove);
 
     return () => {
       section.removeEventListener("mouseenter", handleMouseEnter);
       section.removeEventListener("mouseleave", handleMouseLeave);
-      document.removeEventListener("mousemove", handleGlobalMouseMove);
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
       }
@@ -184,6 +153,7 @@ const FeaturedProperties: React.FC<FeaturedPropertiesProps> = ({
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
+      lastPointerRef.current = { x: e.clientX, y: e.clientY };
       if (isInSection && !isOverNavButton) {
         setDragPosition({ x: e.clientX, y: e.clientY });
         const section = sectionRef.current;
@@ -229,9 +199,7 @@ const FeaturedProperties: React.FC<FeaturedPropertiesProps> = ({
       }
     };
 
-    if (isInSection && !isOverNavButton) {
-      document.addEventListener("mousemove", handleMouseMove);
-    }
+    document.addEventListener("mousemove", handleMouseMove);
 
     return () => {
       document.removeEventListener("mousemove", handleMouseMove);
@@ -304,6 +272,43 @@ const FeaturedProperties: React.FC<FeaturedPropertiesProps> = ({
     setDragPosition({ x: e.clientX, y: e.clientY });
     updateDragPosition(e.clientX, e.clientY);
   };
+
+  // Sync drag button visibility with section bounds even without movement
+  useEffect(() => {
+    const checkPointerInSection = () => {
+      const section = sectionRef.current;
+      const pointer = lastPointerRef.current;
+      if (!section || !pointer) return;
+
+      const rect = section.getBoundingClientRect();
+      const inside =
+        pointer.x >= rect.left &&
+        pointer.x <= rect.right &&
+        pointer.y >= rect.top &&
+        pointer.y <= rect.bottom;
+
+      if (inside && !isOverNavButton) {
+        setIsInSection(true);
+        setShowDragBtn(true);
+        document.body.style.cursor = "none";
+        updateDragPosition(pointer.x, pointer.y);
+      } else if (!inside) {
+        setIsInSection(false);
+        setShowDragBtn(false);
+        setIsDragging(false);
+        document.body.style.cursor = "default";
+      }
+    };
+
+    window.addEventListener("scroll", checkPointerInSection, { passive: true });
+    window.addEventListener("resize", checkPointerInSection);
+    checkPointerInSection();
+
+    return () => {
+      window.removeEventListener("scroll", checkPointerInSection);
+      window.removeEventListener("resize", checkPointerInSection);
+    };
+  }, [isOverNavButton]);
 
   useEffect(() => {
     if (isDragging) {
@@ -420,16 +425,12 @@ const FeaturedProperties: React.FC<FeaturedPropertiesProps> = ({
       </div>
 
       {showDragBtn && (
-        <div
+        <DragBtn
           ref={dragBtnRef}
-          className={`fp-drag-btn ${isDragging ? "fp-dragging" : ""}`}
+          dragging={isDragging}
           onMouseDown={handleDragStart}
-          onMouseUp={handleDragEnd}
-          onMouseLeave={handleDragEnd}
-          onDragStart={(e) => e.preventDefault()}
-        >
-          DRAG
-        </div>
+          variant="dark"
+        />
       )}
     </section>
   );

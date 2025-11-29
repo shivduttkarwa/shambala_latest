@@ -208,7 +208,7 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
               startTrigger="top 70%"
               endTrigger="bottom -1000%"
             >
-              {title} {subtitle}
+              {`${title} ${subtitle}`}
             </TiltTextGsap>
             <p className="services-description">{description}</p>
             <GlassButton href={ctaLink}>{ctaText}</GlassButton>
