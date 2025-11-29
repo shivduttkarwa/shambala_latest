@@ -56,9 +56,9 @@ const BlogSection: React.FC<BlogSectionProps> = ({
       featured: true,
       swiperImages: [
         `${publicUrl}images/port1.jpg`,
-        `${publicUrl}images/port2.jpg`,
+        `${publicUrl}images/sercard1.jpg`,
         `${publicUrl}images/port3.jpg`,
-        `${publicUrl}images/pexels-expect-best-79873-323780.jpg`
+        `${publicUrl}images/net3.jpg`,
       ],
     },
     {
@@ -105,35 +105,80 @@ const BlogSection: React.FC<BlogSectionProps> = ({
           },
         });
       });
+      gsap.utils
+        .toArray(".blog-posts-section .blog-post-image")
+        .forEach((el) => {
+          const target = el as HTMLElement;
+          gsap.set(target, { y: 80, opacity: 0 });
+
+          ScrollTrigger.create({
+            trigger: target,
+            start: "top 85%",
+            onEnter: () =>
+              gsap.to(target, {
+                y: 0,
+                opacity: 1,
+                duration: 1.2,
+                ease: "power3.out",
+                overwrite: true,
+              }),
+            onEnterBack: () =>
+              gsap.to(target, {
+                y: 0,
+                opacity: 1,
+                duration: 1.2,
+                ease: "power3.out",
+                overwrite: true,
+              }),
+            onLeave: () =>
+              gsap.to(target, {
+                y: 80,
+                opacity: 0,
+                duration: 0.8,
+                ease: "power2.out",
+                overwrite: true,
+              }),
+            onLeaveBack: () =>
+              gsap.to(target, {
+                y: 80,
+                opacity: 0,
+                duration: 0.8,
+                ease: "power2.out",
+                overwrite: true,
+              }),
+          });
+        });
 
       // TEXT HEADING REVEAL (exclude TiltTextGsap components)
-      document.querySelectorAll(".home-blog-heading:not(.tilt-text-heading)").forEach((heading) => {
-        const words = (heading.textContent || "").trim().split(" ");
-        heading.innerHTML = "";
+      document
+        .querySelectorAll(".home-blog-heading:not(.tilt-text-heading)")
+        .forEach((heading) => {
+          const words = (heading.textContent || "").trim().split(" ");
+          heading.innerHTML = "";
 
-        words.forEach((word, index) => {
-          const span = document.createElement("span");
-          span.textContent = word;
-          heading.appendChild(span);
+          words.forEach((word, index) => {
+            const span = document.createElement("span");
+            span.textContent = word;
+            heading.appendChild(span);
 
-          // Add space after each word except the last one
-          if (index < words.length - 1) {
-            heading.appendChild(document.createTextNode(" "));
-          }
+            // Add space after each word except the last one
+            if (index < words.length - 1) {
+              heading.appendChild(document.createTextNode(" "));
+            }
+          });
+
+          gsap.to(heading.querySelectorAll("span"), {
+            y: "0%",
+            opacity: 1,
+            duration: 1.05,
+            ease: "power3.out",
+            stagger: 0.035,
+            scrollTrigger: {
+              trigger: heading,
+              start: "top 85%",
+            },
+          });
         });
-
-        gsap.to(heading.querySelectorAll("span"), {
-          y: "0%",
-          opacity: 1,
-          duration: 1.05,
-          ease: "power3.out",
-          stagger: 0.035,
-          scrollTrigger: {
-            trigger: heading,
-            start: "top 85%",
-          },
-        });
-      });
     }, sectionRef);
 
     return () => ctx.revert();
@@ -163,7 +208,7 @@ const BlogSection: React.FC<BlogSectionProps> = ({
           {/* Image Half */}
           <div className="blog-featured-image home-blog-reveal-img">
             {featuredPost.swiperImages ? (
-              <SimpleSwiper 
+              <SimpleSwiper
                 images={featuredPost.swiperImages}
                 autoplaySpeed={4000}
                 className="blog-featured-swiper"

@@ -21,7 +21,7 @@ const OurVisionSection: React.FC<OurVisionSectionProps> = ({
   leftText = "OUR",
   rightText = "VISION",
   centerImage = {
-    src: `${publicUrl}images/hero_poster.jpg`,
+    src: `${publicUrl}images/vision-hero.jpg`,
     alt: "Modern architecture and design",
   },
 }) => {
@@ -81,6 +81,7 @@ const OurVisionSection: React.FC<OurVisionSectionProps> = ({
           ".vision-image-container",
           {
             scale: 1.6,
+
             ease: "none",
           },
           0

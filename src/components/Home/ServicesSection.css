@@ -123,7 +123,7 @@
 /* Right side - Sticky Content */
 .services-content {
   position: sticky;
-  top: calc(30vh - 200px);
+  top: calc(30vh - 100px);
   padding: 40px;
   max-height: 70vh; /* Prevent content from going off-screen */
   display: flex;

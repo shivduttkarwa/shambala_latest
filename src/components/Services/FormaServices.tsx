@@ -3,6 +3,7 @@ import React, { FC, useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./FormaServices.css";
+import TiltTextGsap from "../UI/TiltTextGsap";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -60,7 +61,6 @@ export const FormaServices: FC = () => {
     const ctx = gsap.context(() => {
       const q = gsap.utils.selector(rootRef);
 
-      const heading = q(".fs-heading")[0] as HTMLElement | undefined;
       const fsImageCover = q(".fs-image-cover")[0] as
         | HTMLDivElement
         | undefined;
@@ -88,7 +88,6 @@ export const FormaServices: FC = () => {
       const fsInner = q(".fs-inner")[0] as HTMLElement | undefined;
 
       if (
-        !heading ||
         !fsImageCover ||
         !fsLeft ||
         !fsKicker ||
@@ -179,23 +178,6 @@ export const FormaServices: FC = () => {
         });
       };
 
-      // Section heading reveal
-      gsap.fromTo(
-        heading,
-        { y: 40, autoAlpha: 0 },
-        {
-          y: 0,
-          autoAlpha: 1,
-          duration: 0.8,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: heading,
-            start: "top 85%",
-            toggleActions: "play none none reverse",
-          },
-        }
-      );
-
       // initial content & images
       setTextInstant(0);
       imgCurrentEl.setAttribute("src", serviceSlides[0].image);
@@ -216,34 +198,70 @@ export const FormaServices: FC = () => {
             fsCounterCurrent,
           ];
 
+          // 0 → shrinkEnd: full-bleed shrinks
+          // shrinkEnd → slidesStart: half-width, slide 1 stays, no transitions
+          // slidesStart → 1: slide transitions
+          const shrinkEnd = 0.2;
+          const slidesStart = 0.3;
+          const transitionsCount = serviceSlides.length - 1;
+
+          let fsLastSnapIndex = 0;
+          let fsLastDirection: 1 | -1 = 1;
+
           ScrollTrigger.create({
             trigger: fsSection,
             start: "top top",
-            end: "+=400%",
+            end: "+=600%",
             scrub: true,
             pin: fsInner,
             snap: {
-              snapTo: [0, 0.33, 0.66, 1],
-              duration: 0.4,
-              ease: "power1.inOut",
+              snapTo: (value) => {
+                // No slides => no snapping
+                if (transitionsCount <= 0) return value;
+
+                // While we're before slidesStart, don't snap: let user rest anywhere
+                if (value <= slidesStart) {
+                  fsLastSnapIndex = 0;
+                  return value;
+                }
+
+                // After slidesStart, snap one slide at a time based on scroll direction
+                const direction = fsLastDirection >= 0 ? 1 : -1;
+                let nextIndex = fsLastSnapIndex + direction;
+                nextIndex = Math.max(0, Math.min(transitionsCount, nextIndex));
+                fsLastSnapIndex = nextIndex;
+
+                const snappedRemaining = nextIndex / transitionsCount;
+                return slidesStart + snappedRemaining * (1 - slidesStart);
+              },
+              duration: 0.6,
+              ease: "power2.inOut",
             },
             onUpdate: (self) => {
+              fsLastDirection = self.direction as 1 | -1;
+
               const p = self.progress;
 
-              const splitStart = 0.0;
-              const splitEnd = 0.2;
-              let tSplit = (p - splitStart) / (splitEnd - splitStart);
-              tSplit = Math.min(Math.max(tSplit, 0), 1);
+              // --- 1) IMAGE SHRINK (0 → shrinkEnd) ---
+              if (p <= shrinkEnd) {
+                const tSplit = Math.min(Math.max(p / shrinkEnd, 0), 1);
+                const width = 100 - 50 * tSplit;
+                const left = 0 + 50 * tSplit;
 
-              const width = 100 - 50 * tSplit;
-              const left = 0 + 50 * tSplit;
+                gsap.set(fsImageCover, {
+                  width: `${width}%`,
+                  left: `${left}%`,
+                });
+              } else {
+                // lock at half-width once shrink finished
+                gsap.set(fsImageCover, {
+                  width: "50%",
+                  left: "50%",
+                });
+              }
 
-              gsap.set(fsImageCover, {
-                width: `${width}%`,
-                left: `${left}%`,
-              });
-
-              if (p > splitEnd + 0.02 && !fsContentVisible) {
+              // --- 2) CONTENT VISIBILITY (still tied to shrink finishing) ---
+              if (p > shrinkEnd + 0.02 && !fsContentVisible) {
                 fsContentVisible = true;
 
                 gsap.set(textEls, { y: 30, opacity: 0 });
@@ -268,7 +286,7 @@ export const FormaServices: FC = () => {
                 });
               }
 
-              if (p <= splitEnd && fsContentVisible) {
+              if (p <= shrinkEnd && fsContentVisible) {
                 fsContentVisible = false;
 
                 gsap.set(fsLeft, {
@@ -286,7 +304,8 @@ export const FormaServices: FC = () => {
                 });
               }
 
-              if (p <= splitEnd) {
+              // --- 3) RESET STATE UNTIL slidesStart ---
+              if (p <= slidesStart) {
                 fsTextIndex = 0;
                 fsLastTransitionIndex = -1;
                 imgCurrentEl.setAttribute("src", serviceSlides[0].image);
@@ -295,20 +314,13 @@ export const FormaServices: FC = () => {
                 }
                 gsap.set(imgCurrentEl, { yPercent: 0, scale: 1, opacity: 1 });
                 gsap.set(imgNextEl, { yPercent: 0, scale: 0.25, opacity: 0 });
-                return;
+                return; // no transitions yet
               }
 
-              if (p > splitEnd) {
-                gsap.set(fsImageCover, {
-                  width: "50%",
-                  left: "50%",
-                });
-              }
-
-              const remaining = (p - splitEnd) / (1 - splitEnd);
+              // --- 4) SLIDE TRANSITIONS AFTER slidesStart ---
+              const remaining = (p - slidesStart) / (1 - slidesStart);
               const clamped = Math.min(Math.max(remaining, 0), 1);
 
-              const transitionsCount = serviceSlides.length - 1;
               if (transitionsCount <= 0) return;
 
               if (clamped >= 0.999) {
@@ -364,6 +376,10 @@ export const FormaServices: FC = () => {
           fsTextIndex = 0;
           fsLastTransitionIndex = -1;
 
+          const transitionsCount = serviceSlides.length - 1;
+          let fsLastSnapIndexMobile = 0;
+          let fsLastDirectionMobile: 1 | -1 = 1;
+
           ScrollTrigger.create({
             trigger: fsSection,
             start: "top top",
@@ -371,15 +387,26 @@ export const FormaServices: FC = () => {
             scrub: true,
             pin: fsInner,
             snap: {
-              snapTo: [0, 0.33, 0.66, 1],
-              duration: 0.35,
+              snapTo: (value) => {
+                if (transitionsCount <= 0) return value;
+
+                const direction = fsLastDirectionMobile >= 0 ? 1 : -1;
+
+                let nextIndex = fsLastSnapIndexMobile + direction;
+                nextIndex = Math.max(0, Math.min(transitionsCount, nextIndex));
+                fsLastSnapIndexMobile = nextIndex;
+
+                return nextIndex / transitionsCount;
+              },
+              duration: 0.5,
               ease: "power1.inOut",
             },
             onUpdate: (self) => {
+              fsLastDirectionMobile = self.direction as 1 | -1;
+
               const p = self.progress;
               const clamped = Math.min(Math.max(p, 0), 1);
 
-              const transitionsCount = serviceSlides.length - 1;
               if (transitionsCount <= 0) return;
 
               if (clamped >= 0.999) {
@@ -447,7 +474,14 @@ export const FormaServices: FC = () => {
   return (
     <div className="forma-services" id="services-content" ref={rootRef}>
       <div className="fs-heading">
-        <h2 className="section-title fs-heading-title">Forma Services</h2>
+        <TiltTextGsap
+          tag="h2"
+          className="section-title fs-heading-title"
+          startTrigger="top 75%"
+          endTrigger="bottom 0%"
+        >
+          Forma Services
+        </TiltTextGsap>
         <p className="fs-heading-subtitle">
           Architecture, interiors, and landscapes crafted as one seamless story.
         </p>

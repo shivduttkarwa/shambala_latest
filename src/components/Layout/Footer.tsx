@@ -273,7 +273,7 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
           {/* Brand Box */}
           <div className="forma-footer-brand-box" style={{ overflow: 'visible', position: 'relative', paddingTop: '80px' }}>
             <img 
-              src="/images/forma_logo.png"
+              src={`${import.meta.env.BASE_URL}images/forma_logo.png`}
               alt="FORMA"
               onClick={() => {
                 navigate('/');

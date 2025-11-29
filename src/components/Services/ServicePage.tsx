@@ -7,8 +7,11 @@ import { FormaServices } from "./FormaServices";
 import { ProcessSection } from "./ProcessSection";
 import ScrollDownButton from "../UI/ScrollDownButton";
 import ServiceHeroText from "./ServiceHeroText";
+import TiltTextGsap from "../UI/TiltTextGsap";
 
 gsap.registerPlugin(ScrollTrigger);
+
+const publicUrl = import.meta.env.BASE_URL;
 
 const ServicesPage: React.FC = () => {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -160,12 +163,12 @@ const ServicesPage: React.FC = () => {
             {/* Image (2/3) */}
             <div className="ser-page-hero-image-container">
               <img
-                src="/images/l2.jpg"
+                src={`${publicUrl}images/l2.jpg`}
                 alt="Architectural service showcase"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
                   target.onerror = null;
-                  target.src = "/images/l1.jpg";
+                  target.src = `${publicUrl}images/l1.jpg`;
                 }}
               />
             </div>
@@ -191,7 +194,9 @@ const ServicesPage: React.FC = () => {
       {/* TESTIMONIALS SECTION */}
       <section className="ser-testimonials-section">
         <div className="ser-testimonials-header">
-          <h2 className="ser-serif">What our clients say</h2>
+          <TiltTextGsap tag="h2" className="ser-serif">
+            What our clients say
+          </TiltTextGsap>
           <p>
             Real stories from real people who've transformed their spaces with Forma's thoughtful design approach.
           </p>

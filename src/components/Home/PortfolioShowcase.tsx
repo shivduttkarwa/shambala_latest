@@ -10,7 +10,7 @@ const publicUrl = import.meta.env.BASE_URL || "/";
 gsap.registerPlugin(ScrollTrigger);
 
 const getImagePath = (imageName: string) => {
-  return publicUrl.endsWith("/") 
+  return publicUrl.endsWith("/")
     ? `${publicUrl}images/${imageName}`
     : `${publicUrl}/images/${imageName}`;
 };
@@ -25,12 +25,12 @@ const projects = [
   {
     title: "Luxury Villa Estate",
     bg: getImagePath("l8.jpg"),
-    thumb: getImagePath("port2.jpg"),
+    thumb: getImagePath("5.jpg"),
     tags: ["4 Bed", "3.5 Bath", "2,500 Sqft", "Pool", "Premium"],
   },
   {
     title: "Cozy Family Home",
-    bg: getImagePath("port2.jpg"),
+    bg: getImagePath("port3.jpg"),
     thumb: getImagePath("project2.jpg"),
     tags: ["2 Bed", "2 Bath", "1,200 Sqft", "Family Friendly", "Affordable"],
   },

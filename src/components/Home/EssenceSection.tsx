@@ -36,7 +36,7 @@ const EssenceSection: React.FC<EssenceSectionProps> = ({
   ctaText = "VIEW OUR DESIGNS",
   ctaHref = "#house-designs",
   image = {
-    src: `${publicUrl}images/ess.jpg`,
+    src: `${publicUrl}images/fwi1.jpg`,
     alt: "Modern architectural design",
   },
   videoUrl = `${publicUrl}images/hero1.mp4`,
@@ -147,17 +147,40 @@ const EssenceSection: React.FC<EssenceSectionProps> = ({
         );
       }
 
-      // Image reveal - separate ScrollTrigger
+      // Image reveal - play on each enter
       if (imageOverlayRef.current) {
-        gsap.to(imageOverlayRef.current, {
-          scaleX: 0,
-          duration: 2.4,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: imageOverlayRef.current,
-            start: "top 70%",
-            toggleActions: "play none none none",
-          },
+        const overlay = imageOverlayRef.current;
+        gsap.set(overlay, { scaleX: 1 });
+
+        ScrollTrigger.create({
+          trigger: overlay,
+          start: "top 70%",
+          onEnter: () =>
+            gsap.fromTo(
+              overlay,
+              { scaleX: 1 },
+              { scaleX: 0, duration: 2.4, ease: "power2.out", overwrite: true }
+            ),
+          onEnterBack: () =>
+            gsap.fromTo(
+              overlay,
+              { scaleX: 1 },
+              { scaleX: 0, duration: 2.4, ease: "power2.out", overwrite: true }
+            ),
+          onLeave: () =>
+            gsap.to(overlay, {
+              scaleX: 1,
+              duration: 1.6,
+              ease: "power2.out",
+              overwrite: true,
+            }),
+          onLeaveBack: () =>
+            gsap.to(overlay, {
+              scaleX: 1,
+              duration: 1.6,
+              ease: "power2.out",
+              overwrite: true,
+            }),
         });
       }
     }, sectionRef);
@@ -178,10 +201,7 @@ const EssenceSection: React.FC<EssenceSectionProps> = ({
             )}
 
             <div className="essence-heading" ref={headingRef}>
-              <TiltTextGsap
-                startTrigger="top 70%"
-                endTrigger="bottom -10%"
-              >
+              <TiltTextGsap startTrigger="top 70%" endTrigger="bottom -10%">
                 {heading}
               </TiltTextGsap>
             </div>

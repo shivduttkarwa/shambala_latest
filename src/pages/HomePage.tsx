@@ -4,13 +4,13 @@ import {
   EssenceSection,
   PortfolioShowcase,
   FeaturedProperties,
-  BenefitsSection,
 } from "../components/Home";
 import OurVisionSection from "../components/Home/OurVisionSection";
 import CTASection from "../components/Home/CTASection";
 import ServicesSection from "../components/Home/ServicesSection";
 import BlogSection from "../components/Home/BlogSection";
 import ProjectModernSlider from "../components/Projects/ProjectModernSlider";
+import { FormaServices } from "../components/Services/FormaServices";
 // import TextVid from "../components/UI/TextVid";
 import BodyRenderer from "../components/BodyRenderer";
 import { useHome } from "../hooks/useHome";
@@ -35,7 +35,7 @@ const HomePage: React.FC<HomePageProps> = ({ settings: _ }) => {
         <ServicesSection />
       </div>
       <ProjectModernSlider />
-      <BenefitsSection sectionTitle="Get in touch to" />
+      <FormaServices />
       <div id="projects">
         <PortfolioShowcase />
       </div>

@@ -32,52 +32,53 @@ interface ServicesSectionProps {
 const defaultServices: ServiceCard[] = [
   {
     id: "1",
-    title: "New Home Construction",
+    title: "Seacliff Residence",
     description:
-      "From concept to completion, we build homes tailored to your lifestyle and vision.",
-    imageSrc: `${publicUrl}images/sm1.jpg`,
-    alt: "New Home Construction",
-    ctaText: "Learn More",
-    ctaLink: "/services",
+      "Ocean-facing luxury retreat with layered terraces, native landscaping, and seamless indoor-outdoor living.",
+    imageSrc: `${publicUrl}images/sercard1.jpg`,
+    alt: "Seacliff Residence project",
+    ctaText: "View Project",
+    ctaLink: "/projects",
   },
   {
     id: "2",
-    title: "Complete Renovations",
+    title: "Hinterland Pavilion",
     description:
-      "Transform your existing home with our comprehensive renovation and remodeling services.",
-    imageSrc: `${publicUrl}images/sm2.jpg`,
-    alt: "Home Renovations",
-    ctaText: "Learn More",
-    ctaLink: "/services",
+      "Elevated pavilion home with timber screening, passive cooling, and a warm minimalist interior palette.",
+    imageSrc: `${publicUrl}images/sercard2.jpg`,
+    alt: "Hinterland Pavilion project",
+    ctaText: "View Project",
+    ctaLink: "/projects",
   },
   {
     id: "3",
-    title: "Extensions & Upgrades",
+    title: "Urban Courtyard House",
     description:
-      "Expand your living space with expertly designed extensions that blend seamlessly with your home.",
-    imageSrc: `${publicUrl}images/sm3.jpg`,
-    alt: "Home Extensions",
-    ctaText: "Learn More",
-    ctaLink: "/services",
+      "Inner-city sanctuary built around a sculpted courtyard, clerestory light, and bespoke joinery moments.",
+    imageSrc: `${publicUrl}images/sercard3.jpg`,
+    alt: "Urban Courtyard House project",
+    ctaText: "View Project",
+    ctaLink: "/projects",
   },
   {
     id: "4",
-    title: "Downsizing Solutions",
+    title: "Forest Ridge Lodge",
     description:
-      "Thoughtful designs that maximize comfort and functionality in smaller, more efficient spaces.",
-    imageSrc: `${publicUrl}images/sm4.jpg`,
-    alt: "Downsizing Solutions",
-    ctaText: "Learn More",
-    ctaLink: "/services",
+      "Weekend lodge nestled in the ridge line with stone, cedar, and expansive glazing framing the treetops.",
+    imageSrc: `${publicUrl}images/4.avif`,
+    alt: "Forest Ridge Lodge project",
+    ctaText: "View Project",
+    ctaLink: "/projects",
   },
 ];
 
 const ServicesSection: React.FC<ServicesSectionProps> = ({
-  title = "BUILDING EXCELLENCE",
+  title = "FORMA PROJECTS",
   subtitle = "",
-  description = "Shambala Homes delivers comprehensive construction services from new home builds to complete renovations. With decades of experience and unwavering commitment to quality, we transform architectural visions into lasting realities.",
-  ctaText = "View All Services",
-  ctaLink = "/services",
+  description =
+    "A curated look at how we shape coastal retreats, urban sanctuaries, and country escapes—each crafted with calm, warmth, and precision. From the first sketch to final styling, our teams steward every detail so the architecture, interiors, and landscape speak the same language. Expect measured light, honest materials, and rooms that feel effortlessly livable day after day.",
+  ctaText = "View All Projects",
+  ctaLink = "/projects",
   services = defaultServices,
 }) => {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -139,7 +140,6 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
 
       // Fade in content elements on desktop only
       if (window.innerWidth > 1024) {
-
         gsap.from(".services-description", {
           scrollTrigger: {
             trigger: ".services-content",
@@ -219,10 +219,7 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
 
           {/* Right side - Sticky Content */}
           <div className="services-content">
-            <TiltTextGsap
-              startTrigger="top 70%"
-              endTrigger="bottom -1000%"
-            >
+            <TiltTextGsap startTrigger="top 70%" endTrigger="bottom -1000%">
               {`${title} ${subtitle}`}
             </TiltTextGsap>
             <div className="services-description">
