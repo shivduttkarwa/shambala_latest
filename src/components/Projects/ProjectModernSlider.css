@@ -350,12 +350,12 @@
 }
 /* Ensure normal scroll behavior */
 .pms-creative-fullpage--slider {
-  cursor: none !important; /* Force no cursor in slider section */
   overflow: visible;
 }
 
-.pms-creative-fullpage--slider * {
-  cursor: none !important; /* Force no cursor on all child elements */
+.pms-hide-cursor,
+.pms-hide-cursor * {
+  cursor: none !important;
 }
 
 .pms-creative-fullpage--slider.show-cursor .pms-creative-slide--btn,

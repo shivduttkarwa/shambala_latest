@@ -102,24 +102,15 @@ const ProjectModernSlider: React.FC = () => {
       }
     };
 
-    const handleMouseLeave = (e: MouseEvent) => {
-      // Check if mouse is actually leaving the section bounds
+    const handleMouseLeave = () => {
+      setIsInSection(false);
+      setShowDragBtn(false);
+      setIsDragging(false);
+      document.body.style.cursor = "default"; // Restore cursor
+      
       const section = sliderSectionRef.current;
       if (section) {
-        const rect = section.getBoundingClientRect();
-        const { clientX, clientY } = e;
-        
-        // Only trigger leave if mouse is actually outside the section
-        if (clientX < rect.left || clientX > rect.right || 
-            clientY < rect.top || clientY > rect.bottom) {
-          setIsInSection(false);
-          setShowDragBtn(false);
-          setIsDragging(false);
-          document.body.style.cursor = "default"; // Restore cursor
-          
-          // Remove any lingering classes
-          section.classList.remove("show-cursor");
-        }
+        section.classList.remove("show-cursor");
       }
     };
 
@@ -218,6 +209,12 @@ const ProjectModernSlider: React.FC = () => {
     };
   }, [isInSection, isOverNavButton, showDragBtn]);
 
+  useEffect(() => {
+    if (!isInSection || !showDragBtn) {
+      document.body.style.cursor = "default";
+    }
+  }, [isInSection, showDragBtn]);
+
   // Check if mouse is over navigation buttons and slide buttons
   useEffect(() => {
     const handleButtonEnter = () => {
@@ -277,21 +274,34 @@ const ProjectModernSlider: React.FC = () => {
   useEffect(() => {
     const checkPointerInSection = () => {
       const section = sliderSectionRef.current;
-      const pointer = lastPointerRef.current;
-      if (!section || !pointer) return;
+      if (!section) return;
 
       const rect = section.getBoundingClientRect();
+      const outOfView = rect.bottom <= 0 || rect.top >= window.innerHeight;
+
+      if (outOfView) {
+        setIsInSection(false);
+        setShowDragBtn(false);
+        setIsDragging(false);
+        document.body.style.cursor = "default";
+        return;
+      }
+
+      const pointer = lastPointerRef.current;
+      const px = pointer?.x ?? window.innerWidth / 2;
+      const py = pointer?.y ?? window.innerHeight / 2;
+
       const inside =
-        pointer.x >= rect.left &&
-        pointer.x <= rect.right &&
-        pointer.y >= rect.top &&
-        pointer.y <= rect.bottom;
+        px >= rect.left &&
+        px <= rect.right &&
+        py >= rect.top &&
+        py <= rect.bottom;
 
       if (inside && !isOverNavButton) {
         setIsInSection(true);
         setShowDragBtn(true);
         document.body.style.cursor = "none";
-        updateDragButtonPosition(pointer.x, pointer.y);
+        updateDragButtonPosition(px, py);
       } else if (!inside) {
         setIsInSection(false);
         setShowDragBtn(false);
@@ -309,6 +319,33 @@ const ProjectModernSlider: React.FC = () => {
       window.removeEventListener("resize", checkPointerInSection);
     };
   }, [isOverNavButton]);
+
+  // Observer to hide drag button when slider leaves viewport without needing mouse movement
+  useEffect(() => {
+    const section = sliderSectionRef.current;
+    if (!section) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) {
+            setIsInSection(false);
+            setShowDragBtn(false);
+            setIsDragging(false);
+            document.body.style.cursor = "default";
+          }
+        });
+      },
+      { threshold: 0 }
+    );
+
+    observer.observe(section);
+
+    return () => {
+      observer.disconnect();
+      document.body.style.cursor = "default";
+    };
+  }, []);
 
   // Drag functionality
   const handleDragStart = (e: React.MouseEvent) => {
@@ -368,6 +405,24 @@ const ProjectModernSlider: React.FC = () => {
       document.body.style.userSelect = "";
     };
   }, [isDragging]);
+
+  useEffect(() => {
+    const section = sliderSectionRef.current;
+    if (!section) return;
+
+    if (showDragBtn && isInSection && !isOverNavButton) {
+      section.classList.add("pms-hide-cursor");
+      document.body.style.cursor = "none";
+    } else {
+      section.classList.remove("pms-hide-cursor");
+      document.body.style.cursor = "default";
+    }
+
+    return () => {
+      section.classList.remove("pms-hide-cursor");
+      document.body.style.cursor = "default";
+    };
+  }, [showDragBtn, isInSection, isOverNavButton]);
 
   return (
     <section className="pms-creative-fullpage--slider" ref={sliderSectionRef}>
