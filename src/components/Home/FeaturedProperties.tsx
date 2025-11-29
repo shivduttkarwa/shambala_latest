@@ -167,7 +167,7 @@ const FeaturedProperties: React.FC<FeaturedPropertiesProps> = ({
         const padding = 10;
 
         const buttonElements = document.querySelectorAll(
-          ".fp-swiper-button-next, .fp-swiper-button-prev"
+          ".fp-swiper-button-next, .fp-swiper-button-prev, .fp-left-navigation, .home-benefits-cta"
         );
         let overButton = false;
 
@@ -223,27 +223,20 @@ const FeaturedProperties: React.FC<FeaturedPropertiesProps> = ({
       }
     };
 
-    const nextButton = document.querySelector(".fp-swiper-button-next");
-    const prevButton = document.querySelector(".fp-swiper-button-prev");
+    const bucketElements = document.querySelectorAll(
+      ".fp-swiper-button-next, .fp-swiper-button-prev, .fp-left-navigation, .home-benefits-cta"
+    );
 
-    if (nextButton) {
-      nextButton.addEventListener("mouseenter", handleButtonEnter);
-      nextButton.addEventListener("mouseleave", handleButtonLeave);
-    }
-    if (prevButton) {
-      prevButton.addEventListener("mouseenter", handleButtonEnter);
-      prevButton.addEventListener("mouseleave", handleButtonLeave);
-    }
+    bucketElements.forEach((el) => {
+      el.addEventListener("mouseenter", handleButtonEnter);
+      el.addEventListener("mouseleave", handleButtonLeave);
+    });
 
     return () => {
-      if (nextButton) {
-        nextButton.removeEventListener("mouseenter", handleButtonEnter);
-        nextButton.removeEventListener("mouseleave", handleButtonLeave);
-      }
-      if (prevButton) {
-        prevButton.removeEventListener("mouseenter", handleButtonEnter);
-        prevButton.removeEventListener("mouseleave", handleButtonLeave);
-      }
+      bucketElements.forEach((el) => {
+        el.removeEventListener("mouseenter", handleButtonEnter);
+        el.removeEventListener("mouseleave", handleButtonLeave);
+      });
     };
   }, [isInSection]);
 
