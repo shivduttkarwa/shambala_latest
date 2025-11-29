@@ -106,6 +106,7 @@
   margin-bottom: 8px;
   letter-spacing: -0.3px;
   font-family: "Nunito", sans-serif;
+  display: inline-block;
 }
 
 .service-description {
@@ -114,6 +115,7 @@
   line-height: 1.5;
   margin-bottom: 12px;
   font-family: "Nunito", sans-serif;
+  display: block;
 }
 
 /* Old service-cta styles removed - now using GlassButton */

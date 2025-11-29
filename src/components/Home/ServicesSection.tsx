@@ -4,6 +4,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./ServicesSection.css";
 import GlassButton from "../UI/GlassButton";
 import TiltTextGsap from "../UI/TiltTextGsap";
+import HoverText from "../UI/HoverText";
 
 const publicUrl = import.meta.env.BASE_URL;
 
@@ -33,7 +34,7 @@ const defaultServices: ServiceCard[] = [
     id: "1",
     title: "New Home Construction",
     description:
-      "From concept to completion, we build bespoke homes tailored to your lifestyle and vision.",
+      "From concept to completion, we build homes tailored to your lifestyle and vision.",
     imageSrc: `${publicUrl}images/sm1.jpg`,
     alt: "New Home Construction",
     ctaText: "Learn More",
@@ -189,10 +190,24 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
                 />
                 <div className="service-overlay">
                   <div>
-                    <div className="service-title">{service.title}</div>
-                    <div className="service-description">
+                    <HoverText
+                      className="service-title"
+                      fromSettings="'wght' 400"
+                      toSettings="'wght' 700"
+                      radius={80}
+                      falloff="gaussian"
+                    >
+                      {service.title}
+                    </HoverText>
+                    <HoverText
+                      className="service-description"
+                      fromSettings="'wght' 400"
+                      toSettings="'wght' 700"
+                      radius={80}
+                      falloff="gaussian"
+                    >
                       {service.description}
-                    </div>
+                    </HoverText>
                   </div>
                   <GlassButton href={service.ctaLink || "#"}>
                     {service.ctaText || "Learn More"}
@@ -210,7 +225,16 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
             >
               {`${title} ${subtitle}`}
             </TiltTextGsap>
-            <p className="services-description">{description}</p>
+            <div className="services-description">
+              <HoverText
+                fromSettings="'wght' 400"
+                toSettings="'wght' 700"
+                radius={100}
+                falloff="gaussian"
+              >
+                {description}
+              </HoverText>
+            </div>
             <GlassButton href={ctaLink}>{ctaText}</GlassButton>
           </div>
         </div>

@@ -7,6 +7,7 @@ import GlassButton from "../UI/GlassButton";
 import SimpleSwiper from "../UI/SimpleSwiper";
 import TiltTextGsap from "../UI/TiltTextGsap";
 import "../UI/SimpleSwiper.css";
+import HoverText from "../UI/HoverText";
 
 const publicUrl = import.meta.env.BASE_URL;
 
@@ -184,7 +185,15 @@ const BlogSection: React.FC<BlogSectionProps> = ({
               {featuredPost.title}
             </TiltTextGsap>
 
-            <p className="blog-featured-description">{featuredPost.excerpt}</p>
+            <HoverText
+              className="blog-featured-description"
+              fromSettings="'wght' 400"
+              toSettings="'wght' 700"
+              radius={100}
+              falloff="gaussian"
+            >
+              {featuredPost.excerpt}
+            </HoverText>
 
             <GlassButton href={featuredPost.link}>Read More</GlassButton>
           </div>
@@ -204,7 +213,15 @@ const BlogSection: React.FC<BlogSectionProps> = ({
                 <img src={post.imageSrc} alt={post.imageAlt} />
               </div>
 
-              <p className="blog-post-description">{post.excerpt}</p>
+              <HoverText
+                className="blog-post-description"
+                fromSettings="'wght' 400"
+                toSettings="'wght' 700"
+                radius={100}
+                falloff="gaussian"
+              >
+                {post.excerpt}
+              </HoverText>
 
               <GlassButton href={post.link}>Read More</GlassButton>
             </article>
