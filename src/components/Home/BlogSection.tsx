@@ -45,7 +45,7 @@ const BlogSection: React.FC<BlogSectionProps> = ({
   posts = [
     {
       id: 1,
-      title: "Sustainable Living with Shambala",
+      title: "Sustainable Living with FORMA",
       date: "15 Nov 2025",
       category: "Sustainability",
       excerpt:
@@ -67,7 +67,7 @@ const BlogSection: React.FC<BlogSectionProps> = ({
       date: "12 Nov 2025",
       category: "Design",
       excerpt:
-        "Discover how strategic landscaping can significantly increase your property value while creating beautiful outdoor spaces that complement your Shambala home.",
+        "Discover how strategic landscaping can significantly increase your property value while creating beautiful outdoor spaces that complement your FORMA home.",
       imageSrc: `${publicUrl}images/blog2.jpg`,
       imageAlt: "Landscaping design",
       link: "#",

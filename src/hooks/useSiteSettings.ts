@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { fetchSiteSettings, SiteSettings } from '../services/api';
+import { useState, useEffect } from "react";
+import { fetchSiteSettings, SiteSettings } from "../services/api";
 
 interface UseSiteSettingsReturn {
   loading: boolean;
@@ -20,24 +20,26 @@ export const useSiteSettings = (): UseSiteSettingsReturn => {
         const data = await fetchSiteSettings();
         setSettings(data);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to load settings');
-        
+        setError(
+          err instanceof Error ? err.message : "Failed to load settings"
+        );
+
         // Provide fallback settings
         setSettings({
           header: {
-            logo_text: 'SHAMBALA HOMES',
-            menu_items: []
+            logo_text: "FORMA",
+            menu_items: [],
           },
           footer: {
             sections: [],
-            copyright: '© 2025 Shambala Homes. All rights reserved.'
+            copyright: "© 2025 FORMA. All rights reserved.",
           },
           contact: {
-            email: '',
-            phone: '',
-            address: ''
+            email: "",
+            phone: "",
+            address: "",
           },
-          social: {}
+          social: {},
         });
       } finally {
         setLoading(false);

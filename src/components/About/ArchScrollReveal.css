@@ -2,12 +2,22 @@
 .arch-scroll-section {
   color: #121212;
   font-family: "Nunito", sans-serif;
-  background-color: var(--paper-base, #f3ebdd);
-  background-image: var(--paper-texture, none);
-  background-size: var(--paper-size, auto);
-  background-position: var(--paper-position, 0 0);
-  background-repeat: var(--paper-repeat, repeat);
-  background-blend-mode: var(--paper-blend, normal);
+  background: linear-gradient(180deg, #f4eade 0%, #efe3d3 25%, #f6eddf 55%, #ebdfce 100%);
+}
+
+.arch-journey-heading {
+  text-align: center;
+  padding: 28px 16px 0;
+}
+
+.arch-journey-heading h2,
+.arch-journey-title {
+  font-family: "Dream Avenue", cursive;
+  font-size: clamp(2.5rem, 6vw, 3.8rem);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text, #2c2c2c);
+  margin: 0 auto;
 }
 
 .arch-container {
@@ -18,7 +28,7 @@
 
 .arch-spacer {
   width: 100%;
-  height: 30vh;
+  height: 0;
 }
 
 .arch {
@@ -60,11 +70,25 @@
   line-height: normal;
 }
 
+.arch-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 0;
+  color: #f7f7f7;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
 .arch__left .arch__info .arch-link {
   text-decoration: none;
   padding: 16px 18px;
   color: inherit;
-  border-radius: 40px;
+  border-radius: 0;
   display: flex;
   gap: 4px;
   width: fit-content;
@@ -132,6 +156,21 @@
   .arch__left .arch__info {
     height: auto;
     padding: 20px 0;
+  }
+
+  .arch__left .arch__info,
+  .arch__left .arch__info .arch-content,
+  .arch-journey-heading {
+    text-align: center;
+  }
+
+  .arch__left .arch__info .arch-content {
+    margin: 0 auto;
+  }
+
+  .arch__left .arch__info .arch-link {
+    margin: 0 auto;
+    justify-content: center;
   }
 }
 

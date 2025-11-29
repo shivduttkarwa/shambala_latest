@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ASCIIGlitchText from "../shared/ASCIIGlitchText";
+import TiltTextGsap from "../UI/TiltTextGsap";
 import ArchScrollReveal from "./ArchScrollReveal";
 import "./AboutHero.css";
 
@@ -154,26 +156,23 @@ const AboutHero: React.FC = () => {
 
             {/* Text Content (1/3) */}
             <div className="about-animate-in about-hero-text-container">
-              <h1
+              <TiltTextGsap
+                tag="h1"
                 className="text-4xl md:text-5xl font-black mb-4 leading-tight"
                 style={{
-                  fontFamily: '"Cinzel", serif',
+                  fontFamily: '"Dream Avenue", cursive',
                   color: "var(--text, #2c2c2c)",
                   textTransform: "uppercase",
                   letterSpacing: "0.02em",
                 }}
               >
-                We Are{" "}
-                <span style={{ color: "var(--accent, #5b7c4f)" }}>
-                  Shambala
-                </span>{" "}
-                Homes
-              </h1>
+                FORMA
+              </TiltTextGsap>
               <div
                 className="mb-8"
                 style={{
                   color: "rgba(44, 44, 44, 0.75)",
-                  fontFamily: '"Cormorant Garamond", Georgia, serif',
+                  fontFamily: '"Nunito", sans-serif',
                   fontSize: "1.1rem",
                   lineHeight: "1.7",
                   fontWeight: "400",
@@ -206,14 +205,7 @@ const AboutHero: React.FC = () => {
                   tag="span"
                 />
               </div>
-              <div className="flex items-center gap-4 flex-wrap">
-                <button className="about-btn-primary about-interactive-element">
-                  Explore Vision
-                </button>
-                <button className="about-btn-red about-interactive-element">
-                  Our Projects
-                </button>
-              </div>
+              {/* Buttons removed per request */}
             </div>
           </div>
         </section>
@@ -222,40 +214,43 @@ const AboutHero: React.FC = () => {
         <section className="grid md:grid-cols-2 gap-8 mb-20">
           {/* Card 1 */}
           <div className="about-card p-8 md:p-12 about-animate-in about-interactive-card">
-            <h2
+            <TiltTextGsap
+              tag="h2"
               className="text-6xl md:text-8xl font-black mb-4"
               style={{
-                fontFamily: '"Bebas Neue", sans-serif',
-                color: "var(--cream, #faf8f3)",
+                fontFamily: '"Dream Avenue", cursive',
+                color: "#0f0f0f",
                 letterSpacing: "0.05em",
               }}
             >
-              <span style={{ color: "#a8d48a" }}>25</span> + Years
-            </h2>
-            <p
-              className="mb-8"
-              style={{
-                color: "rgba(250, 248, 243, 0.8)",
-                fontFamily: '"Cormorant Garamond", Georgia, serif',
-                fontSize: "1rem",
-                lineHeight: "1.6",
-                fontWeight: "400",
-              }}
-            >
-              Excellence in architectural design and sustainable construction.
-              Building dreams with precision, passion, and environmental
-              consciousness for over two decades.
-            </p>
+              25 + Years
+            </TiltTextGsap>
+            <ASCIIGlitchText
+              text="Excellence in architectural design and sustainable construction. Building dreams with precision, passion, and environmental consciousness for over two decades."
+              className="mb-8 about-interactive-element"
+              duration={900}
+              spread={0.6}
+              tag="p"
+            />
             <div className="flex gap-2 flex-wrap">
-              <button className="about-btn-red flex-1 about-interactive-element min-w-[90px]">
+              <Link
+                to="/projects"
+                className="about-btn-red flex-1 about-interactive-element min-w-[90px] text-center"
+              >
                 Portfolio
-              </button>
-              <button className="about-btn-primary flex-1 about-interactive-element min-w-[90px]">
+              </Link>
+              <Link
+                to="/about"
+                className="about-btn-primary flex-1 about-interactive-element min-w-[90px] text-center"
+              >
                 Awards
-              </button>
-              <button className="about-btn-primary flex-1 about-interactive-element min-w-[90px]">
+              </Link>
+              <Link
+                to="/blog"
+                className="about-btn-primary flex-1 about-interactive-element min-w-[90px] text-center"
+              >
                 Stories
-              </button>
+              </Link>
             </div>
           </div>
 
@@ -270,58 +265,53 @@ const AboutHero: React.FC = () => {
             >
               <i className="fas fa-home"></i>
             </div>
-            <h2
+            <TiltTextGsap
+              tag="h2"
               className="text-4xl md:text-5xl font-black mb-4 leading-tight"
               style={{
-                fontFamily: '"Cinzel", serif',
+                fontFamily: '"Dream Avenue", cursive',
                 color: "var(--text, #2c2c2c)",
                 textTransform: "uppercase",
                 letterSpacing: "0.02em",
               }}
             >
-              LUXURY &<br />
-              NATURE
-            </h2>
-            <p
-              className="mb-8"
-              style={{
-                color: "rgba(44, 44, 44, 0.8)",
-                fontFamily: '"Cormorant Garamond", Georgia, serif',
-                fontSize: "1rem",
-                lineHeight: "1.6",
-                fontWeight: "400",
-              }}
-            >
-              Where modern elegance meets natural harmony. Our designs celebrate
-              the seamless integration of contemporary living with environmental
-              stewardship.
-            </p>
+              LUXURY & NATURE
+            </TiltTextGsap>
+            <ASCIIGlitchText
+              text="Where modern elegance meets natural harmony. Our designs celebrate the seamless integration of contemporary living with environmental stewardship."
+              className="mb-8 about-interactive-element"
+              duration={850}
+              spread={0.7}
+              tag="p"
+            />
             <div className="flex items-center gap-4 flex-wrap">
-              <button
-                className="rounded-full px-6 py-3 font-bold transition about-interactive-element"
+              <Link
+                to="/services"
+                className="px-6 py-3 font-bold transition about-interactive-element"
                 style={{
                   background: "var(--text, #2c2c2c)",
                   color: "var(--cream, #faf8f3)",
-                  fontFamily: '"Cinzel", serif',
+                  fontFamily: '"Nunito", sans-serif',
                   fontSize: "0.9rem",
                   letterSpacing: "0.5px",
+                  borderRadius: 0,
                 }}
               >
                 Discover More
-              </button>
-              <a
-                href="#"
+              </Link>
+              <Link
+                to="/contact"
                 className="font-bold group about-interactive-element"
                 style={{
                   color: "var(--text, #2c2c2c)",
-                  fontFamily: '"Cinzel", serif',
+                  fontFamily: '"Nunito", sans-serif',
                   fontSize: "0.9rem",
                   letterSpacing: "0.5px",
                 }}
               >
                 Get Started
                 <i className="fas fa-arrow-right transform group-hover:translate-x-1 transition-transform ml-2"></i>
-              </a>
+              </Link>
             </div>
           </div>
         </section>

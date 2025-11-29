@@ -18,7 +18,9 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
   const brandTextRef = useRef<HTMLHeadingElement>(null);
   const topSectionRef = useRef<HTMLDivElement>(null);
   const phone = settings?.contact?.phone || "+61 3 1234 5678";
-  const email = (settings?.contact?.email || "info@shambalahomes.com").toLowerCase();
+  const email = (
+    settings?.contact?.email || "info@FORMAhomes.com"
+  ).toLowerCase();
 
   // Footer animations
   useEffect(() => {
@@ -29,7 +31,9 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
       const topSection = topSectionRef.current;
       if (topSection) {
         const brandBox = topSection.querySelector(".forma-footer-brand-box");
-        const linksSection = topSection.querySelector(".forma-footer-links-section");
+        const linksSection = topSection.querySelector(
+          ".forma-footer-links-section"
+        );
         const contactSection = topSection.querySelector(
           ".forma-footer-contact-section"
         );
@@ -81,10 +85,12 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
       }
 
       // Large brand text animation
-      const letters = brandTextRef.current?.querySelectorAll(".forma-footer-letter");
+      const letters = brandTextRef.current?.querySelectorAll(
+        ".forma-footer-letter"
+      );
       if (letters && letters.length > 0) {
         const isMobile = window.innerWidth <= 768;
-        
+
         // On mobile, use same animation as desktop
         if (isMobile) {
           const colors = [
@@ -184,79 +190,79 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
           // Set initial position (hidden below)
           gsap.set(letters, { yPercent: 100 });
 
-        ScrollTrigger.create({
-          trigger: brandTextRef.current,
-          start: "top 90%",
-          end: "bottom 10%",
-          onEnter: () => {
-            // Slide up animation
-            gsap.to(letters, {
-              yPercent: 0,
-              duration: 0.6,
-              stagger: 0.06,
-              ease: "back.out(2.7)",
-              onComplete: () => {
-                // Color flash animation after slide up completes
-                letters.forEach((letter, index) => {
-                  gsap.to(letter, {
-                    color: colors[index],
-                    duration: 0.3,
-                    delay: index * 0.1,
-                    yoyo: true,
-                    repeat: 1,
-                    ease: "power2.inOut",
-                    onComplete: () => {
-                      gsap.set(letter, { clearProps: "color" });
-                    },
+          ScrollTrigger.create({
+            trigger: brandTextRef.current,
+            start: "top 90%",
+            end: "bottom 10%",
+            onEnter: () => {
+              // Slide up animation
+              gsap.to(letters, {
+                yPercent: 0,
+                duration: 0.6,
+                stagger: 0.06,
+                ease: "back.out(2.7)",
+                onComplete: () => {
+                  // Color flash animation after slide up completes
+                  letters.forEach((letter, index) => {
+                    gsap.to(letter, {
+                      color: colors[index],
+                      duration: 0.3,
+                      delay: index * 0.1,
+                      yoyo: true,
+                      repeat: 1,
+                      ease: "power2.inOut",
+                      onComplete: () => {
+                        gsap.set(letter, { clearProps: "color" });
+                      },
+                    });
                   });
-                });
-              },
-            });
-          },
-          onLeave: () => {
-            // Slide down animation when leaving
-            gsap.to(letters, {
-              yPercent: 100,
-              duration: 0.4,
-              stagger: 0.03,
-              ease: "power2.in",
-            });
-          },
-          onEnterBack: () => {
-            // Slide up animation when coming back
-            gsap.to(letters, {
-              yPercent: 0,
-              duration: 0.6,
-              stagger: 0.06,
-              ease: "back.out(2.7)",
-              onComplete: () => {
-                // Color flash animation
-                letters.forEach((letter, index) => {
-                  gsap.to(letter, {
-                    color: colors[index],
-                    duration: 0.3,
-                    delay: index * 0.1,
-                    yoyo: true,
-                    repeat: 1,
-                    ease: "power2.inOut",
-                    onComplete: () => {
-                      gsap.set(letter, { clearProps: "color" });
-                    },
+                },
+              });
+            },
+            onLeave: () => {
+              // Slide down animation when leaving
+              gsap.to(letters, {
+                yPercent: 100,
+                duration: 0.4,
+                stagger: 0.03,
+                ease: "power2.in",
+              });
+            },
+            onEnterBack: () => {
+              // Slide up animation when coming back
+              gsap.to(letters, {
+                yPercent: 0,
+                duration: 0.6,
+                stagger: 0.06,
+                ease: "back.out(2.7)",
+                onComplete: () => {
+                  // Color flash animation
+                  letters.forEach((letter, index) => {
+                    gsap.to(letter, {
+                      color: colors[index],
+                      duration: 0.3,
+                      delay: index * 0.1,
+                      yoyo: true,
+                      repeat: 1,
+                      ease: "power2.inOut",
+                      onComplete: () => {
+                        gsap.set(letter, { clearProps: "color" });
+                      },
+                    });
                   });
-                });
-              },
-            });
-          },
-          onLeaveBack: () => {
-            // Slide down animation when scrolling back up past footer
-            gsap.to(letters, {
-              yPercent: 100,
-              duration: 0.4,
-              stagger: 0.03,
-              ease: "power2.in",
-            });
-          },
-        });
+                },
+              });
+            },
+            onLeaveBack: () => {
+              // Slide down animation when scrolling back up past footer
+              gsap.to(letters, {
+                yPercent: 100,
+                duration: 0.4,
+                stagger: 0.03,
+                ease: "power2.in",
+              });
+            },
+          });
         }
       }
     }, footerRef);
@@ -271,24 +277,31 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
         {/* Main Footer Content */}
         <div className="forma-footer-top-section" ref={topSectionRef}>
           {/* Brand Box */}
-          <div className="forma-footer-brand-box" style={{ overflow: 'visible', position: 'relative', paddingTop: '80px' }}>
-            <img 
+          <div
+            className="forma-footer-brand-box"
+            style={{
+              overflow: "visible",
+              position: "relative",
+              paddingTop: "80px",
+            }}
+          >
+            <img
               src={`${import.meta.env.BASE_URL}images/forma_logo.png`}
               alt="FORMA"
               onClick={() => {
-                navigate('/');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                navigate("/");
+                window.scrollTo({ top: 0, behavior: "smooth" });
               }}
               style={{
-                position: 'absolute',
-                top: window.innerWidth <= 768 ? '-80px' : '-65px',
-                left: window.innerWidth <= 768 ? '50%' : 'calc(50% - 50px)',
-                transform: 'translateX(-50%) scale(2.4)',
-                transformOrigin: 'center top',
-                height: '80px',
-                width: 'auto',
+                position: "absolute",
+                top: window.innerWidth <= 768 ? "-80px" : "-65px",
+                left: window.innerWidth <= 768 ? "50%" : "calc(50% - 50px)",
+                transform: "translateX(-50%) scale(2.4)",
+                transformOrigin: "center top",
+                height: "80px",
+                width: "auto",
                 zIndex: 10,
-                cursor: 'pointer'
+                cursor: "pointer",
               }}
             />
             <p className="forma-footer-brand-description">
@@ -391,7 +404,7 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
                 <div className="forma-contact-label">Email Us</div>
                 <a
                   href={`mailto:${
-                    settings?.contact?.email || "info@shambalahomes.com"
+                    settings?.contact?.email || "info@FORMAhomes.com"
                   }`}
                   className="forma-footer-contact-item"
                 >
@@ -406,7 +419,10 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
             </div>
 
             <div className="forma-footer-legal">
-              <Link to="/privacy-policy" className="forma-footer-link forma-legal-link">
+              <Link
+                to="/privacy-policy"
+                className="forma-footer-link forma-legal-link"
+              >
                 <span className="forma-link-window">
                   <span className="forma-link-track">
                     <span className="forma-link-text">Privacy Policy</span>
@@ -414,7 +430,10 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
                   </span>
                 </span>
               </Link>
-              <Link to="/terms-and-conditions" className="forma-footer-link forma-legal-link">
+              <Link
+                to="/terms-and-conditions"
+                className="forma-footer-link forma-legal-link"
+              >
                 <span className="forma-link-window">
                   <span className="forma-link-track">
                     <span className="forma-link-text">Terms & Conditions</span>

@@ -8,11 +8,23 @@ type Slide = {
 };
 
 const SLIDES: Slide[] = [
-  { label: "Latest", title: "New case study: Forma Studio", meta: "2025 · Read →" },
-  { label: "News", title: "Atelier wins design award", meta: "2024 · Details →" },
-  { label: "Update", title: "Shambala loft unveiled", meta: "2024 · View →" },
+  {
+    label: "Latest",
+    title: "New case study: Forma Studio",
+    meta: "2025 · Read →",
+  },
+  {
+    label: "News",
+    title: "Atelier wins design award",
+    meta: "2024 · Details →",
+  },
+  { label: "Update", title: "FORMA loft unveiled", meta: "2024 · View →" },
   { label: "Press", title: "Featured in ArchDaily", meta: "2024 · Read →" },
-  { label: "Insight", title: "Designing for wellbeing", meta: "2025 · Explore →" },
+  {
+    label: "Insight",
+    title: "Designing for wellbeing",
+    meta: "2025 · Explore →",
+  },
 ];
 
 const HomeHeroSlider = forwardRef<HTMLDivElement>((_, ref) => {

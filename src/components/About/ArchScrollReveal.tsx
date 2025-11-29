@@ -1,6 +1,9 @@
 import React, { useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Link } from "react-router-dom";
+import ASCIIGlitchText from "../shared/ASCIIGlitchText";
+import TiltTextGsap from "../UI/TiltTextGsap";
 import "./ArchScrollReveal.css";
 
 const publicUrl = import.meta.env.BASE_URL;
@@ -164,6 +167,11 @@ const ArchScrollReveal: React.FC = () => {
 
   return (
     <section className="arch-scroll-section">
+      <div className="arch-journey-heading">
+        <TiltTextGsap tag="h2" className="arch-journey-title">
+          Our Journey
+        </TiltTextGsap>
+      </div>
       <div className="arch-container">
         <div className="arch-spacer"></div>
 
@@ -171,118 +179,105 @@ const ArchScrollReveal: React.FC = () => {
           <div className="arch__left">
             <div className="arch__info" id="sustainable-arch">
               <div className="arch-content">
-                <h2 className="arch-header">Sustainable Living</h2>
-                <p className="arch-desc">
-                  Eco-friendly homes designed with renewable energy systems,
-                  smart water management, and sustainable materials that reduce
-                  environmental footprint while maximizing comfort.
-                </p>
-                <a
-                  className="arch-link"
-                  href="#"
-                  style={{ backgroundColor: "var(--accent, #5b7c4f)" }}
+                <TiltTextGsap
+                  tag="h2"
+                  className="arch-header"
+                  style={{ fontFamily: '"Nunito", sans-serif' }}
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="11"
-                    height="11"
-                    fill="none"
-                  >
-                    <path
-                      fill="var(--cream, #faf8f3)"
-                      d="M5 2c0 1.105-1.895 2-3 2a2 2 0 1 1 0-4c1.105 0 3 .895 3 2ZM11 3.5c0 1.105-.895 3-2 3s-2-1.895-2-3a2 2 0 1 1 4 0ZM6 9a2 2 0 1 1-4 0c0-1.105.895-3 2-3s2 1.895 2 3Z"
-                    />
-                  </svg>
-                  <span>Explore Green Homes</span>
-                </a>
+                  The Early Sketches
+                </TiltTextGsap>
+                <ASCIIGlitchText
+                  text="From a small studio and a single drafting table, we launched with a promise to design mindful, human-centered spaces rooted in craft."
+                  className="arch-desc"
+                  tag="p"
+                  duration={850}
+                  spread={0.6}
+                />
+                <Link
+                  className="arch-link"
+                  to="/projects"
+                  style={{ backgroundColor: "#5b7c4f" }}
+                >
+                  <span style={{ color: "#faf8f3" }}>See 2005 Highlights</span>
+                </Link>
               </div>
             </div>
 
             <div className="arch__info" id="modern-arch">
               <div className="arch-content">
-                <h2 className="arch-header">Modern Architecture</h2>
-                <p className="arch-desc">
-                  Contemporary designs featuring clean lines, open spaces, and
-                  innovative use of natural light. Our modern homes blend
-                  functionality with aesthetic appeal for the discerning
-                  homeowner.
-                </p>
-                <a
+                <TiltTextGsap
+                  tag="h2"
+                  className="arch-header"
+                  style={{ fontFamily: '"Nunito", sans-serif' }}
+                >
+                  Modern Living Stories
+                </TiltTextGsap>
+                <ASCIIGlitchText
+                  text="Our portfolio expanded to city residences and hospitality, refining clean lines, layered light, and elegant material palettes."
+                  className="arch-desc"
+                  tag="p"
+                  duration={850}
+                  spread={0.6}
+                />
+                <Link
                   className="arch-link"
-                  href="#"
+                  to="/projects"
                   style={{ backgroundColor: "#4a6b3e" }}
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="11"
-                    height="11"
-                    fill="none"
-                  >
-                    <path
-                      fill="var(--cream, #faf8f3)"
-                      d="M5 2c0 1.105-1.895 2-3 2a2 2 0 1 1 0-4c1.105 0 3 .895 3 2ZM11 3.5c0 1.105-.895 3-2 3s-2-1.895-2-3a2 2 0 1 1 4 0ZM6 9a2 2 0 1 1-4 0c0-1.105.895-3 2-3s2 1.895 2 3Z"
-                    />
-                  </svg>
-                  <span>View Designs</span>
-                </a>
+                  <span style={{ color: "#faf8f3" }}>Explore 2010 Work</span>
+                </Link>
               </div>
             </div>
 
             <div className="arch__info" id="luxury-arch">
               <div className="arch-content">
-                <h2 className="arch-header">Luxury Interiors</h2>
-                <p className="arch-desc">
-                  Premium finishes and bespoke interior design solutions that
-                  reflect your personal style. From custom millwork to curated
-                  furnishings, every detail is crafted to perfection.
-                </p>
-                <a
+                <TiltTextGsap
+                  tag="h2"
+                  className="arch-header"
+                  style={{ fontFamily: '"Nunito", sans-serif' }}
+                >
+                  Signature Interiors
+                </TiltTextGsap>
+                <ASCIIGlitchText
+                  text="Bespoke joinery, tactile fabrics, and art-forward moments defined a new era of interiors designed to feel quietly luxurious."
+                  className="arch-desc"
+                  tag="p"
+                  duration={850}
+                  spread={0.6}
+                />
+                <Link
                   className="arch-link"
-                  href="#"
+                  to="/projects"
                   style={{ backgroundColor: "#d4462a" }}
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="11"
-                    height="11"
-                    fill="none"
-                  >
-                    <path
-                      fill="var(--cream, #faf8f3)"
-                      d="M5 2c0 1.105-1.895 2-3 2a2 2 0 1 1 0-4c1.105 0 3 .895 3 2ZM11 3.5c0 1.105-.895 3-2 3s-2-1.895-2-3a2 2 0 1 1 4 0ZM6 9a2 2 0 1 1-4 0c0-1.105.895-3 2-3s2 1.895 2 3Z"
-                    />
-                  </svg>
-                  <span>Interior Gallery</span>
-                </a>
+                  <span style={{ color: "#faf8f3" }}>View 2016 Craft</span>
+                </Link>
               </div>
             </div>
 
             <div className="arch__info" id="smart-arch">
               <div className="arch-content">
-                <h2 className="arch-header">Smart Home Technology</h2>
-                <p className="arch-desc">
-                  Integrated home automation systems that enhance security,
-                  energy efficiency, and convenience. Control lighting, climate,
-                  and entertainment systems seamlessly from anywhere.
-                </p>
-                <a
+                <TiltTextGsap
+                  tag="h2"
+                  className="arch-header"
+                  style={{ fontFamily: '"Nunito", sans-serif' }}
+                >
+                  Forward Momentum
+                </TiltTextGsap>
+                <ASCIIGlitchText
+                  text="We now weave sustainability, wellness tech, and immersive storytelling into every project—designing for the decades ahead."
+                  className="arch-desc"
+                  tag="p"
+                  duration={850}
+                  spread={0.6}
+                />
+                <Link
                   className="arch-link"
-                  href="#"
+                  to="/services"
                   style={{ backgroundColor: "#f4a845" }}
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="11"
-                    height="11"
-                    fill="none"
-                  >
-                    <path
-                      fill="var(--text, #2c2c2c)"
-                      d="M5 2c0 1.105-1.895 2-3 2a2 2 0 1 1 0-4c1.105 0 3 .895 3 2ZM11 3.5c0 1.105-.895 3-2 3s-2-1.895-2-3a2 2 0 1 1 4 0ZM6 9a2 2 0 1 1-4 0c0-1.105.895-3 2-3s2 1.895 2 3Z"
-                    />
-                  </svg>
-                  <span>Tech Features</span>
-                </a>
+                  <span style={{ color: "#2c2c2c" }}>Preview the Future</span>
+                </Link>
               </div>
             </div>
           </div>

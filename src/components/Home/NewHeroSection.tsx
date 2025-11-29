@@ -6,7 +6,7 @@ import GlassRainButton from "../UI/GlassRainButton";
 
 const publicUrl = import.meta.env.BASE_URL;
 const posterImage = `${publicUrl}images/Petralithe_Automne.webp`;
-const heroVideo = `${publicUrl}images/home_hero.mp4`;
+const heroVideo = `${publicUrl}images/services-hero.mp4`;
 
 // Error Boundary Component
 class HeroErrorBoundary extends Component<

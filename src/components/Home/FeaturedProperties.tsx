@@ -31,7 +31,7 @@ const defaultProperties: PropertySlide[] = [
     tabletImage: `${publicUrl}images/zz.jpg`,
     subtitle: "Creating exceptional living spaces",
     description:
-      "Building tomorrow's homes today. Our vision is to transform how Australians live by creating homes that harmonize with nature, embrace sustainability, and foster community connections. Every Shambala home is designed to enhance your lifestyle while respecting the environment. Thoughtful design, timeless comfort.",
+      "Building tomorrow's homes today. Our vision is to transform how Australians live by creating homes that harmonize with nature, embrace sustainability, and foster community connections. Every FORMA home is designed to enhance your lifestyle while respecting the environment. Thoughtful design, timeless comfort.",
     link: "#",
   },
   {
@@ -67,7 +67,7 @@ const defaultProperties: PropertySlide[] = [
     tabletImage: `${publicUrl}images/pr2.jpg`,
     subtitle: "Excellence in craftsmanship",
     description:
-      "Where quality meets artistry. Our commitment to excellence drives everything we do, from concept to final handover. We maintain the highest standards of craftsmanship, ensuring every Shambala home is a testament to durability and timeless design. Details that endure.",
+      "Where quality meets artistry. Our commitment to excellence drives everything we do, from concept to final handover. We maintain the highest standards of craftsmanship, ensuring every FORMA home is a testament to durability and timeless design. Details that endure.",
     link: "#",
   },
 ];

@@ -75,7 +75,7 @@ const defaultServices: ServiceCard[] = [
 const HomePageProjects: React.FC<HomePageProjectsProps> = ({
   title = "BUILDING EXCELLENCE",
   subtitle = "",
-  description = "Shambala Homes delivers comprehensive construction services from new home builds to complete renovations. With decades of experience and unwavering commitment to quality, we transform architectural visions into lasting realities.",
+  description = "FORMA delivers comprehensive construction services from new home builds to complete renovations. With decades of experience and unwavering commitment to quality, we transform architectural visions into lasting realities.",
   ctaText = "View All Services",
   ctaLink = "/services",
   services = defaultServices,
@@ -122,7 +122,9 @@ const HomePageProjects: React.FC<HomePageProjectsProps> = ({
 
       // Parallax effect on images
       cards.forEach((card) => {
-        const img = (card as Element).querySelector(".home-page-projects-card-image");
+        const img = (card as Element).querySelector(
+          ".home-page-projects-card-image"
+        );
         if (img) {
           gsap.to(img, {
             yPercent: -1,

@@ -42,8 +42,8 @@ const Header: React.FC<HeaderProps> = ({ settings }) => {
     <StaggeredMenu
       position="left"
       items={menuItems}
-      logoText="Shambala Homes"
-      logoAlt="Shambala Homes"
+      logoText="FORMA"
+      logoAlt="FORMA"
       displayItemNumbering={true}
       menuButtonColor="#2C2C2C"
       openMenuButtonColor="#FAF8F3"

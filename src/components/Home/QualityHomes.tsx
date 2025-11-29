@@ -1,6 +1,6 @@
 import React from "react";
 import "./QualityHomes.css";
-import GlassButton from '../UI/GlassButton';
+import GlassButton from "../UI/GlassButton";
 
 interface Feature {
   icon: string;
@@ -32,14 +32,14 @@ const QualityHomes: React.FC<QualityHomesProps> = ({
       icon: "✓",
       title: "Lifetime structural guarantee",
       description:
-        "Every Shambala Homes home is backed by a Lifetime Structural Guarantee*, so you can build with confidence and peace of mind that it will stand the test of time.",
+        "Every FORMA home is backed by a Lifetime Structural Guarantee*, so you can build with confidence and peace of mind that it will stand the test of time.",
       image: `${publicUrl}images/2.jpg`,
     },
     {
       icon: "✓",
       title: "6 stage quality assurance",
       description:
-        "Our homes may have changed over the years but our commitment to excellence hasn't. Our rigorous quality assurance process ensures every Shambala Homes home is built to the highest standard.",
+        "Our homes may have changed over the years but our commitment to excellence hasn't. Our rigorous quality assurance process ensures every FORMA home is built to the highest standard.",
       image: `${publicUrl}images/3.jpg`,
     },
     {
@@ -50,7 +50,7 @@ const QualityHomes: React.FC<QualityHomesProps> = ({
       image: `${publicUrl}images/4.jpg`,
     },
   ],
-  ctaText = "Learn more about building with Shambala Homes",
+  ctaText = "Learn more about building with FORMA",
   ctaLink = "#",
 }) => {
   return (
@@ -91,9 +91,7 @@ const QualityHomes: React.FC<QualityHomesProps> = ({
 
         {ctaText && (
           <div className="quality-cta">
-            <GlassButton href={ctaLink}>
-              {ctaText}
-            </GlassButton>
+            <GlassButton href={ctaLink}>{ctaText}</GlassButton>
           </div>
         )}
       </div>

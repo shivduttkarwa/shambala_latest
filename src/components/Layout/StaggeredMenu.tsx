@@ -718,10 +718,10 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                   +1 234 567 890
                 </a>
                 <a
-                  href="mailto:hello@shambalahomes.com"
+                  href="mailto:hello@FORMAhomes.com"
                   className="sm-contact-item"
                 >
-                  hello@shambalahomes.com
+                  hello@FORMAhomes.com
                 </a>
                 <div className="sm-contact-item">
                   123 Dream Avenue

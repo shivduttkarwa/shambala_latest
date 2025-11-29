@@ -58,7 +58,7 @@ const projectsData = {
     ],
     testimonial: {
       quote:
-        "Our Brighton villa exceeded all expectations. The ocean views are breathtaking, and the modern design perfectly complements the coastal location. Shambala Homes delivered a masterpiece.",
+        "Our Brighton villa exceeded all expectations. The ocean views are breathtaking, and the modern design perfectly complements the coastal location. FORMA delivered a masterpiece.",
       author: "Sarah & Michael Chen",
       project: "Luxury Villa, Brighton",
     },
@@ -256,7 +256,7 @@ const projectsData = {
     ],
     testimonial: {
       quote:
-        "The restoration of our heritage estate was masterful. Shambala Homes preserved the historical character while creating a modern, comfortable home for our family.",
+        "The restoration of our heritage estate was masterful. FORMA preserved the historical character while creating a modern, comfortable home for our family.",
       author: "Robert & Catherine Miller",
       project: "Custom Estate, Hawthorn",
     },
@@ -341,7 +341,6 @@ const projectsData = {
 const ProjectDetailPage: React.FC = () => {
   const { projectId } = useParams<{ projectId: string }>();
 
-  // Get project data or default to luxury villa
   const projectData = projectId
     ? projectsData[projectId as keyof typeof projectsData]
     : projectsData["luxury-villa-brighton"];
@@ -355,7 +354,22 @@ const ProjectDetailPage: React.FC = () => {
     );
   }
 
-  return <ProjectDetails service={projectData} />;
+  const processImages = projectData.process?.map((p) => p.image) || [];
+  const galleryImages = projectData.gallery || [];
+  const fullImage = galleryImages[0] || projectData.heroImage;
+
+  return (
+    <ProjectDetails
+      heroImage={projectData.heroImage}
+      title={projectData.title}
+      subtitle={projectData.subtitle}
+      category={projectData.subtitle}
+      backLink="/projects"
+      fullImage={fullImage}
+      processImages={processImages}
+      galleryImages={galleryImages}
+    />
+  );
 };
 
 export default ProjectDetailPage;
