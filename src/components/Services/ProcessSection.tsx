@@ -1,6 +1,7 @@
 import React, { FC, useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { JelloText } from "../common/JelloText";
 import "./ProcessSection.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -149,7 +150,7 @@ export const ProcessSection: FC = () => {
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: step,
-            start: "top 60%",
+            start: "top 70%",
             toggleActions: "play none none reverse",
           },
         });
@@ -157,8 +158,8 @@ export const ProcessSection: FC = () => {
         if (num) {
           tl.fromTo(
             num,
-            { opacity: 0, y: 30 },
-            { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }
+            { opacity: 0, y: 90 },
+            { opacity: 1, y: 0, duration: 0.6, ease: "back.out(2.7)" }
           );
         }
 
@@ -195,8 +196,8 @@ export const ProcessSection: FC = () => {
           tl.fromTo(
             subtitle,
             { opacity: 0, y: 20 },
-            { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" },
-            "-=0.3"
+            { opacity: 1, y: 0, duration: 0.2, ease: "power3.out" },
+            "-=0.7"
           );
         }
 
@@ -205,7 +206,7 @@ export const ProcessSection: FC = () => {
             desc,
             { opacity: 0, y: 20 },
             { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" },
-            "-=0.2"
+            "-=0.7"
           );
         }
 
@@ -214,7 +215,7 @@ export const ProcessSection: FC = () => {
             outcome,
             { opacity: 0, y: 20 },
             { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" },
-            "-=0.2"
+            "-=0.5"
           );
         }
       });
@@ -227,7 +228,7 @@ export const ProcessSection: FC = () => {
 
   return (
     <section className="forma-process-section" ref={rootRef}>
-      <h2 className="forma-process-title ">OUR PROCESS</h2>
+      <JelloText text="OUR PROCESS" className="forma-process-title" />
 
       {processSteps.map((step, index) => (
         <div

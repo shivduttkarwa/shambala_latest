@@ -108,6 +108,20 @@
   pointer-events: auto;
 }
 
+.ser-section-heading {
+  text-align: center;
+  margin: 100px auto 60px;
+  padding: 50px 0;
+}
+
+.ser-section-heading p {
+  margin-top: 12px;
+  font-family: "Nunito", sans-serif;
+  color: #4a4a4a;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
 .ser-page-hero-image-container img {
   width: 100%;
   height: 100%;
@@ -291,7 +305,7 @@
 
 .forma-process-title {
   font-size: clamp(48px, 8vw, 90px);
-  font-weight: 400;
+  font-weight: 280;
   padding: 0 40px;
   margin-bottom: 60px;
   color: var(--ser-color-black);

@@ -8,7 +8,7 @@ import ScrollDownButton from "../UI/ScrollDownButton";
 import ServiceHeroText from "./ServiceHeroText";
 import TiltTextGsap from "../UI/TiltTextGsap";
 import StepSlider from "../Reusable/StepSlider";
-import BigTextHorizontal from "../Home/BigTextHorizontal";
+import ModernServicesSlider from "../Home/ModernServicesSlider";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -19,87 +19,104 @@ const ServicesPage: React.FC = () => {
   const cardsRef = useRef<HTMLDivElement[]>([]);
 
   useEffect(() => {
-    // PIN THE FULL-WIDTH IMAGE WHILE PROCESS + TESTIMONIALS SCROLL OVER
-    const pinEl = document.querySelector(".ser-image-pin");
-    const endEl = document.querySelector(".ser-testimonials-section");
     let pinTrigger: ScrollTrigger | undefined;
-    if (pinEl && endEl) {
-      pinTrigger = ScrollTrigger.create({
-        trigger: pinEl,
-        start: "top top",
-        endTrigger: endEl,
-        end: "bottom top",
-        pin: pinEl,
-        pinSpacing: false,
-        anticipatePin: 1,
-      });
-    }
+    const animTriggers: ScrollTrigger[] = [];
+    let mouseMoveHandler: ((e: MouseEvent) => void) | undefined;
+    let mouseLeaveHandler: (() => void) | undefined;
 
-    // REVEAL ANIMATIONS FOR HERO + CARDS (.ser-animate-in)
-    gsap.utils.toArray(".ser-animate-in").forEach((elem: any) => {
-      gsap.fromTo(
-        elem,
-        { autoAlpha: 0, y: 60, scale: 0.95 },
-        {
-          autoAlpha: 1,
-          y: 0,
-          scale: 1,
-          duration: 1,
-          ease: "power4.out",
-          scrollTrigger: {
-            trigger: elem,
-            start: "top 85%",
-            toggleActions: "play none none reverse",
-          },
-        }
-      );
-    });
-
-    // HERO PARALLAX MOUSE MOVE + CARD TILT
-    const hero = heroRef.current;
-    if (hero) {
-      const handleMouseMove = (e: MouseEvent) => {
-        const rect = hero.getBoundingClientRect();
-        const xPos = (e.clientX - rect.left) / rect.width - 0.5;
-        const yPos = (e.clientY - rect.top) / rect.height - 0.5;
-
-        gsap.to(".ser-page-hero-image-container", {
-          duration: 1,
-          x: -xPos * 30,
-          y: -yPos * 30,
-          ease: "power3.out",
+    const setupAnimations = () => {
+      // PIN THE FULL-WIDTH IMAGE WHILE PROCESS + TESTIMONIALS SCROLL OVER
+      const pinEl = document.querySelector(".ser-image-pin");
+      const endEl = document.querySelector(".ser-testimonials-section");
+      if (pinEl && endEl) {
+        pinTrigger = ScrollTrigger.create({
+          trigger: pinEl,
+          start: "top top",
+          endTrigger: endEl,
+          end: "bottom top",
+          pin: pinEl,
+          pinSpacing: false,
+          anticipatePin: 1,
         });
-        gsap.to(".ser-page-hero-text-container", {
-          duration: 1,
-          x: xPos * 30,
-          y: yPos * 30,
-          ease: "power3.out",
-        });
-      };
+      }
 
-      const handleMouseLeave = () => {
-        gsap.to(
-          [".ser-page-hero-image-container", ".ser-page-hero-text-container"],
+      // REVEAL ANIMATIONS FOR HERO + CARDS (.ser-animate-in)
+      gsap.utils.toArray(".ser-animate-in").forEach((elem: any) => {
+        const tween = gsap.fromTo(
+          elem,
+          { autoAlpha: 0, y: 60, scale: 0.95 },
           {
-            duration: 1,
-            x: 0,
+            autoAlpha: 1,
             y: 0,
-            ease: "elastic.out(1, 0.5)",
+            scale: 1,
+            duration: 1,
+            ease: "power4.out",
+            scrollTrigger: {
+              trigger: elem,
+              start: "top 85%",
+              toggleActions: "play none none reverse",
+            },
           }
         );
-      };
+        if (tween.scrollTrigger) {
+          animTriggers.push(tween.scrollTrigger);
+        }
+      });
 
-      hero.addEventListener("mousemove", handleMouseMove);
-      hero.addEventListener("mouseleave", handleMouseLeave);
+      // HERO PARALLAX MOUSE MOVE + CARD TILT
+      const hero = heroRef.current;
+      if (hero) {
+        mouseMoveHandler = (e: MouseEvent) => {
+          const rect = hero.getBoundingClientRect();
+          const xPos = (e.clientX - rect.left) / rect.width - 0.5;
+          const yPos = (e.clientY - rect.top) / rect.height - 0.5;
 
-      return () => {
-        hero.removeEventListener("mousemove", handleMouseMove);
-        hero.removeEventListener("mouseleave", handleMouseLeave);
-      };
-    }
+          gsap.to(".ser-page-hero-image-container", {
+            duration: 1,
+            x: -xPos * 30,
+            y: -yPos * 30,
+            ease: "power3.out",
+          });
+          gsap.to(".ser-page-hero-text-container", {
+            duration: 1,
+            x: xPos * 30,
+            y: yPos * 30,
+            ease: "power3.out",
+          });
+        };
+
+        mouseLeaveHandler = () => {
+          gsap.to(
+            [".ser-page-hero-image-container", ".ser-page-hero-text-container"],
+            {
+              duration: 1,
+              x: 0,
+              y: 0,
+              ease: "elastic.out(1, 0.5)",
+            }
+          );
+        };
+
+        hero.addEventListener("mousemove", mouseMoveHandler);
+        hero.addEventListener("mouseleave", mouseLeaveHandler);
+      }
+    };
+
+    const timeoutId = window.setTimeout(setupAnimations, 2000);
 
     return () => {
+      window.clearTimeout(timeoutId);
       pinTrigger?.kill();
+      animTriggers.forEach((st) => st.kill());
+      const hero = heroRef.current;
+      if (hero) {
+        if (mouseMoveHandler) {
+          hero.removeEventListener("mousemove", mouseMoveHandler);
+        }
+        if (mouseLeaveHandler) {
+          hero.removeEventListener("mouseleave", mouseLeaveHandler);
+        }
+      }
     };
   }, []);
 
@@ -187,9 +204,19 @@ const ServicesPage: React.FC = () => {
         </section>
       </section>
 
+      <div className="ser-section-heading">
+        <TiltTextGsap tag="h2" className="ser-serif">
+          Explore Our Services
+        </TiltTextGsap>
+        <p>
+          Tailored residential and development services—from feasibility and planning to
+          interiors and aftercare—delivered by Forma's integrated team.
+        </p>
+      </div>
+
+      <ModernServicesSlider />
+
       <ProcessSection />
-      <BigTextHorizontal />
-      <StepSlider />
 
       {/* TESTIMONIALS SECTION */}
       <section className="ser-testimonials-section">
@@ -260,6 +287,8 @@ const ServicesPage: React.FC = () => {
           </div>
         </div>
       </section>
+
+      <StepSlider />
     </div>
   );
 };
