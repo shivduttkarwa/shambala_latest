@@ -1,7 +1,11 @@
-import React, { useEffect, useMemo, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./StepSlider.css";
+
+const publicUrl = import.meta.env.BASE_URL || "/";
+
+gsap.registerPlugin(ScrollTrigger);
 
 type Slide = {
   image: string;
@@ -13,104 +17,104 @@ type Slide = {
 
 const slidesData: Slide[] = [
   {
-    image:
-      "https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=800&h=1000&fit=crop",
+    image: `${publicUrl}images/l11.jpg`,
     counter: "1 – 6",
-    title: "Heartwarming and Cosy",
-    highlight: "Nurseries",
-    text: "Let your children be surrounded by care and attention. Our kindergarten teachers are both compassionate and highly skilled. With learning games and pure fun, your little ones will have it all!",
+    title: "Modern Design",
+    highlight: "Architecture",
+    text: "Contemporary spaces that blend functionality with aesthetic appeal. Our designs focus on clean lines and innovative use of materials.",
   },
   {
-    image:
-      "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=800&h=1000&fit=crop",
+    image: `${publicUrl}images/l4.jpg`,
     counter: "2 – 6",
-    title: "Creative Learning",
-    highlight: "Environments",
-    text: "Our spaces are designed to inspire creativity and curiosity. Every corner is a new adventure waiting to be discovered by your children.",
+    title: "Interior",
+    highlight: "Excellence",
+    text: "Thoughtfully curated interiors that reflect your personality. Every element is carefully selected to create harmonious living spaces.",
   },
   {
-    image:
-      "https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=800&h=1000&fit=crop",
+    image: `${publicUrl}images/l5.jpg`,
     counter: "3 – 6",
-    title: "Outdoor Play",
-    highlight: "Adventures",
-    text: "Fresh air and outdoor activities are essential for development. Our safe outdoor spaces encourage exploration and physical activity.",
+    title: "Sustainable",
+    highlight: "Solutions",
+    text: "Environmentally conscious design that respects both people and planet. We incorporate eco-friendly materials and energy-efficient systems.",
   },
   {
-    image:
-      "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=1000&fit=crop",
+    image: `${publicUrl}images/l6.jpg`,
     counter: "4 – 6",
-    title: "Healthy Meals",
-    highlight: "Daily",
-    text: "Nutrition matters! We provide balanced, delicious meals prepared with love and care, catering to all dietary requirements.",
+    title: "Custom",
+    highlight: "Craftsmanship",
+    text: "Bespoke solutions tailored to your unique needs. Our skilled craftsmen bring attention to detail in every aspect of construction.",
   },
   {
-    image:
-      "https://images.unsplash.com/photo-1560785496-3c9d27877182?w=800&h=1000&fit=crop",
+    image: `${publicUrl}images/l8.jpg`,
     counter: "5 – 6",
-    title: "Music and",
-    highlight: "Arts",
-    text: "Express yourself! Our music and arts programs help children discover their talents and build confidence through creative expression.",
+    title: "Smart",
+    highlight: "Technology",
+    text: "Integrated smart home systems that enhance your daily life. From lighting to security, technology seamlessly blends with design.",
   },
   {
-    image:
-      "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=800&h=1000&fit=crop",
+    image: `${publicUrl}images/pexels-asphotography-94818.jpg`,
     counter: "6 – 6",
-    title: "Safe and",
-    highlight: "Secure",
-    text: "Your peace of mind is our priority. Our facilities are equipped with modern security systems and our staff are trained in child safety.",
+    title: "Timeless",
+    highlight: "Quality",
+    text: "Built to last with premium materials and meticulous attention to detail. Our projects stand the test of time with enduring beauty.",
   },
 ];
 
-const clamp = (val: number, min: number, max: number) =>
-  Math.min(Math.max(val, min), max);
-
 const StepSlider: React.FC = () => {
   const sliderRef = useRef<HTMLDivElement | null>(null);
-  const trackRef = useRef<HTMLDivElement | null>(null);
-  const dotsRef = useRef<HTMLDivElement | null>(null);
-
-  const slides = useMemo(() => slidesData, []);
+  const cardsRef = useRef<HTMLDivElement[]>([]);
+  const dotsRef = useRef<HTMLDivElement[]>([]);
 
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
+    const stepSlider = sliderRef.current;
+    if (!stepSlider) return;
 
-    const slider = sliderRef.current;
-    const track = trackRef.current;
-    const dotsContainer = dotsRef.current;
-    if (!slider || !track || !dotsContainer) return;
-
-    const cards = Array.from(
-      track.querySelectorAll<HTMLDivElement>(".step-slider__card")
-    );
-    const dots = Array.from(
-      dotsContainer.querySelectorAll<HTMLDivElement>(
-        ".step-slider__progress-dot"
-      )
-    );
+    const cards = cardsRef.current;
+    const dots = dotsRef.current;
     const totalCards = cards.length;
+    if (totalCards === 0) return;
 
-    const applyState = (totalProgress: number) => {
+    const maxIndex = totalCards - 1; // last slide index
+
+    // Pause while slide is in view (quick in/out, good sitting time)
+    const pauseStart = 0.3;
+    const pauseEnd = 0.7;
+    const normalize = (p: number) => {
+      if (p <= pauseStart) return 0;
+      if (p >= pauseEnd) return 1;
+      return (p - pauseStart) / (pauseEnd - pauseStart);
+    };
+
+    const updateCards = (progress: number) => {
+      // progress: 0 → 1  maps to index: 0 → maxIndex
+      const totalProgress = progress * maxIndex;
+
       cards.forEach((card, index) => {
         if (index === 0) {
-          const stackPosition = totalProgress * 2;
+          // FIRST CARD STACKING OUT
+          const norm = normalize(Math.max(0, Math.min(1, totalProgress)));
+          const stackPosition = norm * 2;
           card.style.transform = `
             translateZ(-${stackPosition * 100}px)
             rotateX(-${stackPosition * 5}deg)
             scale(${1 - stackPosition * 0.025})
           `;
-          card.style.opacity = (1 - clamp(totalProgress / 2, 0, 1)).toString();
+          card.style.opacity = (
+            1 - Math.min(1, Math.max(0, norm / 2))
+          ).toString();
           card.style.zIndex = "100";
         } else {
           const shiftedIndex = index - 1;
-          const cardStart = shiftedIndex;
-          const cardEnd = shiftedIndex + 1;
+          const cardStart = shiftedIndex; // when this slide starts to enter
+          const cardEnd = shiftedIndex + 1; // when this slide finishes entering
 
           let cardProgress =
             (totalProgress - cardStart) / (cardEnd - cardStart);
-          cardProgress = clamp(cardProgress, 0, 1);
+          cardProgress = Math.max(0, Math.min(1, cardProgress));
+          const t = normalize(cardProgress);
 
           if (totalProgress < cardStart) {
+            // Waiting below viewport
             const waitDistance = (cardStart - totalProgress) * 5;
             card.style.transform = `
               translateY(${100 + waitDistance}vh)
@@ -118,11 +122,12 @@ const StepSlider: React.FC = () => {
               scale(${0.85 - waitDistance * 0.01})
             `;
             card.style.opacity = "0";
-            card.style.zIndex = `${index}`;
+            card.style.zIndex = index.toString();
           } else if (totalProgress >= cardStart && totalProgress < cardEnd) {
-            const yProgress = 1 - cardProgress;
-            const rotation = -12 + cardProgress * 12;
-            const scale = 0.85 + cardProgress * 0.15;
+            // Active slide moving into place
+            const yProgress = 1 - t;
+            const rotation = -12 + t * 12;
+            const scale = 0.85 + t * 0.15;
 
             card.style.transform = `
               translateY(${yProgress * 100}vh)
@@ -130,30 +135,42 @@ const StepSlider: React.FC = () => {
               scale(${scale})
             `;
             card.style.opacity = "1";
-            card.style.zIndex = `${100 + index}`;
+            card.style.zIndex = (100 + index).toString();
           } else {
-            const stackPosition = (totalProgress - cardEnd) * 2;
-            card.style.transform = `
-              translateZ(-${stackPosition * 200}px)
-              rotateX(-${stackPosition * 10}deg)
-              scale(${1 - stackPosition * 0.05})
-            `;
-            card.style.opacity =
-              index === totalCards - 1
-                ? "1"
-                : (1 - clamp((totalProgress - index) / 2, 0, 1)).toString();
-            card.style.zIndex = `${100 + index}`;
+            // AFTER its slot is done
+            if (index === maxIndex) {
+              // LAST SLIDE: KEEP IT FULL, NO SHRINK
+              card.style.transform = `
+                translateY(0vh)
+                rotateX(0deg)
+                scale(1)
+              `;
+              card.style.opacity = "1";
+              card.style.zIndex = (100 + index).toString();
+            } else {
+              // Older slides fade back into stack
+              const stackPosition = (totalProgress - cardEnd) * 2;
+              card.style.transform = `
+                translateZ(-${stackPosition * 200}px)
+                rotateX(-${stackPosition * 10}deg)
+                scale(${1 - stackPosition * 0.05})
+              `;
+              card.style.opacity = (
+                1 - Math.min(1, Math.max(0, (totalProgress - index) / 2))
+              ).toString();
+              card.style.zIndex = (100 + index).toString();
+            }
           }
         }
       });
 
-      const activeIndex = Math.floor(totalProgress);
+      const activeIndex = Math.round(totalProgress); // snap to nearest slide
       dots.forEach((dot, i) => {
-        dot.classList.toggle("is-active", i === activeIndex);
+        dot.classList.toggle("ssl-is-active", i === activeIndex);
       });
     };
 
-    // initial positioning
+    // Initial positions
     cards.forEach((card, index) => {
       if (index === 0) {
         card.style.transform = "translateY(0) rotateX(0deg) scale(1)";
@@ -167,73 +184,111 @@ const StepSlider: React.FC = () => {
           scale(${0.85 - waitDistance * 0.01})
         `;
         card.style.opacity = "0";
-        card.style.zIndex = `${index}`;
+        card.style.zIndex = index.toString();
       }
     });
 
-    const trigger = ScrollTrigger.create({
-      trigger: slider,
+    const slidesCount = slidesData.length;
+
+    // EXACT distance: (N - 1) * viewport → no extra gap after last slide
+    const scrollDistance =
+      (slidesCount > 1 ? slidesCount - 1 : 1) * window.innerHeight;
+
+    // Snap per slide (1 step per slide). Using maxIndex so 0 → 1 is 0 → lastIndex.
+    const snap =
+      slidesCount > 1
+        ? {
+            snapTo: (value: number) => {
+              const step = 1 / maxIndex;
+              const snapped = Math.round(value / step) * step;
+              return Math.min(1, Math.max(0, snapped));
+            },
+            duration: 0.3,
+            ease: "power2.out",
+          }
+        : undefined;
+
+    const st = ScrollTrigger.create({
+      trigger: stepSlider,
       start: "top top",
-      end: () => `+=${window.innerHeight * (slides.length + 0.5)}`,
-      scrub: true,
-      pin: slider,
-      anticipatePin: 1,
+      end: () => `+=${scrollDistance}`,
+      scrub: true, // still tied to scroll
+      pin: true,
+      snap,
       onUpdate: (self) => {
-        const adjustedTotal = self.progress * totalCards;
-        applyState(adjustedTotal);
+        updateCards(self.progress);
+      },
+      onLeave: () => {
+        // we are leaving at progress = 1, last slide full, then immediately next section
+        updateCards(1);
+      },
+      onLeaveBack: () => {
+        updateCards(0);
       },
     });
 
-    trigger.refresh();
-    applyState(0);
-
     return () => {
-      trigger.kill();
+      st.kill();
     };
-  }, [slides]);
+  }, []);
 
-  const sliderHeight = 100; // vh, pin handles duration
+  const addToCardsRef = (el: HTMLDivElement | null) => {
+    if (el && !cardsRef.current.includes(el)) {
+      cardsRef.current.push(el);
+    }
+  };
+
+  const addToDotsRef = (el: HTMLDivElement | null) => {
+    if (el && !dotsRef.current.includes(el)) {
+      dotsRef.current.push(el);
+    }
+  };
 
   return (
-    <div className="step-slider-section">
-      <div
-        className="step-slider"
-        ref={sliderRef}
-        style={{ height: `${sliderHeight}vh` }}
-      >
-        <div className="step-slider__container">
-          <div className="step-slider__track" ref={trackRef}>
-            {slides.map((slide, index) => (
-              <div
-                key={slide.image}
-                className="step-slider__card"
-                data-index={index}
-              >
-                <div className="step-slider__card-image">
-                  <img src={slide.image} alt={slide.highlight || slide.title} />
-                </div>
-                <div className="step-slider__card-content">
-                  <p className="step-slider__counter">{slide.counter}</p>
-                  <h3 className="step-slider__title">
-                    {slide.title} <br />
-                    <i>{slide.highlight}</i>
-                  </h3>
-                  <p className="step-slider__text">{slide.text}</p>
-                </div>
+    <div className="ssl-step-slider" ref={sliderRef}>
+      <div className="ssl-step-slider__container">
+        <div className="ssl-step-slider__track">
+          {slidesData.map((slide, index) => (
+            <div
+              key={index}
+              className="ssl-step-slider__card"
+              data-index={index}
+              ref={addToCardsRef}
+            >
+              <div className="ssl-step-slider__card-image">
+                <img
+                  src={slide.image}
+                  alt={slide.highlight || slide.title}
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.onerror = null;
+                    target.src = `${publicUrl}images/l1.jpg`;
+                  }}
+                />
               </div>
-            ))}
-          </div>
+              <div className="ssl-step-slider__card-content">
+                <p className="ssl-step-slider__counter">{slide.counter}</p>
+                <h3 className="ssl-step-slider__title">
+                  {slide.title}
+                  <br />
+                  <i>{slide.highlight}</i>
+                </h3>
+                <p className="ssl-step-slider__text">{slide.text}</p>
+              </div>
+            </div>
+          ))}
+        </div>
 
-          <div className="step-slider__progress" ref={dotsRef}>
-            {slides.map((_, idx) => (
-              <div
-                key={idx}
-                className={`step-slider__progress-dot ${
-                  idx === 0 ? "is-active" : ""
-                }`}
-              ></div>
-            ))}
-          </div>
+        <div className="ssl-step-slider__progress">
+          {slidesData.map((_, idx) => (
+            <div
+              key={idx}
+              className={`ssl-step-slider__progress-dot ${
+                idx === 0 ? "ssl-is-active" : ""
+              }`}
+              ref={addToDotsRef}
+            ></div>
+          ))}
         </div>
       </div>
     </div>

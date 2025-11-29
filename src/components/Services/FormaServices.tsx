@@ -4,6 +4,8 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./FormaServices.css";
 import TiltTextGsap from "../UI/TiltTextGsap";
+import HoverText from "../UI/HoverText";
+import GlassButton from "../UI/GlassButton";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -23,7 +25,7 @@ const serviceSlides: ServiceSlide[] = [
     description:
       "From blank site to front door keys, we handle every detail of your new build – planning, structure and finishes – to create a home that feels tailored, calm and effortless from day one.",
     image:
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=80",
+      "https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=1920&q=80",
   },
   {
     title: "Upgrade your house",
@@ -32,7 +34,7 @@ const serviceSlides: ServiceSlide[] = [
     description:
       "Open up dark rooms, add light, storage and flow. We rework layouts, extensions and finishes so your home feels fresh, functional and genuinely modern without losing its character.",
     image:
-      "https://images.unsplash.com/photo-1505691723518-36a5ac3be353?w=1920&q=80",
+      "https://images.unsplash.com/photo-1484154218962-a197022b5858?w=1920&q=80",
   },
   {
     title: "Build a commercial place",
@@ -41,7 +43,7 @@ const serviceSlides: ServiceSlide[] = [
     description:
       "Studios, showrooms and boutique offices designed to feel refined, practical and on-brand – spaces your clients remember and your team genuinely enjoys working in.",
     image:
-      "https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?w=1920&q=80",
+      "https://images.unsplash.com/photo-1529429617124-aee0a6f2b1c7?w=1920&q=80",
   },
   {
     title: "Downsize your place",
@@ -50,7 +52,7 @@ const serviceSlides: ServiceSlide[] = [
     description:
       "Thoughtful layouts, warm materiality and clever storage so you can live with less, not compromise more – homes that are easier to maintain and a pleasure to live in.",
     image:
-      "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=1920&q=80",
+      "https://images.unsplash.com/photo-1470246973918-29a93221c455?w=1920&q=80",
   },
 ];
 
@@ -482,9 +484,17 @@ export const FormaServices: FC = () => {
         >
           Forma Services
         </TiltTextGsap>
-        <p className="fs-heading-subtitle">
-          Architecture, interiors, and landscapes crafted as one seamless story.
-        </p>
+        <HoverText
+          className="fs-heading-subtitle"
+          fromSettings="'wght' 400"
+          toSettings="'wght' 700"
+          radius={120}
+          falloff="gaussian"
+        >
+          Architecture, interiors, and landscapes crafted as one seamless story,
+          guided by calm, warm materiality and precise detailing so every space
+          feels thoughtful, livable, and enduring.
+        </HoverText>
       </div>
       <div className="fs-section">
         <div className="fs-inner">
@@ -500,12 +510,20 @@ export const FormaServices: FC = () => {
                   <span className="fs-meta-scope">{first.metaScope}</span>
                 </div>
 
-                <p className="fs-description">{first.description}</p>
+                <HoverText
+                  className="fs-description"
+                  fromSettings="'wght' 400"
+                  toSettings="'wght' 700"
+                  radius={100}
+                  falloff="gaussian"
+                >
+                  {`${first.description} Every brief becomes a bespoke journey—more light, better flow, layered textures, and tailored joinery that quietly elevates daily life.`}
+                </HoverText>
               </div>
 
               <div>
                 <div className="fs-cta">
-                  <button className="fs-button">Talk to Forma</button>
+                  <GlassButton href="/contact">Talk to Forma</GlassButton>
                 </div>
                 <div className="fs-counter">
                   <span className="fs-counter-current">01</span> /{" "}

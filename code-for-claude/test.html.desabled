@@ -1,27 +1,408 @@
-{/* Toggle Button */}
-      <div id="toggle-btn" className="olm-btn">
-        <div className="olm-btn-outline olm-btn-outline-1"></div>
-        <div className="olm-btn-outline olm-btn-outline-2"></div>
-        
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Step Slider Section</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen, Ubuntu, Cantarell, sans-serif;
+        background: #f5e6d3;
+      }
+
+      .spacer {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        color: #333;
+      }
+
+      .step-slider {
+        height: 600vh;
+        position: relative;
+        background: #f5e6d3;
+      }
+
+      .step-slider__container {
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        perspective: 2000px;
+        overflow: hidden;
+      }
+
+      .step-slider__track {
+        position: relative;
+        width: 85%;
+        max-width: 1200px;
+        height: 70vh;
+      }
+
+      .step-slider__card {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #fff;
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        will-change: transform;
+        transform-origin: bottom center;
+      }
+
+      .step-slider__card-image {
+        position: relative;
+        overflow: hidden;
+        background: #e0e0e0;
+      }
+
+      .step-slider__card-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .step-slider__card-content {
+        background: linear-gradient(135deg, #2c5f7a 0%, #1a4558 100%);
+        color: white;
+        padding: 60px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .step-slider__counter {
+        font-size: 0.875rem;
+        letter-spacing: 2px;
+        margin-bottom: 20px;
+        opacity: 0.8;
+        font-weight: 500;
+      }
+
+      .step-slider__title {
+        font-size: 3rem;
+        font-weight: 300;
+        line-height: 1.2;
+        margin-bottom: 30px;
+        letter-spacing: -0.5px;
+      }
+
+      .step-slider__title i {
+        font-style: italic;
+        color: #d4a574;
+      }
+
+      .step-slider__text {
+        font-size: 1.1rem;
+        line-height: 1.7;
+        opacity: 0.9;
+        font-weight: 300;
+      }
+
+      .step-slider__progress {
+        position: absolute;
+        right: 40px;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        z-index: 100;
+      }
+
+      .step-slider__progress-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: rgba(44, 95, 122, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      .step-slider__progress-dot.is-active {
+        background: #2c5f7a;
+        transform: scale(1.4);
+      }
+
+      @media (max-width: 768px) {
+        .step-slider__card {
+          grid-template-columns: 1fr;
+        }
+
+        .step-slider__card-content {
+          padding: 40px;
+        }
+
+        .step-slider__title {
+          font-size: 2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="spacer">Scroll down to see the step slider</div>
+
+    <div class="step-slider" id="stepSlider">
+      <div class="step-slider__container">
+        <div class="step-slider__track" id="track">
+          <div class="step-slider__card" data-index="0">
+            <div class="step-slider__card-image">
+              <img
+                src="https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=800&h=1000&fit=crop"
+                alt="Nursery 1"
+              />
+            </div>
+            <div class="step-slider__card-content">
+              <p class="step-slider__counter">1 – 6</p>
+              <h3 class="step-slider__title">
+                Heartwarming and<br />Cosy <i>Nurseries</i>
+              </h3>
+              <p class="step-slider__text">
+                Let your children be surrounded by care and attention. Our
+                kindergarten teachers are both compassionate and highly skilled.
+                With learning games and pure fun, your little ones will have it
+                all!
+              </p>
+            </div>
+          </div>
+
+          <div class="step-slider__card" data-index="1">
+            <div class="step-slider__card-image">
+              <img
+                src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=800&h=1000&fit=crop"
+                alt="Nursery 2"
+              />
+            </div>
+            <div class="step-slider__card-content">
+              <p class="step-slider__counter">2 – 6</p>
+              <h3 class="step-slider__title">
+                Creative Learning<br /><i>Environments</i>
+              </h3>
+              <p class="step-slider__text">
+                Our spaces are designed to inspire creativity and curiosity.
+                Every corner is a new adventure waiting to be discovered by your
+                children.
+              </p>
+            </div>
+          </div>
+
+          <div class="step-slider__card" data-index="2">
+            <div class="step-slider__card-image">
+              <img
+                src="https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=800&h=1000&fit=crop"
+                alt="Nursery 3"
+              />
+            </div>
+            <div class="step-slider__card-content">
+              <p class="step-slider__counter">3 – 6</p>
+              <h3 class="step-slider__title">
+                Outdoor Play<br /><i>Adventures</i>
+              </h3>
+              <p class="step-slider__text">
+                Fresh air and outdoor activities are essential for development.
+                Our safe outdoor spaces encourage exploration and physical
+                activity.
+              </p>
+            </div>
+          </div>
+
+          <div class="step-slider__card" data-index="3">
+            <div class="step-slider__card-image">
+              <img
+                src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=1000&fit=crop"
+                alt="Nursery 4"
+              />
+            </div>
+            <div class="step-slider__card-content">
+              <p class="step-slider__counter">4 – 6</p>
+              <h3 class="step-slider__title">
+                Healthy Meals<br /><i>Daily</i>
+              </h3>
+              <p class="step-slider__text">
+                Nutrition matters! We provide balanced, delicious meals prepared
+                with love and care, catering to all dietary requirements.
+              </p>
+            </div>
+          </div>
+
+          <div class="step-slider__card" data-index="4">
+            <div class="step-slider__card-image">
+              <img
+                src="https://images.unsplash.com/photo-1560785496-3c9d27877182?w=800&h=1000&fit=crop"
+                alt="Nursery 5"
+              />
+            </div>
+            <div class="step-slider__card-content">
+              <p class="step-slider__counter">5 – 6</p>
+              <h3 class="step-slider__title">Music and<br /><i>Arts</i></h3>
+              <p class="step-slider__text">
+                Express yourself! Our music and arts programs help children
+                discover their talents and build confidence through creative
+                expression.
+              </p>
+            </div>
+          </div>
+
+          <div class="step-slider__card" data-index="5">
+            <div class="step-slider__card-image">
+              <img
+                src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=800&h=1000&fit=crop"
+                alt="Nursery 6"
+              />
+            </div>
+            <div class="step-slider__card-content">
+              <p class="step-slider__counter">6 – 6</p>
+              <h3 class="step-slider__title">Safe and<br /><i>Secure</i></h3>
+              <p class="step-slider__text">
+                Your peace of mind is our priority. Our facilities are equipped
+                with modern security systems and our staff are trained in child
+                safety.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-slider__progress">
+          <div class="step-slider__progress-dot is-active"></div>
+          <div class="step-slider__progress-dot"></div>
+          <div class="step-slider__progress-dot"></div>
+          <div class="step-slider__progress-dot"></div>
+          <div class="step-slider__progress-dot"></div>
+          <div class="step-slider__progress-dot"></div>
+        </div>
       </div>
+    </div>
 
-      .olm-btn-outline-1 {
-  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-  animation: olm-morph 4s linear infinite;
-}
+    <div class="spacer">Continue scrolling</div>
 
-.olm-btn-outline-2 {
-  border-radius: 53% 47% 43% 58% / 51% 39% 61% 49%;
-}
+    <script>
+      const stepSlider = document.getElementById("stepSlider");
+      const cards = document.querySelectorAll(".step-slider__card");
+      const dots = document.querySelectorAll(".step-slider__progress-dot");
+      const totalCards = cards.length;
 
-@keyframes olm-morph {
-  0% {
-    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-  }
-  50% {
-    border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
-  }
-  100% {
-    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-  }
-}
+      function updateCards() {
+        const rect = stepSlider.getBoundingClientRect();
+        const scrollProgress = -rect.top / (rect.height - window.innerHeight);
+        const clampedProgress = Math.max(0, Math.min(1, scrollProgress));
+
+        // Calculate progress for each card
+        const totalProgress = clampedProgress * totalCards;
+
+        cards.forEach((card, index) => {
+          if (index === 0) {
+            // First card recedes like others
+            const stackPosition = totalProgress * 2;
+            card.style.transform = `
+                        translateZ(-${stackPosition * 100}px) 
+                        rotateX(-${stackPosition * 5}deg) 
+                        scale(${1 - stackPosition * 0.025})
+                    `;
+            card.style.opacity = (
+              1 - Math.min(1, Math.max(0, totalProgress / 2))
+            ).toString();
+            card.style.zIndex = 100;
+          } else {
+            // Shifted logic for subsequent cards
+            const shiftedIndex = index - 1;
+            const cardStart = shiftedIndex;
+            const cardEnd = shiftedIndex + 1;
+
+            let cardProgress =
+              (totalProgress - cardStart) / (cardEnd - cardStart);
+            cardProgress = Math.max(0, Math.min(1, cardProgress));
+
+            if (totalProgress < cardStart) {
+              const waitDistance = (cardStart - totalProgress) * 5;
+              card.style.transform = `
+                        translateY(${100 + waitDistance}vh) 
+                        rotateX(-12deg) 
+                        scale(${0.85 - waitDistance * 0.01})
+                    `;
+              card.style.opacity = "0";
+              card.style.zIndex = index;
+            } else if (totalProgress >= cardStart && totalProgress < cardEnd) {
+              const yProgress = 1 - cardProgress;
+              const rotation = -12 + cardProgress * 12;
+              const scale = 0.85 + cardProgress * 0.15;
+
+              card.style.transform = `
+                        translateY(${yProgress * 100}vh) 
+                        rotateX(${rotation}deg) 
+                        scale(${scale})
+                    `;
+              card.style.opacity = "1";
+              card.style.zIndex = 100 + index;
+            } else {
+              const stackPosition = (totalProgress - cardEnd) * 2;
+              card.style.transform = `
+                        translateZ(-${stackPosition * 200}px) 
+                        rotateX(-${stackPosition * 10}deg) 
+                        scale(${1 - stackPosition * 0.05})
+                    `;
+              card.style.opacity =
+                index === totalCards - 1
+                  ? "1"
+                  : (
+                      1 - Math.min(1, Math.max(0, (totalProgress - index) / 2))
+                    ).toString();
+              card.style.zIndex = 100 + index;
+            }
+          }
+        });
+
+        // Update progress dots
+        const activeIndex = Math.floor(totalProgress);
+        dots.forEach((dot, i) => {
+          dot.classList.toggle("is-active", i === activeIndex);
+        });
+      }
+
+      // Initialize first card visible, others below
+      cards.forEach((card, index) => {
+        if (index === 0) {
+          card.style.transform = "translateY(0) rotateX(0deg) scale(1)";
+          card.style.opacity = "1";
+          card.style.zIndex = 100;
+        } else {
+          const waitDistance = (index - 1) * 5;
+          card.style.transform = `
+                translateY(${100 + waitDistance}vh) 
+                rotateX(-12deg) 
+                scale(${0.85 - waitDistance * 0.01})
+            `;
+          card.style.opacity = "0";
+          card.style.zIndex = index;
+        }
+      });
+
+      let ticking = false;
+      window.addEventListener("scroll", () => {
+        if (!ticking) {
+          window.requestAnimationFrame(() => {
+            updateCards();
+            ticking = false;
+          });
+          ticking = true;
+        }
+      });
+
+      updateCards();
+    </script>
+  </body>
+</html>

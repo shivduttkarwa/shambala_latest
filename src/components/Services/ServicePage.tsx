@@ -8,6 +8,7 @@ import { ProcessSection } from "./ProcessSection";
 import ScrollDownButton from "../UI/ScrollDownButton";
 import ServiceHeroText from "./ServiceHeroText";
 import TiltTextGsap from "../UI/TiltTextGsap";
+import StepSlider from "../Reusable/StepSlider";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -54,7 +55,6 @@ const ServicesPage: React.FC = () => {
       );
     });
 
-
     // HERO PARALLAX MOUSE MOVE + CARD TILT
     const hero = heroRef.current;
     if (hero) {
@@ -78,12 +78,15 @@ const ServicesPage: React.FC = () => {
       };
 
       const handleMouseLeave = () => {
-        gsap.to([".ser-page-hero-image-container", ".ser-page-hero-text-container"], {
-          duration: 1,
-          x: 0,
-          y: 0,
-          ease: "elastic.out(1, 0.5)",
-        });
+        gsap.to(
+          [".ser-page-hero-image-container", ".ser-page-hero-text-container"],
+          {
+            duration: 1,
+            x: 0,
+            y: 0,
+            ease: "elastic.out(1, 0.5)",
+          }
+        );
       };
 
       hero.addEventListener("mousemove", handleMouseMove);
@@ -175,10 +178,7 @@ const ServicesPage: React.FC = () => {
             {/* Text Content (1/3) */}
             <div className="ser-page-hero-text-container">
               <div className="ser-page-hero-velocity">
-                <ServiceHeroText 
-                  text={"Building"} 
-                  secondText={"Dreams"}
-                />
+                <ServiceHeroText text={"Building"} secondText={"Dreams"} />
               </div>
             </div>
           </div>
@@ -187,9 +187,9 @@ const ServicesPage: React.FC = () => {
         </section>
       </section>
 
-      <FormaServices />
-
       <ProcessSection />
+      <FormaServices />
+      <StepSlider />
 
       {/* TESTIMONIALS SECTION */}
       <section className="ser-testimonials-section">
@@ -198,7 +198,8 @@ const ServicesPage: React.FC = () => {
             What our clients say
           </TiltTextGsap>
           <p>
-            Real stories from real people who've transformed their spaces with Forma's thoughtful design approach.
+            Real stories from real people who've transformed their spaces with
+            Forma's thoughtful design approach.
           </p>
           <a href="#" className="ser-btn-outline">
             ↗ VIEW ALL PROJECTS
@@ -212,14 +213,24 @@ const ServicesPage: React.FC = () => {
             ref={addToCardsRef}
           >
             <h3 className="ser-text-4xl ser-serif">
-              "Absolutely <span style={{ color: "var(--ser-color-gold)" }}>exceptional</span> work"
+              "Absolutely{" "}
+              <span style={{ color: "var(--ser-color-gold)" }}>
+                exceptional
+              </span>{" "}
+              work"
             </h3>
             <p className="ser-mb-8 ser-text-gray-300">
-              "Forma completely transformed our home. Every detail was considered, from the natural light flow to the choice of materials. Our space now feels calm, functional, and truly reflects who we are as a family."
+              "Forma completely transformed our home. Every detail was
+              considered, from the natural light flow to the choice of
+              materials. Our space now feels calm, functional, and truly
+              reflects who we are as a family."
             </p>
             <div className="ser-testimonial-author">
-              <strong>Sarah & Michael Chen</strong><br />
-              <small style={{ color: "var(--ser-color-tertiary-brown)" }}>Modern Family Home, Melbourne</small>
+              <strong>Sarah & Michael Chen</strong>
+              <br />
+              <small style={{ color: "var(--ser-color-tertiary-brown)" }}>
+                Modern Family Home, Melbourne
+              </small>
             </div>
           </div>
 
@@ -230,15 +241,21 @@ const ServicesPage: React.FC = () => {
           >
             <div className="ser-card-plus-icon">★</div>
             <h3 className="ser-text-4xl ser-serif">
-              Beyond our<br />
+              Beyond our
+              <br />
               expectations
             </h3>
             <p className="ser-mb-8 ser-text-gray-800">
-              "The team at Forma didn't just design our office space—they understood our brand and created an environment where creativity flows naturally. Our clients are always impressed."
+              "The team at Forma didn't just design our office space—they
+              understood our brand and created an environment where creativity
+              flows naturally. Our clients are always impressed."
             </p>
             <div className="ser-testimonial-author">
-              <strong>James Rodriguez</strong><br />
-              <small style={{ color: "var(--ser-color-tertiary-brown)" }}>Creative Studio, Sydney</small>
+              <strong>James Rodriguez</strong>
+              <br />
+              <small style={{ color: "var(--ser-color-tertiary-brown)" }}>
+                Creative Studio, Sydney
+              </small>
             </div>
           </div>
         </div>
