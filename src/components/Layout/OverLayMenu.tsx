@@ -270,6 +270,23 @@ const OverlayMenu: React.FC = () => {
 
     // Cleanup
     return () => {
+      // Kill any running GSAP animations to prevent DOM conflicts
+      tl.kill();
+      gsap.killTweensOf([
+        "#hamburger",
+        "#hamburger .line",
+        ".olm-btn .olm-btn-outline",
+        ".olm-overlay",
+        path,
+        ".olm-menu",
+        ".olm-primary-menu .olm-menu-item>a",
+        ".olm-secondary-menu-bg",
+        ".olm-contact-btn",
+        ".olm-email-btn",
+        ".olm-menu-item .olm-social-content",
+        ".olm-menu-item .olm-footer-content"
+      ]);
+      
       toggleBtn?.removeEventListener("click", handleToggle);
       toggleBtn?.removeEventListener("touchend", handleToggle);
       menuLinks.forEach((link) =>

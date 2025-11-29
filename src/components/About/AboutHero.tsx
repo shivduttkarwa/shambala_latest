@@ -147,28 +147,38 @@ const AboutHero: React.FC = () => {
                 className="w-full h-full object-cover"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
-                  target.src = `${publicUrl}images/sm1.jpg`;
+                  target.src = `${publicUrl}images/sercard1.jpg`;
                 }}
               />
             </div>
 
             {/* Text Content (1/3) */}
             <div className="about-animate-in about-hero-text-container">
-              <h1 className="text-4xl md:text-5xl font-black mb-4 leading-tight" style={{
-                fontFamily: '"Cinzel", serif',
-                color: 'var(--text, #2c2c2c)',
-                textTransform: 'uppercase',
-                letterSpacing: '0.02em'
-              }}>
-                We Are <span style={{color: 'var(--accent, #5b7c4f)'}}>Shambala</span> Homes
+              <h1
+                className="text-4xl md:text-5xl font-black mb-4 leading-tight"
+                style={{
+                  fontFamily: '"Cinzel", serif',
+                  color: "var(--text, #2c2c2c)",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.02em",
+                }}
+              >
+                We Are{" "}
+                <span style={{ color: "var(--accent, #5b7c4f)" }}>
+                  Shambala
+                </span>{" "}
+                Homes
               </h1>
-              <div className="mb-8" style={{
-                color: 'rgba(44, 44, 44, 0.75)',
-                fontFamily: '"Cormorant Garamond", Georgia, serif',
-                fontSize: '1.1rem',
-                lineHeight: '1.7',
-                fontWeight: '400'
-              }}>
+              <div
+                className="mb-8"
+                style={{
+                  color: "rgba(44, 44, 44, 0.75)",
+                  fontFamily: '"Cormorant Garamond", Georgia, serif',
+                  fontSize: "1.1rem",
+                  lineHeight: "1.7",
+                  fontWeight: "400",
+                }}
+              >
                 <ASCIIGlitchText
                   text="Crafting exceptional living spaces that blend luxury with nature's harmony."
                   className="about-interactive-element"
@@ -176,7 +186,8 @@ const AboutHero: React.FC = () => {
                   spread={0.8}
                   chars="░▒▓█▄▀▌▐■!?&#$@0123456789*.,·-─~+:;=*π"
                   tag="span"
-                /> <br />
+                />{" "}
+                <br />
                 <ASCIIGlitchText
                   text="Our vision transforms architectural dreams into sustainable realities,"
                   className="about-interactive-element"
@@ -184,7 +195,8 @@ const AboutHero: React.FC = () => {
                   spread={0.7}
                   chars="░▒▓█▄▀▌▐■!?&#$@0123456789*.,·-─~+:;=*π"
                   tag="span"
-                /> <br />
+                />{" "}
+                <br />
                 <ASCIIGlitchText
                   text="creating homes that nurture both body and soul."
                   className="about-interactive-element"
@@ -195,8 +207,12 @@ const AboutHero: React.FC = () => {
                 />
               </div>
               <div className="flex items-center gap-4 flex-wrap">
-                <button className="about-btn-primary about-interactive-element">Explore Vision</button>
-                <button className="about-btn-red about-interactive-element">Our Projects</button>
+                <button className="about-btn-primary about-interactive-element">
+                  Explore Vision
+                </button>
+                <button className="about-btn-red about-interactive-element">
+                  Our Projects
+                </button>
               </div>
             </div>
           </div>
@@ -206,23 +222,29 @@ const AboutHero: React.FC = () => {
         <section className="grid md:grid-cols-2 gap-8 mb-20">
           {/* Card 1 */}
           <div className="about-card p-8 md:p-12 about-animate-in about-interactive-card">
-            <h2 className="text-6xl md:text-8xl font-black mb-4" style={{
-              fontFamily: '"Bebas Neue", sans-serif',
-              color: 'var(--cream, #faf8f3)',
-              letterSpacing: '0.05em'
-            }}>
-              <span style={{color: '#a8d48a'}}>25</span> + Years
+            <h2
+              className="text-6xl md:text-8xl font-black mb-4"
+              style={{
+                fontFamily: '"Bebas Neue", sans-serif',
+                color: "var(--cream, #faf8f3)",
+                letterSpacing: "0.05em",
+              }}
+            >
+              <span style={{ color: "#a8d48a" }}>25</span> + Years
             </h2>
-            <p className="mb-8" style={{
-              color: 'rgba(250, 248, 243, 0.8)',
-              fontFamily: '"Cormorant Garamond", Georgia, serif',
-              fontSize: '1rem',
-              lineHeight: '1.6',
-              fontWeight: '400'
-            }}>
-              Excellence in architectural design and sustainable construction. 
-              Building dreams with precision, passion, and environmental consciousness 
-              for over two decades.
+            <p
+              className="mb-8"
+              style={{
+                color: "rgba(250, 248, 243, 0.8)",
+                fontFamily: '"Cormorant Garamond", Georgia, serif',
+                fontSize: "1rem",
+                lineHeight: "1.6",
+                fontWeight: "400",
+              }}
+            >
+              Excellence in architectural design and sustainable construction.
+              Building dreams with precision, passion, and environmental
+              consciousness for over two decades.
             </p>
             <div className="flex gap-2 flex-wrap">
               <button className="about-btn-red flex-1 about-interactive-element min-w-[90px]">
@@ -239,47 +261,64 @@ const AboutHero: React.FC = () => {
 
           {/* Card 2 (Gold) */}
           <div className="about-card about-yellow-card p-8 md:p-12 relative about-animate-in about-interactive-card">
-            <div className="absolute top-4 right-4 w-12 h-12 rounded-full flex items-center justify-center text-2xl font-bold" style={{
-              background: 'var(--text, #2c2c2c)',
-              color: 'var(--cream, #faf8f3)'
-            }}>
+            <div
+              className="absolute top-4 right-4 w-12 h-12 rounded-full flex items-center justify-center text-2xl font-bold"
+              style={{
+                background: "var(--text, #2c2c2c)",
+                color: "var(--cream, #faf8f3)",
+              }}
+            >
               <i className="fas fa-home"></i>
             </div>
-            <h2 className="text-4xl md:text-5xl font-black mb-4 leading-tight" style={{
-              fontFamily: '"Cinzel", serif',
-              color: 'var(--text, #2c2c2c)',
-              textTransform: 'uppercase',
-              letterSpacing: '0.02em'
-            }}>
-              LUXURY &<br />NATURE
+            <h2
+              className="text-4xl md:text-5xl font-black mb-4 leading-tight"
+              style={{
+                fontFamily: '"Cinzel", serif',
+                color: "var(--text, #2c2c2c)",
+                textTransform: "uppercase",
+                letterSpacing: "0.02em",
+              }}
+            >
+              LUXURY &<br />
+              NATURE
             </h2>
-            <p className="mb-8" style={{
-              color: 'rgba(44, 44, 44, 0.8)',
-              fontFamily: '"Cormorant Garamond", Georgia, serif',
-              fontSize: '1rem',
-              lineHeight: '1.6',
-              fontWeight: '400'
-            }}>
-              Where modern elegance meets natural harmony. Our designs celebrate 
-              the seamless integration of contemporary living with environmental 
+            <p
+              className="mb-8"
+              style={{
+                color: "rgba(44, 44, 44, 0.8)",
+                fontFamily: '"Cormorant Garamond", Georgia, serif',
+                fontSize: "1rem",
+                lineHeight: "1.6",
+                fontWeight: "400",
+              }}
+            >
+              Where modern elegance meets natural harmony. Our designs celebrate
+              the seamless integration of contemporary living with environmental
               stewardship.
             </p>
             <div className="flex items-center gap-4 flex-wrap">
-              <button className="rounded-full px-6 py-3 font-bold transition about-interactive-element" style={{
-                background: 'var(--text, #2c2c2c)',
-                color: 'var(--cream, #faf8f3)',
-                fontFamily: '"Cinzel", serif',
-                fontSize: '0.9rem',
-                letterSpacing: '0.5px'
-              }}>
+              <button
+                className="rounded-full px-6 py-3 font-bold transition about-interactive-element"
+                style={{
+                  background: "var(--text, #2c2c2c)",
+                  color: "var(--cream, #faf8f3)",
+                  fontFamily: '"Cinzel", serif',
+                  fontSize: "0.9rem",
+                  letterSpacing: "0.5px",
+                }}
+              >
                 Discover More
               </button>
-              <a href="#" className="font-bold group about-interactive-element" style={{
-                color: 'var(--text, #2c2c2c)',
-                fontFamily: '"Cinzel", serif',
-                fontSize: '0.9rem',
-                letterSpacing: '0.5px'
-              }}>
+              <a
+                href="#"
+                className="font-bold group about-interactive-element"
+                style={{
+                  color: "var(--text, #2c2c2c)",
+                  fontFamily: '"Cinzel", serif',
+                  fontSize: "0.9rem",
+                  letterSpacing: "0.5px",
+                }}
+              >
                 Get Started
                 <i className="fas fa-arrow-right transform group-hover:translate-x-1 transition-transform ml-2"></i>
               </a>
@@ -287,7 +326,7 @@ const AboutHero: React.FC = () => {
           </div>
         </section>
       </main>
-      
+
       {/* Arch Scroll Reveal Section */}
       <ArchScrollReveal />
     </div>

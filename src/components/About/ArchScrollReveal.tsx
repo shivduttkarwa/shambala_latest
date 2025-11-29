@@ -22,8 +22,12 @@ const ArchScrollReveal: React.FC = () => {
     // Mobile layout handler (only handle order)
     function handleMobileLayout() {
       const isMobile = window.matchMedia("(max-width: 768px)").matches;
-      const leftItems = gsap.utils.toArray(".arch__left .arch__info") as Element[];
-      const rightItems = gsap.utils.toArray(".arch__right .arch-img-wrapper") as Element[];
+      const leftItems = gsap.utils.toArray(
+        ".arch__left .arch__info"
+      ) as Element[];
+      const rightItems = gsap.utils.toArray(
+        ".arch__right .arch-img-wrapper"
+      ) as Element[];
 
       if (isMobile) {
         // Interleave items using order
@@ -154,7 +158,7 @@ const ArchScrollReveal: React.FC = () => {
 
     return () => {
       window.removeEventListener("resize", handleResize);
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
   }, []);
 
@@ -169,11 +173,15 @@ const ArchScrollReveal: React.FC = () => {
               <div className="arch-content">
                 <h2 className="arch-header">Sustainable Living</h2>
                 <p className="arch-desc">
-                  Eco-friendly homes designed with renewable energy systems, 
-                  smart water management, and sustainable materials that reduce 
+                  Eco-friendly homes designed with renewable energy systems,
+                  smart water management, and sustainable materials that reduce
                   environmental footprint while maximizing comfort.
                 </p>
-                <a className="arch-link" href="#" style={{ backgroundColor: 'var(--accent, #5b7c4f)' }}>
+                <a
+                  className="arch-link"
+                  href="#"
+                  style={{ backgroundColor: "var(--accent, #5b7c4f)" }}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="11"
@@ -194,11 +202,16 @@ const ArchScrollReveal: React.FC = () => {
               <div className="arch-content">
                 <h2 className="arch-header">Modern Architecture</h2>
                 <p className="arch-desc">
-                  Contemporary designs featuring clean lines, open spaces, and 
-                  innovative use of natural light. Our modern homes blend 
-                  functionality with aesthetic appeal for the discerning homeowner.
+                  Contemporary designs featuring clean lines, open spaces, and
+                  innovative use of natural light. Our modern homes blend
+                  functionality with aesthetic appeal for the discerning
+                  homeowner.
                 </p>
-                <a className="arch-link" href="#" style={{ backgroundColor: '#4a6b3e' }}>
+                <a
+                  className="arch-link"
+                  href="#"
+                  style={{ backgroundColor: "#4a6b3e" }}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="11"
@@ -219,11 +232,15 @@ const ArchScrollReveal: React.FC = () => {
               <div className="arch-content">
                 <h2 className="arch-header">Luxury Interiors</h2>
                 <p className="arch-desc">
-                  Premium finishes and bespoke interior design solutions that 
-                  reflect your personal style. From custom millwork to curated 
+                  Premium finishes and bespoke interior design solutions that
+                  reflect your personal style. From custom millwork to curated
                   furnishings, every detail is crafted to perfection.
                 </p>
-                <a className="arch-link" href="#" style={{ backgroundColor: '#d4462a' }}>
+                <a
+                  className="arch-link"
+                  href="#"
+                  style={{ backgroundColor: "#d4462a" }}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="11"
@@ -244,11 +261,15 @@ const ArchScrollReveal: React.FC = () => {
               <div className="arch-content">
                 <h2 className="arch-header">Smart Home Technology</h2>
                 <p className="arch-desc">
-                  Integrated home automation systems that enhance security, 
-                  energy efficiency, and convenience. Control lighting, climate, 
+                  Integrated home automation systems that enhance security,
+                  energy efficiency, and convenience. Control lighting, climate,
                   and entertainment systems seamlessly from anywhere.
                 </p>
-                <a className="arch-link" href="#" style={{ backgroundColor: '#f4a845' }}>
+                <a
+                  className="arch-link"
+                  href="#"
+                  style={{ backgroundColor: "#f4a845" }}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="11"
@@ -269,29 +290,29 @@ const ArchScrollReveal: React.FC = () => {
           <div className="arch__right">
             <div className="arch-img-wrapper" data-index="4">
               <img
-                src={`${publicUrl}images/hero_poster.jpg`}
+                src={`${publicUrl}images/l3.jpg`}
                 alt="Sustainable Living"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
-                  target.src = `${publicUrl}images/sm1.jpg`;
+                  target.src = `${publicUrl}images/l2.jpg`;
                 }}
               />
             </div>
 
             <div className="arch-img-wrapper" data-index="3">
               <img
-                src={`${publicUrl}images/sm2.jpg`}
+                src={`${publicUrl}images/l4.jpg`}
                 alt="Modern Architecture"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
-                  target.src = `${publicUrl}images/sm1.jpg`;
+                  target.src = `${publicUrl}images/l5.jpg`;
                 }}
               />
             </div>
 
             <div className="arch-img-wrapper" data-index="2">
               <img
-                src={`${publicUrl}images/sm3.jpg`}
+                src={`${publicUrl}images/l6.jpg`}
                 alt="Luxury Interiors"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
@@ -302,11 +323,11 @@ const ArchScrollReveal: React.FC = () => {
 
             <div className="arch-img-wrapper" data-index="1">
               <img
-                src={`${publicUrl}images/sm4.jpg`}
+                src={`${publicUrl}images/l7.jpg`}
                 alt="Smart Home Technology"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
-                  target.src = `${publicUrl}images/sm1.jpg`;
+                  target.src = `${publicUrl}images/l8.jpg`;
                 }}
               />
             </div>

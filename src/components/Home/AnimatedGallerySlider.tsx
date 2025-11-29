@@ -42,143 +42,135 @@ const AnimatedGallerySlider: React.FC = () => {
     });
   };
 
-  // Build gallery animations
-  const buildGalleryAnimations = () => {
-    if (!sectionRef.current || !galleryRef.current) return;
-
-    const galleryItems = gsap.utils.toArray(
-      sectionRef.current.querySelectorAll(".ags-gallery-item")
-    ) as HTMLElement[];
-
-    // Timeline for gallery section
-    const galleryTimeline = gsap.timeline({
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: "top top",
-        end: "+=1500vh", // 15 scrolls total (much slower)
-        pin: sectionRef.current,
-        scrub: 3,
-        invalidateOnRefresh: true,
-      },
-    });
-
-    // Set initial states
-    gsap.set(galleryRef.current, {
-      x: 0,
-      y: 0,
-      position: "absolute",
-      top: -50,
-      left: "50%",
-      transform: "translateX(-50%)",
-    });
-
-    gsap.set(sectionRef.current.querySelectorAll(".ags-overlay-char"), {
-      opacity: 0,
-      y: ANIMATION_CONTROLS.overlayStartY,
-    });
-
-    // Set initial states for gallery items with offset positioning (same as GalleryOverlaySection)
-    galleryItems.forEach((item, index) => {
-      const offset = -70 * (index + 1); // Same offset calculation as GalleryOverlaySection
-      gsap.set(item, { autoAlpha: 1, y: offset, scale: 0.98 });
-    });
-
-    // Animation sequence - 2 steps only
-    galleryTimeline
-      // Step 1: Gallery and items move directly to bottom position (0-7 scrolls)
-
-      // Gallery items reveal directly in bottom position (wave-like animation)
-      .to(
-        galleryItems,
-        {
-          y: 630,
-          scale: 1,
-          stagger: 0.3,
-          duration: 5,
-          ease: "back.out(1.7)",
-        },
-        1.5
-      )
-      // Overlay text reveals (exact same as GalleryOverlaySection)
-      .fromTo(
-        sectionRef.current.querySelectorAll(".ags-overlay-char"),
-        {
-          opacity: 0,
-          y: ANIMATION_CONTROLS.overlayStartY,
-        },
-        {
-          opacity: 1,
-          y: 0,
-          duration: ANIMATION_CONTROLS.overlayCharDuration * 3, // Same as GalleryOverlaySection
-          ease: ANIMATION_CONTROLS.overlayCharEase, // Same "back.out(2)"
-          stagger: ANIMATION_CONTROLS.overlayCharStagger * 3, // Same stagger
-          force3D: true, // Same optimization
-        },
-        1.5
-      )
-      // Step 2: Gallery items exit screen left (7-15 scrolls)
-      .to(
-        galleryItems,
-        {
-          x: -window.innerWidth - 300,
-          stagger: 0.8,
-          duration: 8,
-          ease: "power2.inOut",
-        },
-        7
-      );
-    // Note: Overlay text stays visible - no fade out animation
-  };
-
-  // Build slides animations
-  const buildSlidesAnimations = () => {
-    if (!slidesSectionRef.current) return;
-
-    const slides = gsap.utils.toArray(
-      slidesSectionRef.current.querySelectorAll(".ags-slide")
-    ) as HTMLElement[];
-
-    const slidesTimeline = gsap.timeline({
-      scrollTrigger: {
-        trigger: slidesSectionRef.current,
-        start: "top top",
-        end: `+=${slides.length * 800}vh`,
-        pin: slidesSectionRef.current,
-        scrub: 5,
-        invalidateOnRefresh: true,
-      },
-    });
-
-    // Set initial states - slides start off-screen left
-    slides.forEach((slide) => {
-      gsap.set(slide, {
-        x: -window.innerWidth,
-        opacity: 1,
-      });
-    });
-
-    slides.forEach((slide, index) => {
-      slidesTimeline.to(
-        slide,
-        {
-          x: 0,
-          duration: 1,
-          ease: "power1.inOut",
-        },
-        index * 1.5
-      );
-    });
-  };
 
   useEffect(() => {
     if (!sectionRef.current) return;
 
+    let galleryTimeline: gsap.core.Timeline | null = null;
+    let slidesTimeline: gsap.core.Timeline | null = null;
+
     // Split overlay text
     splitOverlayToChars();
 
-    // Build animations
-    buildGalleryAnimations();
-    buildSlidesAnimations();
+    // Build animations and store timeline references
+    const buildAnimations = () => {
+      if (!sectionRef.current || !galleryRef.current) return;
+
+      const galleryItems = gsap.utils.toArray(
+        sectionRef.current.querySelectorAll(".ags-gallery-item")
+      ) as HTMLElement[];
+
+      // Gallery Timeline
+      galleryTimeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: "+=1500vh",
+          pin: sectionRef.current,
+          scrub: 3,
+          invalidateOnRefresh: true,
+        },
+      });
+
+      // Set initial states
+      gsap.set(galleryRef.current, {
+        x: 0,
+        y: 0,
+        position: "absolute",
+        top: -50,
+        left: "50%",
+        transform: "translateX(-50%)",
+      });
+
+      gsap.set(sectionRef.current.querySelectorAll(".ags-overlay-char"), {
+        opacity: 0,
+        y: ANIMATION_CONTROLS.overlayStartY,
+      });
+
+      galleryItems.forEach((item, index) => {
+        const offset = -70 * (index + 1);
+        gsap.set(item, { autoAlpha: 1, y: offset, scale: 0.98 });
+      });
+
+      // Gallery animation sequence
+      galleryTimeline
+        .to(
+          galleryItems,
+          {
+            y: 630,
+            scale: 1,
+            stagger: 0.3,
+            duration: 5,
+            ease: "back.out(1.7)",
+          },
+          1.5
+        )
+        .fromTo(
+          sectionRef.current.querySelectorAll(".ags-overlay-char"),
+          {
+            opacity: 0,
+            y: ANIMATION_CONTROLS.overlayStartY,
+          },
+          {
+            opacity: 1,
+            y: 0,
+            duration: ANIMATION_CONTROLS.overlayCharDuration * 3,
+            ease: ANIMATION_CONTROLS.overlayCharEase,
+            stagger: ANIMATION_CONTROLS.overlayCharStagger * 3,
+            force3D: true,
+          },
+          1.5
+        )
+        .to(
+          galleryItems,
+          {
+            x: -window.innerWidth - 300,
+            stagger: 0.8,
+            duration: 8,
+            ease: "power2.inOut",
+          },
+          7
+        );
+
+      // Slides Timeline
+      if (slidesSectionRef.current) {
+        const slides = gsap.utils.toArray(
+          slidesSectionRef.current.querySelectorAll(".ags-slide")
+        ) as HTMLElement[];
+
+        slidesTimeline = gsap.timeline({
+          scrollTrigger: {
+            trigger: slidesSectionRef.current,
+            start: "top top",
+            end: `+=${slides.length * 800}vh`,
+            pin: slidesSectionRef.current,
+            scrub: 5,
+            invalidateOnRefresh: true,
+          },
+        });
+
+        slides.forEach((slide) => {
+          gsap.set(slide, {
+            x: -window.innerWidth,
+            opacity: 1,
+          });
+        });
+
+        slides.forEach((slide, index) => {
+          slidesTimeline!.to(
+            slide,
+            {
+              x: 0,
+              duration: 1,
+              ease: "power1.inOut",
+            },
+            index * 1.5
+          );
+        });
+      }
+    };
+
+    buildAnimations();
 
     // Make gallery visible
     const gallery = sectionRef.current?.querySelector(
@@ -188,9 +180,27 @@ const AnimatedGallerySlider: React.FC = () => {
 
     ScrollTrigger.refresh();
 
-    // Cleanup
+    // Targeted cleanup
     return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      // Kill specific timelines
+      if (galleryTimeline) {
+        galleryTimeline.kill();
+        galleryTimeline = null;
+      }
+      if (slidesTimeline) {
+        slidesTimeline.kill();
+        slidesTimeline = null;
+      }
+
+      // Kill ScrollTriggers for our specific elements only
+      ScrollTrigger.getAll().forEach((trigger) => {
+        if (
+          trigger.trigger === sectionRef.current ||
+          trigger.trigger === slidesSectionRef.current
+        ) {
+          trigger.kill();
+        }
+      });
     };
   }, []);
 
