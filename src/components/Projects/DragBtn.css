@@ -27,7 +27,7 @@
 }
 
 .pms-drag-btn.pms-dragging {
-  cursor: grabbing;
+  cursor: none;
   transform: translate(-50%, -50%) scale(1.05);
 }
 
@@ -51,6 +51,11 @@
   position: relative;
   z-index: 2;
   letter-spacing: 0.12em;
+  pointer-events: none;
+}
+
+.pms-drag-btn * {
+  pointer-events: none;
 }
 
 .pms-drag-btn--dark {
