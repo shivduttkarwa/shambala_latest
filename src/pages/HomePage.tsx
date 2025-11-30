@@ -18,9 +18,10 @@ import { SiteSettings } from "../services/api";
 
 interface HomePageProps {
   settings: SiteSettings | null;
+  animateHero?: boolean;
 }
 
-const HomePage: React.FC<HomePageProps> = ({ settings: _ }) => {
+const HomePage: React.FC<HomePageProps> = ({ settings: _, animateHero = true }) => {
   const { bodyBlocks } = useHome();
 
   console.log("HomePage bodyBlocks:", bodyBlocks);
@@ -28,7 +29,7 @@ const HomePage: React.FC<HomePageProps> = ({ settings: _ }) => {
   return (
     <>
       <div id="hero">
-        <ModernHero />
+        <ModernHero animate={animateHero} />
       </div>
       <EssenceSection />
       <div id="services">

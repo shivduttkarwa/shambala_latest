@@ -4,11 +4,15 @@ import GlassRainButton from "../UI/GlassRainButton";
 import HomeHeroSlider from "../Home/HomeHeroSlider";
 
 const publicUrl = import.meta.env.BASE_URL || "/";
-const heroVideo = publicUrl.endsWith("/") 
+const heroVideo = publicUrl.endsWith("/")
   ? `${publicUrl}images/home_hero.mp4`
   : `${publicUrl}/images/home_hero.mp4`;
 
-const ModernHero = () => {
+interface ModernHeroProps {
+  animate?: boolean;
+}
+
+const ModernHero: React.FC<ModernHeroProps> = ({ animate = true }) => {
   const curtainRef = useRef<HTMLDivElement>(null);
   const heroVideoRef = useRef<HTMLDivElement>(null);
   const videoElRef = useRef<HTMLVideoElement>(null);
@@ -22,6 +26,8 @@ const ModernHero = () => {
   const heroRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (!animate) return;
+
     const curtain = curtainRef.current;
     const heroVideo = heroVideoRef.current;
     const videoEl = videoElRef.current;
@@ -83,7 +89,12 @@ const ModernHero = () => {
       "mh-scatter-letter"
     );
 
-    const changingWords = ["ARCHITECTURAL", "IMMERSIVE", "SUSTAINABLE", "BESPOKE"];
+    const changingWords = [
+      "ARCHITECTURAL",
+      "IMMERSIVE",
+      "SUSTAINABLE",
+      "BESPOKE",
+    ];
 
     function animateSubtitleWord(index: number) {
       if (!subtitleDynamicEl) return;
@@ -330,23 +341,23 @@ const ModernHero = () => {
 
     // Set initial positions with increased gap
     gsap.set(text1El, { y: -40 }); // INSPIRE 40px above center
-    gsap.set(text2El, { y: 40 });  // A TRUE LIVING 40px below center
-    
+    gsap.set(text2El, { y: 40 }); // A TRUE LIVING 40px below center
+
     // Both texts enter simultaneously - INSPIRE from top, A TRUE LIVING from bottom
     tl.fromTo(
-        text1Spans,
-        { y: -positions.finalVh * 0.7 },
-        {
-          y: -40, // Stay 40px above center
-          duration: TEXT1_ENTRANCE_DURATION,
-          ease: "back.out(1.4)",
-          stagger: 0.08,
-          onStart: () => {
-            gsap.set(text1El, { opacity: 1 });
-          },
+      text1Spans,
+      { y: -positions.finalVh * 0.7 },
+      {
+        y: -40, // Stay 40px above center
+        duration: TEXT1_ENTRANCE_DURATION,
+        ease: "back.out(1.4)",
+        stagger: 0.08,
+        onStart: () => {
+          gsap.set(text1El, { opacity: 1 });
         },
-        0
-      )
+      },
+      0
+    )
       .fromTo(
         text2Spans,
         { y: positions.finalVh * 0.7 },
@@ -473,7 +484,7 @@ const ModernHero = () => {
         },
         "postAssemble+=" + SUBTITLE_DELAY_AFTER_ASSEMBLY
       );
-  }, []);
+  }, [animate]);
 
   return (
     <div className="mh-hero" ref={heroRef}>
@@ -505,6 +516,15 @@ const ModernHero = () => {
           z-index: 50;
           overflow: visible; /* avoid clipping scatter letters (Firefox positioning) */
           pointer-events: none;
+        }
+
+        .mh-text-container > * {
+          position: relative;
+          z-index: 1;
+        }
+
+        .mh-text-backdrop {
+          display: none;
         }
 
         .mh-hero-text {
@@ -757,6 +777,7 @@ const ModernHero = () => {
       <div className="mh-curtain" ref={curtainRef}></div>
 
       <div className="mh-text-container">
+        <div className="mh-text-backdrop" aria-hidden="true"></div>
         <h1 className="mh-hero-text" ref={text1Ref}></h1>
         <h1 className="mh-hero-text" ref={text2Ref}></h1>
         <h1 className="mh-scatter-word" ref={scatterWordRef}></h1>

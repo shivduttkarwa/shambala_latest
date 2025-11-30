@@ -187,12 +187,13 @@ const BlackHoleLoader: React.FC<BlackHoleLoaderProps> = ({ onComplete }) => {
 
     let animationId: number;
     let intervalId: number | null = null;
+    let canEnter = false;
 
     const loop = () => {
       const now = new Date().getTime();
       currentTime = (now - startTime) / 50;
 
-      context.fillStyle = "rgba(25,25,25,0.2)";
+      context.fillStyle = "rgba(18,36,28,0.18)";
       context.fillRect(0, 0, cw, ch);
 
       for (let i = 0; i < stars.length; i++) {
@@ -202,41 +203,53 @@ const BlackHoleLoader: React.FC<BlackHoleLoaderProps> = ({ onComplete }) => {
       animationId = requestAnimationFrame(loop);
     };
 
+    const startProgress = () => {
+      loaderCount.classList.add("visible");
+      let progress = 0;
+      loaderCount.textContent = "0%";
+
+      intervalId = window.setInterval(() => {
+        progress += 2; // faster counter
+        if (progress > 100) progress = 100;
+        loaderCount.textContent = `${progress}%`;
+
+        if (progress >= 100) {
+          canEnter = true;
+          centerHover.classList.add("ready");
+          loaderCount.classList.remove("visible");
+          loaderCount.classList.add("hidden");
+          if (intervalId !== null) {
+            clearInterval(intervalId);
+            intervalId = null;
+          }
+        }
+      }, 15);
+    };
+
     const init = () => {
-      context.fillStyle = "rgba(25,25,25,1)";
+      context.fillStyle = "rgba(20,42,32,1)";
       context.fillRect(0, 0, cw, ch);
       for (let i = 0; i < 2500; i++) {
         new Star();
       }
       loop();
+      startProgress();
     };
 
     // Events
     const handleClick = () => {
-      if (expanse) return;
+      if (expanse || !canEnter) return;
       collapse = false;
       expanse = true;
       centerHover.classList.add("open");
+      centerHover.classList.remove("ready");
 
-      loaderCount.classList.add("visible");
-
-      let progress = 0;
-      loaderCount.textContent = "0%";
-
-      intervalId = window.setInterval(() => {
-        progress += 1;
-        if (progress > 100) progress = 100;
-        loaderCount.textContent = `${progress}%`;
-
-        if (progress >= 100) {
-          if (intervalId !== null) {
-            clearInterval(intervalId);
-          }
-          if (onCompleteRef.current) {
-            onCompleteRef.current();
-          }
+      // allow particle spread to play before unmounting loader
+      setTimeout(() => {
+        if (onCompleteRef.current) {
+          onCompleteRef.current();
         }
-      }, 30); // 100 * 30ms = 3 seconds total
+      }, 3200);
     };
 
     const handleMouseOver = () => {

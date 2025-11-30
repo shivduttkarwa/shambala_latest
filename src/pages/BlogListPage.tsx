@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { blogPosts } from "../data/blogPosts";
+import { JelloText } from "../components/common/JelloText";
 
 gsap.registerPlugin(ScrollTrigger);
 const publicUrl = import.meta.env.BASE_URL || "/";
@@ -177,7 +178,6 @@ const BlogListPage: React.FC = () => {
           margin: 0;
           font-size: clamp(2.6rem, 6vw, 3.8rem);
           letter-spacing: 0.03em;
-          font-family: "Dream Avenue", cursive;
           color: #f6f7fb;
           text-transform: uppercase;
         }
@@ -289,7 +289,7 @@ const BlogListPage: React.FC = () => {
             <span>Journal</span>
             <span>Latest six entries</span>
           </div>
-          <h1 className="bl-title bl-hero-title">Design Stories</h1>
+          <JelloText text="DESIGN STORIES" className="bl-title bl-hero-title jello-text" />
           <p className="bl-subtitle bl-hero-subtitle">
             Fast reads on the craft, comfort, and technology shaping our homes.
           </p>
