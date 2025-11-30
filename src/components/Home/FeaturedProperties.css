@@ -680,3 +680,13 @@
     max-height: calc((45% + 50px) * 0.7); /* Reduced by 30% */
   }
 }
+
+@media (min-width: 1440px) {
+  .fp-left-navigation {
+    left: 420px;
+  }
+
+  .fp-left img:not(.fp-image-tablet) {
+    margin-left: 240px;
+  }
+}

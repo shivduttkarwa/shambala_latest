@@ -447,6 +447,7 @@ body.menu-open {
 .olm-secondary-menu .glass-rain-btn-label {
   font-size: 14px;
   font-weight: 500;
+  white-space: nowrap;
 }
 
 .olm-secondary-menu .glass-rain-btn-icon {

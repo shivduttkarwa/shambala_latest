@@ -1,6 +1,5 @@
 .forma-services {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, sans-serif;
+  font-family: "Nunito", sans-serif;
   background: #ffffff;
   color: #111111;
   overflow-x: hidden;
@@ -105,6 +104,12 @@
   font-family: "Nunito", sans-serif;
 }
 
+@media (min-width: 1440px) {
+  .forma-services .fs-description {
+    font-size: 1.125rem;
+  }
+}
+
 .forma-services .fs-cta {
   margin-top: 2.5rem;
 }
@@ -182,7 +187,7 @@
   .forma-services .fs-inner {
     height: 90vh;
     overflow: hidden;
-    padding-top: 40vh;
+    padding-top: 28vh;
   }
 
   .forma-services .fs-image-cover {
@@ -190,7 +195,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 40vh;
+    height: 28vh;
   }
 
   .forma-services .fs-layout {
@@ -204,7 +209,7 @@
 
   .forma-services .fs-left {
     width: 100%;
-    padding: 2.5rem 1.5rem 3rem;
+    padding: 1.84rem 1.5rem 2.2rem;
     opacity: 1 !important;
     transform: none !important;
     background: #ffffff;
@@ -217,5 +222,11 @@
   .forma-services .fs-image-counter {
     padding: 1.25rem;
     opacity: 1;
+  }
+}
+
+@media (min-width: 1440px) {
+  .forma-services .fs-left {
+    padding-left: 8.33%;
   }
 }

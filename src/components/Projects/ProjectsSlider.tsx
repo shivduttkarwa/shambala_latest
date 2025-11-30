@@ -59,6 +59,30 @@ const CARDS: ServiceCard[] = [
     cta: "View Project",
     link: "/projects/eco-friendly-townhouse",
   },
+  {
+    title: "Coastal Retreat Escape",
+    desc: "Breezy retreat with layered decks, soft light, and ocean-calming interiors.",
+    bg: asset("images/l6.jpg"),
+    thumb: asset("images/l6.jpg"),
+    cta: "View Project",
+    link: "/projects/coastal-retreat-escape",
+  },
+  {
+    title: "Hillside Garden Home",
+    desc: "Terraced living with lush courtyards, warm timber, and sweeping views.",
+    bg: asset("images/l8.jpg"),
+    thumb: asset("images/l8.jpg"),
+    cta: "View Project",
+    link: "/projects/hillside-garden-home",
+  },
+  {
+    title: "Modern Courtyard Residence",
+    desc: "Minimal lines, sculpted light, and a tranquil courtyard at the heart.",
+    bg: asset("images/l11.jpg"),
+    thumb: asset("images/l11.jpg"),
+    cta: "View Project",
+    link: "/projects/modern-courtyard-residence",
+  },
 ];
 
 const ProjectsSlider: React.FC = () => {

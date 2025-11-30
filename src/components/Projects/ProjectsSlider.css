@@ -126,14 +126,13 @@
   z-index: 10;
 }
 
-/* Background image */
 .pr-project-card__bg {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: brightness(0.5) saturate(75%);
+  filter: brightness(0.8) saturate(75%);
   transition: filter 0.3s, transform var(--speed);
 }
 
@@ -143,7 +142,7 @@
 }
 
 .pr-project-card[data-active="true"] .pr-project-card__bg {
-  filter: brightness(0.4) saturate(80%);
+  filter: brightness(0.9) saturate(80%);
 }
 
 /* Content overlay */
@@ -156,7 +155,7 @@
   align-items: center;
   gap: 0.7rem;
   padding: 0;
-  background: rgba(0, 0, 0, 0.35);
+  background: rgba(240, 228, 228, 0.02);
   z-index: 2;
 }
 
@@ -191,7 +190,7 @@
   gap: 1.5rem;
   text-align: center;
   transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.1);
 }
 
 .pr-project-card[data-active="true"] .pr-project-card__content > div {

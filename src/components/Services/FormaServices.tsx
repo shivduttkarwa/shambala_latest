@@ -17,42 +17,42 @@ type ServiceSlide = {
   image: string;
 };
 
+const imageBase = (import.meta.env.BASE_URL || "/").endsWith("/")
+  ? import.meta.env.BASE_URL || "/"
+  : `${import.meta.env.BASE_URL}/`;
+
 const serviceSlides: ServiceSlide[] = [
   {
     title: "Build a new house",
     metaType: "RESIDENTIAL",
     metaScope: "NEW BUILD",
     description:
-      "From blank site to front door keys, we handle every detail of your new build – planning, structure and finishes – to create a home that feels tailored, calm and effortless from day one.",
-    image:
-      "https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=1920&q=80",
+      "From blank site to front door keys, we handle planning, structure and finishes so your home feels tailored, calm and effortless from day one. We coordinate engineering, council approvals, and trades so you can focus on the vision, not the paperwork. Daylighting, thermal comfort, durable finishes and smart storage are mapped from the start, keeping everything cohesive now and intuitive years from now.",
+    image: `${imageBase}images/1.jpg`,
   },
   {
     title: "Upgrade your house",
     metaType: "RESIDENTIAL",
     metaScope: "RENOVATION & ADDITIONS",
     description:
-      "Open up dark rooms, add light, storage and flow. We rework layouts, extensions and finishes so your home feels fresh, functional and genuinely modern without losing its character.",
-    image:
-      "https://images.unsplash.com/photo-1484154218962-a197022b5858?w=1920&q=80",
+      "Open up dark rooms, add light, storage and flow. We rework layouts, extensions and finishes so your home feels fresh and modern without losing its character. Structural changes, joinery, and phased construction are choreographed so circulation feels intuitive, materials last, and every update respects the original soul of the home.",
+    image: `${imageBase}images/5.jpg`,
   },
   {
     title: "Build a commercial place",
     metaType: "COMMERCIAL",
     metaScope: "WORKPLACE & RETAIL",
     description:
-      "Studios, showrooms and boutique offices designed to feel refined, practical and on-brand – spaces your clients remember and your team genuinely enjoys working in.",
-    image:
-      "https://images.unsplash.com/photo-1529429617124-aee0a6f2b1c7?w=1920&q=80",
+      "Studios, showrooms and boutique offices designed to feel refined, practical and on-brand – spaces your clients remember and your team enjoys. We align spatial strategy with brand storytelling, integrating lighting, acoustics, wayfinding and custom millwork so circulation, technology, and finishes all support the work and the experience.",
+    image: `${imageBase}images/10.jpg`,
   },
   {
     title: "Downsize your place",
     metaType: "LIFESTYLE",
     metaScope: "SMART DOWNSIZING",
     description:
-      "Thoughtful layouts, warm materiality and clever storage so you can live with less, not compromise more – homes that are easier to maintain and a pleasure to live in.",
-    image:
-      "https://images.unsplash.com/photo-1470246973918-29a93221c455?w=1920&q=80",
+      "Thoughtful layouts, warm materiality and clever storage so you can live with less, not compromise more. We prioritize adaptability, daylight, and tactile finishes so compact spaces feel serene and organized. Multipurpose furniture and discreet storage keep rooms open, calm, and connected while you simplify.",
+    image: `${imageBase}images/11.jpg`,
   },
 ];
 

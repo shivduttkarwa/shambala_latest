@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import gsap from "gsap";
 import OverLayMenu from "./OverLayMenu";
 import { SiteSettings } from "../../services/api";
+import HomeLogo from "../UI/HomeLogo";
 
 interface HeaderProps {
   settings: SiteSettings | null;
@@ -14,9 +15,6 @@ const Header: React.FC<HeaderProps> = ({ settings }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const publicUrl = import.meta.env.BASE_URL || "/";
-  const logoSrc = publicUrl.endsWith("/") 
-    ? `${publicUrl}images/forma_logo.png`
-    : `${publicUrl}/images/forma_logo.png`;
   
   useEffect(() => {
     let lastScrollY = window.scrollY;
@@ -132,16 +130,13 @@ const Header: React.FC<HeaderProps> = ({ settings }) => {
             alignItems: 'center'
           }}
         >
-          <img 
-            src={logoSrc}
-            alt="FORMA"
+          <HomeLogo
             className="header-logo"
             style={{
-              height: '80px',
-              width: 'auto',
-              filter: 'brightness(0) invert(1)',
-              transform: 'scale(2)',
-              transformOrigin: 'left center'
+              height: "80px",
+              width: "auto",
+              transform: "scale(2)",
+              transformOrigin: "left center",
             }}
           />
         </div>

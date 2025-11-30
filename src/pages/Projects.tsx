@@ -8,11 +8,15 @@ import ProjectsShowcase from "../components/Projects/ProjectsShowcase";
 import GridGallery from "@/components/Reusable/GridGallery";
 import StepSlider from "@/components/Reusable/StepSlider";
 import AnimatedGallerySlider from "../components/Home/AnimatedGallerySlider";
-import PortfolioShowcase, { ShowcaseProject } from "../components/Home/PortfolioShowcase";
+import PortfolioShowcase, {
+  ShowcaseProject,
+} from "../components/Home/PortfolioShowcase";
 
 const publicUrl = import.meta.env.BASE_URL || "/";
 const getImage = (name: string) =>
-  publicUrl.endsWith("/") ? `${publicUrl}images/${name}` : `${publicUrl}/images/${name}`;
+  publicUrl.endsWith("/")
+    ? `${publicUrl}images/${name}`
+    : `${publicUrl}/images/${name}`;
 
 const projectSlides: ShowcaseProject[] = [
   {

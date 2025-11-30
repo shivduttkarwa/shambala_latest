@@ -4,6 +4,7 @@ import "./Footer.css";
 import { SiteSettings } from "../../services/api";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import HomeLogo from "../UI/HomeLogo";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -99,9 +100,8 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
               paddingTop: "80px",
             }}
           >
-            <img
-              src={`${import.meta.env.BASE_URL}images/forma_logo.png`}
-              alt="FORMA"
+            <HomeLogo
+              ariaLabel="FORMA"
               onClick={() => {
                 navigate("/");
                 window.scrollTo({ top: 0, behavior: "smooth" });

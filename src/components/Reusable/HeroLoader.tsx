@@ -60,14 +60,16 @@ const HeroLoader: React.FC<HeroLoaderProps> = ({ onComplete }) => {
       });
     };
 
-    tl.to(curtain, { yPercent: 0, duration: 1.4, ease: "power2.inOut" })
-      .add(() => {
+    tl.to(curtain, { yPercent: 0, duration: 1.4, ease: "power2.inOut" }).add(
+      () => {
         gsap.to(text1.querySelectorAll("span"), {
           opacity: 1,
           stagger: 0.05,
           duration: 0.2,
         });
-      }, "-=0.6");
+      },
+      "-=0.6"
+    );
 
     // split text into spans
     const split = (el: HTMLElement) => {

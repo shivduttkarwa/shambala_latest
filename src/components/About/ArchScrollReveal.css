@@ -2,7 +2,13 @@
 .arch-scroll-section {
   color: #121212;
   font-family: "Nunito", sans-serif;
-  background: linear-gradient(180deg, #f4eade 0%, #efe3d3 25%, #f6eddf 55%, #ebdfce 100%);
+  background: linear-gradient(
+    180deg,
+    #f4e9de 0%,
+    #e99e3d 25%,
+    #fddf 55%,
+    #aaafce 100%
+  );
 }
 
 .arch-journey-heading {
