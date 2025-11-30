@@ -116,6 +116,24 @@
   margin-bottom: 12px;
   font-family: "Nunito", sans-serif;
   display: block;
+  /* Prevent layout shift during hover animation */
+  width: 100%;
+  height: auto;
+  min-height: 1.2em;
+}
+
+/* Prevent HoverText component from causing layout shifts */
+.home-page-projects-description > * {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 1.2em;
+  transition: font-weight 0.3s ease;
+  letter-spacing: 0.01em;
+}
+
+.home-page-projects-description > *:hover {
+  transform: scale(1.001);
 }
 
 /* Old home-page-projects-cta styles removed - now using GlassButton */

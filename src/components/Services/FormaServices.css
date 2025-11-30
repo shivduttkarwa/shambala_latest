@@ -102,6 +102,25 @@
   line-height: 1.7;
   max-width: 34rem;
   font-family: "Nunito", sans-serif;
+  /* Prevent layout shift during hover animation */
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 1.2em;
+}
+
+/* Prevent HoverText component from causing layout shifts */
+.forma-services .fs-description > * {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 1.2em;
+  transition: font-weight 0.3s ease;
+  letter-spacing: 0.01em;
+}
+
+.forma-services .fs-description > *:hover {
+  transform: scale(1.001);
 }
 
 @media (min-width: 1440px) {

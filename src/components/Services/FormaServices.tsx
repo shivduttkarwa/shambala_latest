@@ -1,5 +1,5 @@
 // FormaServices.tsx
-import React, { FC, useLayoutEffect, useRef } from "react";
+import { FC, useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./FormaServices.css";
@@ -14,6 +14,7 @@ type ServiceSlide = {
   metaType: string;
   metaScope: string;
   description: string;
+  shortDescription: string;
   image: string;
 };
 
@@ -28,6 +29,8 @@ const serviceSlides: ServiceSlide[] = [
     metaScope: "NEW BUILD",
     description:
       "From blank site to front door keys, we handle planning, structure and finishes so your home feels tailored, calm and effortless from day one. We coordinate engineering, council approvals, and trades so you can focus on the vision, not the paperwork. Daylighting, thermal comfort, durable finishes and smart storage are mapped from the start, keeping everything cohesive now and intuitive years from now.",
+    shortDescription:
+      "From blank site to front door keys, we handle planning, structure and finishes so your home feels tailored, calm and effortless from day one.",
     image: `${imageBase}images/1.jpg`,
   },
   {
@@ -36,6 +39,8 @@ const serviceSlides: ServiceSlide[] = [
     metaScope: "RENOVATION & ADDITIONS",
     description:
       "Open up dark rooms, add light, storage and flow. We rework layouts, extensions and finishes so your home feels fresh and modern without losing its character. Structural changes, joinery, and phased construction are choreographed so circulation feels intuitive, materials last, and every update respects the original soul of the home.",
+    shortDescription:
+      "Open up dark rooms, add light, storage and flow. We rework layouts, extensions and finishes so your home feels fresh and modern.",
     image: `${imageBase}images/5.jpg`,
   },
   {
@@ -44,6 +49,8 @@ const serviceSlides: ServiceSlide[] = [
     metaScope: "WORKPLACE & RETAIL",
     description:
       "Studios, showrooms and boutique offices designed to feel refined, practical and on-brand – spaces your clients remember and your team enjoys. We align spatial strategy with brand storytelling, integrating lighting, acoustics, wayfinding and custom millwork so circulation, technology, and finishes all support the work and the experience.",
+    shortDescription:
+      "Studios, showrooms and boutique offices designed to feel refined, practical and on-brand – spaces your clients remember and your team enjoys.",
     image: `${imageBase}images/10.jpg`,
   },
   {
@@ -52,6 +59,8 @@ const serviceSlides: ServiceSlide[] = [
     metaScope: "SMART DOWNSIZING",
     description:
       "Thoughtful layouts, warm materiality and clever storage so you can live with less, not compromise more. We prioritize adaptability, daylight, and tactile finishes so compact spaces feel serene and organized. Multipurpose furniture and discreet storage keep rooms open, calm, and connected while you simplify.",
+    shortDescription:
+      "Thoughtful layouts, warm materiality and clever storage so you can live with less, not compromise more.",
     image: `${imageBase}images/11.jpg`,
   },
 ];
@@ -122,7 +131,7 @@ export const FormaServices: FC = () => {
         fsTitle.textContent = slide.title;
         fsMetaType.textContent = slide.metaType;
         fsMetaScope.textContent = slide.metaScope;
-        fsDesc.textContent = slide.description;
+        fsDesc.textContent = window.innerWidth >= 1600 ? slide.description : slide.shortDescription;
 
         const idxText = pad2(index + 1);
         fsCounterCurrent.textContent = idxText;
@@ -203,7 +212,7 @@ export const FormaServices: FC = () => {
           // 0 → shrinkEnd: full-bleed shrinks
           // shrinkEnd → slidesStart: half-width, slide 1 stays, no transitions
           // slidesStart → 1: slide transitions
-          const shrinkEnd = 0.2;
+          const shrinkEnd = 0.1;
           const slidesStart = 0.3;
           const transitionsCount = serviceSlides.length - 1;
 
@@ -213,7 +222,7 @@ export const FormaServices: FC = () => {
           ScrollTrigger.create({
             trigger: fsSection,
             start: "top top",
-            end: "+=600%",
+            end: "+=500%",
             scrub: true,
             pin: fsInner,
             snap: {
@@ -517,7 +526,10 @@ export const FormaServices: FC = () => {
                   radius={100}
                   falloff="gaussian"
                 >
-                  {`${first.description} Every brief becomes a bespoke journey—more light, better flow, layered textures, and tailored joinery that quietly elevates daily life.`}
+                  {window.innerWidth >= 1600 
+                    ? `${first.description} Every brief becomes a bespoke journey—more light, better flow, layered textures, and tailored joinery that quietly elevates daily life.`
+                    : `${first.shortDescription} Every brief becomes a bespoke journey.`
+                  }
                 </HoverText>
               </div>
 

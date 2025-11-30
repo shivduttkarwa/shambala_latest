@@ -9,14 +9,14 @@ interface HeroLoaderProps {
 /** All timing controls in ONE place — tweak these */
 const TIMING = {
   curtainDuration: 1.8, // how long curtain takes to come up
-  gapCurtainToText1: 0.6, // wait after curtain finishes before text1 starts
-  textInDuration: 1.4, // how long each text takes to come IN
-  holdText1BeforeOut: 0.6, // pause after text1 in before it goes up
+  gapCurtainToText1: 0.1, // wait after curtain finishes before text1 starts
+  textInDuration: 1.1, // how long each text takes to come IN
+  holdText1BeforeOut: 0.3, // pause after text1 in before it goes up
   textOutDuration: 1.1, // how long each text takes to go OUT
-  gapText1OutToText2In: 0.5, // wait after text1 out before text2 starts
+  gapText1OutToText2In: 0, // wait after text1 out before text2 starts
   holdText2BeforeOut: 0.7, // pause after text2 in before it goes up
-  gapText2OutToComplete: 0.6, // wait after text2 out before loader completes
-  stagger: 0.06, // time between each letter in the wave
+  gapText2OutToComplete: 0.2, // wait after text2 out before loader completes
+  stagger: 0.03, // time between each letter in the wave
 };
 
 const HeroLoader: React.FC<HeroLoaderProps> = ({ onComplete }) => {
@@ -167,10 +167,10 @@ const HeroLoader: React.FC<HeroLoaderProps> = ({ onComplete }) => {
       <div className="hero-loader-text-container">
         <div className="hero-loader-backdrop" />
         <h1 ref={text1Ref} className="hero-loader-text hero-loader-text-1">
-          inspire
+          Inspire
         </h1>
         <h1 ref={text2Ref} className="hero-loader-text hero-loader-text-2">
-          a true living
+        A True Living
         </h1>
       </div>
     </div>

@@ -41,47 +41,12 @@ const EssenceSection: React.FC<EssenceSectionProps> = ({
   },
   videoUrl = `${publicUrl}images/hero1.mp4`,
 }) => {
+  const shortDescription = "We envision spaces that are not just lived in, but felt — where every element has been curated to inspire connection, serenity, and belonging. Our approach transcends traditional architecture, creating environments that nurture the soul and elevate everyday moments into extraordinary experiences of comfort and beauty.";
   const sectionRef = useRef<HTMLDivElement>(null);
   const taglineRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
   const imageOverlayRef = useRef<HTMLDivElement>(null);
-
-  // Split text into characters for tagline
-  const _splitTextIntoChars = (text: string) => {
-    return text.split("").map((char, index) => (
-      <span key={index} className="char">
-        {char}
-      </span>
-    ));
-  };
-
-  // Split text into lines with mask
-  const splitTextIntoLines = (text: string) => {
-    const words = text.split(" ");
-    const lines: string[] = [];
-    let currentLine = "";
-
-    words.forEach((word) => {
-      const testLine = currentLine + (currentLine ? " " : "") + word;
-      if (testLine.length > 30 && currentLine.length > 0) {
-        lines.push(currentLine);
-        currentLine = word;
-      } else {
-        currentLine = testLine;
-      }
-    });
-
-    if (currentLine) {
-      lines.push(currentLine);
-    }
-
-    return lines.map((line, index) => (
-      <div key={index} className="mask">
-        <div className="line">{line}</div>
-      </div>
-    ));
-  };
 
   useEffect(() => {
     if (!sectionRef.current) return;
@@ -213,7 +178,7 @@ const EssenceSection: React.FC<EssenceSectionProps> = ({
                 radius={100}
                 falloff="gaussian"
               >
-                {description}
+                {typeof window !== 'undefined' && window.innerWidth < 1600 ? shortDescription : description}
               </HoverText>
             </div>
 

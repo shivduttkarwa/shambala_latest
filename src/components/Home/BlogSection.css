@@ -151,6 +151,25 @@
   margin-bottom: 2.5rem;
   margin-top: 30px;
   max-width: 500px;
+  /* Prevent layout shift during hover animation */
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 1.2em;
+}
+
+/* Prevent HoverText component from causing layout shifts */
+.blog-featured-description > * {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 1.2em;
+  transition: font-weight 0.3s ease;
+  letter-spacing: 0.01em;
+}
+
+.blog-featured-description > *:hover {
+  transform: scale(1.001);
 }
 
 .blog-featured-cta {
@@ -244,6 +263,25 @@
   line-height: 1.7;
   color: rgba(0, 0, 0, 0.7);
   margin-bottom: 2rem;
+  /* Prevent layout shift during hover animation */
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 1.2em;
+}
+
+/* Prevent HoverText component from causing layout shifts */
+.blog-post-description > * {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 1.2em;
+  transition: font-weight 0.3s ease;
+  letter-spacing: 0.01em;
+}
+
+.blog-post-description > *:hover {
+  transform: scale(1.001);
 }
 
 .blog-read-more-btn {

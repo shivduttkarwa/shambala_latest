@@ -81,6 +81,7 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
   ctaLink = "/projects",
   services = defaultServices,
 }) => {
+  const shortDescription = "A curated look at how we shape coastal retreats, urban sanctuaries, and country escapes—each crafted with calm, warmth, and precision. From the first sketch to final styling, our teams steward every detail so the architecture, interiors, and landscape speak the same language.";
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -88,7 +89,7 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
 
     const ctx = gsap.context(() => {
       // Get all cards
-      const cards = gsap.utils.toArray(".service-card");
+      const cards = gsap.utils.toArray(".hss-service-card");
 
       // Animate each card on scroll with stagger
       cards.forEach((card, index) => {
@@ -138,11 +139,11 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
         }
       });
 
-      // Fade in content elements on desktop only
+        // Fade in content elements on desktop only
       if (window.innerWidth > 1024) {
-        gsap.from(".services-description", {
+        gsap.from(".hss-services-description", {
           scrollTrigger: {
-            trigger: ".services-content",
+            trigger: ".hss-services-content",
             start: "top 70%",
           },
           opacity: 0,
@@ -153,14 +154,14 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
         });
 
         // Button animation - simple fade in
-        gsap.from(".services-content .home-benefits-cta", {
+        gsap.from(".hss-services-content .home-benefits-cta", {
           opacity: 0,
           y: 15,
           duration: 0.6,
           delay: 0.6,
           ease: "linear",
           scrollTrigger: {
-            trigger: ".services-content",
+            trigger: ".hss-services-content",
             start: "top 70%",
             toggleActions: "play none none none",
           },
@@ -172,26 +173,26 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
   }, []);
 
   return (
-    <section className="services-section" ref={sectionRef}>
-      <div className="services-container">
-        <div className="services-layout">
+    <section className="hss-services-section" ref={sectionRef}>
+      <div className="hss-services-container">
+        <div className="hss-services-layout">
           {/* Left side - Service Cards */}
-          <div className="services-cards">
+          <div className="hss-services-cards">
             {services.map((service) => (
               <div
                 key={service.id}
-                className="service-card"
+                className="hss-service-card"
                 data-card={service.id}
               >
                 <img
                   src={service.imageSrc}
                   alt={service.alt}
-                  className="service-card-image"
+                  className="hss-service-card-image"
                 />
-                <div className="service-overlay">
+                <div className="hss-service-overlay">
                   <div>
                     <HoverText
-                      className="service-title"
+                      className="hss-service-title"
                       fromSettings="'wght' 400"
                       toSettings="'wght' 700"
                       radius={80}
@@ -200,7 +201,7 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
                       {service.title}
                     </HoverText>
                     <HoverText
-                      className="service-description"
+                      className="hss-service-description"
                       fromSettings="'wght' 400"
                       toSettings="'wght' 700"
                       radius={80}
@@ -218,18 +219,18 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
           </div>
 
           {/* Right side - Sticky Content */}
-          <div className="services-content">
+          <div className="hss-services-content">
             <TiltTextGsap startTrigger="top 70%" endTrigger="bottom -1000%">
               {`${title} ${subtitle}`}
             </TiltTextGsap>
-            <div className="services-description">
+            <div className="hss-services-description">
               <HoverText
                 fromSettings="'wght' 400"
                 toSettings="'wght' 700"
                 radius={100}
                 falloff="gaussian"
               >
-                {description}
+                {typeof window !== 'undefined' && window.innerWidth < 1600 ? shortDescription : description}
               </HoverText>
             </div>
             <GlassButton href={ctaLink}>{ctaText}</GlassButton>

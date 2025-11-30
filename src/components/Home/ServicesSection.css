@@ -1,18 +1,18 @@
-/* Services Section Styles */
-.services-section {
+/* HSS Services Section Styles */
+.hss-services-section {
   background: #fafafa;
   color: #2c3e50;
   line-height: 1.6;
 }
 
-.services-container {
+.hss-services-container {
   max-width: 1400px;
   margin: 0 auto;
   padding: 100px 40px;
   overflow-x: clip;
 }
 
-.services-layout {
+.hss-services-layout {
   display: grid;
   grid-template-columns: 60% 40%;
   gap: 60px;
@@ -20,14 +20,14 @@
 }
 
 /* Left side - Cards in Masonry Layout */
-.services-cards {
+.hss-services-cards {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px; /* Reduced gap */
   grid-auto-rows: 10px;
 }
 
-.service-card {
+.hss-service-card {
   position: relative;
   border-radius: 0;
   overflow: hidden;
@@ -39,42 +39,42 @@
 }
 
 /* Staggered masonry layout */
-.service-card:nth-child(1) {
+.hss-service-card:nth-child(1) {
   grid-row: 6 / span 22;
   grid-column: 1;
 }
 
-.service-card:nth-child(2) {
+.hss-service-card:nth-child(2) {
   grid-row: 1 / span 22;
   grid-column: 2;
 }
 
-.service-card:nth-child(3) {
+.hss-service-card:nth-child(3) {
   grid-row: 28 / span 22;
   grid-column: 1;
 }
 
-.service-card:nth-child(4) {
+.hss-service-card:nth-child(4) {
   grid-row: 23 / span 22;
   grid-column: 2;
 }
 
-.service-card:nth-child(5) {
+.hss-service-card:nth-child(5) {
   grid-row: 50 / span 22;
   grid-column: 1;
 }
 
-.service-card:nth-child(6) {
+.hss-service-card:nth-child(6) {
   grid-row: 45 / span 22;
   grid-column: 2;
 }
 
-.service-card:hover {
+.hss-service-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
 }
 
-.service-card-image {
+.hss-service-card-image {
   width: 100%;
   height: 60%;
   object-fit: cover;
@@ -82,11 +82,11 @@
   transition: transform 0.5s ease;
 }
 
-.service-card:hover .service-card-image {
+.hss-service-card:hover .hss-service-card-image {
   transform: scale(1.05);
 }
 
-.service-overlay {
+.hss-service-overlay {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -99,7 +99,7 @@
   justify-content: space-between;
 }
 
-.service-title {
+.hss-service-title {
   color: #1a1a1a;
   font-size: 25px;
   font-weight: 600;
@@ -109,19 +109,37 @@
   display: inline-block;
 }
 
-.service-description {
+.hss-service-description {
   color: #666;
   font-size: 18px;
   line-height: 1.5;
   margin-bottom: 12px;
   font-family: "Nunito", sans-serif;
   display: block;
+  /* Prevent layout shift during hover animation */
+  width: 100%;
+  height: auto;
+  min-height: 1.2em;
+}
+
+/* Prevent HoverText component from causing layout shifts */
+.hss-service-description > * {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 1.2em;
+  transition: font-weight 0.3s ease;
+  letter-spacing: 0.01em;
+}
+
+.hss-service-description > *:hover {
+  transform: scale(1.001);
 }
 
 /* Old service-cta styles removed - now using GlassButton */
 
 /* Right side - Sticky Content */
-.services-content {
+.hss-services-content {
   position: sticky;
   top: calc(30vh - 100px);
   padding: 40px;
@@ -132,14 +150,14 @@
   align-self: start; /* Ensures it sticks properly within the grid container */
 }
 
-.title-decorator {
+.hss-title-decorator {
   width: 60px;
   height: 2px;
   background: #1a1a1a;
   margin-bottom: 24px;
 }
 
-.services-title {
+.hss-services-title {
   font-family: "Dream Avenue", cursive !important;
   text-transform: uppercase !important;
   letter-spacing: 0.04em !important;
@@ -151,21 +169,40 @@
   margin: 0;
 }
 
-.services-description {
+.hss-services-description {
   font-size: 18px;
   color: #666;
-  margin-bottom: 40px;
+  margin-bottom: 60px;
   line-height: 1.8;
   font-family: "Nunito", sans-serif;
+  /* Prevent layout shift during hover animation */
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 1.2em;
 }
 
-/* Glass Button Customization for Services Section */
-.services-content .home-benefits-cta {
+/* Prevent HoverText component from causing layout shifts */
+.hss-services-description > * {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 1.2em;
+  transition: font-weight 0.3s ease;
+  letter-spacing: 0.01em;
+}
+
+.hss-services-description > *:hover {
+  transform: scale(1.001);
+}
+
+/* Glass Button Customization for HSS Services Section */
+.hss-services-content .home-benefits-cta {
   height: 70px !important;
   min-height: 70px !important;
   width: 220px !important;
   max-width: 220px !important;
-  padding: 20px 20px !important;
+  padding: 12px 20px !important;
   justify-content: center !important;
   align-items: center !important;
   margin: 0 auto !important;
@@ -178,14 +215,16 @@
   border-top: 1px solid rgba(20, 20, 20, 0.12) !important;
   border-bottom: 1px solid rgba(20, 20, 20, 0.12) !important;
   box-sizing: border-box !important;
+  font-size: 0.75rem !important;
+  letter-spacing: 0.14em !important;
 }
 
-.services-content .home-benefits-cta .home-benefits-cta-label {
+.hss-services-content .home-benefits-cta .home-benefits-cta-label {
   display: inline-flex !important;
   align-items: center !important;
 }
 
-.services-content .home-benefits-cta .home-benefits-cta-icon {
+.hss-services-content .home-benefits-cta .home-benefits-cta-icon {
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -197,8 +236,8 @@
   flex-shrink: 0 !important;
 }
 
-/* Glass Button Styling for Service Cards */
-.service-overlay .home-benefits-cta {
+/* Glass Button Styling for HSS Service Cards */
+.hss-service-overlay .home-benefits-cta {
   height: auto !important;
   min-height: auto !important;
   width: auto !important;
@@ -212,7 +251,7 @@
   gap: 0.5rem !important;
 }
 
-.service-overlay .home-benefits-cta .home-benefits-cta-icon {
+.hss-service-overlay .home-benefits-cta .home-benefits-cta-icon {
   width: 1.5rem !important;
   height: 1.5rem !important;
   min-width: 1.5rem !important;
@@ -221,13 +260,13 @@
 }
 
 /* Text animation masks */
-.services-title .mask {
+.hss-services-title .mask {
   overflow: hidden;
   display: inline-block;
   width: 100%;
 }
 
-.services-title .line {
+.hss-services-title .line {
   display: inline-block;
 }
 
@@ -258,38 +297,38 @@
 
 /* Responsive Design */
 @media (max-width: 1024px) {
-  .services-layout {
+  .hss-services-layout {
     grid-template-columns: 1fr;
     gap: 60px;
   }
 
-  .services-cards {
+  .hss-services-cards {
     gap: 12px;
   }
 
-  .services-content {
+  .hss-services-content {
     position: relative;
     top: 0;
     order: -1;
   }
 
-  .services-title {
+  .hss-services-title {
     font-size: clamp(2.5rem, 7vw, 3.4rem);
     line-height: 1.15;
   }
 }
 
 @media (max-width: 768px) {
-  .services-container {
+  .hss-services-container {
     padding: 60px 15px;
   }
 
-  .services-cards {
+  .hss-services-cards {
     display: block; /* Switch from grid to block for mobile */
     gap: 0;
   }
 
-  .service-card {
+  .hss-service-card {
     margin-bottom: 20px;
     position: relative;
     grid-row: auto;
@@ -297,92 +336,92 @@
     height: 500px; /* Fixed height for consistency */
   }
 
-  .service-card:nth-child(1),
-  .service-card:nth-child(2),
-  .service-card:nth-child(3),
-  .service-card:nth-child(4),
-  .service-card:nth-child(5),
-  .service-card:nth-child(6) {
+  .hss-service-card:nth-child(1),
+  .hss-service-card:nth-child(2),
+  .hss-service-card:nth-child(3),
+  .hss-service-card:nth-child(4),
+  .hss-service-card:nth-child(5),
+  .hss-service-card:nth-child(6) {
     grid-row: auto;
     grid-column: auto;
   }
 
-  .service-card-image {
+  .hss-service-card-image {
     height: 55%; /* Reduce image height to give more space for content */
   }
 
-  .service-overlay {
+  .hss-service-overlay {
     height: 45%; /* Increase overlay height for content */
     padding: 15px;
   }
 
-  .service-title {
+  .hss-service-title {
     font-size: 18px;
     margin-bottom: 6px;
   }
 
-  .service-description {
+  .hss-service-description {
     font-size: 12px;
     line-height: 1.4;
     margin-bottom: 10px;
   }
 
-  .services-title {
+  .hss-services-title {
     font-size: clamp(2.5rem, 8vw, 3.5rem);
     line-height: 1.15;
   }
 
-  .services-description {
+  .hss-services-description {
     font-size: 18px;
   }
 
-  .services-content {
+  .hss-services-content {
     padding: 30px 0;
   }
 }
 
 @media (max-width: 480px) {
-  .services-container {
+  .hss-services-container {
     padding: 40px 15px;
   }
 
-  .services-cards {
+  .hss-services-cards {
     margin: 0 -5px; /* Negative margin to allow cards to be slightly wider */
   }
 
-  .service-card {
+  .hss-service-card {
     margin: 0 5px 15px 5px; /* Adjust margins */
     height: 460px; /* Increased height for better content visibility */
   }
 
-  .service-title {
+  .hss-service-title {
     font-size: 20px;
   }
 
-  .service-description {
+  .hss-service-description {
     font-size: 15px;
   }
 
-  .services-title {
+  .hss-services-title {
     font-size: clamp(2.5rem, 8vw, 3.5rem);
     line-height: 1.15;
     margin-bottom: 20px;
   }
 
-  .services-content .tilt-text-heading {
+  .hss-services-content .tilt-text-heading {
     margin-bottom: 20px !important;
   }
 
-  .services-description {
+  .hss-services-description {
     font-size: 18px;
     line-height: 1.6;
   }
 
-  .services-content {
+  .hss-services-content {
     padding: 20px 0;
   }
 
-  .title-decorator {
+  .hss-title-decorator {
     width: 40px;
     margin-bottom: 16px;
   }

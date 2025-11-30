@@ -79,6 +79,27 @@
   max-width: 100%;
   font-weight: 400;
   opacity: 0.95;
+  /* Prevent layout shift during hover animation */
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 1.2em; /* Prevent collapse */
+}
+
+/* Prevent HoverText component from causing layout shifts */
+.essence-description > * {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 1.2em;
+  transition: font-weight 0.3s ease;
+  /* Reserve space for font weight changes */
+  letter-spacing: 0.01em;
+}
+
+/* Ensure the text container maintains consistent dimensions */
+.essence-description > *:hover {
+  transform: scale(1.001); /* Minimal scale to prevent jump */
 }
 
 .essence-description .mask {

@@ -201,6 +201,7 @@ body.menu-open {
   position: relative;
   padding: 2.3rem 0;
   border-bottom: 1px solid rgba(229, 227, 220, 0.1);
+  display: inline-block;
 }
 
 .olm-modern-menu-item:last-child {
@@ -212,11 +213,10 @@ body.menu-open {
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
   height: 2px;
   background: rgba(229, 227, 220, 0.1);
   overflow: hidden;
-  width: 750px;
+  width: 100%;
 }
 
 .olm-menu-line::before {
