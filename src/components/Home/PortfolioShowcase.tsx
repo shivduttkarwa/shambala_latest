@@ -15,7 +15,22 @@ const getImagePath = (imageName: string) => {
     : `${publicUrl}/images/${imageName}`;
 };
 
-const projects = [
+export interface ShowcaseProject {
+  title: string;
+  bg: string;
+  thumb: string;
+  tags: string[];
+  link?: string;
+}
+
+interface PortfolioShowcaseProps {
+  projects?: ShowcaseProject[];
+  heading?: string;
+  ctaText?: string;
+  ctaHref?: string;
+}
+
+const defaultProjects: ShowcaseProject[] = [
   {
     title: "Modern Zen Retreat",
     bg: getImagePath("prs1.jpg"),
@@ -48,7 +63,12 @@ const projects = [
   },
 ];
 
-const PortfolioShowcase: React.FC = () => {
+const PortfolioShowcase: React.FC<PortfolioShowcaseProps> = ({
+  projects = defaultProjects,
+  heading = "OUR LATEST PROJECTS",
+  ctaText = "See More Projects",
+  ctaHref = "#",
+}) => {
   const sectionRef = useRef<HTMLElement | null>(null);
   const titleRef = useRef<HTMLHeadingElement | null>(null);
 
@@ -174,14 +194,14 @@ const PortfolioShowcase: React.FC = () => {
             startTrigger="top 70%"
             endTrigger="bottom -10%"
           >
-            OUR LATEST PROJECTS
+            {heading}
           </TiltTextGsap>
         </div>
       </div>
 
       <div className="projects-wrapper">
         {projects.map((project) => (
-          <a href="#" className="project" key={project.title}>
+          <a href={project.link || "#"} className="project" key={project.title}>
             <figure>
               <img
                 src={project.bg}
@@ -216,7 +236,7 @@ const PortfolioShowcase: React.FC = () => {
       </div>
 
       <div className="cta-wrapper">
-        <GlassButton href="#">See More Projects</GlassButton>
+        <GlassButton href={ctaHref}>{ctaText}</GlassButton>
       </div>
     </section>
   );

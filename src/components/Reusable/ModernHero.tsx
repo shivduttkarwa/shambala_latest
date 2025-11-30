@@ -17,8 +17,6 @@ const ModernHero: React.FC<ModernHeroProps> = ({ animate = true }) => {
   const curtainRef = useRef<HTMLDivElement>(null);
   const heroVideoRef = useRef<HTMLDivElement>(null);
   const videoElRef = useRef<HTMLVideoElement>(null);
-  const text1Ref = useRef<HTMLHeadingElement>(null);
-  const text2Ref = useRef<HTMLHeadingElement>(null);
   const scatterWordRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLDivElement>(null);
   const subtitleDynamicRef = useRef<HTMLSpanElement>(null);
@@ -32,8 +30,6 @@ const ModernHero: React.FC<ModernHeroProps> = ({ animate = true }) => {
     const curtain = curtainRef.current;
     const heroVideo = heroVideoRef.current;
     const videoEl = videoElRef.current;
-    const text1El = text1Ref.current;
-    const text2El = text2Ref.current;
     const scatterWordEl = scatterWordRef.current;
     const subtitleEl = subtitleRef.current;
     const subtitleDynamicEl = subtitleDynamicRef.current;
@@ -45,8 +41,6 @@ const ModernHero: React.FC<ModernHeroProps> = ({ animate = true }) => {
       !curtain ||
       !heroVideo ||
       !videoEl ||
-      !text1El ||
-      !text2El ||
       !scatterWordEl ||
       !subtitleEl ||
       !subtitleDynamicEl ||
@@ -78,12 +72,8 @@ const ModernHero: React.FC<ModernHeroProps> = ({ animate = true }) => {
       return spans;
     }
 
-    const TEXT1 = "INSPIRE";
-    const TEXT2 = "A TRUE LIVING";
     const SCATTER_TEXT = "CREATE";
 
-    const text1Spans = createCharSpans(text1El, TEXT1, "mh-text1-letter");
-    const text2Spans = createCharSpans(text2El, TEXT2, "mh-text2-letter");
     const scatterSpans = createCharSpans(
       scatterWordEl,
       SCATTER_TEXT,
@@ -312,7 +302,6 @@ const ModernHero: React.FC<ModernHeroProps> = ({ animate = true }) => {
       minDistance
     );
 
-    gsap.set([text1El, text2El], { opacity: 0 });
     gsap.set(scatterSpans, { x: 0, y: 0, opacity: 0, scale: 1 });
 
     videoEl.pause();
@@ -324,87 +313,31 @@ const ModernHero: React.FC<ModernHeroProps> = ({ animate = true }) => {
       y: positions.newsTargetY,
     });
 
-    const TEXT1_ENTRANCE_DURATION = 0.8;
-    const TEXT1_EXIT_DURATION = 0.8;
-    const TEXT2_ENTRANCE_DURATION = 0.8;
-    const TEXT2_EXIT_DURATION = 0.8;
-    const VIDEO_EXPAND_DURATION = 1.5;
+    const VIDEO_EXPAND_DURATION = 1.8;
     const SCATTER_FADE_DURATION = 0.4;
     const SCATTER_ASSEMBLE_DURATION = 1.5;
     const SUBTITLE_DELAY_AFTER_ASSEMBLY = 0.02;
 
     const tl = gsap.timeline();
 
-    // Set initial positions with increased gap
-    gsap.set(text1El, { y: -40 }); // INSPIRE 40px above center
-    gsap.set(text2El, { y: 40 }); // A TRUE LIVING 40px below center
+    // Start with video at small scale and 0 opacity
+    gsap.set(heroVideo, { scale: 0.05, opacity: 1 });
 
-    // Both texts enter simultaneously - INSPIRE from top, A TRUE LIVING from bottom
-    tl.fromTo(
-      text1Spans,
-      { y: -positions.finalVh * 0.7 },
+    // Start directly with video expanding from left bottom
+    tl.to(
+      heroVideo,
       {
-        y: -40, // Stay 40px above center
-        duration: TEXT1_ENTRANCE_DURATION,
-        ease: "back.out(1.4)",
-        stagger: 0.08,
+        scale: 1,
+        opacity: 1,
+        duration: VIDEO_EXPAND_DURATION,
+        ease: "power2.out",
         onStart: () => {
-          gsap.set(text1El, { opacity: 1 });
+          videoEl.currentTime = 0;
+          videoEl.play();
         },
       },
       0
     )
-      .fromTo(
-        text2Spans,
-        { y: positions.finalVh * 0.7 },
-        {
-          y: 40, // Stay 40px below center
-          duration: TEXT2_ENTRANCE_DURATION,
-          ease: "back.out(1.4)",
-          stagger: 0.08,
-          onStart: () => {
-            gsap.set(text2El, { opacity: 1 });
-          },
-        },
-        0
-      )
-      .to(text1Spans, { y: -40, duration: 0.15 })
-      .to(text2Spans, { y: 40, duration: 0.15 }, "<")
-      // Texts exit in opposite directions - text1 to right, text2 to left
-      .to(
-        text1Spans,
-        {
-          x: positions.finalVw,
-          duration: TEXT1_EXIT_DURATION,
-          ease: "back.out(1.4)",
-          stagger: 0.08,
-        },
-        "+=0.5"
-      )
-      .to(
-        text2Spans,
-        {
-          x: -positions.finalVw,
-          duration: TEXT2_EXIT_DURATION,
-          ease: "back.out(1.4)",
-          stagger: 0.08,
-        },
-        "<"
-      )
-      .to(
-        heroVideo,
-        {
-          scale: 1,
-          opacity: 1,
-          duration: VIDEO_EXPAND_DURATION,
-          ease: "power3.out",
-          onStart: () => {
-            videoEl.currentTime = 0;
-            videoEl.play();
-          },
-        },
-        "-=0.3"
-      )
       .set(
         scatterSpans,
         {
@@ -484,14 +417,10 @@ const ModernHero: React.FC<ModernHeroProps> = ({ animate = true }) => {
 
   return (
     <div className="mh-hero" ref={heroRef}>
-      
-
       <div className="mh-curtain" ref={curtainRef}></div>
 
       <div className="mh-text-container">
         <div className="mh-text-backdrop" aria-hidden="true"></div>
-        <h1 className="mh-hero-text" ref={text1Ref}></h1>
-        <h1 className="mh-hero-text" ref={text2Ref}></h1>
         <h1 className="mh-scatter-word" ref={scatterWordRef}></h1>
 
         <div className="mh-subtitle" ref={subtitleRef}>

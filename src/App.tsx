@@ -15,17 +15,12 @@ import BlogDetailPage from "./pages/BlogDetailPage";
 import { useSiteSettings } from "./hooks/useSiteSettings";
 import ScrollToTop from "./components/UI/ScrollToTop";
 import { useState } from "react";
-import BlackHoleLoader from "./components/UI/BlackHoleLoader";
+import HeroLoader from "./components/Reusable/HeroLoader";
 
 function App() {
   const { settings } = useSiteSettings();
-  const [showLoader, setShowLoader] = useState(true); // only on initial mount/refresh
-  const [startHero, setStartHero] = useState(false);
-
-  const handleLoaderComplete = () => {
-    setStartHero(true);
-    setShowLoader(false);
-  };
+  const [startHero] = useState(true);
+  const [showLoader, setShowLoader] = useState(true);
 
   return (
     <>
@@ -53,7 +48,7 @@ function App() {
           </main>
           <Footer settings={settings} />
         </div>
-        {showLoader && <BlackHoleLoader onComplete={handleLoaderComplete} />}
+        {showLoader && <HeroLoader onComplete={() => setShowLoader(false)} />}
       </Router>
     </>
   );
