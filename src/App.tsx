@@ -6,7 +6,7 @@ import HouseDesignsRoute from "./pages/HouseDesignsRoute";
 import About from "./pages/About";
 import Projects from "./pages/Projects";
 import ProjectDetailPage from "./pages/ProjectDetailPage";
-import ServicePage from "./components/Services/ServicePage";
+import ServicePage from "./pages/ServicePage";
 import Contact from "./pages/Contact";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsAndConditions from "./pages/TermsAndConditions";
