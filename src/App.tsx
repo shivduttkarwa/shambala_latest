@@ -15,10 +15,12 @@ import BlogDetailPage from "./pages/BlogDetailPage";
 import { useSiteSettings } from "./hooks/useSiteSettings";
 import ScrollToTop from "./components/UI/ScrollToTop";
 import { useState } from "react";
+import HeroLoader from "./components/Reusable/HeroLoader";
 
 function App() {
   const { settings } = useSiteSettings();
-  const [startHero] = useState(true);
+  const [startHero, setStartHero] = useState(false);
+  const [showLoader, setShowLoader] = useState(true);
 
   return (
     <>
@@ -46,6 +48,14 @@ function App() {
           </main>
           <Footer settings={settings} />
         </div>
+        {showLoader && (
+          <HeroLoader
+            onComplete={() => {
+              setShowLoader(false);
+              setStartHero(true);
+            }}
+          />
+        )}
       </Router>
     </>
   );

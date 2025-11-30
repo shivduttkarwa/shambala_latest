@@ -3,14 +3,14 @@
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background-color: #171717;
+  background: #0f1a12;
   overflow: hidden;
 }
 
 .hero-loader-curtain {
   position: absolute;
   inset: 0;
-  background-color: #47614d;
+  background: #6d7f4a;
   z-index: 10;
   will-change: transform;
 }

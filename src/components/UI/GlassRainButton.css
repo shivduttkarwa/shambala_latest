@@ -77,7 +77,7 @@
 }
 
 .glass-rain-btn:hover .glass-rain-btn-icon {
-  transform: translateX(6px);
+  transform: translateX(9.8px);
 }
 
 button.glass-rain-btn {

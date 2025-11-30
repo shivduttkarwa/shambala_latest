@@ -6,14 +6,17 @@ interface HeroLoaderProps {
   onComplete?: () => void;
 }
 
+/**
+ * Curtain + hero text loader inspired by test.html.desabled.
+ * Plays once on mount, then unmounts and signals completion.
+ */
 const HeroLoader: React.FC<HeroLoaderProps> = ({ onComplete }) => {
   const loaderRef = useRef<HTMLDivElement>(null);
   const curtainRef = useRef<HTMLDivElement>(null);
-  const text1Ref = useRef<HTMLHeadingElement>(null);
-  const text2Ref = useRef<HTMLHeadingElement>(null);
-  const [isVisible, setIsVisible] = useState(true);
-  const hasPlayedRef = useRef(false);
+  const text1Ref = useRef<HTMLDivElement>(null);
+  const text2Ref = useRef<HTMLDivElement>(null);
   const onCompleteRef = useRef(onComplete);
+  const [visible, setVisible] = useState(true);
 
   useEffect(() => {
     onCompleteRef.current = onComplete;
@@ -21,131 +24,94 @@ const HeroLoader: React.FC<HeroLoaderProps> = ({ onComplete }) => {
 
   useEffect(() => {
     const curtain = curtainRef.current;
-    const text1El = text1Ref.current;
-    const text2El = text2Ref.current;
+    const text1 = text1Ref.current;
+    const text2 = text2Ref.current;
+    if (!curtain || !text1 || !text2) return;
 
-    if (!curtain || !text1El || !text2El) return;
-    if (hasPlayedRef.current) return;
-    hasPlayedRef.current = true;
-
-    function createCharSpans(element: HTMLElement, text: string) {
-      element.innerHTML = "";
-      const chars = text.split("");
-      const spans: HTMLSpanElement[] = [];
-      chars.forEach((ch) => {
-        const span = document.createElement("span");
-        if (ch === " ") {
-          span.innerHTML = "&nbsp;";
-        } else {
-          span.textContent = ch;
-        }
-        element.appendChild(span);
-        spans.push(span);
-      });
-      return spans;
-    }
-
-    const TEXT1 = "INSPIRE";
-    const TEXT2 = "A TRUE LIVING";
-
-    const text1Spans = createCharSpans(text1El, TEXT1);
-    const text2Spans = createCharSpans(text2El, TEXT2);
-
-    const vh = window.innerHeight;
-    const vw = window.innerWidth;
-
-    // Initial states
-    gsap.set(curtain, { x: "-100%" });
-    gsap.set([text1El, text2El], { opacity: 1 });
-    gsap.set(text1Spans, { y: -vh * 0.7 });
-    gsap.set(text2Spans, { y: vh * 0.7 });
+    const fallback = window.setTimeout(() => {
+      setVisible(false);
+      onCompleteRef.current?.();
+    }, 5000);
 
     const tl = gsap.timeline({
+      defaults: { ease: "power3.out" },
       onComplete: () => {
-        setIsVisible(false);
+        setVisible(false);
         onCompleteRef.current?.();
+        clearTimeout(fallback);
       },
     });
 
-    tl
-      // Step 1: Curtain slides in from left
-      .to(curtain, {
-        x: "0%",
-        duration: 0.8,
-        ease: "power3.inOut",
-      })
+    gsap.set([text1, text2], { opacity: 0, y: "120vh" });
+    gsap.set(curtain, { yPercent: 100 });
 
-      // Step 2: Both texts enter together after curtain is in
-      .to(
-        text1Spans,
-        {
-          y: -40,
-          duration: 0.8,
-          ease: "back.out(1.4)",
-          stagger: 0.08,
-        },
-        "+=0.2"
-      )
+    const textSequence = (el: HTMLElement, startLabel: number | string) => {
+      tl.fromTo(
+        el,
+        { y: "120vh", opacity: 0 },
+        { y: 0, opacity: 1, duration: 1 },
+        startLabel
+      ).to(el, {
+        y: "-120vh",
+        opacity: 0,
+        duration: 1,
+        delay: 0.4,
+        ease: "power2.in",
+      });
+    };
 
-      .to(
-        text2Spans,
-        {
-          y: 40,
-          duration: 0.8,
-          ease: "back.out(1.4)",
-          stagger: 0.08,
-        },
-        "<"
-      )
+    tl.to(curtain, { yPercent: 0, duration: 1.4, ease: "power2.inOut" })
+      .add(() => {
+        gsap.to(text1.querySelectorAll("span"), {
+          opacity: 1,
+          stagger: 0.05,
+          duration: 0.2,
+        });
+      }, "-=0.6");
 
-      // Step 3: Hold for a moment
-      .to({}, { duration: 0.5 })
+    // split text into spans
+    const split = (el: HTMLElement) => {
+      const txt = el.textContent || "";
+      el.textContent = "";
+      const spans = txt.split("").map((ch, idx) => {
+        const s = document.createElement("span");
+        s.textContent = ch === " " ? "\u00a0" : ch;
+        el.appendChild(s);
+        return s;
+      });
+      return spans;
+    };
+    split(text1);
+    split(text2);
 
-      // Step 4: Texts exit in opposite directions
-      .to(text1Spans, {
-        x: vw,
-        duration: 0.8,
-        ease: "back.in(1.4)",
-        stagger: 0.08,
-      })
+    textSequence(text1, "-=0.4");
+    textSequence(text2, ">-0.2");
 
-      .to(
-        text2Spans,
-        {
-          x: -vw,
-          duration: 0.8,
-          ease: "back.in(1.4)",
-          stagger: 0.08,
-        },
-        "<"
-      )
-
-      // Step 5: Curtain slides out to right
-      .to(
-        curtain,
-        {
-          x: "100%",
-          duration: 0.8,
-          ease: "power3.inOut",
-        },
-        "-=0.3"
-      );
+    tl.to(
+      curtain,
+      { yPercent: -100, duration: 1.1, ease: "power3.inOut" },
+      "-=0.5"
+    );
 
     return () => {
       tl.kill();
+      clearTimeout(fallback);
     };
-  }, [onComplete]);
+  }, []);
 
-  if (!isVisible) return null;
+  if (!visible) return null;
 
   return (
     <div ref={loaderRef} className="hero-loader">
       <div ref={curtainRef} className="hero-loader-curtain"></div>
-
       <div className="hero-loader-text-container">
         <div className="hero-loader-backdrop"></div>
-        <h1 ref={text1Ref} className="hero-loader-text hero-loader-text-1"></h1>
-        <h1 ref={text2Ref} className="hero-loader-text hero-loader-text-2"></h1>
+        <h1 ref={text1Ref} className="hero-loader-text hero-loader-text-1">
+          INSPIRE
+        </h1>
+        <h1 ref={text2Ref} className="hero-loader-text hero-loader-text-2">
+          A TRUE LIVING
+        </h1>
       </div>
     </div>
   );

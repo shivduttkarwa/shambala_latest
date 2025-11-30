@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Elegant Loader + Hero</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f8f7f4;
+      color: #1e1e1e;
+      min-height: 100vh;
+    }
+
+    body.no-scroll {
+      overflow: hidden;
+    }
+
+    /* ========= LOADER ========= */
+    .loader {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      pointer-events: none;
+    }
+
+    /* Solid olive curtain, no transform – always visible by default */
+    .loader__curtain {
+      position: fixed;
+      inset: 0;
+      background: #808c4a; /* olive */
+    }
+
+    /* Text is fixed on screen, we animate using "bottom" only */
+    .loader__text {
+      position: fixed;
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #f4f3ea;
+      opacity: 0; /* GSAP will fade it in/out */
+      bottom: -3rem; /* start just below screen */
+    }
+
+    /* ========= SITE / HERO ========= */
+    /* Visible by default if JS fails */
+    .site {
+      opacity: 1;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(2rem, 6vw, 4rem);
+      background: #f8f7f4;
+    }
+
+    .hero__inner {
+      max-width: 900px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 28px;
+      padding: clamp(2.4rem, 4vw, 3.2rem);
+      box-shadow: 0 26px 60px rgba(0, 0, 0, 0.06);
+      transform-origin: left bottom;
+    }
+
+    .hero__eyebrow {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: #8d8d8d;
+      margin-bottom: 1rem;
+    }
+
+    .hero__title {
+      font-size: clamp(2.2rem, 4vw, 3.4rem);
+      line-height: 1.05;
+      margin-bottom: 1.3rem;
+    }
+
+    .hero__title span {
+      color: #808c4a;
+    }
+
+    .hero__subtitle {
+      font-size: 0.98rem;
+      max-width: 480px;
+      color: #616161;
+      margin-bottom: 2rem;
+    }
+
+    .hero__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem 1rem;
+      align-items: center;
+    }
+
+    .hero__btn-primary,
+    .hero__btn-ghost {
+      border-radius: 999px;
+      padding: 0.85rem 1.6rem;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease,
+        color 0.2s ease;
+    }
+
+    .hero__btn-primary {
+      background: #808c4a;
+      color: #f8f7f4;
+      box-shadow: 0 16px 40px rgba(128, 140, 74, 0.4);
+    }
+
+    .hero__btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 52px rgba(128, 140, 74, 0.5);
+    }
+
+    .hero__btn-ghost {
+      background: transparent;
+      color: #3a3a3a;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .hero__btn-ghost:hover {
+      background: #f4f4ef;
+      transform: translateY(-2px);
+    }
+
+    .hero__dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #808c4a;
+    }
+
+    @media (max-width: 640px) {
+      .hero__inner {
+        border-radius: 20px;
+      }
+      .hero__actions {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body class="no-scroll">
+  <!-- LOADER -->
+  <div class="loader">
+    <div class="loader__curtain"></div>
+    <div class="loader__text loader__text--1">Crafting Quiet Spaces</div>
+    <div class="loader__text loader__text--2">Entering Your World</div>
+  </div>
+
+  <!-- SITE -->
+  <div class="site">
+    <main class="hero">
+      <div class="hero__inner">
+        <div class="hero__eyebrow">Studio Forma</div>
+        <h1 class="hero__title">
+          Minimal architecture for
+          <span>uncluttered minds.</span>
+        </h1>
+        <p class="hero__subtitle">
+          We design calm, olive-tinted spaces that feel like a soft curtain between the city and your inner world.
+        </p>
+        <div class="hero__actions">
+          <button class="hero__btn-primary">
+            <span class="hero__dot"></span>
+            Start a project
+          </button>
+          <button class="hero__btn-ghost">
+            View recent work
+          </button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const curtain = document.querySelector(".loader__curtain");
+      const text1 = document.querySelector(".loader__text--1");
+      const text2 = document.querySelector(".loader__text--2");
+      const site = document.querySelector(".site");
+      const heroInner = document.querySelector(".hero__inner");
+      const loader = document.querySelector(".loader");
+
+      // If GSAP or elements missing → just show site, no animation
+      if (!window.gsap || !curtain || !text1 || !text2 || !site || !heroInner) {
+        document.body.classList.remove("no-scroll");
+        if (loader) loader.style.display = "none";
+        return;
+      }
+
+      // Now we can safely animate
+      document.body.classList.add("no-scroll");
+
+      // hide site for animation
+      gsap.set(site, { opacity: 0 });
+      gsap.set(heroInner, {
+        scale: 0.7,
+        x: -40,
+        y: 40,
+        opacity: 0,
+        transformOrigin: "left bottom"
+      });
+
+      const tl = gsap.timeline({
+        defaults: { ease: "power3.out" },
+        onComplete: () => {
+          document.body.classList.remove("no-scroll");
+        }
+      });
+
+      // 1) Curtain: from bottom (off-screen) to full viewport
+      tl.fromTo(
+        curtain,
+        { y: window.innerHeight },
+        { y: 0, duration: 1.6, ease: "power4.out" }
+      );
+
+      // helper for single text: bottom -> center -> top
+      function textSequence(el, startLabel) {
+        tl.fromTo(
+          el,
+          { bottom: "-3rem", opacity: 0 },
+          {
+            bottom: "50%",
+            opacity: 1,
+            duration: 0.9,
+            ease: "power3.out"
+          },
+          startLabel
+        ).to(el, {
+          bottom: "110%",
+          opacity: 0,
+          duration: 0.9,
+          delay: 0.6,
+          ease: "power3.in"
+        });
+      }
+
+      // 2) First text sequence
+      textSequence(text1, "-=0.4");
+
+      // 3) Second text sequence right after first
+      textSequence(text2, ">-0.1");
+
+      // 4) Reveal hero & remove curtain/loader
+      tl.to(site, {
+        opacity: 1,
+        duration: 0.2
+      })
+        .to(
+          curtain,
+          {
+            y: -window.innerHeight,
+            duration: 1,
+            ease: "power3.inOut"
+          },
+          "-=0.5"
+        )
+        .to(
+          heroInner,
+          {
+            scale: 1,
+            x: 0,
+            y: 0,
+            opacity: 1,
+            duration: 1.1
+          },
+          "-=0.8"
+        )
+        .to(
+          loader,
+          {
+            autoAlpha: 0,
+            duration: 0.4
+          },
+          "-=0.6"
+        );
+    });
+  </script>
+</body>
+</html>

@@ -12,6 +12,12 @@
   margin: 0;
 }
 
+@media (min-width: 1600px) {
+  .section-title {
+    font-size: clamp(2.6rem, 5.2vw, 4.16rem);
+  }
+}
+
 @media (max-width: 768px) {
   .section-title {
     font-size: clamp(2.5rem, 8vw, 3.5rem);
