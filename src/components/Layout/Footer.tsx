@@ -22,253 +22,67 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
     settings?.contact?.email || "info@FORMAhomes.com"
   ).toLowerCase();
 
-  // Footer animations
+  // Footer visibility
   useEffect(() => {
-    if (!footerRef.current) return;
+    const topSection = topSectionRef.current;
+    if (topSection) {
+      const brandBox = topSection.querySelector(".forma-footer-brand-box");
+      const linksSection = topSection.querySelector(".forma-footer-links-section");
+      const contactSection = topSection.querySelector(".forma-footer-contact-section");
+      const followSection = topSection.querySelector(".forma-footer-follow-us-section");
+      const allLinks = topSection.querySelectorAll(".forma-footer-link, .forma-social-link, .forma-footer-contact-item");
+      gsap.set([brandBox, linksSection, contactSection, followSection], { opacity: 1, y: 0 });
+      gsap.set(allLinks, { opacity: 1, x: 0 });
+    }
+    const letters = brandTextRef.current?.querySelectorAll(".forma-footer-letter");
+    if (letters && letters.length > 0) {
+      gsap.set(letters, { yPercent: 0, opacity: 1 });
+    }
+  }, []);
 
-    const ctx = gsap.context(() => {
-      // Animate top section elements - only if in viewport
-      const topSection = topSectionRef.current;
-      if (topSection) {
-        const brandBox = topSection.querySelector(".forma-footer-brand-box");
-        const linksSection = topSection.querySelector(
-          ".forma-footer-links-section"
-        );
-        const contactSection = topSection.querySelector(
-          ".forma-footer-contact-section"
-        );
-        const followSection = topSection.querySelector(
-          ".forma-footer-follow-us-section"
-        );
+  // Big FORMA text animation (slide up + color flash)
+  useEffect(() => {
+    const letters = brandTextRef.current?.querySelectorAll(".forma-footer-letter");
+    if (!letters || letters.length === 0) return;
 
-        // Ensure elements are visible by default, animate only when scrolling into view
-        gsap.set([brandBox, linksSection, contactSection, followSection], {
-          opacity: 1,
-          y: 0,
-        });
+    const colors = ["#ff6b6b", "#4ecdc4", "#ffe66d", "#a8e6cf", "#ff8b94"];
+    gsap.set(letters, { yPercent: 100 });
 
-        gsap.from([brandBox, linksSection, contactSection, followSection], {
-          y: 60,
-          opacity: 0,
-          duration: 1.2,
-          stagger: 0.15,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: topSection,
-            start: "top 85%",
-            toggleActions: "play none none none",
-            once: true,
+    const st = ScrollTrigger.create({
+      trigger: brandTextRef.current,
+      start: "top 90%",
+      toggleActions: "play reset play reset",
+      onEnter: () => {
+        gsap.set(letters, { yPercent: 100, opacity: 1 });
+        gsap.to(letters, {
+          yPercent: 0,
+          duration: 0.6,
+          stagger: 0.06,
+          ease: "back.out(2.7)",
+          onComplete: () => {
+            letters.forEach((letter, index) => {
+              gsap.to(letter, {
+                color: colors[index % colors.length],
+                duration: 0.3,
+                delay: index * 0.1,
+                yoyo: true,
+                repeat: 1,
+                ease: "power2.inOut",
+                onComplete: () => {
+                  gsap.set(letter, { clearProps: "color" });
+                },
+              });
+            });
           },
         });
-
-        // Animate individual links within sections
-        const allLinks = topSection.querySelectorAll(
-          ".forma-footer-link, .forma-social-link, .forma-footer-contact-item"
-        );
-
-        gsap.set(allLinks, { opacity: 1, x: 0 });
-
-        gsap.from(allLinks, {
-          x: -20,
-          opacity: 0,
-          duration: 0.8,
-          stagger: 0.05,
-          ease: "power2.out",
-          delay: 0.4,
-          scrollTrigger: {
-            trigger: topSection,
-            start: "top 85%",
-            toggleActions: "play none none none",
-            once: true,
-          },
-        });
-      }
-
-      // Large brand text animation
-      const letters = brandTextRef.current?.querySelectorAll(
-        ".forma-footer-letter"
-      );
-      if (letters && letters.length > 0) {
-        const isMobile = window.innerWidth <= 768;
-
-        // On mobile, use same animation as desktop
-        if (isMobile) {
-          const colors = [
-            "#ff6b6b", // Coral Red (F)
-            "#4ecdc4", // Turquoise (O)
-            "#ffe66d", // Sunny Yellow (R)
-            "#a8e6cf", // Mint Green (M)
-            "#ff8b94", // Pink (A)
-          ];
-
-          // Set initial position (hidden below)
-          gsap.set(letters, { yPercent: 100 });
-
-          ScrollTrigger.create({
-            trigger: brandTextRef.current,
-            start: "top 90%",
-            end: "bottom 10%",
-            onEnter: () => {
-              // Slide up animation
-              gsap.to(letters, {
-                yPercent: 0,
-                duration: 0.6,
-                stagger: 0.06,
-                ease: "back.out(2.7)",
-                onComplete: () => {
-                  // Color flash animation after slide up completes
-                  letters.forEach((letter, index) => {
-                    gsap.to(letter, {
-                      color: colors[index],
-                      duration: 0.3,
-                      delay: index * 0.1,
-                      yoyo: true,
-                      repeat: 1,
-                      ease: "power2.inOut",
-                      onComplete: () => {
-                        gsap.set(letter, { clearProps: "color" });
-                      },
-                    });
-                  });
-                },
-              });
-            },
-            onLeave: () => {
-              // Slide down animation when leaving
-              gsap.to(letters, {
-                yPercent: 100,
-                duration: 0.4,
-                stagger: 0.03,
-                ease: "power2.in",
-              });
-            },
-            onEnterBack: () => {
-              // Slide up animation when coming back
-              gsap.to(letters, {
-                yPercent: 0,
-                duration: 0.6,
-                stagger: 0.06,
-                ease: "back.out(2.7)",
-                onComplete: () => {
-                  // Color flash animation
-                  letters.forEach((letter, index) => {
-                    gsap.to(letter, {
-                      color: colors[index],
-                      duration: 0.3,
-                      delay: index * 0.1,
-                      yoyo: true,
-                      repeat: 1,
-                      ease: "power2.inOut",
-                      onComplete: () => {
-                        gsap.set(letter, { clearProps: "color" });
-                      },
-                    });
-                  });
-                },
-              });
-            },
-            onLeaveBack: () => {
-              // Slide down animation when scrolling back up past footer
-              gsap.to(letters, {
-                yPercent: 100,
-                duration: 0.4,
-                stagger: 0.03,
-                ease: "power2.in",
-              });
-            },
-          });
-        } else {
-          // Desktop version with full animation
-          const colors = [
-            "#ff6b6b", // Coral Red (F)
-            "#4ecdc4", // Turquoise (O)
-            "#ffe66d", // Sunny Yellow (R)
-            "#a8e6cf", // Mint Green (M)
-            "#ff8b94", // Pink (A)
-          ];
-
-          // Set initial position (hidden below)
-          gsap.set(letters, { yPercent: 100 });
-
-          ScrollTrigger.create({
-            trigger: brandTextRef.current,
-            start: "top 90%",
-            end: "bottom 10%",
-            onEnter: () => {
-              // Slide up animation
-              gsap.to(letters, {
-                yPercent: 0,
-                duration: 0.6,
-                stagger: 0.06,
-                ease: "back.out(2.7)",
-                onComplete: () => {
-                  // Color flash animation after slide up completes
-                  letters.forEach((letter, index) => {
-                    gsap.to(letter, {
-                      color: colors[index],
-                      duration: 0.3,
-                      delay: index * 0.1,
-                      yoyo: true,
-                      repeat: 1,
-                      ease: "power2.inOut",
-                      onComplete: () => {
-                        gsap.set(letter, { clearProps: "color" });
-                      },
-                    });
-                  });
-                },
-              });
-            },
-            onLeave: () => {
-              // Slide down animation when leaving
-              gsap.to(letters, {
-                yPercent: 100,
-                duration: 0.4,
-                stagger: 0.03,
-                ease: "power2.in",
-              });
-            },
-            onEnterBack: () => {
-              // Slide up animation when coming back
-              gsap.to(letters, {
-                yPercent: 0,
-                duration: 0.6,
-                stagger: 0.06,
-                ease: "back.out(2.7)",
-                onComplete: () => {
-                  // Color flash animation
-                  letters.forEach((letter, index) => {
-                    gsap.to(letter, {
-                      color: colors[index],
-                      duration: 0.3,
-                      delay: index * 0.1,
-                      yoyo: true,
-                      repeat: 1,
-                      ease: "power2.inOut",
-                      onComplete: () => {
-                        gsap.set(letter, { clearProps: "color" });
-                      },
-                    });
-                  });
-                },
-              });
-            },
-            onLeaveBack: () => {
-              // Slide down animation when scrolling back up past footer
-              gsap.to(letters, {
-                yPercent: 100,
-                duration: 0.4,
-                stagger: 0.03,
-                ease: "power2.in",
-              });
-            },
-          });
-        }
-      }
-    }, footerRef);
+      },
+      onLeaveBack: () => {
+        gsap.set(letters, { yPercent: 100 });
+      },
+    });
 
     return () => {
-      ctx.revert();
+      st.kill();
     };
   }, []);
   return (

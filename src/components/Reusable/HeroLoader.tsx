@@ -12,6 +12,12 @@ const HeroLoader: React.FC<HeroLoaderProps> = ({ onComplete }) => {
   const text1Ref = useRef<HTMLHeadingElement>(null);
   const text2Ref = useRef<HTMLHeadingElement>(null);
   const [isVisible, setIsVisible] = useState(true);
+  const hasPlayedRef = useRef(false);
+  const onCompleteRef = useRef(onComplete);
+
+  useEffect(() => {
+    onCompleteRef.current = onComplete;
+  }, [onComplete]);
 
   useEffect(() => {
     const curtain = curtainRef.current;
@@ -19,6 +25,8 @@ const HeroLoader: React.FC<HeroLoaderProps> = ({ onComplete }) => {
     const text2El = text2Ref.current;
 
     if (!curtain || !text1El || !text2El) return;
+    if (hasPlayedRef.current) return;
+    hasPlayedRef.current = true;
 
     function createCharSpans(element: HTMLElement, text: string) {
       element.innerHTML = "";
@@ -55,7 +63,7 @@ const HeroLoader: React.FC<HeroLoaderProps> = ({ onComplete }) => {
     const tl = gsap.timeline({
       onComplete: () => {
         setIsVisible(false);
-        if (onComplete) onComplete();
+        onCompleteRef.current?.();
       },
     });
 
