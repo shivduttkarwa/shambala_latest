@@ -48,6 +48,21 @@
   opacity: 0.85;
 }
 
+.hh-read {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-top: 0.5rem;
+  font-size: 0.82rem;
+  text-decoration: none;
+  color: #f7d046;
+  letter-spacing: 0.06em;
+}
+
+.hh-read:hover {
+  color: #ffffff;
+}
+
 .hh-dots {
   display: flex;
   gap: 0.4rem;

@@ -8,8 +8,7 @@ import SimpleSwiper from "../UI/SimpleSwiper";
 import TiltTextGsap from "../UI/TiltTextGsap";
 import "../UI/SimpleSwiper.css";
 import HoverText from "../UI/HoverText";
-
-const publicUrl = import.meta.env.BASE_URL;
+import { blogPosts } from "../../data/blogPosts";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -42,50 +41,23 @@ const BlogSection: React.FC<BlogSectionProps> = ({
   sectionTitle = "Latest Insights",
   ctaText: _ctaText = "View all blog posts",
   ctaLink: _ctaLink = "#",
-  posts = [
-    {
-      id: 1,
-      title: "Sustainable Living with FORMA",
-      date: "15 Nov 2025",
-      category: "Sustainability",
-      excerpt:
-        "Discover how our eco-friendly construction methods and sustainable materials are revolutionizing modern Australian home building while reducing environmental impact. Our innovative approach combines cutting-edge green technology with traditional craftsmanship to create homes that not only minimize carbon footprint but also provide healthier living environments for families across Australia.",
-      imageSrc: `${publicUrl}images/port1.jpg`,
-      imageAlt: "Sustainable home construction",
-      link: "#",
-      featured: true,
-      swiperImages: [
-        `${publicUrl}images/port1.jpg`,
-        `${publicUrl}images/sercard1.jpg`,
-        `${publicUrl}images/port3.jpg`,
-        `${publicUrl}images/net3.jpg`,
-      ],
-    },
-    {
-      id: 2,
-      title: "How Landscaping Enhances Property Value in Australia",
-      date: "12 Nov 2025",
-      category: "Design",
-      excerpt:
-        "Discover how strategic landscaping can significantly increase your property value while creating beautiful outdoor spaces that complement your FORMA home.",
-      imageSrc: `${publicUrl}images/blog2.jpg`,
-      imageAlt: "Landscaping design",
-      link: "#",
-    },
-    {
-      id: 3,
-      title: "Modern Australian Home Designs Inspired by Nature",
-      date: "10 Nov 2025",
-      category: "Architecture",
-      excerpt:
-        "Explore our contemporary architectural designs that seamlessly blend with the natural Australian landscape, creating harmony between built and natural environments.",
-      imageSrc: `${publicUrl}images/blog3.jpg`,
-      imageAlt: "Modern home design",
-      link: "#",
-    },
-  ],
+  posts = blogPosts.map((post, idx) => ({
+    id: post.id,
+    title: post.title,
+    date: post.date,
+    category: post.category,
+    excerpt: post.excerpt,
+    imageSrc: post.heroImage,
+    imageAlt: post.heroAlt,
+    link: `/blog/${post.slug}`,
+    featured: idx === 0,
+    additional_text: undefined,
+    additional_image: null,
+    swiperImages: post.swiperImages,
+  })),
 }) => {
   const sectionRef = useRef<HTMLDivElement>(null);
+  if (!posts || posts.length === 0) return null;
   const featuredPost = posts[0]; // First blog for featured section
   const gridPosts = posts.slice(1, 3); // Next 2 blogs for grid section
 
@@ -93,8 +65,8 @@ const BlogSection: React.FC<BlogSectionProps> = ({
     if (!sectionRef.current) return;
 
     const ctx = gsap.context(() => {
-      // IMAGE SLIDE-IN
-      gsap.utils.toArray(".home-blog-reveal-img img").forEach((img) => {
+      // FEATURED BLOG IMAGE SLIDE-IN FROM LEFT
+      gsap.utils.toArray(".blog-featured-section .home-blog-reveal-img img").forEach((img) => {
         gsap.to(img as HTMLElement, {
           x: "0%",
           duration: 1.3,
@@ -105,49 +77,18 @@ const BlogSection: React.FC<BlogSectionProps> = ({
           },
         });
       });
-      gsap.utils
-        .toArray(".blog-posts-section .blog-post-image")
-        .forEach((el) => {
-          const target = el as HTMLElement;
-          gsap.set(target, { y: 80, opacity: 0 });
-
-          ScrollTrigger.create({
-            trigger: target,
+      // GRID POSTS IMAGES SLIDE-IN FROM BOTTOM
+      gsap.utils.toArray(".blog-posts-section .home-blog-reveal-img img").forEach((img) => {
+        gsap.to(img as HTMLElement, {
+          y: "0%",
+          duration: 1.3,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: img as HTMLElement,
             start: "top 85%",
-            onEnter: () =>
-              gsap.to(target, {
-                y: 0,
-                opacity: 1,
-                duration: 1.2,
-                ease: "power3.out",
-                overwrite: true,
-              }),
-            onEnterBack: () =>
-              gsap.to(target, {
-                y: 0,
-                opacity: 1,
-                duration: 1.2,
-                ease: "power3.out",
-                overwrite: true,
-              }),
-            onLeave: () =>
-              gsap.to(target, {
-                y: 80,
-                opacity: 0,
-                duration: 0.8,
-                ease: "power2.out",
-                overwrite: true,
-              }),
-            onLeaveBack: () =>
-              gsap.to(target, {
-                y: 80,
-                opacity: 0,
-                duration: 0.8,
-                ease: "power2.out",
-                overwrite: true,
-              }),
-          });
+          },
         });
+      });
 
       // TEXT HEADING REVEAL (exclude TiltTextGsap components)
       document

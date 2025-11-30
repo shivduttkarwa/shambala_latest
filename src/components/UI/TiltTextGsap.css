@@ -7,7 +7,7 @@
   line-height: 1.2 !important;
   white-space: normal !important;
   font-size: clamp(2rem, 4vw, 3.2rem);
-  font-weight: 600;
+  font-weight: 360; /* 40% lighter than previous 600 weight */
   color: var(--text);
   margin: 0;
   display: inline-flex;

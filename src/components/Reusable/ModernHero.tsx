@@ -83,7 +83,7 @@ const ModernHero = () => {
       "mh-scatter-letter"
     );
 
-    const changingWords = ["TIMELESS", "BOLD", "HUMAN", "ICONIC"];
+    const changingWords = ["ARCHITECTURAL", "IMMERSIVE", "SUSTAINABLE", "BESPOKE"];
 
     function animateSubtitleWord(index: number) {
       if (!subtitleDynamicEl) return;
