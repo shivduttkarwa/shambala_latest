@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import TiltTextGsap from "../UI/TiltTextGsap";
 import "./ProjectsShowcase.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -175,10 +176,14 @@ const ProjectsShowcase: React.FC = () => {
         </div>
 
         <div ref={textRef} className="projects-showcase__content">
-          <h2 className="projects-showcase__title">
-            Crafting Spaces That
-            <span className="projects-showcase__accent"> Inspire</span>
-          </h2>
+          <TiltTextGsap
+            tag="h2"
+            className="projects-showcase__title"
+            startTrigger="top 70%"
+            endTrigger="bottom -10%"
+          >
+            Crafting Spaces That Inspire
+          </TiltTextGsap>
           <p className="projects-showcase__description">
             Every project tells a unique story. From conceptual sketches to the
             final reveal, we transform visions into extraordinary living spaces

@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import TiltTextGsap from "../UI/TiltTextGsap";
 import "./ProjectsSlider.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -95,34 +96,7 @@ const ProjectsSlider: React.FC = () => {
 
   const sliderRef = useRef<HTMLDivElement | null>(null);
   const trackRef = useRef<HTMLDivElement | null>(null);
-  const titleRef = useRef<HTMLHeadingElement>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
-
-  const splitTextIntoLines = (text: string) => {
-    const words = text.split(" ");
-    const lines: string[] = [];
-    let currentLine = "";
-
-    words.forEach((word) => {
-      const testLine = currentLine + (currentLine ? " " : "") + word;
-      if (testLine.length > 15 && currentLine.length > 0) {
-        lines.push(currentLine);
-        currentLine = word;
-      } else {
-        currentLine = testLine;
-      }
-    });
-
-    if (currentLine) {
-      lines.push(currentLine);
-    }
-
-    return lines.map((line, index) => (
-      <div key={index} className="pr-mask">
-        <div className="pr-line">{line}</div>
-      </div>
-    ));
-  };
 
   useEffect(() => {
     const update = () => {
@@ -164,43 +138,6 @@ const ProjectsSlider: React.FC = () => {
   useEffect(() => {
     centerCard(activeIndex);
   }, [activeIndex, isMobile]);
-
-  useEffect(() => {
-    if (!sectionRef.current || !titleRef.current) return;
-
-    const ctx = gsap.context(() => {
-      const titleLines = titleRef.current?.querySelectorAll(".line");
-
-      if (titleLines && titleLines.length > 0) {
-        gsap.set(titleLines, {
-          yPercent: 100,
-        });
-      }
-
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 60%",
-          toggleActions: "play none none none",
-        },
-      });
-
-      if (titleLines && titleLines.length > 0) {
-        tl.to(
-          titleLines,
-          {
-            yPercent: 0,
-            duration: 1.8,
-            stagger: 0.8,
-            ease: "power1.out",
-          },
-          0.2
-        );
-      }
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
 
   const goTo = (index: number) => {
     if (index < 0 || index >= CARDS.length) return;
@@ -259,9 +196,14 @@ const ProjectsSlider: React.FC = () => {
       ref={sectionRef}
     >
       <div className="pr-head">
-        <h1 className="pr-projects-slider-title" ref={titleRef}>
-          {splitTextIntoLines("Our Projects")}
-        </h1>
+        <TiltTextGsap
+          tag="h1"
+          className="pr-projects-slider-title"
+          startTrigger="top 70%"
+          endTrigger="bottom -10%"
+        >
+          Our Projects
+        </TiltTextGsap>
       </div>
 
       <div

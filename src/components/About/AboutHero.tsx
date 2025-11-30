@@ -56,6 +56,30 @@ const AboutHero: React.FC = () => {
             trigger: elem as gsap.DOMTarget,
             start: "top 85%",
             toggleActions: "play none none reverse",
+            onEnter: () => {
+              // Add 2.5s delay for page transition to complete
+              setTimeout(() => {
+                gsap.to(elem as gsap.TweenTarget, {
+                  autoAlpha: 1,
+                  y: 0,
+                  scale: 1,
+                  duration: 1,
+                  ease: "power4.out",
+                });
+              }, );
+            },
+            onEnterBack: () => {
+              // Add 2.5s delay for page transition to complete
+              setTimeout(() => {
+                gsap.to(elem as gsap.TweenTarget, {
+                  autoAlpha: 1,
+                  y: 0,
+                  scale: 1,
+                  duration: 1,
+                  ease: "power4.out",
+                });
+              }, );
+            },
           },
         }
       );
