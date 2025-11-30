@@ -38,7 +38,7 @@ const defaultServices: ServiceCard[] = [
     imageSrc: `${publicUrl}images/sercard1.jpg`,
     alt: "Seacliff Residence project",
     ctaText: "View Project",
-    ctaLink: "/projects",
+    ctaLink: "/projects/seacliff-residence",
   },
   {
     id: "2",
@@ -48,7 +48,7 @@ const defaultServices: ServiceCard[] = [
     imageSrc: `${publicUrl}images/sercard2.jpg`,
     alt: "Hinterland Pavilion project",
     ctaText: "View Project",
-    ctaLink: "/projects",
+    ctaLink: "/projects/hinterland-pavilion",
   },
   {
     id: "3",
@@ -58,17 +58,17 @@ const defaultServices: ServiceCard[] = [
     imageSrc: `${publicUrl}images/sercard3.jpg`,
     alt: "Urban Courtyard House project",
     ctaText: "View Project",
-    ctaLink: "/projects",
+    ctaLink: "/projects/urban-courtyard-house",
   },
   {
     id: "4",
     title: "Forest Ridge Lodge",
     description:
-      "Weekend lodge nestled in the ridge line with stone, cedar, and expansive glazing framing the treetops.",
+      "Weekend lodge with stone, cedar, and expansive glazing framing the treetops.",
     imageSrc: `${publicUrl}images/4.avif`,
     alt: "Forest Ridge Lodge project",
     ctaText: "View Project",
-    ctaLink: "/projects",
+    ctaLink: "/projects/forest-ridge-lodge",
   },
 ];
 

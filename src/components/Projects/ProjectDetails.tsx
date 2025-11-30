@@ -14,6 +14,10 @@ export interface ProjectDetailProps {
   fullImage?: string;
   processImages?: string[];
   galleryImages?: string[];
+  stats?: Array<{
+    number: string;
+    label: string;
+  }>;
 }
 
 const ProjectDetail: React.FC<ProjectDetailProps> = ({
@@ -25,6 +29,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
   fullImage,
   processImages = [],
   galleryImages = [],
+  stats = [],
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const baseUrl = (import.meta.env.BASE_URL || "/").replace(/\/?$/, "/");
@@ -63,34 +68,34 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
         return chars;
       };
 
-      // Animate ALL images with clip-path
+      // Animate ALL images with clip-path - grow from left-bottom corner
       const imageElements =
         containerRef.current?.querySelectorAll(".pd-animate-image");
       imageElements?.forEach((imgContainer) => {
         gsap.to(imgContainer, {
-          clipPath: "inset(0% 0 0 0)",
+          clipPath: "inset(0% 0% 0% 0%)", // Grow from left-bottom corner
           ease: "power3.out",
           duration: 1.2,
           scrollTrigger: {
             trigger: imgContainer,
-            start: "top 70%",
+            start: "top 85%", // Trigger when section is more visible
             toggleActions: "play none none reverse",
           },
         });
       });
 
-      // Animate gallery images with clip-path
+      // Animate gallery images with clip-path - grow from left-bottom corner
       const galleryElements = containerRef.current?.querySelectorAll(
         ".pd-animate-gallery"
       );
       galleryElements?.forEach((imgContainer) => {
         gsap.to(imgContainer, {
-          clipPath: "inset(0% 0 0 0)",
+          clipPath: "inset(0% 0% 0% 0%)", // Grow from left-bottom corner
           ease: "power3.out",
           duration: 1.2,
           scrollTrigger: {
             trigger: imgContainer,
-            start: "top 70%",
+            start: "top 85%", // Trigger when section is more visible
             toggleActions: "play none none reverse",
           },
         });
@@ -199,21 +204,48 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
           );
         }
       });
+
+      // Animate stats numbers - slide up from bottom
+      const statNumbers = containerRef.current?.querySelectorAll(
+        ".pd-stat-number"
+      );
+      statNumbers?.forEach((statNumber) => {
+        gsap.fromTo(
+          statNumber,
+          { 
+            opacity: 0, 
+            y: 100, // Start from below (100px down)
+            scale: 0.8 
+          },
+          {
+            opacity: 1,
+            y: 0, // End at original position
+            scale: 1,
+            duration: 2.7,
+            ease: "back.out(2.7)", // Custom back.out easing
+            scrollTrigger: {
+              trigger: statNumber,
+              start: "top 85%", // Trigger when section is visible
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      });
     }, containerRef);
 
     return () => ctx.revert();
   }, []);
 
   const defaultProcessImgs = [
-    "https://images.unsplash.com/photo-1542744095-291d1f67b221?w=800&h=600&fit=crop",
-    "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=600&fit=crop",
-  ];
+  `${baseUrl}images/l1.jpg`,
+  `${baseUrl}images/l2.jpg`,
+];
   const defaultGalleryImgs = [
-    "https://images.unsplash.com/photo-1635776062127-d379bfcba9f8?w=600&h=600&fit=crop",
-    "https://images.unsplash.com/photo-1609921212029-bb5a28e60960?w=600&h=600&fit=crop",
-    "https://images.unsplash.com/photo-1572044162444-ad60f128bdea?w=600&h=600&fit=crop",
-    "https://images.unsplash.com/photo-1634942537034-2531766767d1?w=1200&h=600&fit=crop",
-    "https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?w=600&h=600&fit=crop",
+    `${baseUrl}images/l3.jpg`,
+    `${baseUrl}images/l4.jpg`,
+    `${baseUrl}images/l5.jpg`,
+    `${baseUrl}images/l6.jpg`,
+    `${baseUrl}images/l8.jpg`,
   ];
   const processImgs = processImages.length ? processImages : defaultProcessImgs;
   const procImg1 = normalize(processImgs[0]) || defaultProcessImgs[0];
@@ -244,6 +276,12 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
           max-width: 1280px;
           margin: 0 auto;
           padding: 0 1.5rem;
+        }
+
+        @media (min-width: 1280px) {
+          .pd-container {
+            max-width: 1536px; /* 20% increase from 1280px */
+          }
         }
 
         .pd-hero {
@@ -399,7 +437,8 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
         .pd-image-wrapper {
           overflow: hidden;
           border-radius: 2px;
-          clip-path: inset(0% 0 0 0);
+          clip-path: inset(100% 0% 0% 100%); /* Initial state - hidden from top-right */
+          will-change: clip-path;
         }
 
         .pd-image-wrapper img {
@@ -504,7 +543,8 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
         .pd-gallery-item {
           overflow: hidden;
           border-radius: 2px;
-          clip-path: inset(0% 0 0 0);
+          clip-path: inset(100% 0% 0% 100%); /* Initial state - hidden from top-right */
+          will-change: clip-path;
         }
 
         .pd-gallery-item img {
@@ -796,35 +836,15 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
             <h2 className="pd-animate-title">Results & Impact</h2>
           </div>
           <div className="pd-stats-grid">
-            <div className="pd-stat-item pd-animate-content">
-              <div className="pd-stat-number">150%</div>
-              <div className="pd-stat-label">Brand Recognition Increase</div>
-            </div>
-            <div className="pd-stat-item pd-animate-content">
-              <div className="pd-stat-number">3x</div>
-              <div className="pd-stat-label">Client Inquiries Growth</div>
-            </div>
-            <div className="pd-stat-item pd-animate-content">
-              <div className="pd-stat-number">95%</div>
-              <div className="pd-stat-label">Client Satisfaction</div>
-            </div>
+            {stats.map((stat, index) => (
+              <div key={index} className="pd-stat-item pd-animate-content">
+                <div className="pd-stat-number">{stat.number}</div>
+                <div className="pd-stat-label">{stat.label}</div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="pd-footer">
-        <div className="pd-container">
-          <div className="pd-footer-content">
-            <div className="pd-footer-text">© 2024 All rights reserved</div>
-            <div className="pd-social-links">
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a>
-              <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a>
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 };

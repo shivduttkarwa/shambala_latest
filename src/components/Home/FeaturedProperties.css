@@ -356,6 +356,13 @@
   border-radius: 8px;
 }
 
+/* Extra large screens - move right image further left */
+@media (min-width: 1560px) {
+  .fp-right .fp-image {
+    margin-left: -120px; /* Move image 120px to the left on extra large screens */
+  }
+}
+
 .fp-right img {
   display: block;
   width: 100%;
@@ -687,6 +694,6 @@
   }
 
   .fp-left img:not(.fp-image-tablet) {
-    margin-left: 240px;
+    margin-left: 220px;
   }
 }

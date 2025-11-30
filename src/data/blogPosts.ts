@@ -10,6 +10,7 @@ export type BlogPost = {
   excerpt: string;
   heroImage: string;
   heroAlt: string;
+  videoSrc?: string; // Add video source
   featuredImage?: string;
   swiperImages?: string[];
   sections: {
@@ -38,6 +39,7 @@ export const blogPosts: BlogPost[] = [
       "How we weave low-impact materials, passive design and crafted details into homes that feel effortlessly luxurious. Each decision is measured against longevity, comfort, and the quiet drama of daily rituals. We consider the whole lifecycle, so your space grows more soulful with every season.",
     heroImage: `${publicUrl}images/port1.jpg`,
     heroAlt: "Soft sunlight across timber and stone living room",
+    videoSrc: `${publicUrl}videos/architecture-showcase.mp4`, // Add video source
     swiperImages: [
       `${publicUrl}images/port1.jpg`,
       `${publicUrl}images/sercard1.jpg`,
@@ -102,6 +104,7 @@ export const blogPosts: BlogPost[] = [
       "How layered planting, water stewardship, and crafted thresholds elevate both experience and equity. These landscapes perform economically while remaining sensory and generous. Each gesture is intentional, from soil biology to night lighting.",
     heroImage: `${publicUrl}images/blog2.jpg`,
     heroAlt: "Garden terrace with native planting",
+    videoSrc: `${publicUrl}images/services-hero-vid.mp4`, // Use existing video file
     sections: [
       {
         heading: "Planting as architecture",
@@ -148,6 +151,7 @@ export const blogPosts: BlogPost[] = [
       "Design moves that let architecture breathe with its site, from coastal breezeways to bushland courtyards. Each gesture is tuned to climate, culture, and the cadence of everyday life. We design homes that feel inevitable on their sites.",
     heroImage: `${publicUrl}images/blog3.jpg`,
     heroAlt: "Home nestled in bushland",
+    videoSrc: `${publicUrl}images/services-hero-vid.mp4`, // Use existing video file
     sections: [
       {
         heading: "Rooms arranged for seasons",

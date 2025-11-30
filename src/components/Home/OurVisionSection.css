@@ -12,6 +12,13 @@
   }
 }
 
+/* Extra large screens - increase gap */
+@media (min-width: 1560px) {
+  .our-vision-section {
+    margin-bottom: 120vh;
+  }
+}
+
 .vision-container {
   max-width: 1400px;
   margin: 0 auto;

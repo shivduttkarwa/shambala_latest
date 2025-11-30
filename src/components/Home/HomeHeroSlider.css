@@ -48,6 +48,48 @@
   opacity: 0.85;
 }
 
+/* Extra Large Screens - Increase hero news slide dimensions */
+@media (min-width: 1560px) {
+  .hh-slider-window {
+    width: calc(240px * 1.3) !important; /* 312px - 30% wider */
+    max-width: calc(260px * 1.3) !important; /* 338px - 30% wider */
+    margin-left: -26px; /* Push 35px to the left (20px + 15px more) */
+  }
+  
+  .hh-slide {
+    padding: calc(0.95rem * 1.2) calc(1.1rem * 1.2) calc(1.1rem * 1.2) !important; /* 20% more padding */
+  }
+  
+  /* Increase text sizes by 20% */
+  .hh-label {
+    font-size: calc(0.7rem * 1.2) !important; /* 0.84rem */
+  }
+  
+  .hh-title {
+    font-size: calc(0.95rem * 1.2) !important; /* 1.14rem */
+  }
+  
+  .hh-meta {
+    font-size: calc(0.78rem * 1.2) !important; /* 0.936rem */
+  }
+  
+  .hh-read {
+    font-size: calc(0.82rem * 1.2) !important; /* 0.984rem */
+  }
+  
+  /* Increase pagination dot size by 15% and center in enlarged slider */
+  .hh-dots {
+    width: calc(260px * 1.3) !important; /* Match slider max-width (338px) for proper centering */
+    margin: 0.5rem 0 0 !important; /* Remove auto centering */
+    transform: translateX(-42px) !important; /* Push dots 30px to the left */
+  }
+  
+  .hh-dot {
+    width: calc(12px * 1.15) !important; /* 13.8px */
+    height: calc(12px * 1.15) !important; /* 13.8px */
+  }
+}
+
 .hh-read {
   display: inline-flex;
   align-items: center;

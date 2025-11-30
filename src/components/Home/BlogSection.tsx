@@ -8,6 +8,7 @@ import SimpleSwiper from "../UI/SimpleSwiper";
 import TiltTextGsap from "../UI/TiltTextGsap";
 import "../UI/SimpleSwiper.css";
 import HoverText from "../UI/HoverText";
+import BlogVideoCard from "../UI/BlogVideoCard";
 import { blogPosts } from "../../data/blogPosts";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -20,6 +21,7 @@ interface BlogPost {
   excerpt: string;
   imageSrc: string;
   imageAlt: string;
+  videoSrc?: string; // Add video source
   link: string;
   featured?: boolean;
   additional_text?: string;
@@ -49,10 +51,11 @@ const BlogSection: React.FC<BlogSectionProps> = ({
     excerpt: post.excerpt,
     imageSrc: post.heroImage,
     imageAlt: post.heroAlt,
+    videoSrc: post.videoSrc, // Add video source
     link: `/blog/${post.slug}`,
     featured: idx === 0,
-    additional_text: undefined,
-    additional_image: null,
+    additional_text: post.sections[0]?.body[0],
+    additional_image: post.sections[0]?.image,
     swiperImages: post.swiperImages,
   })),
 }) => {
@@ -65,15 +68,16 @@ const BlogSection: React.FC<BlogSectionProps> = ({
     if (!sectionRef.current) return;
 
     const ctx = gsap.context(() => {
-      // FEATURED BLOG IMAGE SLIDE-IN FROM LEFT
-      gsap.utils.toArray(".blog-featured-section .home-blog-reveal-img img").forEach((img) => {
-        gsap.to(img as HTMLElement, {
-          x: "0%",
-          duration: 1.3,
-          ease: "power2.out",
+      // FEATURED BLOG IMAGE SLIDE-DOWN REVEAL (same as ProcessSection)
+      gsap.utils.toArray(".blog-featured-section .home-blog-reveal-img img, .blog-featured-section .home-blog-reveal-img .blog-featured-swiper").forEach((element) => {
+        gsap.to(element as HTMLElement, {
+          clipPath: "inset(0% 0 0 0)",
+          ease: "power3.out",
+          duration: 1.2,
           scrollTrigger: {
-            trigger: img as HTMLElement,
-            start: "top 85%",
+            trigger: element as HTMLElement,
+            start: "top 70%",
+            toggleActions: "play none none reverse",
           },
         });
       });
@@ -196,7 +200,14 @@ const BlogSection: React.FC<BlogSectionProps> = ({
               </h3>
 
               <div className="blog-post-image home-blog-reveal-img">
-                <img src={post.imageSrc} alt={post.imageAlt} />
+                {post.videoSrc ? (
+                  <BlogVideoCard
+                    videoSrc={post.videoSrc}
+                    fallbackImage={post.imageSrc}
+                  />
+                ) : (
+                  <img src={post.imageSrc} alt={post.imageAlt} />
+                )}
               </div>
 
               <HoverText

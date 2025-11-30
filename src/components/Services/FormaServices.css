@@ -22,6 +22,7 @@
 }
 
 .forma-services .fs-heading-subtitle {
+  
   margin: 0 auto;
   max-width: 680px;
   color: #4a4a4a;
@@ -247,5 +248,18 @@
 @media (min-width: 1440px) {
   .forma-services .fs-left {
     padding-left: 8.33%;
+  }
+}
+
+/* Extra Large Screens - Increase left side slide description by 20% */
+@media (min-width: 1560px) {
+  .forma-services .fs-description {
+    font-size: 21.6px !important; /* 1rem (16px) * 1.35 = 21.6px - 20% larger than 18px */
+    font-family: "Nunito", sans-serif !important;
+  }
+  
+  /* Increase heading subtitle font size by 20% */
+  .forma-services .fs-heading-subtitle {
+    font-size: calc(18px * 1.2) !important; /* 21.6px - 20% larger */
   }
 }

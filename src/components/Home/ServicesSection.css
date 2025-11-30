@@ -123,6 +123,7 @@
 }
 
 /* Prevent HoverText component from causing layout shifts */
+.hss-service-title > *,
 .hss-service-description > * {
   display: block;
   width: 100%;
@@ -130,10 +131,12 @@
   min-height: 1.2em;
   transition: font-weight 0.3s ease;
   letter-spacing: 0.01em;
+  transform: none !important; /* Prevent any transform on hover */
 }
 
+.hss-service-title > *:hover,
 .hss-service-description > *:hover {
-  transform: scale(1.001);
+  transform: none !important; /* Explicitly prevent transform on hover */
 }
 
 /* Old service-cta styles removed - now using GlassButton */
@@ -424,5 +427,47 @@
   .hss-title-decorator {
     width: 40px;
     margin-bottom: 16px;
+  }
+}
+
+/* Extra Large Screens - Increase overall container width by 20% */
+@media (min-width: 1560px) {
+  .hss-services-container {
+    max-width: 1680px; /* 1400px * 1.2 */
+  }
+  
+  .hss-services-layout {
+    max-width: 120%; /* 100% * 1.2 */
+  }
+  
+  /* Increase right side content font sizes by 20% */
+  .hss-services-description {
+    font-size: 21.6px; /* 18px * 1.2 */
+  }
+  
+  /* Increase all section descriptions by 20% (except cards) */
+  .services-description,
+  .section-description,
+  .essence-description,
+  .blog-featured-description,
+  .blog-post-description,
+  .home-page-projects-description,
+  .featured-properties-description,
+  .vision-description,
+  .cta-description {
+    font-size: 21.6px !important;
+    font-family: "Nunito", sans-serif !important;
+  }
+  
+  .hss-services-title {
+    font-size: 3.84rem !important; /* 3.2rem * 1.2 - 20% larger */
+  }
+  
+  /* Universal GlassButton size for homepage (except service cards) */
+  .home-benefits-cta:not(.hss-service-card .home-benefits-cta) {
+    padding: 1.25rem 1.75rem !important;
+    font-size: 0.8rem !important;
+    letter-spacing: 0.16em !important;
+    gap: 0.75rem !important;
   }
 }

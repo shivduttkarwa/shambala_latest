@@ -65,11 +65,14 @@ const OurVisionSection: React.FC<OurVisionSectionProps> = ({
       });
 
       if (!isMobile) {
+        const screenWidth = window.innerWidth;
+        const isLargeScreen = screenWidth >= 1560;
+        
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: sectionRef.current,
             start: "top top",
-            end: "+=100%",
+            end: isLargeScreen ? "+=120%" : "+=100%",
             scrub: true,
             pin: true,
             pinSpacing: false,
@@ -80,15 +83,14 @@ const OurVisionSection: React.FC<OurVisionSectionProps> = ({
         tl.to(
           ".vision-image-container",
           {
-            scale: 1.6,
-
+            scale: isLargeScreen ? 1.7 : 1.6,
             ease: "none",
           },
           0
         ).to(
           ".vision-text-right .vision-large-text",
           {
-            y: -500,
+            y: isLargeScreen ? "-70vh" : "-65vh",
             ease: "none",
           },
           0
