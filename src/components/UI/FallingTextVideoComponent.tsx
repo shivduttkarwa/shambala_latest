@@ -199,7 +199,7 @@ const FallingTextVideoComponent: React.FC<FallingTextVideoComponentProps> = ({
       .to(
         allChars,
         {
-          y: 200,
+          y: "80vh",
           opacity: 1,
           rotation: (i) => gsap.utils.random(-25, 25),
           ease: "power1.in",

@@ -496,7 +496,7 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
         .skew-page__heading {
           margin-bottom: 18px;
           text-transform: uppercase;
-          font-size: calc(clamp(70px, 8vw, 90px) * 0.8) !important; /* Reduced by 20% total */
+          font-size: calc(clamp(70px, 8vw, 90px) * 0.64) !important; /* Reduced by 20% from 0.8 to 0.64 */
           font-weight: 300;
           letter-spacing: 0.08em; /* Increased spacing between words */
           text-align: center;
