@@ -37,6 +37,12 @@ const OverlayMenu: React.FC = () => {
     // Initial menu state - hidden by default
     gsap.set(".olm-menu", { visibility: "hidden" });
     gsap.set(".olm-overlay", { opacity: 0 });
+    // Set initial state for mobile social icons
+    gsap.set(".olm-mobile-social-icon", { 
+      opacity: 0, 
+      y: 20,
+      scale: 0.8
+    });
 
     const revealMenuItems = () => {
       if (!path) return;
@@ -146,6 +152,22 @@ const OverlayMenu: React.FC = () => {
         },
         "-=0.48"
       )
+      // Mobile social icons - animate after primary menu
+      .to(
+        ".olm-mobile-social-icon",
+        {
+          duration: 0.5,
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          ease: "power3.out",
+          stagger: {
+            amount: 0.3,
+            from: "center"
+          }
+        },
+        "+=0.2" // Start shortly after primary menu
+      )
         // Secondary menu background image
         .to(
           ".olm-secondary-menu-bg",
@@ -228,8 +250,10 @@ const OverlayMenu: React.FC = () => {
     toggleBtn?.addEventListener("touchend", handleToggle);
 
     // Menu link click behaviour (close menu for React Router Links)
-    const menuLinks =
-      document.querySelectorAll<HTMLAnchorElement>(".olm-menu-item a");
+    const menuLinks = [
+      ...document.querySelectorAll<HTMLAnchorElement>(".olm-menu-item a"),
+      ...document.querySelectorAll<HTMLAnchorElement>(".olm-mobile-social-icon")
+    ];
 
     const handleMenuLinkClick = (e: Event) => {
       const link = e.currentTarget as HTMLAnchorElement;
@@ -283,7 +307,8 @@ const OverlayMenu: React.FC = () => {
         ".olm-contact-btn",
         ".olm-email-btn",
         ".olm-menu-item .olm-social-content",
-        ".olm-menu-item .olm-footer-content"
+        ".olm-menu-item .olm-footer-content",
+        ".olm-mobile-social-icon"
       ]);
       
       toggleBtn?.removeEventListener("click", handleToggle);
@@ -449,6 +474,24 @@ const OverlayMenu: React.FC = () => {
                   <span className="olm-menu-text">Contact Us</span>
                 </Link>
                 <div className="olm-menu-item-revealer"></div>
+              </div>
+
+              {/* Mobile Secondary Menu - Only visible on mobile */}
+              <div className="olm-mobile-secondary-menu">
+                <div className="olm-mobile-social-icons">
+                  <Link to="/services" className="olm-mobile-social-icon olm-mobile-services-icon">
+                    <span className="olm-mobile-menu-number">01</span>
+                  </Link>
+                  <Link to="/projects" className="olm-mobile-social-icon olm-mobile-projects-icon">
+                    <span className="olm-mobile-menu-number">02</span>
+                  </Link>
+                  <Link to="/about" className="olm-mobile-social-icon olm-mobile-about-icon">
+                    <span className="olm-mobile-menu-number">03</span>
+                  </Link>
+                  <Link to="/new-contact" className="olm-mobile-social-icon olm-mobile-contact-icon">
+                    <span className="olm-mobile-menu-number">04</span>
+                  </Link>
+                </div>
               </div>
             </div>
           </div>

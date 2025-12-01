@@ -46,7 +46,7 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
     const letters = brandTextRef.current?.querySelectorAll(".forma-footer-letter");
     if (!letters || letters.length === 0) return;
 
-    const colors = ["#ff6b6b", "#4ecdc4", "#ffe66d", "#a8e6cf", "#ff8b94"];
+    const colors = ["#ff6b6b", "#4ecdc4", "#ffe66d", "#9b59b6", "#ff8b94"];
     gsap.set(letters, { yPercent: 100 });
 
     const st = ScrollTrigger.create({
