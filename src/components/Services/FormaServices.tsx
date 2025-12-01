@@ -212,7 +212,7 @@ export const FormaServices: FC = () => {
           // 0 → shrinkEnd: full-bleed shrinks
           // shrinkEnd → slidesStart: half-width, slide 1 stays, no transitions
           // slidesStart → 1: slide transitions
-          const shrinkEnd = 0.1;
+          const shrinkEnd = 0.15;
           const slidesStart = 0.3;
           const transitionsCount = serviceSlides.length - 1;
 
@@ -222,7 +222,7 @@ export const FormaServices: FC = () => {
           ScrollTrigger.create({
             trigger: fsSection,
             start: "top top",
-            end: "+=500%",
+            end: "+=650%",
             scrub: true,
             pin: fsInner,
             snap: {

@@ -10,14 +10,14 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
 
   // DESKTOP: full-bleed skewed contact storytelling for Forma (architecture studio)
   const footerColors = ["#ff6b6b", "#4ecdc4", "#ffe66d", "#a8e6cf", "#ff8b94"];
-  const newColors = ["#6c5ce7", "#fd79a8", "#fdcb6e", "#00b894"]; // 4 new colors: purple, pink, orange, green
-  
-  const allColors = [...footerColors, ...newColors]; // 9 unique colors total
-  
+  const newColors = ["#6c5ce7", "#fd79a8", "#fdcb6e", "#00b894"];
+
+  const allColors = [...footerColors, ...newColors];
+
   const pages = [
     {
-      leftBg: allColors[0], // #ff6b6b - coral red
-      rightBg: allColors[1], // #4ecdc4 - turquoise
+      leftBg: allColors[0],
+      rightBg: allColors[1],
       leftHeading: "Get\nin Touch",
       leftDesc: "",
       leftLink: "",
@@ -25,8 +25,8 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
       rightDesc: "studio@forma.archi",
     },
     {
-      leftBg: allColors[2], // #ffe66d - yellow
-      rightBg: allColors[3], // #a8e6cf - mint green
+      leftBg: allColors[2],
+      rightBg: allColors[3],
       leftHeading: "Address",
       leftDesc: "",
       leftLink: "",
@@ -34,34 +34,42 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
       rightDesc: "",
     },
     {
-      leftBg: allColors[4], // #ff8b94 - pink
-      rightBg: allColors[5], // #6c5ce7 - purple (new)
+      leftBg: allColors[4],
+      rightBg: allColors[5],
       leftHeading: "Service\n\nYou Want",
       leftDesc: "",
       leftLink: "",
       rightHeading: "",
       rightDesc: "",
-      serviceButtons: ["Build a new house", "Upgrade house", "Commercial builds", "Downsize house"],
+      serviceButtons: [
+        "Build a new house",
+        "Upgrade house",
+        "Commercial builds",
+        "Downsize house",
+      ],
     },
     {
-      leftBg: allColors[6], // #fd79a8 - bright pink (new)
-      rightBg: allColors[7], // #fdcb6e - orange (new)
+      leftBg: allColors[6],
+      rightBg: allColors[7],
       leftHeading: "Let's Start\nYour Project",
-      leftDesc: "Tell us about your vision and we'll help bring it to life with our architectural expertise.",
+      leftDesc:
+        "Tell us about your vision and we'll help bring it to life with our architectural expertise.",
       leftLink: "",
       rightHeading: "Contact Form",
       rightDesc: "",
-      showForm: true
+      showForm: true,
     },
     {
-      leftBg: allColors[8], // #00b894 - green (new)
-      rightBg: allColors[0], // #ff6b6b - coral red (reusing first color for contrast)
-      leftHeading: "Architecture is not about building\nthe impossible, but the appropriate.",
+      // Last slide – will be rendered as 2 skewed images (no text)
+      leftBg: allColors[8],
+      rightBg: allColors[0],
+      leftHeading:
+        "Architecture is not about building\nthe impossible, but the appropriate.",
       leftDesc: "— Alvar Aalto",
       leftLink: "",
       rightHeading: "Ready to Create\nSomething Extraordinary?",
       rightDesc: "",
-      showRainButton: true
+      showRainButton: true,
     },
   ];
 
@@ -95,40 +103,40 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
 
     const isMobile = window.matchMedia("(max-width: 900px)").matches;
 
-    // Helper: GSAP reveal for desktop slide - match Services hero animation
+    // Desktop heading animation – now respects spaces and line breaks
     const animateDesktopSlide = (index: number) => {
       const page = container.querySelector(
         `.skew-page-${index + 1}`
       ) as HTMLDivElement | null;
       if (!page) return;
-      
-      const heading = page.querySelector(".skew-page__heading") as HTMLElement | null;
+
+      const heading = page.querySelector(
+        ".skew-page__heading"
+      ) as HTMLElement | null;
       if (!heading) return;
-      
-      // Split heading into characters for scatter animation
-      const text = heading.textContent || "";
+
+      const originalText = heading.getAttribute("data-heading") || heading.textContent || "";
       heading.innerHTML = "";
-      
+
       const chars: HTMLSpanElement[] = [];
-      text.split("").forEach((char) => {
+
+      for (const char of originalText) {
+        if (char === "\n") {
+          // Keep manual line breaks as <br>, no animation needed
+          const br = document.createElement("br");
+          heading.appendChild(br);
+          continue;
+        }
+
         const span = document.createElement("span");
         span.className = "char";
         span.textContent = char;
         span.style.display = "inline-block";
-        
-        // Add proper spacing for space characters
-        if (char === " ") {
-          span.style.width = "0.3em"; // Width for space character
-          span.style.marginRight = "0.1em"; // Extra spacing after space
-        } else {
-          span.style.marginRight = "0.02em"; // Small spacing between letters
-        }
-        
         heading.appendChild(span);
         chars.push(span);
-      });
-      
-      // Apply scatter animation like Services hero
+      }
+
+      // Scatter animation
       gsap.fromTo(
         chars,
         {
@@ -151,8 +159,7 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
           stagger: { each: 0.035, from: "center" },
         }
       );
-      
-      // Animate other elements normally
+
       const otherElems = page.querySelectorAll(
         ".skew-page__description, .skew-page__link"
       );
@@ -165,29 +172,31 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
           duration: 0.7,
           ease: "power3.out",
           stagger: 0.08,
-          delay: 0.5, // Start after heading animation
+          delay: 0.5,
           onComplete: () => {
-            // Add click handlers after animation
-            const phoneHeading = page.querySelector(".skew-page__heading") as HTMLElement;
-            const emailDesc = page.querySelector(".skew-page__description") as HTMLElement;
-            
+            const phoneHeading = page.querySelector(
+              ".skew-page__heading"
+            ) as HTMLElement | null;
+            const emailDesc = page.querySelector(
+              ".skew-page__description"
+            ) as HTMLElement | null;
+
             if (phoneHeading && phoneHeading.textContent?.includes("+61")) {
               phoneHeading.addEventListener("click", () => {
                 window.location.href = "tel:+61312345678";
               });
             }
-            
+
             if (emailDesc && emailDesc.textContent?.includes("@")) {
               emailDesc.addEventListener("click", () => {
                 window.location.href = "mailto:studio@forma.archi";
               });
             }
-          }
+          },
         }
       );
     };
 
-    // Helper: GSAP reveal for mobile slide
     const animateMobileSlide = (index: number) => {
       const mobileEl = container.querySelector(
         ".skew-mobile"
@@ -204,12 +213,18 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
       gsap.fromTo(
         elems,
         { autoAlpha: 0, y: 20 },
-        { autoAlpha: 1, y: 0, duration: 0.6, ease: "power3.out", stagger: 0.06 }
+        {
+          autoAlpha: 1,
+          y: 0,
+          duration: 0.6,
+          ease: "power3.out",
+          stagger: 0.06,
+        }
       );
     };
 
     if (isMobile) {
-      // -------- MOBILE: GSAP ScrollTrigger that pins only the mobile slider --------
+      // MOBILE: ScrollTrigger pin slider
       const mobileEl = container.querySelector(
         ".skew-mobile"
       ) as HTMLDivElement | null;
@@ -266,7 +281,7 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
       };
     }
 
-    // -------- DESKTOP: skewed slider behaviour (wheel + arrows) --------
+    // DESKTOP: skew pages + wheel / key navigation
     const pageElements = Array.from(
       container.querySelectorAll<HTMLDivElement>(".skew-page")
     );
@@ -275,7 +290,7 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
     const animTime = 1000;
     let isAnimating = false;
 
-    function setClasses() {
+    const setClasses = () => {
       pageElements.forEach((page, index) => {
         page.classList.remove("skew-active", "skew-inactive");
         if (index === current) {
@@ -284,28 +299,28 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
           page.classList.add("skew-inactive");
         }
       });
-    }
+    };
 
-    function paginate() {
+    const paginate = () => {
       isAnimating = true;
       setClasses();
       animateDesktopSlide(current);
       window.setTimeout(() => {
         isAnimating = false;
       }, animTime);
-    }
+    };
 
-    function navigateDown() {
+    const navigateDown = () => {
       if (isAnimating || current === pageElements.length - 1) return;
       current++;
       paginate();
-    }
+    };
 
-    function navigateUp() {
+    const navigateUp = () => {
       if (isAnimating || current === 0) return;
       current--;
       paginate();
-    }
+    };
 
     const sliderInView = () => {
       const rect = container.getBoundingClientRect();
@@ -451,10 +466,6 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
           background-position: center;
           background-repeat: no-repeat;
           text-align: center;
-        }
-
-        /* Light dark overlay for text visibility while keeping colors vibrant */
-        .skew-page__content {
           position: relative;
         }
 
@@ -463,10 +474,10 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
           position: absolute;
           inset: 0;
           background: linear-gradient(
-              to bottom,
-              rgba(0, 0, 0, 0.3),
-              rgba(0, 0, 0, 0.4)
-            );
+            to bottom,
+            rgba(0, 0, 0, 0.3),
+            rgba(0, 0, 0, 0.4)
+          );
           mix-blend-mode: normal;
           z-index: 0;
         }
@@ -496,45 +507,52 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
         .skew-page__heading {
           margin-bottom: 18px;
           text-transform: uppercase;
-          font-size: calc(clamp(70px, 8vw, 90px) * 0.64) !important; /* Reduced by 20% from 0.8 to 0.64 */
+          font-size: calc(clamp(70px, 8vw, 90px) * 0.64) !important;
           font-weight: 300;
-          letter-spacing: 0.08em; /* Increased spacing between words */
+          letter-spacing: 0.08em;
           text-align: center;
-          font-family: "nunito", cursive; /* Changed to nunito font */
-          line-height: 1.2; /* Better line height for spacing */
-          word-break: keep-all; /* Prevent words from breaking */
-          overflow-wrap: normal; /* Prevent word wrapping */
-          white-space: pre-line; /* Respect manual line breaks */
+          font-family: "nunito", cursive;
+          line-height: 1.2;
+          word-break: keep-all;
+          overflow-wrap: normal;
+          white-space: pre-line; /* respect \\n */
+          cursor: pointer;
+          transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .skew-page__heading:hover {
+          transform: scale(1.05);
+          opacity: 0.9;
         }
 
         .skew-page__description {
-          font-size: 24px; /* Increased from 18px to match heading size */
+          font-size: 24px;
           text-align: center;
           max-width: 30rem;
           line-height: 1.8;
           white-space: pre-line;
-          cursor: pointer; /* Make clickable */
-          transition: transform 0.3s ease, opacity 0.3s ease; /* Hover effect */
+          cursor: pointer;
+          transition: transform 0.3s ease, opacity 0.3s ease;
         }
-        
+
         .skew-page__description:hover {
-          transform: scale(1.05); /* Slight scale on hover */
-          opacity: 0.9; /* Slight fade on hover */
+          transform: scale(1.05);
+          opacity: 0.9;
         }
-        
+
         /* Elegant large service buttons */
         .skew-page__description.service-buttons {
-          font-size: 28px; /* Much larger text */
+          font-size: 28px;
           font-weight: 300;
           letter-spacing: 0.05em;
           line-height: 1.2;
-          padding: 25px 50px; /* Much larger padding */
+          padding: 25px 50px;
           background: rgba(255, 255, 255, 0.08);
           border: 2px solid rgba(255, 255, 255, 0.2);
-          border-radius: 16px; /* More rounded */
+          border-radius: 16px;
           backdrop-filter: blur(20px);
           margin: 20px 0;
-          display: block; /* Full width */
+          display: block;
           width: 100%;
           max-width: 400px;
           text-align: center;
@@ -544,7 +562,7 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
           position: relative;
           overflow: hidden;
         }
-        
+
         .skew-page__description.service-buttons::before {
           content: "";
           position: absolute;
@@ -552,39 +570,34 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
           left: -100%;
           width: 100%;
           height: 100%;
-          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+          background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.1),
+            transparent
+          );
           transition: left 0.6s;
         }
-        
+
         .skew-page__description.service-buttons:hover {
           background: rgba(255, 255, 255, 0.15);
           border-color: rgba(255, 255, 255, 0.4);
           transform: translateY(-8px) scale(1.02);
           box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
         }
-        
+
         .skew-page__description.service-buttons:hover::before {
           left: 100%;
         }
-        
+
         .service-buttons-container {
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 25px; /* More spacing */
+          gap: 25px;
           padding: 30px;
           max-width: 500px;
           margin: 0 auto;
-        }
-        
-        .skew-page__heading {
-          cursor: pointer; /* Make phone number clickable */
-          transition: transform 0.3s ease, opacity 0.3s ease; /* Hover effect */
-        }
-        
-        .skew-page__heading:hover {
-          transform: scale(1.05); /* Slight scale on hover */
-          opacity: 0.9; /* Slight fade on hover */
         }
 
         .skew-page__link {
@@ -613,6 +626,15 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
           letter-spacing: 0.1em;
           text-transform: uppercase;
           pointer-events: none;
+        }
+
+        /* ---------- IMAGE-ONLY LAST SLIDE (background imgs, skewed edges) ---------- */
+        .skew-page__content--image-only {
+          padding: 0;
+        }
+
+        .skew-page__content--image-only::before {
+          background: rgba(0, 0, 0, 0.25); /* subtle overlay so images still visible, but edges skewed */
         }
 
         /* Contact Form Styles */
@@ -666,7 +688,6 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
           min-height: 100px;
         }
 
-        /* Rain Button Container */
         .rain-button-container {
           display: flex;
           justify-content: center;
@@ -676,12 +697,11 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
           margin: 2rem auto 0;
         }
 
-        /* ---------- MOBILE CONTACT SLIDER (GSAP + ScrollTrigger) ---------- */
+        /* ---------- MOBILE CONTACT SLIDER ---------- */
         .skew-mobile {
           display: none;
         }
 
-        /* CONTACT FORM (mobile only in this component – desktop form can be separate page section if you want) */
         .skew-mobile__form-block {
           padding: 2.4rem 1.9rem 3rem;
           background: #0c0c0c;
@@ -801,14 +821,6 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
             align-items: flex-start;
           }
 
-          .skew-mobile__label {
-            font-size: 0.8rem;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            opacity: 0.6;
-            margin-bottom: 1rem;
-          }
-
           .skew-mobile__heading {
             font-size: 2rem;
             line-height: 1.25;
@@ -832,110 +844,151 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
         }
       `}</style>
 
-      {/* DESKTOP: skewed contact storytelling for Forma */}
+      {/* DESKTOP: skewed contact storytelling */}
       <div className="skew-pages">
-        {pages.map((page, index) => (
-          <div
-            key={index}
-            className={`skew-page skew-page-${index + 1} ${
-              index === 0 ? "skew-active" : ""
-            }`}
-          >
-            <div className="skew-page__half skew-page__half--left">
-              <div className="skew-page__skewed">
-                <div
-                  className="skew-page__content"
-                  style={
-                    isImage(page.leftBg)
-                      ? { backgroundImage: `url(${page.leftBg})` }
-                      : { backgroundColor: page.leftBg }
-                  }
-                >
-                  <h2 className="skew-page__heading">{page.leftHeading}</h2>
-                  <p className="skew-page__description">{page.leftDesc}</p>
-                  {page.leftLink && (
-                    <div className="skew-page__link-container">
-                      <GlassRainButton href="/projects">
-                        {page.leftLink}
-                      </GlassRainButton>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
+        {pages.map((page, index) => {
+          const isLast = index === pages.length - 1;
 
-            <div className="skew-page__half skew-page__half--right">
-              <div className="skew-page__skewed">
-                <div
-                  className="skew-page__content"
-                  style={
-                    isImage(page.rightBg)
-                      ? { backgroundImage: `url(${page.rightBg})` }
-                      : { backgroundColor: page.rightBg }
-                  }
-                >
-                  <h2 className="skew-page__heading">{page.rightHeading}</h2>
-                  {page.showForm ? (
-                    <div className="contact-form-container">
-                      <div className="contact-form-grid">
-                        <div className="contact-form-field">
-                          <input
-                            className="contact-form-input"
-                            type="text"
-                            placeholder="Your Name"
-                          />
-                        </div>
-                        <div className="contact-form-field">
-                          <input
-                            className="contact-form-input"
-                            type="email"
-                            placeholder="Your Email"
-                          />
-                        </div>
-                        <div className="contact-form-field">
-                          <input
-                            className="contact-form-input"
-                            type="tel"
-                            placeholder="Phone Number"
-                          />
-                        </div>
-                        <div className="contact-form-field">
-                          <textarea
-                            className="contact-form-textarea"
-                            placeholder="Tell us about your project..."
-                            rows={4}
-                          />
-                        </div>
-                        <GlassRainButton href="#">
-                          Send Message
-                        </GlassRainButton>
-                      </div>
-                    </div>
-                  ) : page.showRainButton ? (
-                    <div className="rain-button-container">
-                      <GlassRainButton href="/contact">
-                        Start Your Project
-                      </GlassRainButton>
-                    </div>
-                  ) : page.serviceButtons ? (
-                    <div className="service-buttons-container">
-                      {page.serviceButtons.map((button, btnIndex) => (
-                        <div key={btnIndex} className="skew-page__description service-buttons">
-                          {button}
-                        </div>
-                      ))}
-                    </div>
+          return (
+            <div
+              key={index}
+              className={`skew-page skew-page-${index + 1} ${
+                index === 0 ? "skew-active" : ""
+              }`}
+            >
+              {/* LEFT HALF */}
+              <div className="skew-page__half skew-page__half--left">
+                <div className="skew-page__skewed">
+                  {isLast ? (
+                    // Last slide left: skewed background image
+                    <div
+                      className="skew-page__content skew-page__content--image-only"
+                      style={{
+                        backgroundImage: `url(/images/l11.jpg)`,
+                      }}
+                    />
                   ) : (
-                    <p className="skew-page__description">{page.rightDesc}</p>
+                    <div
+                      className="skew-page__content"
+                      style={
+                        isImage(page.leftBg)
+                          ? { backgroundImage: `url(${page.leftBg})` }
+                          : { backgroundColor: page.leftBg }
+                      }
+                    >
+                      <h2
+                        className="skew-page__heading"
+                        data-heading={page.leftHeading}
+                      >
+                        {page.leftHeading}
+                      </h2>
+                      <p className="skew-page__description">{page.leftDesc}</p>
+                      {page.leftLink && (
+                        <div className="skew-page__link-container">
+                          <GlassRainButton href="/projects">
+                            {page.leftLink}
+                          </GlassRainButton>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* RIGHT HALF */}
+              <div className="skew-page__half skew-page__half--right">
+                <div className="skew-page__skewed">
+                  {isLast ? (
+                    // Last slide right: skewed background image
+                    <div
+                      className="skew-page__content skew-page__content--image-only"
+                      style={{
+                        backgroundImage: `url(/images/l6.jpg)`,
+                      }}
+                    />
+                  ) : (
+                    <div
+                      className="skew-page__content"
+                      style={
+                        isImage(page.rightBg)
+                          ? { backgroundImage: `url(${page.rightBg})` }
+                          : { backgroundColor: page.rightBg }
+                      }
+                    >
+                      <h2
+                        className="skew-page__heading"
+                        data-heading={page.rightHeading}
+                      >
+                        {page.rightHeading}
+                      </h2>
+                      {page.showForm ? (
+                        <div className="contact-form-container">
+                          <div className="contact-form-grid">
+                            <div className="contact-form-field">
+                              <input
+                                className="contact-form-input"
+                                type="text"
+                                placeholder="Your Name"
+                              />
+                            </div>
+                            <div className="contact-form-field">
+                              <input
+                                className="contact-form-input"
+                                type="email"
+                                placeholder="Your Email"
+                              />
+                            </div>
+                            <div className="contact-form-field">
+                              <input
+                                className="contact-form-input"
+                                type="tel"
+                                placeholder="Phone Number"
+                              />
+                            </div>
+                            <div className="contact-form-field">
+                              <textarea
+                                className="contact-form-textarea"
+                                placeholder="Tell us about your project..."
+                                rows={4}
+                              />
+                            </div>
+                            <GlassRainButton href="#">
+                              Send Message
+                            </GlassRainButton>
+                          </div>
+                        </div>
+                      ) : page.showRainButton ? (
+                        <div className="rain-button-container">
+                          <GlassRainButton href="/contact">
+                            Start Your Project
+                          </GlassRainButton>
+                        </div>
+                      ) : page.serviceButtons ? (
+                        <div className="service-buttons-container">
+                          {page.serviceButtons.map((button, btnIndex) => (
+                            <div
+                              key={btnIndex}
+                              className="skew-page__description service-buttons"
+                            >
+                              {button}
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <p className="skew-page__description">
+                          {page.rightDesc}
+                        </p>
+                      )}
+                    </div>
                   )}
                 </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
-      {/* MOBILE: contact-focused ScrollTrigger slider + form */}
+      {/* MOBILE: contact-focused slider */}
       <div className="skew-mobile">
         <div className="skew-mobile__inner">
           {mobileSlides.map((slide, index) => (
@@ -950,7 +1003,7 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
         </div>
       </div>
 
-      {/* MOBILE contact form + contact details (shows after slider finishes pinning) */}
+      {/* MOBILE contact form + details */}
       <div id="contact-form" className="skew-mobile__form-block">
         <h2 className="skew-mobile__form-heading">Contact Forma</h2>
         <div className="skew-mobile__form-grid">
