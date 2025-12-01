@@ -321,7 +321,7 @@ const GsapSlider: FC = () => {
 
               <div>
                 <div className="gs-fs-cta">
-                  <GlassButton href="/contact">Talk to Forma</GlassButton>
+                  <GlassButton href="/projects">Talk to Forma</GlassButton>
                 </div>
                 <div className="gs-fs-counter">
                   <span className="gs-fs-counter-current">01</span> / {" "}

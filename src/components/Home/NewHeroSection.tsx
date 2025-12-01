@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, Component } from "react";
+import React, { useEffect, useRef, Component } from "react";
 import gsap from "gsap";
 import "./NewHeroSection.css";
 import { useNewHero } from "../../hooks/useHome";
@@ -40,40 +40,248 @@ class HeroErrorBoundary extends Component<
 const NewHeroSectionContent: React.FC = () => {
   const heroSectionRef = useRef<HTMLElement | null>(null);
   const heroHeadingRef = useRef<HTMLHeadingElement | null>(null);
+  const secondLineRef = useRef<HTMLDivElement | null>(null);
   const { heroData } = useNewHero();
 
-  // Split text into lines with mask - manual split for hero
-  const splitTextIntoLines = (lines: string[]) => {
-    return lines.map((line, index) => (
-      <div key={index} className="mask">
-        <div className="line">{line}</div>
-      </div>
-    ));
+  // Phrases for cycling animation
+  const phrases = [
+    "Excellence",
+    "Innovation", 
+    "Heritage",
+    "Future"
+  ];
+
+  // Split characters for scatter animation
+  const splitChars = (el: HTMLElement): HTMLElement[] => {
+    el.textContent = "";
+    const chars: HTMLElement[] = [];
+
+    // Create container for first text
+    const firstLineContainer = document.createElement("div");
+    firstLineContainer.classList.add("line-container");
+    
+    // Split first text into characters
+    [..."WE BUILD"].forEach((ch) => {
+      const charSpan = document.createElement("span");
+      charSpan.classList.add("char");
+      charSpan.textContent = ch;
+      firstLineContainer.appendChild(charSpan);
+      chars.push(charSpan);
+    });
+    
+    el.appendChild(firstLineContainer);
+
+    return chars;
   };
+
+  // Text cycling animation for second line
+  useEffect(() => {
+    const secondLine = secondLineRef.current;
+    if (!secondLine) return;
+
+    let currentIndex = 0;
+    let timeoutId: number | null = null;
+
+    function showText(index: number, isInitial: boolean = false) {
+      if (!secondLine) return;
+      
+      const phrase = phrases[index];
+      const chars = phrase.split('');
+      
+      secondLine.textContent = '';
+      
+      const charSpans: HTMLElement[] = [];
+      chars.forEach(char => {
+        const span = document.createElement('span');
+        span.textContent = char;
+        span.style.display = 'inline-block';
+        
+        span.style.opacity = '0';
+        span.style.transform = `translate(${gsap.utils.random(-220, 220)}px, ${gsap.utils.random(-140, 140)}px) rotate(${gsap.utils.random(-40, 40)}deg) scale(${gsap.utils.random(0.6, 0.9)})`;
+        span.style.filter = 'blur(14px)';
+        
+        secondLine.appendChild(span);
+        charSpans.push(span);
+      });
+
+      if (isInitial) {
+        return charSpans;
+      } else {
+        gsap.fromTo(
+          charSpans,
+          {
+            x: () => gsap.utils.random(-220, 220),
+            y: () => gsap.utils.random(-140, 140),
+            rotation: () => gsap.utils.random(-40, 40),
+            scale: () => gsap.utils.random(0.6, 0.9),
+            opacity: 0,
+            filter: "blur(14px)",
+          },
+          {
+            x: 0,
+            y: 0,
+            rotation: 0,
+            scale: 1,
+            opacity: 1,
+            filter: "blur(0px)",
+            duration: 1.4,
+            ease: "expo.out",
+            stagger: { each: 0.035, from: "center" },
+            onComplete: () => {
+              // Hold for 2 seconds, then animate out with scatter effect
+              timeoutId = window.setTimeout(() => {
+                gsap.to(charSpans, {
+                  x: () => gsap.utils.random(-220, 220),
+                  y: () => gsap.utils.random(-140, 140),
+                  rotation: () => gsap.utils.random(-40, 40),
+                  scale: () => gsap.utils.random(0.6, 0.9),
+                  opacity: 0,
+                  filter: "blur(14px)",
+                  duration: 1.2,
+                  ease: "expo.in",
+                  stagger: { each: 0.03, from: "center" },
+                  onComplete: () => {
+                    currentIndex = (currentIndex + 1) % phrases.length;
+                    showText(currentIndex, false);
+                  }
+                });
+              }, 2000);
+            }
+          }
+        );
+      }
+    }
+
+    showText(0, true);
+
+    const startCycling = () => {
+      timeoutId = window.setTimeout(() => {
+        currentIndex = (currentIndex + 1) % phrases.length;
+        showText(currentIndex, false);
+      }, 2000); 
+    };
+
+    (secondLine as any).startCycling = startCycling;
+
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+      gsap.killTweensOf(secondLine);
+    };
+  }, []);
 
   // Hero text animation
   useEffect(() => {
-    if (!heroSectionRef.current) return;
+    const heading = heroHeadingRef.current;
+    if (!heading) return;
 
-    const ctx = gsap.context(() => {
-      // Hero text animation - starts after preloader is done
-      const headingLines = heroHeadingRef.current?.querySelectorAll(".line");
-      if (headingLines && headingLines.length > 0) {
-        gsap.set(headingLines, { yPercent: 100 });
+    const chars = splitChars(heading);
+    const section = heading.closest(".hero-section");
+    if (!section) return;
 
-        // Wait for preloader to complete (3 seconds) then animate
-        gsap.to(headingLines, {
-          yPercent: 0,
-          duration: 1.8,
-          stagger: 0.8,
-          ease: "power1.out",
-          delay: 3.5, // Wait for preloader to finish
-        });
+    const config = chars.map(() => ({
+      x: gsap.utils.random(-220, 220),
+      y: gsap.utils.random(-140, 140),
+      r: gsap.utils.random(-40, 40),
+      s: gsap.utils.random(0.6, 0.9),
+    }));
+
+    const tl = gsap.timeline({ paused: true });
+
+    // Add 2-second delay before starting animations
+    tl.to({}, { duration: 2.0 }); // 2-second delay
+
+    tl.fromTo(
+      chars,
+      {
+        x: (i) => config[i].x,
+        y: (i) => config[i].y,
+        rotation: (i) => config[i].r,
+        scale: (i) => config[i].s,
+        opacity: 0,
+        filter: "blur(14px)",
+      },
+      {
+        x: 0,
+        y: 0,
+        rotation: 0,
+        scale: 1,
+        opacity: 1,
+        filter: "blur(0px)",
+        duration: 1.4,
+        ease: "expo.out",
+        stagger: { each: 0.035, from: "center" },
       }
-    }, heroSectionRef);
+    );
+
+    tl.to(
+      heading,
+      {
+        "--u-scale": 1,
+        duration: 0.9,
+        ease: "power2.out",
+      },
+      "-=0.7"
+    );
+
+    // Add second line animation to main timeline
+    const secondLine = secondLineRef.current;
+    if (secondLine && (secondLine as any).startCycling) {
+      const secondLineChars = secondLine.querySelectorAll('span');
+      
+      tl.fromTo(
+        secondLineChars,
+        {
+          x: () => {
+            const transform = secondLineChars[0]?.style.transform || '';
+            const match = transform.match(/translate\(([^,]+)px/);
+            return match ? parseFloat(match[1]) : gsap.utils.random(-220, 220);
+          },
+          y: () => {
+            const transform = secondLineChars[0]?.style.transform || '';
+            const match = transform.match(/translate\([^,]+,\s*([^)]+)px/);
+            return match ? parseFloat(match[1]) : gsap.utils.random(-140, 140);
+          },
+          rotation: () => {
+            const transform = secondLineChars[0]?.style.transform || '';
+            const match = transform.match(/rotate\(([^)]+)deg/);
+            return match ? parseFloat(match[1]) : gsap.utils.random(-40, 40);
+          },
+          scale: () => {
+            const transform = secondLineChars[0]?.style.transform || '';
+            const match = transform.match(/scale\(([^)]+)\)/);
+            return match ? parseFloat(match[1]) : gsap.utils.random(0.6, 0.9);
+          },
+          opacity: 0,
+          filter: "blur(14px)",
+        },
+        {
+          x: 0,
+          y: 0,
+          rotation: 0,
+          scale: 1,
+          opacity: 1,
+          filter: "blur(0px)",
+          duration: 1.4,
+          ease: "expo.out",
+          stagger: { each: 0.035, from: "center" },
+          onComplete: () => {
+            (secondLine as any).startCycling();
+          }
+        },
+        "-=1.2"
+      );
+    }
+
+    // Start animation after preloader completes + additional delay to match Services hero
+    setTimeout(() => {
+      tl.restart();
+    }, 5500); // 3.5s preloader + 2s delay = 5.5s total to match Services hero timing
 
     return () => {
-      ctx.revert();
+      gsap.killTweensOf(heading);
+      gsap.killTweensOf(chars);
     };
   }, []);
 
@@ -121,13 +329,16 @@ const NewHeroSectionContent: React.FC = () => {
         <div className="hero-content">
           <div className="hero-text">
             <h1 ref={heroHeadingRef}>
-              {splitTextIntoLines(["WE BUILD", "YOUR DREAMS"])}
+              {/* Characters will be populated by splitChars function */}
             </h1>
+            <div className="hero-second-line" ref={secondLineRef}>
+              {/* Text will be populated by animation */}
+            </div>
           </div>
 
           <div className="hero-cta">
-            <GlassRainButton href={heroData?.cta.link || "#contact"}>
-              {heroData?.cta.text || "Get a Free Site Visit"}
+            <GlassRainButton href={heroData?.cta.link || "#about"}>
+              {heroData?.cta.text || "Discover Our Story"}
             </GlassRainButton>
           </div>
         </div>

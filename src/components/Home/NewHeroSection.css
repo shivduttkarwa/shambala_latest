@@ -22,6 +22,111 @@
   z-index: 1;
 }
 
+/* Hero text styles matching ServiceHeroText */
+.hero-text h1 {
+  --u-scale: 0;
+  font-size: clamp(70px, 8vw, 90px) !important;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  position: relative;
+  display: block;
+  overflow: visible;
+  text-align: center;
+  line-height: 1.0;
+  width: 100%;
+  font-family: "Dream Avenue", cursive;
+  transform: translateY(-50px);
+  color: #fff;
+  margin: 0;
+}
+
+.hero-text h1 span.char {
+  display: inline-block;
+}
+
+.hero-text h1 .line-container {
+  display: block;
+  margin-bottom: 0.02em;
+  white-space: nowrap;
+}
+
+.hero-text h1 .line-container span.char {
+  margin-right: 0.12em; /* Increased spacing between characters */
+}
+
+/* Second line with changing text - positioned below first line */
+.hero-second-line {
+  position: absolute;
+  top: calc(50% + 130px); /* Pushed down by additional 20px (was 110px) */
+  left: calc(50% - 160px); /* Pushed left by 160px */
+  transform: translateX(-50%) translateY(-50%); /* Match Services page transform */
+  font-size: clamp(70px, 8vw, 90px) !important;
+  font-weight: 200;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  z-index: 2;
+  font-family: "Dream Avenue", cursive;
+}
+
+.hero-second-line span {
+  font-size: clamp(70px, 8vw, 90px) !important;
+  font-weight: 200;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #fff;
+  font-family: "Dream Avenue", cursive;
+  display: inline-block;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  .hero-text h1 {
+    font-size: clamp(50px, 10vw, 70px) !important;
+    transform: translateY(-30px);
+    line-height: 1.1;
+    padding: 0 1rem;
+  }
+  
+  .hero-text h1 .line-container span.char {
+    margin-right: 0.08em; /* Adjusted spacing for mobile */
+  }
+  
+  .hero-second-line {
+    top: calc(50% + 30px); /* Pushed up by additional 10px (was 40px) */
+    left: calc(50% + 10px); /* Pushed right by 90px (was -80px, so +90px = -80px + 90px = +10px) */
+    transform: translateX(-50%) translateY(-30%);
+    font-size: clamp(50px, 10vw, 70px) !important;
+    padding: 0 1rem;
+  }
+  
+  .hero-second-line span {
+    font-size: clamp(50px, 10vw, 70px) !important;
+  }
+}
+
+/* Large screens 1600px and above - increase font size by 30% */
+@media (min-width: 1600px) {
+  .hero-text h1 {
+    font-size: clamp(91px, 10.4vw, 117px) !important; /* 70px * 1.3 = 91px, 90px * 1.3 = 117px */
+  }
+  
+  .hero-text h1 .line-container span.char {
+    margin-right: 0.156em; /* 0.12em * 1.3 for proportional spacing */
+  }
+  
+  .hero-second-line {
+    font-size: clamp(91px, 10.4vw, 117px) !important; /* 70px * 1.3 = 91px, 90px * 1.3 = 117px */
+  }
+  
+  .hero-second-line span {
+    font-size: clamp(91px, 10.4vw, 117px) !important;
+  }
+}
+
 @media (max-width: 768px) {
   .hero-section {
     --hero-v-align: center;

@@ -529,7 +529,7 @@ const ModernServicesSlider: React.FC = () => {
                   </div>
                   <p className="mss-disc">{slide.description}</p>
                   <div className="mss-cta-wrap">
-                    <GlassButton href="#contact">{slide.buttonText}</GlassButton>
+                    <GlassButton href="/projects">{slide.buttonText}</GlassButton>
                   </div>
                   </div>
                 </div>

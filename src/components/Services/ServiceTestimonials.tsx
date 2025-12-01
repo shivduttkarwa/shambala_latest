@@ -79,24 +79,22 @@ const ServiceTestimonials: React.FC = () => {
           Real stories from real people who&apos;ve transformed their spaces
           with Forma&apos;s thoughtful design approach.
         </p>
-        <a href="#" className="ser-btn-outline">
-          ↗ VIEW ALL PROJECTS
-        </a>
       </div>
 
       <div className="ser-features-grid">
         {/* Testimonial 1 */}
         <div
           className="ser-card ser-animate-in ser-interactive-card"
+          style={{ backgroundColor: "#ffe66d" }}
           onMouseMove={handleCardMouseMove}
           onMouseLeave={handleCardMouseLeave}
         >
-          <h3 className="ser-text-4xl ser-serif">
+          <h3 className="ser-text-4xl" style={{ fontFamily: "'Nunito', sans-serif" }}>
             "Absolutely{" "}
             <span style={{ color: "var(--ser-color-gold)" }}>exceptional</span>{" "}
             work"
           </h3>
-          <p className="ser-mb-8 ser-text-gray-300">
+          <p className="ser-mb-8" style={{ color: "#333" }}>
             "Forma completely transformed our home. Every detail was considered,
             from the natural light flow to the choice of materials. Our space
             now feels calm, functional, and truly reflects who we are as a
@@ -113,17 +111,17 @@ const ServiceTestimonials: React.FC = () => {
 
         {/* Testimonial 2 */}
         <div
-          className="ser-card ser-yellow-card ser-animate-in ser-interactive-card"
+          className="ser-card ser-animate-in ser-interactive-card"
+          style={{ backgroundColor: "#a8e6cf" }}
           onMouseMove={handleCardMouseMove}
           onMouseLeave={handleCardMouseLeave}
         >
-          <div className="ser-card-plus-icon">★</div>
-          <h3 className="ser-text-4xl ser-serif">
+          <h3 className="ser-text-4xl" style={{ fontFamily: "'Nunito', sans-serif" }}>
             Beyond our
             <br />
             expectations
           </h3>
-          <p className="ser-mb-8 ser-text-gray-800">
+          <p className="ser-mb-8" style={{ color: "#333" }}>
             "The team at Forma didn&apos;t just design our office space—they
             understood our brand and created an environment where creativity
             flows naturally. Our clients are always impressed."
@@ -133,6 +131,58 @@ const ServiceTestimonials: React.FC = () => {
             <br />
             <small style={{ color: "var(--ser-color-tertiary-brown)" }}>
               Creative Studio, Sydney
+            </small>
+          </div>
+        </div>
+
+        {/* Testimonial 3 */}
+        <div
+          className="ser-card ser-animate-in ser-interactive-card"
+          style={{ backgroundColor: "#ff6b6b" }}
+          onMouseMove={handleCardMouseMove}
+          onMouseLeave={handleCardMouseLeave}
+        >
+          <h3 className="ser-text-4xl" style={{ fontFamily: "'Nunito', sans-serif" }}>
+            "Visionary{" "}
+            <span style={{ color: "#fff" }}>design</span>{" "}
+            meets reality"
+          </h3>
+          <p className="ser-mb-8" style={{ color: "#fff" }}>
+            "Forma took our vision and brought it to life in ways we never
+            imagined. The attention to detail and innovative solutions made our
+            dream home a reality. Every day feels like a luxury retreat."
+          </p>
+          <div className="ser-testimonial-author">
+            <strong>Emma &amp; David Thompson</strong>
+            <br />
+            <small style={{ color: "rgba(255, 255, 255, 0.8)" }}>
+              Luxury Residence, Brisbane
+            </small>
+          </div>
+        </div>
+
+        {/* Testimonial 4 */}
+        <div
+          className="ser-card ser-animate-in ser-interactive-card"
+          style={{ backgroundColor: "#4ecdc4" }}
+          onMouseMove={handleCardMouseMove}
+          onMouseLeave={handleCardMouseLeave}
+        >
+          <h3 className="ser-text-4xl" style={{ fontFamily: "'Nunito', sans-serif" }}>
+            "Sustainable{" "}
+            <span style={{ color: "#fff" }}>elegance</span>
+          </h3>
+          <p className="ser-mb-8" style={{ color: "#fff" }}>
+            "We wanted an eco-friendly home without compromising on style.
+            Forma delivered perfectly with sustainable materials and smart
+            design that reduces our environmental footprint while looking
+            absolutely stunning."
+          </p>
+          <div className="ser-testimonial-author">
+            <strong>Lisa Park</strong>
+            <br />
+            <small style={{ color: "rgba(255, 255, 255, 0.8)" }}>
+              Eco Home, Perth
             </small>
           </div>
         </div>

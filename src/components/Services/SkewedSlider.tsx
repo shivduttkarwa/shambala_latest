@@ -8,47 +8,43 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   // DESKTOP: full-bleed skewed contact storytelling for Forma (architecture studio)
+  const footerColors = ["#ff6b6b", "#4ecdc4", "#ffe66d", "#a8e6cf", "#ff8b94"];
+  const newColors = ["#6c5ce7", "#fd79a8", "#fdcb6e", "#00b894"]; // 4 new colors: purple, pink, orange, green
+  
+  const allColors = [...footerColors, ...newColors]; // 9 unique colors total
+  
   const pages = [
     {
-      leftBg:
-        "https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      rightBg: "#141414",
-      leftHeading: "Contact Forma Studio",
-      leftDesc:
-        "FORMA is a small architecture studio working across homes, hospitality and thoughtful commercial spaces.\n\nUse this page to begin a calm, clear conversation about your project.",
-      leftLink: "About the studio",
-      rightHeading: "Start a new enquiry",
-      rightDesc:
-        "Share where your project is, what type of space it is (home, hospitality, workspace) and the kind of atmosphere you’d like to create.",
+      leftBg: allColors[0], // #ff6b6b - coral red
+      rightBg: allColors[1], // #4ecdc4 - turquoise
+      leftHeading: "Get\nin Touch",
+      leftDesc: "",
+      leftLink: "",
+      rightHeading: "+61 3 1234 5678",
+      rightDesc: "studio@forma.archi",
     },
     {
-      leftBg: "#181818",
-      rightBg:
-        "https://images.pexels.com/photos/2102587/pexels-photo-2102587.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      leftHeading: "For homeowners",
-      leftDesc:
-        "Renovations, extensions and new builds. We consider light, volume, landscape and joinery so your home feels quietly resolved rather than over-designed.",
-      leftLink: "Share your home brief",
-      rightHeading: "What to include",
-      rightDesc:
-        "• Suburb / site location\n• Existing drawings or photos (if available)\n• Rough budget range\n• Ideal start and completion dates",
+      leftBg: allColors[2], // #ffe66d - yellow
+      rightBg: allColors[3], // #a8e6cf - mint green
+      leftHeading: "Address",
+      leftDesc: "",
+      leftLink: "",
+      rightHeading: "Level 3, 150 Gertrude Street\nFitzroy, VIC 3065",
+      rightDesc: "",
     },
     {
-      leftBg:
-        "https://images.pexels.com/photos/3237819/pexels-photo-3237819.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      rightBg: "#191919",
-      leftHeading: "For brands & developers",
-      leftDesc:
-        "We work on boutique hospitality, multi-res and commercial projects where architecture, interiors and brand need to align in a quiet, confident way.",
-      leftLink: "Discuss a collaboration",
-      rightHeading: "Project outlines",
-      rightDesc:
-        "• Site address and program (rooms, uses)\n• Brand or operator, if confirmed\n• Target opening date\n• Any planning constraints to be aware of",
+      leftBg: allColors[4], // #ff8b94 - pink
+      rightBg: allColors[5], // #6c5ce7 - purple (new)
+      leftHeading: "Service\nYou Want",
+      leftDesc: "",
+      leftLink: "",
+      rightHeading: "",
+      rightDesc: "",
+      serviceButtons: ["Build a new house", "Upgrade house", "Commercial builds", "Downsize house"],
     },
     {
-      leftBg: "#101010",
-      rightBg:
-        "https://images.pexels.com/photos/981781/pexels-photo-981781.jpeg?auto=compress&cs=tinysrgb&w=1600",
+      leftBg: allColors[6], // #fd79a8 - bright pink (new)
+      rightBg: allColors[7], // #fdcb6e - orange (new)
       leftHeading: "How we begin",
       leftDesc:
         "Most projects begin with a short, no-pressure call and, where possible, a site visit. From there we outline a clear fee proposal and staged process.",
@@ -58,9 +54,8 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
         "• We review your enquiry and any material you send\n• We respond within one business day\n• We propose a call or meeting and a simple pathway forward",
     },
     {
-      leftBg:
-        "https://images.pexels.com/photos/259580/pexels-photo-259580.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      rightBg: "#181818",
+      leftBg: allColors[8], // #00b894 - green (new)
+      rightBg: allColors[0], // #ff6b6b - coral red (reusing first color for contrast)
       leftHeading: "Studio contact details",
       leftDesc:
         "Prefer to reach out directly? You can email, call or meet us by appointment in Melbourne or Sydney.",
@@ -74,9 +69,9 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
   // MOBILE: 4 plain contact slides for Forma + form below
   const mobileSlides = [
     {
-      heading: "Tell us about your project",
-      label: "Contact Forma",
-      desc: "Share a few lines about your home, site or idea — where it is, who it’s for and what you’d like it to become with Forma.",
+      heading: "Contact Us",
+      label: "Get in Touch",
+      desc: "We'd love to hear about your project. Reach out to start a conversation about your architectural vision.",
     },
     {
       heading: "Scope & budget",
@@ -101,17 +96,69 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
 
     const isMobile = window.matchMedia("(max-width: 900px)").matches;
 
-    // Helper: GSAP reveal for desktop slide
+    // Helper: GSAP reveal for desktop slide - match Services hero animation
     const animateDesktopSlide = (index: number) => {
       const page = container.querySelector(
         `.skew-page-${index + 1}`
       ) as HTMLDivElement | null;
       if (!page) return;
-      const elems = page.querySelectorAll(
-        ".skew-page__heading, .skew-page__description, .skew-page__link"
+      
+      const heading = page.querySelector(".skew-page__heading") as HTMLElement | null;
+      if (!heading) return;
+      
+      // Split heading into characters for scatter animation
+      const text = heading.textContent || "";
+      heading.innerHTML = "";
+      
+      const chars: HTMLSpanElement[] = [];
+      text.split("").forEach((char) => {
+        const span = document.createElement("span");
+        span.className = "char";
+        span.textContent = char;
+        span.style.display = "inline-block";
+        
+        // Add proper spacing for space characters
+        if (char === " ") {
+          span.style.width = "0.3em"; // Width for space character
+          span.style.marginRight = "0.1em"; // Extra spacing after space
+        } else {
+          span.style.marginRight = "0.02em"; // Small spacing between letters
+        }
+        
+        heading.appendChild(span);
+        chars.push(span);
+      });
+      
+      // Apply scatter animation like Services hero
+      gsap.fromTo(
+        chars,
+        {
+          x: () => gsap.utils.random(-220, 220),
+          y: () => gsap.utils.random(-140, 140),
+          rotation: () => gsap.utils.random(-40, 40),
+          scale: () => gsap.utils.random(0.6, 0.9),
+          opacity: 0,
+          filter: "blur(14px)",
+        },
+        {
+          x: 0,
+          y: 0,
+          rotation: 0,
+          scale: 1,
+          opacity: 1,
+          filter: "blur(0px)",
+          duration: 1.4,
+          ease: "expo.out",
+          stagger: { each: 0.035, from: "center" },
+        }
+      );
+      
+      // Animate other elements normally
+      const otherElems = page.querySelectorAll(
+        ".skew-page__description, .skew-page__link"
       );
       gsap.fromTo(
-        elems,
+        otherElems,
         { autoAlpha: 0, y: 24 },
         {
           autoAlpha: 1,
@@ -119,6 +166,24 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
           duration: 0.7,
           ease: "power3.out",
           stagger: 0.08,
+          delay: 0.5, // Start after heading animation
+          onComplete: () => {
+            // Add click handlers after animation
+            const phoneHeading = page.querySelector(".skew-page__heading") as HTMLElement;
+            const emailDesc = page.querySelector(".skew-page__description") as HTMLElement;
+            
+            if (phoneHeading && phoneHeading.textContent?.includes("+61")) {
+              phoneHeading.addEventListener("click", () => {
+                window.location.href = "tel:+61312345678";
+              });
+            }
+            
+            if (emailDesc && emailDesc.textContent?.includes("@")) {
+              emailDesc.addEventListener("click", () => {
+                window.location.href = "mailto:studio@forma.archi";
+              });
+            }
+          }
         }
       );
     };
@@ -389,7 +454,7 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
           text-align: center;
         }
 
-        /* Dark overlay over all backgrounds for legibility */
+        /* Light dark overlay for text visibility while keeping colors vibrant */
         .skew-page__content {
           position: relative;
         }
@@ -400,8 +465,8 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
           inset: 0;
           background: linear-gradient(
               to bottom,
-              rgba(0, 0, 0, 0.7),
-              rgba(0, 0, 0, 0.9)
+              rgba(0, 0, 0, 0.3),
+              rgba(0, 0, 0, 0.4)
             );
           mix-blend-mode: normal;
           z-index: 0;
@@ -432,17 +497,92 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
         .skew-page__heading {
           margin-bottom: 18px;
           text-transform: uppercase;
-          font-size: 34px;
+          font-size: clamp(70px, 8vw, 90px) !important; /* Match Services hero text */
+          font-weight: 300;
+          letter-spacing: 0.05em; /* Match Services hero text */
           text-align: center;
-          letter-spacing: 0.18em;
+          font-family: "Dream Avenue", cursive; /* Match Services font family */
+          line-height: 1.0; /* Match Services hero text */
         }
 
         .skew-page__description {
-          font-size: 18px;
+          font-size: 24px; /* Increased from 18px to match heading size */
           text-align: center;
           max-width: 30rem;
           line-height: 1.8;
           white-space: pre-line;
+          cursor: pointer; /* Make clickable */
+          transition: transform 0.3s ease, opacity 0.3s ease; /* Hover effect */
+        }
+        
+        .skew-page__description:hover {
+          transform: scale(1.05); /* Slight scale on hover */
+          opacity: 0.9; /* Slight fade on hover */
+        }
+        
+        /* Elegant large service buttons */
+        .skew-page__description.service-buttons {
+          font-size: 28px; /* Much larger text */
+          font-weight: 300;
+          letter-spacing: 0.05em;
+          line-height: 1.2;
+          padding: 25px 50px; /* Much larger padding */
+          background: rgba(255, 255, 255, 0.08);
+          border: 2px solid rgba(255, 255, 255, 0.2);
+          border-radius: 16px; /* More rounded */
+          backdrop-filter: blur(20px);
+          margin: 20px 0;
+          display: block; /* Full width */
+          width: 100%;
+          max-width: 400px;
+          text-align: center;
+          text-transform: uppercase;
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+          position: relative;
+          overflow: hidden;
+        }
+        
+        .skew-page__description.service-buttons::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+          transition: left 0.6s;
+        }
+        
+        .skew-page__description.service-buttons:hover {
+          background: rgba(255, 255, 255, 0.15);
+          border-color: rgba(255, 255, 255, 0.4);
+          transform: translateY(-8px) scale(1.02);
+          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        }
+        
+        .skew-page__description.service-buttons:hover::before {
+          left: 100%;
+        }
+        
+        .service-buttons-container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 25px; /* More spacing */
+          padding: 30px;
+          max-width: 500px;
+          margin: 0 auto;
+        }
+        
+        .skew-page__heading {
+          cursor: pointer; /* Make phone number clickable */
+          transition: transform 0.3s ease, opacity 0.3s ease; /* Hover effect */
+        }
+        
+        .skew-page__heading:hover {
+          transform: scale(1.05); /* Slight scale on hover */
+          opacity: 0.9; /* Slight fade on hover */
         }
 
         .skew-page__link {
@@ -644,7 +784,7 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
                   <h2 className="skew-page__heading">{page.leftHeading}</h2>
                   <p className="skew-page__description">{page.leftDesc}</p>
                   {page.leftLink && (
-                    <a href="#contact-form" className="skew-page__link">
+                    <a href="/projects" className="skew-page__link">
                       {page.leftLink}
                     </a>
                   )}
@@ -663,7 +803,17 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
                   }
                 >
                   <h2 className="skew-page__heading">{page.rightHeading}</h2>
-                  <p className="skew-page__description">{page.rightDesc}</p>
+                  {page.serviceButtons ? (
+                    <div className="service-buttons-container">
+                      {page.serviceButtons.map((button, btnIndex) => (
+                        <div key={btnIndex} className="skew-page__description service-buttons">
+                          {button}
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="skew-page__description">{page.rightDesc}</p>
+                  )}
                 </div>
               </div>
             </div>

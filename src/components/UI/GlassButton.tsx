@@ -9,6 +9,9 @@ interface GlassButtonProps {
   className?: string;
   target?: "_blank" | "_self";
   rel?: string;
+  icon?: string;
+  showIcon?: boolean;
+  style?: React.CSSProperties;
 }
 
 const GlassButton: React.FC<GlassButtonProps> = ({
@@ -18,14 +21,19 @@ const GlassButton: React.FC<GlassButtonProps> = ({
   className = "",
   target = "_self",
   rel,
+  icon = "→",
+  showIcon = true,
+  style,
 }) => {
   const buttonContent = (
     <>
       <span className="home-benefits-cta-bg"></span>
       <span className="home-benefits-cta-label">{children}</span>
-      <span className="home-benefits-cta-icon">→</span>
+      {showIcon && <span className="home-benefits-cta-icon">{icon}</span>}
     </>
   );
+
+  const combinedClassName = `home-benefits-cta ${className}`.trim();
 
   if (href) {
     if (href.startsWith("/")) {
@@ -33,7 +41,8 @@ const GlassButton: React.FC<GlassButtonProps> = ({
       return (
         <Link
           to={href}
-          className="home-benefits-cta"
+          className={combinedClassName}
+          style={style}
           onClick={() => {
             /* preserve optional behaviour */
           }}
@@ -43,14 +52,14 @@ const GlassButton: React.FC<GlassButtonProps> = ({
       );
     }
     return (
-      <a href={href} className="home-benefits-cta" target={target} rel={rel}>
+      <a href={href} className={combinedClassName} style={style} target={target} rel={rel}>
         {buttonContent}
       </a>
     );
   }
 
   return (
-    <button className="home-benefits-cta" onClick={onClick}>
+    <button className={combinedClassName} style={style} onClick={onClick}>
       {buttonContent}
     </button>
   );

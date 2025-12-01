@@ -158,13 +158,29 @@ const Header: React.FC<HeaderProps> = ({ settings }) => {
                 
                 .header-logo-container {
                   position: absolute !important;
-                  left: -14px !important;
+                  left: 6px !important; /* Pushed right by 20px (was -14px, so -14px + 20px = 6px) */
                   top: 50% !important;
                   transform: translateY(-50%) !important;
                 }
                 
                 #toggle-btn.olm-btn {
                   transform: scale(0.94) translateY(-10px) !important;
+                }
+              }
+              
+              /* Large screens 1600px and above - increase logo size by 15% */
+              @media (min-width: 1600px) {
+                .header-logo {
+                  transform: scale(2.3) translateY(7px) !important; /* Pushed down by 7px */
+                  transform-origin: left center !important;
+                }
+                
+                #toggle-btn.olm-btn {
+                  transform: scale(0.828) translateY(-34px) !important; /* Pushed further down by 10px (was -44px, so -44px + 10px = -34px) */
+                }
+                
+                header {
+                  height: 104px !important; /* Increased by 20px (was 84px) */
                 }
               }
             `}

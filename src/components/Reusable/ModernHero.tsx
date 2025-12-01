@@ -80,7 +80,9 @@ const ModernHero: React.FC<ModernHeroProps> = ({ animate = true }) => {
       "mh-scatter-letter"
     );
 
-    const changingWords = ["SCULPTED", "WARM", "BALANCED", "ICONIC"];
+    const changingWords = window.innerWidth < 576 
+  ? ["SCULPTED", "WARM", "BALANCED", "ICONIC"] // Mobile: keep current words
+  : ["ELEGANT", "STUNNING", "PREMIUM", "CLASSIC"]; // Desktop: shorter by ~20%
 
     function animateSubtitleWord(index: number) {
       if (!subtitleDynamicEl) return;

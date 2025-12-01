@@ -106,6 +106,33 @@ const ProjectsShowcase: React.FC = () => {
         }
       );
 
+      // Animate stats numbers - slide up from bottom (same as ProjectDetails)
+      const statNumbers = containerRef.current?.querySelectorAll(
+        ".projects-showcase__stat-number"
+      );
+      statNumbers?.forEach((statNumber) => {
+        gsap.fromTo(
+          statNumber,
+          { 
+            opacity: 0, 
+            y: 100, // Start from below (100px down)
+            scale: 0.8 
+          },
+          {
+            opacity: 1,
+            y: 0, // End at original position
+            scale: 1,
+            duration: 2.7,
+            ease: "back.out(2.7)", // Custom back.out easing
+            scrollTrigger: {
+              trigger: statNumber,
+              start: "top 85%", // Trigger when section is visible
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      });
+
       // Continuous floating animation
       gsap.to(leftImageRef.current, {
         y: -20,

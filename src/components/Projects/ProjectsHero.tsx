@@ -42,7 +42,7 @@ const ProjectsHero: React.FC = () => {
           stagger,
           duration: 1.2,
           ease: "back.out(1.4)",
-          delay: 0.5
+          delay: 2.0 // Set to 2 seconds
         }
       );
     };
@@ -52,7 +52,7 @@ const ProjectsHero: React.FC = () => {
       gsap.fromTo(
         subtitleRef.current,
         { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 1, delay: 1.5, ease: "power2.out" }
+        { opacity: 1, y: 0, duration: 1, delay: 3.0, ease: "power2.out" } // 1 second after title
       );
     }
 

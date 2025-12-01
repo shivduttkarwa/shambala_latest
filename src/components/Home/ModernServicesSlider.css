@@ -167,6 +167,16 @@
   color: #ffffff;
 }
 
+/* Base description styles for visibility on darker slides */
+.mss-disc {
+  color: #ffffff;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 15px 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  font-weight: 500;
+}
+
 @media (min-width: 1024px) {
   .mss-title-area .mss-title,
   .mss-title-area .mss-title-tilt {
@@ -457,7 +467,6 @@
     background-color: transparent !important;
   }
 }
-
 .mss-swiper-container-h {
   overflow: hidden;
 }
@@ -588,5 +597,12 @@
     text-align: center;
     padding: 0 20px 80px 20px;
     margin: 0 auto;
+  }
+}
+
+/* Increase mss-disc font size for screens 1600px and above */
+@media (min-width: 1600px) {
+  .mss-disc {
+    font-size: calc(1rem * 1.6) !important; /* 60% larger - 1.6rem */
   }
 }
