@@ -100,6 +100,12 @@
   will-change: transform, opacity;
 }
 
+.ags-space-char {
+  width: 0.15em;
+  min-width: 6px;
+  display: inline-block;
+}
+
 /* GALLERY POSITIONED FROM TOP CENTER */
 .ags-gallery {
   position: absolute;
@@ -263,7 +269,9 @@
 
   /* Mobile slides - vertical layout */
   .ags-slide {
-    /* slides handled in dedicated mobile block below */
+    flex-direction: column;
+    height: auto;
+    min-height: 60vh;
   }
 }
 
@@ -524,4 +532,14 @@
 .ags-gallery-section *,
 .ags-slides-section * {
   will-change: transform, opacity, filter;
+}
+
+
+.ags-gallery-section,
+.ags-slides-section {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  display: block;
+  background-color: #050505; /* or whatever your dark bg is */
 }

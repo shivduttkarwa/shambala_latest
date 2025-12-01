@@ -1,79 +1,76 @@
-import React, { useEffect, useRef } from "react";
+import React, { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./AnimatedGallerySlider.css";
 
-// Register plugin
 gsap.registerPlugin(ScrollTrigger);
 
 const publicUrl = import.meta.env.BASE_URL || "/";
 
 const AnimatedGallerySlider: React.FC = () => {
+  // Root wrapper for everything GSAP touches
+  const rootRef = useRef<HTMLDivElement | null>(null);
   const sectionRef = useRef<HTMLElement | null>(null);
   const galleryRef = useRef<HTMLDivElement | null>(null);
   const overlayTextRef = useRef<HTMLDivElement | null>(null);
   const slidesSectionRef = useRef<HTMLElement | null>(null);
 
-  // Animation controls (matching original AnimatedHero)
   const ANIMATION_CONTROLS = {
-    galleryItemStagger: 0.12, // From original: 0.12
-    overlayCharStagger: 0.05, // From original: 0.05
-    overlayCharDuration: 0.4, // From original: 0.4
-    overlayCharEase: "back.out(2)", // From original
+    galleryItemStagger: 0.12,
+    overlayCharStagger: 0.05,
+    overlayCharDuration: 0.4,
+    overlayCharEase: "back.out(2)",
     overlayStartY: 40,
   };
 
-  // Split overlay lines into characters
-  const splitOverlayToChars = () => {
-    if (!sectionRef.current) return;
-    const overlayLines =
-      sectionRef.current.querySelectorAll(".ags-overlay-line");
+  // Split overlay lines into characters (runs inside gsap.context)
+  const splitOverlayToChars = (sectionEl: HTMLElement | null) => {
+    if (!sectionEl) return;
+
+    const overlayLines = sectionEl.querySelectorAll(".ags-overlay-line");
     overlayLines.forEach((line) => {
       const text = line.getAttribute("data-text") || "";
+      // Clear React's empty content and rebuild our spans
       line.textContent = "";
       for (let i = 0; i < text.length; i++) {
         const ch = text[i];
         const span = document.createElement("span");
         span.classList.add("ags-overlay-char");
         span.setAttribute("aria-hidden", "true");
-        span.textContent = ch === " " ? "\u00A0" : ch;
+
+        if (ch === " ") {
+          span.textContent = "\u00A0";
+          span.classList.add("ags-space-char");
+        } else {
+          span.textContent = ch;
+        }
+
         line.appendChild(span);
       }
     });
   };
 
+  useLayoutEffect(() => {
+    if (!rootRef.current) return;
 
-  useEffect(() => {
-    if (!sectionRef.current) return;
+    // gsap.context safely scopes everything and cleans up on unmount/StrictMode
+    const ctx = gsap.context(() => {
+      const sectionEl = sectionRef.current;
+      const galleryEl = galleryRef.current;
+      const slidesSectionEl = slidesSectionRef.current;
 
-    let galleryTimeline: gsap.core.Timeline | null = null;
-    let slidesTimeline: gsap.core.Timeline | null = null;
+      if (!sectionEl || !galleryEl) return;
 
-    // Split overlay text
-    splitOverlayToChars();
-
-    // Build animations and store timeline references
-    const buildAnimations = () => {
-      if (!sectionRef.current || !galleryRef.current) return;
+      splitOverlayToChars(sectionEl);
 
       const galleryItems = gsap.utils.toArray(
-        sectionRef.current.querySelectorAll(".ags-gallery-item")
+        sectionEl.querySelectorAll(".ags-gallery-item")
       ) as HTMLElement[];
 
-      // Gallery Timeline
-      galleryTimeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top top",
-          end: "+=1500vh",
-          pin: sectionRef.current,
-          scrub: 3,
-          invalidateOnRefresh: true,
-        },
-      });
+      const overlayChars = sectionEl.querySelectorAll(".ags-overlay-char");
 
-      // Set initial states
-      gsap.set(galleryRef.current, {
+      // Initial states
+      gsap.set(galleryEl, {
         x: 0,
         y: 0,
         position: "absolute",
@@ -82,7 +79,7 @@ const AnimatedGallerySlider: React.FC = () => {
         transform: "translateX(-50%)",
       });
 
-      gsap.set(sectionRef.current.querySelectorAll(".ags-overlay-char"), {
+      gsap.set(overlayChars, {
         opacity: 0,
         y: ANIMATION_CONTROLS.overlayStartY,
       });
@@ -92,12 +89,23 @@ const AnimatedGallerySlider: React.FC = () => {
         gsap.set(item, { autoAlpha: 1, y: offset, scale: 0.98 });
       });
 
-      // Gallery animation sequence
+      // Gallery Timeline + ScrollTrigger
+      const galleryTimeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionEl,
+          start: "top top",
+          end: "+=1500vh",
+          pin: sectionEl, // let ScrollTrigger choose pinType
+          scrub: 3,
+          invalidateOnRefresh: true,
+        },
+      });
+
       galleryTimeline
         .to(
           galleryItems,
           {
-            y: 630,
+            y: "89vh",
             scale: 1,
             stagger: 0.3,
             duration: 5,
@@ -106,7 +114,7 @@ const AnimatedGallerySlider: React.FC = () => {
           1.5
         )
         .fromTo(
-          sectionRef.current.querySelectorAll(".ags-overlay-char"),
+          overlayChars,
           {
             opacity: 0,
             y: ANIMATION_CONTROLS.overlayStartY,
@@ -132,22 +140,11 @@ const AnimatedGallerySlider: React.FC = () => {
           7
         );
 
-      // Slides Timeline
-      if (slidesSectionRef.current) {
+      // Slides Timeline + ScrollTrigger
+      if (slidesSectionEl) {
         const slides = gsap.utils.toArray(
-          slidesSectionRef.current.querySelectorAll(".ags-slide")
+          slidesSectionEl.querySelectorAll(".ags-slide")
         ) as HTMLElement[];
-
-        slidesTimeline = gsap.timeline({
-          scrollTrigger: {
-            trigger: slidesSectionRef.current,
-            start: "top top",
-            end: `+=${slides.length * 800}vh`,
-            pin: slidesSectionRef.current,
-            scrub: 5,
-            invalidateOnRefresh: true,
-          },
-        });
 
         slides.forEach((slide) => {
           gsap.set(slide, {
@@ -156,8 +153,19 @@ const AnimatedGallerySlider: React.FC = () => {
           });
         });
 
+        const slidesTimeline = gsap.timeline({
+          scrollTrigger: {
+            trigger: slidesSectionEl,
+            start: "top top",
+            end: `+=${slides.length * 800}vh`,
+            pin: slidesSectionEl,
+            scrub: 5,
+            invalidateOnRefresh: true,
+          },
+        });
+
         slides.forEach((slide, index) => {
-          slidesTimeline!.to(
+          slidesTimeline.to(
             slide,
             {
               x: 0,
@@ -168,42 +176,15 @@ const AnimatedGallerySlider: React.FC = () => {
           );
         });
       }
-    };
 
-    buildAnimations();
+      // Make gallery visible once everything is set
+      galleryEl.style.visibility = "visible";
+    }, rootRef); // end gsap.context
 
-    // Make gallery visible
-    const gallery = sectionRef.current?.querySelector(
-      ".ags-gallery"
-    ) as HTMLElement;
-    if (gallery) gallery.style.visibility = "visible";
-
-    ScrollTrigger.refresh();
-
-    // Targeted cleanup
+    // Cleanup – this automatically kills all timelines + ScrollTriggers
+    // created inside the context and restores inline styles / DOM mutations.
     return () => {
-      // First, kill ScrollTriggers to unpin elements before React removes them
-      ScrollTrigger.getAll().forEach((trigger) => {
-        if (
-          trigger.trigger === sectionRef.current ||
-          trigger.trigger === slidesSectionRef.current
-        ) {
-          trigger.kill(true); // true = immediately reset/unpin elements
-        }
-      });
-
-      // Then kill timelines
-      if (galleryTimeline) {
-        galleryTimeline.kill(true); // true = immediately complete/reset
-        galleryTimeline = null;
-      }
-      if (slidesTimeline) {
-        slidesTimeline.kill(true); // true = immediately complete/reset
-        slidesTimeline = null;
-      }
-
-      // Force ScrollTrigger refresh to clean up any remaining state
-      ScrollTrigger.refresh();
+      ctx.revert();
     };
   }, []);
 
@@ -211,7 +192,7 @@ const AnimatedGallerySlider: React.FC = () => {
   const backgroundVideo = `${publicUrl}images/hero1.mp4`;
 
   return (
-    <>
+    <div ref={rootRef}>
       {/* Gallery Section */}
       <section
         ref={sectionRef}
@@ -228,8 +209,9 @@ const AnimatedGallerySlider: React.FC = () => {
             playsInline
             aria-hidden="true"
           />
-          <div className="ags-bg-overlay" aria-hidden="true"></div>
+          <div className="ags-bg-overlay" aria-hidden="true" />
         </div>
+
         <div className="ags-section-container">
           {/* Overlay Text */}
           <div
@@ -237,8 +219,8 @@ const AnimatedGallerySlider: React.FC = () => {
             className="ags-section-overlay-text"
             aria-label="Live Better Feel More"
           >
-            <div className="ags-overlay-line" data-text="Live Better"></div>
-            <div className="ags-overlay-line" data-text="Feel More"></div>
+            <div className="ags-overlay-line" data-text="Live  Better"></div>
+            <div className="ags-overlay-line" data-text="Feel  More"></div>
           </div>
 
           {/* Gallery */}
@@ -263,10 +245,7 @@ const AnimatedGallerySlider: React.FC = () => {
               <img src={`${publicUrl}images/l8.jpg`} alt="Gallery 5" />
             </div>
             <div className="ags-gallery-item">
-              <img
-                src={`${publicUrl}images/pexels-asphotography-94818.jpg`}
-                alt="Gallery 6"
-              />
+              <img src={`${publicUrl}images/l2.jpg`} alt="Gallery 6" />
             </div>
             <div className="ags-gallery-item">
               <img
@@ -284,7 +263,6 @@ const AnimatedGallerySlider: React.FC = () => {
         className="ags-slides-section"
         style={{ backgroundImage: `url(${backgroundImage})` }}
       >
-        {/* Background Text Content */}
         <div className="ags-slides-bg-text">
           <div className="ags-bg-text-line">Creating</div>
           <div className="ags-bg-text-line">Spaces</div>
@@ -292,10 +270,8 @@ const AnimatedGallerySlider: React.FC = () => {
           <div className="ags-bg-text-line">Inspire</div>
         </div>
 
-        {/* Dark Overlay */}
-        <div className="ags-slides-overlay"></div>
+        <div className="ags-slides-overlay" />
 
-        {/* Slides */}
         <div className="ags-slide">
           <div className="ags-slide-image">
             <img src={`${publicUrl}images/l11.jpg`} alt="Modern Architecture" />
@@ -317,6 +293,7 @@ const AnimatedGallerySlider: React.FC = () => {
             </p>
           </div>
         </div>
+
         <div className="ags-slide">
           <div className="ags-slide-image">
             <img src={`${publicUrl}images/l4.jpg`} alt="Interior Design" />
@@ -337,6 +314,7 @@ const AnimatedGallerySlider: React.FC = () => {
             </p>
           </div>
         </div>
+
         <div className="ags-slide">
           <div className="ags-slide-image">
             <img src={`${publicUrl}images/l5.jpg`} alt="Sustainable Spaces" />
@@ -357,6 +335,7 @@ const AnimatedGallerySlider: React.FC = () => {
             </p>
           </div>
         </div>
+
         <div className="ags-slide">
           <div className="ags-slide-image">
             <img src={`${publicUrl}images/l6.jpg`} alt="Residential Projects" />
@@ -377,7 +356,7 @@ const AnimatedGallerySlider: React.FC = () => {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 };
 

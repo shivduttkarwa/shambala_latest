@@ -115,7 +115,7 @@ const NewContact: React.FC = () => {
         /* Hero Section - Blog Detail Style */
         .nc-hero {
           position: relative;
-          height: 70vh;
+          height: 100vh;
           min-height: 500px;
           display: flex;
           align-items: center;

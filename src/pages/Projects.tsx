@@ -69,7 +69,7 @@ const Projects: React.FC = () => {
         ctaHref="/projects"
       />
       {/* <ProjectModernSlider /> */}
-      {/* <AnimatedGallerySlider /> */}
+      <AnimatedGallerySlider />
     </>
   );
 };

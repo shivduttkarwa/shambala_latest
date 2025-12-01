@@ -310,9 +310,11 @@ body.menu-open {
 .olm-menu-item-projects .olm-menu-number {
   color: #ffe66d;
 }
+
 .olm-menu-item-projects .olm-menu-arrow {
   color: #ffe66d;
 }
+
 .olm-menu-item-projects:hover .olm-menu-line::before {
   width: 100%;
   background: #ffe66d;
@@ -320,15 +322,17 @@ body.menu-open {
 }
 
 .olm-menu-item-about .olm-menu-number {
-  color: #a8e6cf;
+  color: #ff9500;
 }
+
 .olm-menu-item-about .olm-menu-arrow {
-  color: #a8e6cf;
+  color: #ff9500;
 }
+
 .olm-menu-item-about:hover .olm-menu-line::before {
   width: 100%;
-  background: #a8e6cf;
-  box-shadow: 0 0 10px rgba(168, 230, 207, 0.5);
+  background: #ff9500;
+  box-shadow: 0 0 10px rgba(255, 149, 0, 0.5);
 }
 
 .olm-menu-item-contact .olm-menu-number {
@@ -952,30 +956,32 @@ body.menu-open {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 72px; /* Increased from 60px by 20% */
-    height: 72px; /* Increased from 60px by 20% */
+    width: 61.2px; /* Reduced from 72px by 15% */
+    height: 61.2px; /* Reduced from 72px by 15% */
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     color: #e5e3dc;
     text-decoration: none;
-    transition: all 0.3s ease;
+    transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
     cursor: pointer;
     pointer-events: auto;
+    will-change: transform, background, box-shadow;
   }
   
-  /* Color-coded mobile menu icons with glow effect */
+  /* Color-coded mobile menu icons with reduced glow and 3D effect */
   .olm-mobile-home-icon {
     background: rgba(255, 107, 107, 0.3);
     border: 1px solid rgba(255, 107, 107, 0.4);
     color: #ff6b6b;
     box-shadow: 
-      0 8px 32px rgba(255, 107, 107, 0.2),
+      0 4px 16px rgba(255, 107, 107, 0.15),
       inset 0 1px 0 rgba(255, 107, 107, 0.3),
-      0 0 10px rgba(255, 107, 107, 0.3),
-      0 0 20px rgba(255, 107, 107, 0.1);
+      0 0 5px rgba(255, 107, 107, 0.2),
+      0 0 10px rgba(255, 107, 107, 0.05);
     animation: glow-mobile-home 2s ease-in-out infinite alternate;
+    transition: all 0.15s ease;
   }
   
   .olm-mobile-services-icon {
@@ -983,11 +989,12 @@ body.menu-open {
     border: 1px solid rgba(78, 205, 196, 0.4);
     color: #4ecdc4;
     box-shadow: 
-      0 8px 32px rgba(78, 205, 196, 0.2),
+      0 4px 16px rgba(78, 205, 196, 0.15),
       inset 0 1px 0 rgba(78, 205, 196, 0.3),
-      0 0 10px rgba(78, 205, 196, 0.3),
-      0 0 20px rgba(78, 205, 196, 0.1);
+      0 0 5px rgba(78, 205, 196, 0.2),
+      0 0 10px rgba(78, 205, 196, 0.05);
     animation: glow-mobile-services 2s ease-in-out infinite alternate;
+    transition: all 0.15s ease;
   }
   
   .olm-mobile-projects-icon {
@@ -995,23 +1002,25 @@ body.menu-open {
     border: 1px solid rgba(255, 230, 109, 0.4);
     color: #ffe66d;
     box-shadow: 
-      0 8px 32px rgba(255, 230, 109, 0.2),
+      0 4px 16px rgba(255, 230, 109, 0.15),
       inset 0 1px 0 rgba(255, 230, 109, 0.3),
-      0 0 10px rgba(255, 230, 109, 0.3),
-      0 0 20px rgba(255, 230, 109, 0.1);
+      0 0 5px rgba(255, 230, 109, 0.2),
+      0 0 10px rgba(255, 230, 109, 0.05);
     animation: glow-mobile-projects 2s ease-in-out infinite alternate;
+    transition: all 0.15s ease;
   }
   
   .olm-mobile-about-icon {
-    background: rgba(168, 230, 207, 0.3);
-    border: 1px solid rgba(168, 230, 207, 0.4);
-    color: #a8e6cf;
+    background: rgba(255, 149, 0, 0.3);
+    border: 1px solid rgba(255, 149, 0, 0.4);
+    color: #ff9500;
     box-shadow: 
-      0 8px 32px rgba(168, 230, 207, 0.2),
-      inset 0 1px 0 rgba(168, 230, 207, 0.3),
-      0 0 10px rgba(168, 230, 207, 0.3),
-      0 0 20px rgba(168, 230, 207, 0.1);
+      0 4px 16px rgba(255, 149, 0, 0.15),
+      inset 0 1px 0 rgba(255, 149, 0, 0.3),
+      0 0 5px rgba(255, 149, 0, 0.2),
+      0 0 10px rgba(255, 149, 0, 0.05);
     animation: glow-mobile-about 2s ease-in-out infinite alternate;
+    transition: all 0.15s ease;
   }
   
   .olm-mobile-contact-icon {
@@ -1019,11 +1028,12 @@ body.menu-open {
     border: 1px solid rgba(255, 139, 148, 0.4);
     color: #ff8b94;
     box-shadow: 
-      0 8px 32px rgba(255, 139, 148, 0.2),
+      0 4px 16px rgba(255, 139, 148, 0.15),
       inset 0 1px 0 rgba(255, 139, 148, 0.3),
-      0 0 10px rgba(255, 139, 148, 0.3),
-      0 0 20px rgba(255, 139, 148, 0.1);
+      0 0 5px rgba(255, 139, 148, 0.2),
+      0 0 10px rgba(255, 139, 148, 0.05);
     animation: glow-mobile-contact 2s ease-in-out infinite alternate;
+    transition: all 0.15s ease;
   }
   
   .olm-mobile-menu-number {
@@ -1035,8 +1045,18 @@ body.menu-open {
   
   .olm-mobile-social-icon:hover {
     background: rgba(255, 255, 255, 0.2);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 
+      0 6px 20px rgba(0, 0, 0, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  }
+  
+  .olm-mobile-social-icon:active {
+    transform: translateY(2px) scale(0.95);
+    box-shadow: 
+      inset 0 2px 4px rgba(0, 0, 0, 0.2),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.15);
   }
   
   .olm-mobile-social-icon svg {
@@ -1046,28 +1066,28 @@ body.menu-open {
   }
 }
 
-/* Glowing animations for mobile menu circles */
+/* Glowing animations for mobile menu circles with reduced intensity */
 @keyframes glow-mobile-home {
-  0% { box-shadow: 0 0 10px rgba(255, 107, 107, 0.3), 0 0 20px rgba(255, 107, 107, 0.1); }
-  100% { box-shadow: 0 0 15px rgba(255, 107, 107, 0.4), 0 0 30px rgba(255, 107, 107, 0.2); }
+  0% { box-shadow: 0 0 5px rgba(255, 107, 107, 0.2), 0 0 10px rgba(255, 107, 107, 0.05); }
+  100% { box-shadow: 0 0 8px rgba(255, 107, 107, 0.25), 0 0 15px rgba(255, 107, 107, 0.1); }
 }
 
 @keyframes glow-mobile-services {
-  0% { box-shadow: 0 0 10px rgba(78, 205, 196, 0.3), 0 0 20px rgba(78, 205, 196, 0.1); }
-  100% { box-shadow: 0 0 15px rgba(78, 205, 196, 0.4), 0 0 30px rgba(78, 205, 196, 0.2); }
+  0% { box-shadow: 0 0 5px rgba(78, 205, 196, 0.2), 0 0 10px rgba(78, 205, 196, 0.05); }
+  100% { box-shadow: 0 0 8px rgba(78, 205, 196, 0.25), 0 0 15px rgba(78, 205, 196, 0.1); }
 }
 
 @keyframes glow-mobile-projects {
-  0% { box-shadow: 0 0 10px rgba(255, 230, 109, 0.3), 0 0 20px rgba(255, 230, 109, 0.1); }
-  100% { box-shadow: 0 0 15px rgba(255, 230, 109, 0.4), 0 0 30px rgba(255, 230, 109, 0.2); }
+  0% { box-shadow: 0 0 5px rgba(255, 230, 109, 0.2), 0 0 10px rgba(255, 230, 109, 0.05); }
+  100% { box-shadow: 0 0 8px rgba(255, 230, 109, 0.25), 0 0 15px rgba(255, 230, 109, 0.1); }
 }
 
 @keyframes glow-mobile-about {
-  0% { box-shadow: 0 0 10px rgba(168, 230, 207, 0.3), 0 0 20px rgba(168, 230, 207, 0.1); }
-  100% { box-shadow: 0 0 15px rgba(168, 230, 207, 0.4), 0 0 30px rgba(168, 230, 207, 0.2); }
+  0% { box-shadow: 0 0 5px rgba(255, 149, 0, 0.2), 0 0 10px rgba(255, 149, 0, 0.05); }
+  100% { box-shadow: 0 0 8px rgba(255, 149, 0, 0.25), 0 0 15px rgba(255, 149, 0, 0.1); }
 }
 
 @keyframes glow-mobile-contact {
-  0% { box-shadow: 0 0 10px rgba(255, 139, 148, 0.3), 0 0 20px rgba(255, 139, 148, 0.1); }
-  100% { box-shadow: 0 0 15px rgba(255, 139, 148, 0.4), 0 0 30px rgba(255, 139, 148, 0.2); }
+  0% { box-shadow: 0 0 5px rgba(255, 139, 148, 0.2), 0 0 10px rgba(255, 139, 148, 0.05); }
+  100% { box-shadow: 0 0 8px rgba(255, 139, 148, 0.25), 0 0 15px rgba(255, 139, 148, 0.1); }
 }
