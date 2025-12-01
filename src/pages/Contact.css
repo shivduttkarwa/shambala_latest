@@ -1,8 +1,10 @@
-/* Contact Page Styles */
-.contact-page {
-  min-height: 100vh;
-  background: linear-gradient(135deg, #f8f6f0 0%, #ede7d9 100%);
-}
+/* Mobile Coming Soon Banner */
+.mobile-coming-soon {
+  display: none; /* Hidden by default */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
 
 /* Hero Section */
 .contact-hero {
@@ -411,4 +413,5 @@
     padding: 15px 30px;
     font-size: 1rem;
   }
+}
 }

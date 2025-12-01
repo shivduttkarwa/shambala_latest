@@ -1,4 +1,4 @@
-import React, { FC, useLayoutEffect, useRef } from "react";
+import React, { FC, useLayoutEffect, useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { JelloText } from "../common/JelloText";
@@ -83,8 +83,7 @@ export const ProcessSection: FC = () => {
     const ctx = gsap.context(() => {
       const q = gsap.utils.selector(rootRef);
 
-      // Process steps animation
-      const processSteps = q(".forma-process-step");
+      const stepEls = q(".forma-process-step");
 
       const splitTitleChars = (el: HTMLElement | null) => {
         if (!el) return [];
@@ -112,25 +111,27 @@ export const ProcessSection: FC = () => {
         return chars;
       };
 
-      processSteps.forEach((step: HTMLElement) => {
+      stepEls.forEach((stepEl) => {
+        const step = stepEl as HTMLElement;
+
         const imgContainer = step.querySelector(
           ".forma-process-step-image-container"
-        ) as HTMLElement;
+        ) as HTMLElement | null;
         const num = step.querySelector(
           ".forma-process-step-number"
-        ) as HTMLElement;
+        ) as HTMLElement | null;
         const title = step.querySelector(
           ".forma-process-step-title"
-        ) as HTMLElement;
+        ) as HTMLElement | null;
         const subtitle = step.querySelector(
           ".forma-process-step-subtitle"
-        ) as HTMLElement;
+        ) as HTMLElement | null;
         const desc = step.querySelector(
           ".forma-process-step-desc"
-        ) as HTMLElement;
+        ) as HTMLElement | null;
         const outcome = step.querySelector(
           ".forma-process-outcome-box"
-        ) as HTMLElement;
+        ) as HTMLElement | null;
 
         // Image slide down reveal using clip-path
         if (imgContainer) {
@@ -226,11 +227,19 @@ export const ProcessSection: FC = () => {
     };
   }, []);
 
+  // Fix: ensure ScrollTrigger recalculates when section is mounted,
+  // so coming from another route doesn't leave images clipped.
+  useEffect(() => {
+    requestAnimationFrame(() => {
+      ScrollTrigger.refresh();
+    });
+  }, []);
+
   return (
     <section className="forma-process-section" ref={rootRef}>
       <JelloText text="OUR PROCESS" className="forma-process-title" />
 
-      {processSteps.map((step, index) => (
+      {processSteps.map((step) => (
         <div
           key={step.number}
           className={`forma-process-step ${
