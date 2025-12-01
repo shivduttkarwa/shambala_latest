@@ -1,4 +1,3 @@
-// src/components/OverlayMenu.tsx
 import React, { useEffect } from "react";
 import gsap from "gsap";
 import { CSSRulePlugin } from "gsap/CSSRulePlugin";
@@ -429,7 +428,7 @@ const OverlayMenu: React.FC = () => {
               {/* 5 - Contact Us */}
               <div className="olm-menu-item olm-modern-menu-item olm-menu-item-contact">
                 <div className="olm-menu-line"></div>
-                <Link to="/contact">
+                <Link to="/new-contact">
                   <span className="olm-menu-number">04.</span>
                   <div className="olm-menu-arrow">
                     <svg width="40" height="25" viewBox="0 0 40 25">
@@ -471,7 +470,7 @@ const OverlayMenu: React.FC = () => {
             <div className="olm-contact-section">
               <div className="olm-menu-item olm-secondary-menu-item">
                 <div className="olm-contact-btn" style={{ position: 'relative', top: '100vh' }}>
-                  <GlassRainButton href="/contact">
+                  <GlassRainButton href="/new-contact">
                     Contact Us
                   </GlassRainButton>
                 </div>
@@ -492,18 +491,18 @@ const OverlayMenu: React.FC = () => {
             <div className="olm-menu-item olm-social-menu-item">
               <div className="olm-social-content">
                 <div className="olm-social-grid">
-                  <a href="#" className="olm-social-card olm-instagram">
+                  <Link to="/privacy-policy" className="olm-social-card olm-instagram">
                     <i className="fab fa-instagram" />
-                  </a>
-                  <a href="#" className="olm-social-card olm-linkedin">
+                  </Link>
+                  <Link to="/terms-and-conditions" className="olm-social-card olm-linkedin">
                     <i className="fab fa-linkedin-in" />
-                  </a>
-                  <a href="#" className="olm-social-card olm-github">
+                  </Link>
+                  <a href="https://github.com/shivduttkarwa" target="_blank" rel="noopener noreferrer" className="olm-social-card olm-github">
                     <i className="fab fa-github" />
                   </a>
-                  <a href="#" className="olm-social-card olm-twitter">
+                  <Link to="/blog" className="olm-social-card olm-twitter">
                     <i className="fab fa-twitter" />
-                  </a>
+                  </Link>
                 </div>
               </div>
               <div className="olm-menu-item-revealer"></div>
@@ -513,15 +512,15 @@ const OverlayMenu: React.FC = () => {
             <div className="olm-menu-item olm-footer-menu-item">
               <div className="olm-footer-content">
                 <div className="olm-footer-links">
-                  <a href="#" className="olm-footer-link">
+                  <Link to="/privacy-policy" className="olm-footer-link">
                     Privacy
-                  </a>
-                  <a href="#" className="olm-footer-link">
+                  </Link>
+                  <Link to="/terms-and-conditions" className="olm-footer-link">
                     Terms
-                  </a>
-                  <a href="#" className="olm-footer-link">
+                  </Link>
+                  <Link to="/blog" className="olm-footer-link">
                     Cookies
-                  </a>
+                  </Link>
                 </div>
                 <div className="olm-copyright">
                   <p>© 2025 FORMA. All rights reserved.</p>

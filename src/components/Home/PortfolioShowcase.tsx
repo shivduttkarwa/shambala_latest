@@ -67,37 +67,10 @@ const PortfolioShowcase: React.FC<PortfolioShowcaseProps> = ({
   projects = defaultProjects,
   heading = "OUR LATEST PROJECTS",
   ctaText = "See More Projects",
-  ctaHref = "#",
+  ctaHref = "/projects",
 }) => {
   const sectionRef = useRef<HTMLElement | null>(null);
   const titleRef = useRef<HTMLHeadingElement | null>(null);
-
-  // Split text into lines with mask
-  const splitTextIntoLines = (text: string) => {
-    const words = text.split(" ");
-    const lines: string[] = [];
-    let currentLine = "";
-
-    words.forEach((word) => {
-      const testLine = currentLine + (currentLine ? " " : "") + word;
-      if (testLine.length > 30 && currentLine.length > 0) {
-        lines.push(currentLine);
-        currentLine = word;
-      } else {
-        currentLine = testLine;
-      }
-    });
-
-    if (currentLine) {
-      lines.push(currentLine);
-    }
-
-    return lines.map((line, index) => (
-      <div key={index} className="mask">
-        <div className="line">{line}</div>
-      </div>
-    ));
-  };
 
   useEffect(() => {
     const featureSection = sectionRef.current;
@@ -114,7 +87,6 @@ const PortfolioShowcase: React.FC<PortfolioShowcaseProps> = ({
     // Performance optimization variables
     let ticking = false;
     let lastScrollY = 0;
-    const _isMobile = window.innerWidth < 940;
 
     function handleParallax() {
       if (!parallaxImages.length) return;

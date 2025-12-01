@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import GlassRainButton from "../UI/GlassRainButton";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -35,7 +36,7 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
     {
       leftBg: allColors[4], // #ff8b94 - pink
       rightBg: allColors[5], // #6c5ce7 - purple (new)
-      leftHeading: "Service\nYou Want",
+      leftHeading: "Service\n\nYou Want",
       leftDesc: "",
       leftLink: "",
       rightHeading: "",
@@ -45,24 +46,22 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
     {
       leftBg: allColors[6], // #fd79a8 - bright pink (new)
       rightBg: allColors[7], // #fdcb6e - orange (new)
-      leftHeading: "How we begin",
-      leftDesc:
-        "Most projects begin with a short, no-pressure call and, where possible, a site visit. From there we outline a clear fee proposal and staged process.",
-      leftLink: "Download process overview",
-      rightHeading: "What happens next",
-      rightDesc:
-        "• We review your enquiry and any material you send\n• We respond within one business day\n• We propose a call or meeting and a simple pathway forward",
+      leftHeading: "Let's Start\nYour Project",
+      leftDesc: "Tell us about your vision and we'll help bring it to life with our architectural expertise.",
+      leftLink: "",
+      rightHeading: "Contact Form",
+      rightDesc: "",
+      showForm: true
     },
     {
       leftBg: allColors[8], // #00b894 - green (new)
       rightBg: allColors[0], // #ff6b6b - coral red (reusing first color for contrast)
-      leftHeading: "Studio contact details",
-      leftDesc:
-        "Prefer to reach out directly? You can email, call or meet us by appointment in Melbourne or Sydney.",
-      leftLink: "Email the studio",
-      rightHeading: "Forma Studio — Contact",
-      rightDesc:
-        "Email · studio@forma.archi\nPhone · +61 (0)3 9000 0000\n\nMelbourne Studio\nLevel 3, 150 Gertrude Street\nFitzroy, VIC 3065\n\nSydney Studio\nSuite 02, 44 Kippax Street\nSurry Hills, NSW 2010",
+      leftHeading: "Architecture is not about building\nthe impossible, but the appropriate.",
+      leftDesc: "— Alvar Aalto",
+      leftLink: "",
+      rightHeading: "Ready to Create\nSomething Extraordinary?",
+      rightDesc: "",
+      showRainButton: true
     },
   ];
 
@@ -497,12 +496,15 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
         .skew-page__heading {
           margin-bottom: 18px;
           text-transform: uppercase;
-          font-size: clamp(70px, 8vw, 90px) !important; /* Match Services hero text */
+          font-size: calc(clamp(70px, 8vw, 90px) * 0.8) !important; /* Reduced by 20% total */
           font-weight: 300;
-          letter-spacing: 0.05em; /* Match Services hero text */
+          letter-spacing: 0.08em; /* Increased spacing between words */
           text-align: center;
-          font-family: "Dream Avenue", cursive; /* Match Services font family */
-          line-height: 1.0; /* Match Services hero text */
+          font-family: "nunito", cursive; /* Changed to nunito font */
+          line-height: 1.2; /* Better line height for spacing */
+          word-break: keep-all; /* Prevent words from breaking */
+          overflow-wrap: normal; /* Prevent word wrapping */
+          white-space: pre-line; /* Respect manual line breaks */
         }
 
         .skew-page__description {
@@ -595,6 +597,13 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
           cursor: pointer;
         }
 
+        .skew-page__link-container {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-top: 1.75rem;
+        }
+
         .skew-hint {
           position: absolute;
           right: 20px;
@@ -604,6 +613,67 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
           letter-spacing: 0.1em;
           text-transform: uppercase;
           pointer-events: none;
+        }
+
+        /* Contact Form Styles */
+        .contact-form-container {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          max-width: 400px;
+          margin: 0 auto;
+        }
+
+        .contact-form-grid {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+          width: 100%;
+        }
+
+        .contact-form-field {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .contact-form-input,
+        .contact-form-textarea {
+          background: rgba(255, 255, 255, 0.1);
+          border: 1px solid rgba(255, 255, 255, 0.3);
+          border-radius: 8px;
+          padding: 0.8rem 1rem;
+          font-size: 1rem;
+          color: #fff;
+          outline: none;
+          backdrop-filter: blur(10px);
+          transition: all 0.3s ease;
+        }
+
+        .contact-form-input::placeholder,
+        .contact-form-textarea::placeholder {
+          color: rgba(255, 255, 255, 0.6);
+        }
+
+        .contact-form-input:focus,
+        .contact-form-textarea:focus {
+          border-color: rgba(255, 255, 255, 0.6);
+          background: rgba(255, 255, 255, 0.15);
+        }
+
+        .contact-form-textarea {
+          resize: vertical;
+          min-height: 100px;
+        }
+
+        /* Rain Button Container */
+        .rain-button-container {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          max-width: 300px;
+          margin: 2rem auto 0;
         }
 
         /* ---------- MOBILE CONTACT SLIDER (GSAP + ScrollTrigger) ---------- */
@@ -784,9 +854,11 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
                   <h2 className="skew-page__heading">{page.leftHeading}</h2>
                   <p className="skew-page__description">{page.leftDesc}</p>
                   {page.leftLink && (
-                    <a href="/projects" className="skew-page__link">
-                      {page.leftLink}
-                    </a>
+                    <div className="skew-page__link-container">
+                      <GlassRainButton href="/projects">
+                        {page.leftLink}
+                      </GlassRainButton>
+                    </div>
                   )}
                 </div>
               </div>
@@ -803,7 +875,49 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
                   }
                 >
                   <h2 className="skew-page__heading">{page.rightHeading}</h2>
-                  {page.serviceButtons ? (
+                  {page.showForm ? (
+                    <div className="contact-form-container">
+                      <div className="contact-form-grid">
+                        <div className="contact-form-field">
+                          <input
+                            className="contact-form-input"
+                            type="text"
+                            placeholder="Your Name"
+                          />
+                        </div>
+                        <div className="contact-form-field">
+                          <input
+                            className="contact-form-input"
+                            type="email"
+                            placeholder="Your Email"
+                          />
+                        </div>
+                        <div className="contact-form-field">
+                          <input
+                            className="contact-form-input"
+                            type="tel"
+                            placeholder="Phone Number"
+                          />
+                        </div>
+                        <div className="contact-form-field">
+                          <textarea
+                            className="contact-form-textarea"
+                            placeholder="Tell us about your project..."
+                            rows={4}
+                          />
+                        </div>
+                        <GlassRainButton href="#">
+                          Send Message
+                        </GlassRainButton>
+                      </div>
+                    </div>
+                  ) : page.showRainButton ? (
+                    <div className="rain-button-container">
+                      <GlassRainButton href="/contact">
+                        Start Your Project
+                      </GlassRainButton>
+                    </div>
+                  ) : page.serviceButtons ? (
                     <div className="service-buttons-container">
                       {page.serviceButtons.map((button, btnIndex) => (
                         <div key={btnIndex} className="skew-page__description service-buttons">

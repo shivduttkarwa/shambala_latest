@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { blogPosts, getBlogBySlug } from "../data/blogPosts";
@@ -290,21 +290,23 @@ const BlogDetailPage: React.FC = () => {
 
         .bd-content-grid {
           display: grid;
-          grid-template-columns: repeat(12, 1fr);
+          grid-template-columns: 4fr 6fr; /* Explicit 40/60 split */
           gap: clamp(1.5rem, 4vw, 2.5rem);
           align-items: start;
+          max-width: 1400px;
+          margin: 0 auto;
         }
 
         .bd-content-text {
-          grid-column: span 6;
           display: grid;
           gap: 1rem;
+          padding: 0 2rem; /* Add padding on both sides */
         }
 
         .bd-content-text p {
           margin: 0;
           color: #2f3545;
-          font-size: 1.04rem;
+          font-size: calc(1.04rem * 1.2); /* Increased by 20% */
           line-height: 1.75;
         }
 
@@ -316,7 +318,7 @@ const BlogDetailPage: React.FC = () => {
         }
 
         .bd-content-image {
-          grid-column: span 6;
+          /* No grid column needed - using fractional units */
         }
 
         .bd-image-frame {
@@ -408,11 +410,42 @@ const BlogDetailPage: React.FC = () => {
         }
 
         @media (max-width: 1024px) {
-          .bd-content-text {
-            grid-column: span 12;
+          .bd-content-grid {
+            grid-template-columns: 1fr;
+            max-width: 100%;
           }
-          .bd-content-image {
-            grid-column: span 12;
+        }
+
+        @media (min-width: 1600px) {
+          .bd-content-grid {
+            max-width: calc(1400px * 1.2); /* 20% increase in container width */
+          }
+          .bd-content-text p {
+            font-size: calc(1.04rem * 1.2 * 1.2); /* 20% increase on top of existing 20% increase */
+          }
+          .bd-content-heading {
+            font-size: calc(clamp(2rem, 4vw, 2.6rem) * 1.2); /* 20% increase */
+          }
+          .bd-hero-title {
+            font-size: calc(clamp(2.8rem, 5vw, 4.2rem) * 1.2); /* 20% increase */
+          }
+          .bd-hero-subtitle {
+            font-size: calc(1.06rem * 1.2); /* 20% increase */
+          }
+          .bd-longform h2 {
+            font-size: calc(clamp(2.2rem, 4.6vw, 2.8rem) * 1.2); /* 20% increase */
+          }
+          .bd-longform p {
+            font-size: calc(1.05rem * 1.2); /* 20% increase */
+          }
+          .bd-cta h3 {
+            font-size: calc(1.6rem * 1.2); /* 20% increase */
+          }
+          .bd-cta p {
+            font-size: calc(1rem * 1.2); /* 20% increase */
+          }
+          .bd-meta-chip {
+            font-size: calc(0.78rem * 1.2); /* 20% increase */
           }
         }
 
@@ -433,9 +466,14 @@ const BlogDetailPage: React.FC = () => {
 
       <section className="bd-hero">
         <img src={heroImage} alt={heroAlt} />
-        <Link to="/blog" className="bd-back-link">
+        <GlassButton href="/blog" style={{
+          position: 'absolute',
+          bottom: 'clamp(1.5rem, 5vw, 2.5rem)',
+          left: 'clamp(1.2rem, 4vw, 2rem)',
+          zIndex: 3
+        }}>
           ← Back to all posts
-        </Link>
+        </GlassButton>
         <div className="bd-hero-content">
           <div className="bd-meta">
             <span className="bd-meta-chip">{category}</span>
@@ -446,6 +484,15 @@ const BlogDetailPage: React.FC = () => {
           </div>
           <h1 className="bd-hero-title">{title}</h1>
           <p className="bd-hero-subtitle">{excerpt}</p>
+          <GlassButton href="/blog" style={{ 
+            marginTop: '2rem',
+            background: 'rgba(255, 255, 255, 0.9)',
+            color: '#0b0d10',
+            border: '1px solid rgba(255, 255, 255, 0.3)',
+            backdropFilter: 'blur(10px)'
+          }}>
+            View All Blogs
+          </GlassButton>
         </div>
       </section>
 

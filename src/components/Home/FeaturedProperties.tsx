@@ -32,7 +32,7 @@ const defaultProperties: PropertySlide[] = [
     subtitle: "Creating exceptional living spaces",
     description:
       "Building tomorrow's homes today. Our vision is to transform how Australians live by creating homes that harmonize with nature, embrace sustainability, and foster community connections. Every FORMA home is designed to enhance your lifestyle while respecting the environment. Thoughtful design, timeless comfort.",
-    link: "#",
+    link: "/projects",
   },
   {
     id: 2,
@@ -44,7 +44,7 @@ const defaultProperties: PropertySlide[] = [
     subtitle: "Sustainable design philosophy",
     description:
       "Innovation meets responsibility. We believe in building homes that give back to the environment through renewable materials and energy-efficient systems. Our sustainable design philosophy creates homes that care for our planet. Efficiency without compromise.",
-    link: "#",
+    link: "/projects",
   },
   {
     id: 3,
@@ -56,7 +56,7 @@ const defaultProperties: PropertySlide[] = [
     subtitle: "Community-centered approach",
     description:
       "Building connections, not just homes. Our vision extends beyond individual homes to creating vibrant communities that encourage interaction and wellbeing. We design neighborhoods that foster lasting relationships between residents and their environment. Spaces that bring people together.",
-    link: "#",
+    link: "/projects",
   },
   {
     id: 4,
@@ -68,7 +68,7 @@ const defaultProperties: PropertySlide[] = [
     subtitle: "Excellence in craftsmanship",
     description:
       "Where quality meets artistry. Our commitment to excellence drives everything we do, from concept to final handover. We maintain the highest standards of craftsmanship, ensuring every FORMA home is a testament to durability and timeless design. Details that endure.",
-    link: "#",
+    link: "/projects",
   },
 ];
 

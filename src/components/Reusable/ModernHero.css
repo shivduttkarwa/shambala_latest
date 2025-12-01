@@ -59,7 +59,7 @@
   font-size: 12.8rem; /* reduced 20% */
   font-weight: 100; /* Reduced to 100 (lightest weight) */
   text-align: center;
-  font-family: "Dream Avenue", cursive; /* Changed to Dream Avenue font */
+  font-family: "nunito", cursive; /* Changed to nunito font */
 }
 
 .mh-scatter-letter {

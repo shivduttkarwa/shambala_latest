@@ -535,7 +535,7 @@ export const FormaServices: FC = () => {
 
               <div>
                 <div className="fs-cta">
-                  <GlassButton href="/projects">Talk to Forma</GlassButton>
+                  <GlassButton href="/services">View All Services</GlassButton>
                 </div>
                 <div className="fs-counter">
                   <span className="fs-counter-current">01</span> /{" "}

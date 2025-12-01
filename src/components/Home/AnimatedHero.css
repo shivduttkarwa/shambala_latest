@@ -2,7 +2,7 @@
 
 /* Local fonts - using absolute paths from public folder */
 @font-face {
-  font-family: "Dream Avenue";
+  font-family: "nunito";
   src: url("/fonts/Dream-Avenue.ttf") format("truetype");
   font-weight: 400 900;
   font-style: normal;
@@ -63,7 +63,7 @@
   transform: translate(-50%, -50%);
   z-index: 10;
   white-space: nowrap;
-  font-family: "Dream Avenue", serif;
+  font-family: "nunito", serif;
 }
 
 /* TEXT LINES EXACTLY LIKE SCREENSHOT */
@@ -132,7 +132,7 @@
 
 #animated-hero-section .overlay-line {
   display: block;
-  font-family: "Dream Avenue", serif;
+  font-family: "nunito", serif;
   font-size: clamp(4.2rem, 9vw, 7.4rem);
   font-weight: 700;
   color: #ffffff;

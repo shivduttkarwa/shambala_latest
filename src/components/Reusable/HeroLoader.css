@@ -80,7 +80,7 @@
 
 @media (max-width: 575.98px) {
   .hero-loader-text {
-    font-size: 2.4rem;
+    font-size: 2.88rem; /* Increased by 20% from 2.4rem */
   }
 }
 
@@ -90,8 +90,8 @@
   }
 }
 
-@media (min-width: 1440px) {
+@media (min-width: 1600px) {
   .hero-loader-text {
-    font-size: 5.6rem;
+    font-size: 6.72rem; /* Increased by 20% from 5.6rem */
   }
 }

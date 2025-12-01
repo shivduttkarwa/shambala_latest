@@ -35,7 +35,7 @@
   text-align: center;
   line-height: 1.0;
   width: 100%;
-  font-family: "Dream Avenue", cursive;
+  font-family: "nunito", cursive;
   transform: translateY(-50px);
   color: #fff;
   margin: 0;
@@ -69,7 +69,7 @@
   text-align: center;
   white-space: nowrap;
   z-index: 2;
-  font-family: "Dream Avenue", cursive;
+  font-family: "nunito", cursive;
 }
 
 .hero-second-line span {
@@ -78,7 +78,7 @@
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: #fff;
-  font-family: "Dream Avenue", cursive;
+  font-family: "nunito", cursive;
   display: inline-block;
 }
 
@@ -247,7 +247,7 @@
   color: #f2f4f8;
   text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 0, 0, 0.6);
   text-align: left;
-  font-family: "Dream Avenue", cursive;
+  font-family: "nunito", cursive;
   margin: 0;
   caret-color: transparent;
   cursor: default;
@@ -313,7 +313,7 @@
   letter-spacing: normal;
   color: #f2f4f8;
   text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 0, 0, 0.6);
-  font-family: "Dream Avenue", cursive;
+  font-family: "nunito", cursive;
   margin: 0;
   caret-color: transparent;
   cursor: default;
@@ -330,7 +330,7 @@
   letter-spacing: normal;
   color: #f2f4f8;
   text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 0, 0, 0.6);
-  font-family: "Dream Avenue", cursive;
+  font-family: "nunito", cursive;
   margin: 0;
   caret-color: transparent;
   cursor: default;

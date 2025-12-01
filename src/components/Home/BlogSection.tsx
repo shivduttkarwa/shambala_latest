@@ -42,7 +42,7 @@ interface BlogSectionProps {
 const BlogSection: React.FC<BlogSectionProps> = ({
   sectionTitle = "Latest Insights",
   ctaText: _ctaText = "View all blog posts",
-  ctaLink: _ctaLink = "#",
+  ctaLink: _ctaLink = "/blog",
   posts = blogPosts.map((post, idx) => ({
     id: post.id,
     title: post.title,

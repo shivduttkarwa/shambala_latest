@@ -2,17 +2,22 @@
 .legal-page {
   min-height: 100vh;
   background: linear-gradient(135deg, #f8f6f0 0%, #ede7d9 100%);
-  padding-top: 120px;
+  padding-top: 0;
 }
 
 /* Header Section */
 .legal-header {
+  height: 60vh;
+  min-height: 400px;
   padding: 60px 20px 40px;
   text-align: center;
   background: linear-gradient(135deg, #5b7c4f 0%, #6b8c5f 100%);
   color: white;
   position: relative;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .legal-header::before {
@@ -163,7 +168,7 @@
 
 @media (max-width: 768px) {
   .legal-page {
-    padding-top: 100px;
+    padding-top: 0;
   }
 
   .legal-header {

@@ -8,6 +8,7 @@ import Projects from "./pages/Projects";
 import ProjectDetailPage from "./pages/ProjectDetailPage";
 import ServicePage from "./pages/ServicePage";
 import Contact from "./pages/Contact";
+import NewContact from "./pages/NewContact";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsAndConditions from "./pages/TermsAndConditions";
 import BlogListPage from "./pages/BlogListPage";
@@ -21,6 +22,7 @@ function App() {
   const { settings } = useSiteSettings();
   const [startHero, setStartHero] = useState(false);
   const [showLoader, setShowLoader] = useState(true);
+  const [hasLoaded, setHasLoaded] = useState(false);
 
   return (
     <>
@@ -42,17 +44,19 @@ function App() {
               <Route path="/blog" element={<BlogListPage />} />
               <Route path="/blog/:slug" element={<BlogDetailPage />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/new-contact" element={<NewContact />} />
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
             </Routes>
           </main>
           <Footer settings={settings} />
         </div>
-        {showLoader && (
+        {showLoader && !hasLoaded && (
           <HeroLoader
             onComplete={() => {
               setShowLoader(false);
               setStartHero(true);
+              setHasLoaded(true);
             }}
           />
         )}
