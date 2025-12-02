@@ -101,33 +101,24 @@ const OverlayMenu: React.FC = () => {
       );
 
       // SVG Background Animation
-      tl.to(
-        ".olm-overlay",
-        {
-          duration: 0.28,
-          opacity: 1,
-          ease: power2,
-        },
-        "<"
-      );
+tl.to(".olm-overlay", {
+  duration: 0.4,
+  opacity: 1,
+  ease: "power1.out",
+}, 0);
 
-      tl.to(
-        path,
-        {
-          duration: 0.64,
-          attr: { d: start },
-          ease: power2,
-        },
-        "<"
-      ).to(
-        path,
-        {
-          duration: 0.64,
-          attr: { d: end },
-          ease: power2,
-        },
-        "-=0.4"
-      );
+tl.to(path, {
+  duration: 0.7,
+  attr: { d: start },   // first shape comes in
+  ease: "power2.out",
+}, "<")                  // start with overlay
+
+// Small pause AFTER first tween finishes, then go to `end`
+.to(path, {
+  duration: 0.7,
+  attr: { d: end },
+  ease: "power2.inOut",
+}, ">+=0.12");           // ">+=0.12" = start 0.12s AFTER previous tween ends
 
       // Menu appears AFTER background completes
       tl.to(
