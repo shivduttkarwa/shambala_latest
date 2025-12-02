@@ -102,7 +102,7 @@ const HeroLoader: React.FC<HeroLoaderProps> = ({ onComplete }) => {
           y: 0,
           opacity: 1,
           duration: TIMING.textInDuration,
-          ease: "back.out(1.7)",
+          ease: "back.out(1)",
           stagger: {
             each: TIMING.stagger,
             from: "start", // left -> right
@@ -119,7 +119,7 @@ const HeroLoader: React.FC<HeroLoaderProps> = ({ onComplete }) => {
           y: "-120vh",
           opacity: 0,
           duration: TIMING.textOutDuration,
-          ease: "back.in(1.4)",
+          ease: "back.in(1)",
           stagger: {
             each: TIMING.stagger,
             from: "end", // right -> left

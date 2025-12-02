@@ -100,25 +100,66 @@ const OverlayMenu: React.FC = () => {
         "<"
       );
 
-      // SVG Background Animation
-tl.to(".olm-overlay", {
-  duration: 0.4,
-  opacity: 1,
-  ease: "power1.out",
-}, 0);
+            // SVG Background Animation (desktop vs mobile)
+      const svg = document.querySelector(".olm-overlay svg") as SVGSVGElement | null;
 
-tl.to(path, {
-  duration: 0.7,
-  attr: { d: start },   // first shape comes in
-  ease: "power2.out",
-}, "<")                  // start with overlay
+      if (isMobile) {
+        // 🚀 MOBILE: cheap animation, but still full curtain
 
-// Small pause AFTER first tween finishes, then go to `end`
-.to(path, {
-  duration: 0.7,
-  attr: { d: end },
-  ease: "power2.inOut",
-}, ">+=0.12");           // ">+=0.12" = start 0.12s AFTER previous tween ends
+        // 1) Make sure the path is already the "full-page" shape
+        if (path) {
+          gsap.set(path, {
+            attr: { d: end },   // use the big curve directly
+          });
+        }
+
+        // 2) Scale the whole SVG from the top (like a curtain dropping)
+        if (svg) {
+          gsap.set(svg, {
+            transformOrigin: "50% 0%",
+            scaleY: 0,          // start collapsed
+          });
+        }
+
+        tl.to(".olm-overlay", {
+          duration: 0.45,
+          opacity: 1,
+          ease: "power2.out",
+        }, 0)
+          .to(".olm-overlay svg", {
+            duration: 0.65,
+            scaleY: 1,
+            ease: "power2.out",
+          }, "<"); // together with overlay fade
+
+      } else {
+        // 💻 DESKTOP: keep your nice path morph + pause
+        if (!path) return;
+
+        tl.to(".olm-overlay", {
+          duration: 0.4,
+          opacity: 1,
+          ease: "power1.out",
+        }, 0);
+
+        tl.to(
+          path,
+          {
+            duration: 0.7,
+            attr: { d: start },
+            ease: "power2.out",
+          },
+          "<"
+        ).to(
+          path,
+          {
+            duration: 0.7,
+            attr: { d: end },
+            ease: "power2.inOut",
+          },
+          ">+=0.12" // little pause
+        );
+      }
 
       // Menu appears AFTER background completes
       tl.to(
