@@ -78,7 +78,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
           duration: 1.2,
           scrollTrigger: {
             trigger: imgContainer,
-            start: "top 85%", // Trigger when section is more visible
+            start: "top 65%", // Trigger when section is more visible
             toggleActions: "play none none reverse",
           },
         });
@@ -95,7 +95,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
           duration: 1.2,
           scrollTrigger: {
             trigger: imgContainer,
-            start: "top 85%", // Trigger when section is more visible
+            start: "top 65%", // Trigger when section is more visible
             toggleActions: "play none none reverse",
           },
         });

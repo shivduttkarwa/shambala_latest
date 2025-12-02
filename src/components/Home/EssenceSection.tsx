@@ -41,12 +41,14 @@ const EssenceSection: React.FC<EssenceSectionProps> = ({
   },
   videoUrl = `${publicUrl}images/hero1.mp4`,
 }) => {
-  const shortDescription = "We envision spaces that are not just lived in, but felt — where every element has been curated to inspire connection, serenity, and belonging. Our approach transcends traditional architecture, creating environments that nurture the soul and elevate everyday moments into extraordinary experiences of comfort and beauty.";
+  const shortDescription =
+    "We envision spaces that are not just lived in, but felt — where every element has been curated to inspire connection, serenity, and belonging. Our approach transcends traditional architecture, creating environments that nurture the soul and elevate everyday moments into extraordinary experiences of comfort and beauty.";
+
   const sectionRef = useRef<HTMLDivElement>(null);
   const taglineRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
-  const imageOverlayRef = useRef<HTMLDivElement>(null);
+  const imageRef = useRef<HTMLImageElement>(null); // animate this
 
   useEffect(() => {
     if (!sectionRef.current) return;
@@ -54,7 +56,7 @@ const EssenceSection: React.FC<EssenceSectionProps> = ({
     const ctx = gsap.context(() => {
       const taglineChars = taglineRef.current?.querySelectorAll(".char");
 
-      // Set initial states (prevents layout shift)
+      // Initial states
       if (taglineChars && taglineChars.length > 0) {
         gsap.set(taglineChars, {
           opacity: 0,
@@ -73,7 +75,7 @@ const EssenceSection: React.FC<EssenceSectionProps> = ({
         });
       }
 
-      // Single timeline for all animations
+      // Text timeline
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
@@ -83,7 +85,6 @@ const EssenceSection: React.FC<EssenceSectionProps> = ({
         },
       });
 
-      // Tagline chars - simple fade up
       if (taglineChars && taglineChars.length > 0) {
         tl.to(
           taglineChars,
@@ -98,7 +99,6 @@ const EssenceSection: React.FC<EssenceSectionProps> = ({
         );
       }
 
-      // CTA button
       if (ctaRef.current) {
         tl.to(
           ctaRef.current,
@@ -112,46 +112,31 @@ const EssenceSection: React.FC<EssenceSectionProps> = ({
         );
       }
 
-      // Image reveal - play on each enter
-      if (imageOverlayRef.current) {
-        const overlay = imageOverlayRef.current;
-        gsap.set(overlay, { scaleX: 1 });
+      // IMAGE REVEAL – clip-path on the IMAGE, right → left
+      if (imageRef.current) {
+        const img = imageRef.current;
 
-        ScrollTrigger.create({
-          trigger: overlay,
-          start: "top 70%",
-          onEnter: () =>
-            gsap.fromTo(
-              overlay,
-              { scaleX: 1 },
-              { scaleX: 0, duration: 2.4, ease: "power2.out", overwrite: true }
-            ),
-          onEnterBack: () =>
-            gsap.fromTo(
-              overlay,
-              { scaleX: 1 },
-              { scaleX: 0, duration: 2.4, ease: "power2.out", overwrite: true }
-            ),
-          onLeave: () =>
-            gsap.to(overlay, {
-              scaleX: 1,
-              duration: 1.6,
-              ease: "power2.out",
-              overwrite: true,
-            }),
-          onLeaveBack: () =>
-            gsap.to(overlay, {
-              scaleX: 1,
-              duration: 1.6,
-              ease: "power2.out",
-              overwrite: true,
-            }),
+        // Start hidden from LEFT side (100% inset on left)
+        gsap.set(img, {
+          clipPath: "inset(0% 0% 0% 100%)",
+        });
+
+        gsap.to(img, {
+          clipPath: "inset(0% 0% 0% 0%)", // fully revealed
+          ease: "power3.out",
+          duration: 1.2,
+          scrollTrigger: {
+            trigger: img,
+            start: "top 65%",
+            toggleActions: "play none none reverse",
+          },
         });
       }
     }, sectionRef);
 
     return () => ctx.revert();
   }, []);
+
   return (
     <section className="essence-section" ref={sectionRef}>
       {/* Main Content Section */}
@@ -178,7 +163,9 @@ const EssenceSection: React.FC<EssenceSectionProps> = ({
                 radius={100}
                 falloff="gaussian"
               >
-                {typeof window !== 'undefined' && window.innerWidth < 1600 ? shortDescription : description}
+                {typeof window !== "undefined" && window.innerWidth < 1600
+                  ? shortDescription
+                  : description}
               </HoverText>
             </div>
 
@@ -187,9 +174,10 @@ const EssenceSection: React.FC<EssenceSectionProps> = ({
             </div>
           </div>
 
-          {/* Right side: Large image */}
+          {/* Right side: beige bg + image sliding in over it */}
           <div className="essence-image">
             <img
+              ref={imageRef}
               src={image.src}
               srcSet={
                 image.mobile && image.tablet && image.desktop
@@ -204,8 +192,6 @@ const EssenceSection: React.FC<EssenceSectionProps> = ({
               alt={image.alt}
               className="essence-img"
             />
-            {/* Image reveal overlay */}
-            <div className="essence-image-overlay" ref={imageOverlayRef}></div>
           </div>
 
           {/* Mobile CTA - only visible on mobile after image */}

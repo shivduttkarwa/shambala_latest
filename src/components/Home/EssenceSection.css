@@ -51,8 +51,6 @@
   max-width: 100%;
 }
 
-/* Essence section title styles now handled by TiltTextGsap component */
-
 /* Laptop and above screens */
 @media (min-width: 1024px) {
   .essence-layout {
@@ -68,11 +66,7 @@
 }
 
 .essence-description {
-  font-size: clamp(
-    16px,
-    2vw,
-    18px
-  ); /* Responsive: 16px min, 2vw fluid, 18px max */
+  font-size: clamp(16px, 2vw, 18px); /* Responsive: 16px min, 2vw fluid, 18px max */
   line-height: 1.7;
   color: #4a4a4a;
   margin-bottom: 35px;
@@ -145,44 +139,39 @@
     rgba(0, 0, 0, 0.1) 0px -3px 0px inset;
 }
 
+/* Desktop CTA wrapper (referenced in TSX) */
+.essence-cta-desktop {
+  /* visible by default, hidden on mobile via media queries */
+}
+
 /* Mobile CTA - hidden by default, shown only on mobile */
 .essence-cta-mobile {
   display: none;
 }
 
-/* Right side: Full-bleed image */
+/* Right side: Full-bleed image area with beige bg */
 .essence-image {
   padding-top: 60px;
   padding-bottom: 60px;
   position: relative;
   overflow: hidden;
-  background: var(--light-bg);
+  background: var(--light-bg); /* matches left side */
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+/* Image itself slides in right → left via clip-path */
 .essence-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-
   display: block;
-}
 
-/* Image Reveal Overlay */
-.essence-image-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: var(--light-bg);
-  z-index: 10;
-  transform-origin: left;
-  will-change: transform;
-  backface-visibility: hidden;
-  transform: translateZ(0);
+  /* Start hidden from LEFT (100% inset on left side).
+     GSAP animates this to 0% so it reveals from RIGHT → LEFT. */
+  clip-path: inset(0% 0% 0% 100%);
+  will-change: clip-path;
 }
 
 /* Responsive Design */
@@ -252,8 +241,6 @@
     padding: 60px 5.5% 0 5.5%; /* Remove bottom padding */
     text-align: center; /* Keep center alignment like 968px breakpoint */
   }
-
-  /* Essence section title styles now handled by TiltTextGsap component */
 
   .essence-description {
     margin-bottom: 0; /* Remove bottom margin */
