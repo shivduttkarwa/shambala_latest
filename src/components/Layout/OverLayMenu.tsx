@@ -164,9 +164,9 @@ tl.to(path, {
           {
             duration: 0.24,
             top: 0,
-            ease: "power3.in",
+            ease: "power7.in",
           },
-          "-=0.16"
+          "-=0.76"
         )
         // First contact button
         .to(
@@ -176,7 +176,7 @@ tl.to(path, {
             top: 0,
             ease: "power3.in",
           },
-          "-=0.08"
+          "-=0.68"
         )
         // Second contact button
         .to(
@@ -186,7 +186,7 @@ tl.to(path, {
             top: 0,
             ease: "power3.in",
           },
-          "+=0.016"
+          "-=0.58"
         )
         // Social section
         .to(
@@ -196,7 +196,7 @@ tl.to(path, {
             top: 0,
             ease: "power3.in",
           },
-          "+=0.016"
+          "-=0.46"
         )
         // Footer section
         .to(
@@ -206,7 +206,7 @@ tl.to(path, {
             top: 0,
             ease: "power3.in",
           },
-          "+=0.016"
+          "-=0.36"
         )
         .reverse(); // start in reversed (closed) state
     };
