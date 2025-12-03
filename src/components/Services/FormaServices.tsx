@@ -75,6 +75,9 @@ export const FormaServices: FC = () => {
       const fsImageCover = q(".fs-image-cover")[0] as
         | HTMLDivElement
         | undefined;
+      const fsImageCoverInner = q(".fs-image-cover-inner")[0] as
+        | HTMLDivElement
+        | undefined;
       const fsLeft = q(".fs-left")[0] as HTMLDivElement | undefined;
       const fsKicker = q(".fs-kicker")[0] as HTMLElement | undefined;
       const fsTitle = q(".fs-title")[0] as HTMLElement | undefined;
@@ -94,12 +97,15 @@ export const FormaServices: FC = () => {
       const imgCurrentEl = q(".fs-image-current")[0] as
         | HTMLImageElement
         | undefined;
-      const imgNextEl = q(".fs-image-next")[0] as HTMLImageElement | undefined;
+      const imgNextEl = q(".fs-image-next")[0] as
+        | HTMLImageElement
+        | undefined;
       const fsSection = q(".fs-section")[0] as HTMLElement | undefined;
       const fsInner = q(".fs-inner")[0] as HTMLElement | undefined;
 
       if (
         !fsImageCover ||
+        !fsImageCoverInner ||
         !fsLeft ||
         !fsKicker ||
         !fsTitle ||
@@ -118,6 +124,17 @@ export const FormaServices: FC = () => {
         return;
       }
 
+      // 3D context so rotateX + z look like a curved reel
+      gsap.set(fsImageCover, {
+        perspective: 1200,
+      });
+      gsap.set(fsImageCoverInner, {
+        transformStyle: "preserve-3d",
+      });
+      gsap.set([imgCurrentEl, imgNextEl], {
+        transformStyle: "preserve-3d",
+      });
+
       let fsTextIndex = 0;
       let fsLastTransitionIndex = -1;
       let fsContentVisible = false;
@@ -131,7 +148,10 @@ export const FormaServices: FC = () => {
         fsTitle.textContent = slide.title;
         fsMetaType.textContent = slide.metaType;
         fsMetaScope.textContent = slide.metaScope;
-        fsDesc.textContent = window.innerWidth >= 1600 ? slide.description : slide.shortDescription;
+        fsDesc.textContent =
+          window.innerWidth >= 1600
+            ? slide.description
+            : slide.shortDescription;
 
         const idxText = pad2(index + 1);
         fsCounterCurrent.textContent = idxText;
@@ -171,21 +191,32 @@ export const FormaServices: FC = () => {
         });
       };
 
-      // Image transition: next grows from center over current
-      const applyCenterExpand = (localT: number) => {
+      // Curved film-reel style slide transition (reduced gap)
+      const applyCurvedReel = (localT: number) => {
         const t = Math.min(Math.max(localT, 0), 1);
-        const nextScale = 0.25 + 0.75 * t;
-        const currentScale = 1 - 0.15 * t;
-        const currentOpacity = 1 - 0.6 * t;
-        const nextOpacity = t;
 
+        const travel = 100; // how far they move (gap between images)
+        const tilt = 40;   // rotateX degrees
+        const depth = -5;  // z shift
+
+        // Current image: move up, tilt away a bit
         gsap.set(imgCurrentEl, {
-          scale: currentScale,
-          opacity: currentOpacity,
+          yPercent: -travel * t, // 0 -> -70
+          rotateX: tilt * t,     // 0 -> 35deg
+          z: -depth * t,         // 0 -> -80
+          scale: 1 - 0.04 * t,   // 1 -> 0.96 (subtle)
+          transformOrigin: "50% 100%",
+          opacity: 1,
         });
+
+        // Next image: comes from below, un-bends into place
         gsap.set(imgNextEl, {
-          scale: nextScale,
-          opacity: nextOpacity,
+          yPercent: travel - travel * t, // 70 -> 0
+          rotateX: -tilt + tilt * t,     // -35deg -> 0deg
+          z: -depth + depth * t,         // -80 -> 0
+          scale: 0.96 + 0.04 * t,        // 0.96 -> 1
+          transformOrigin: "50% 0%",
+          opacity: 1,
         });
       };
 
@@ -195,9 +226,33 @@ export const FormaServices: FC = () => {
       if (serviceSlides[1]) {
         imgNextEl.setAttribute("src", serviceSlides[1].image);
       }
-      gsap.set([imgCurrentEl, imgNextEl], { transformOrigin: "50% 50%" });
-      gsap.set(imgCurrentEl, { yPercent: 0, scale: 1, opacity: 1 });
-      gsap.set(imgNextEl, { yPercent: 0, scale: 0.25, opacity: 0 });
+
+      // Base/resting state
+      const resetImagesToBase = () => {
+        const travel = 70;
+        const tilt = 35;
+        const depth = 80;
+
+        gsap.set(imgCurrentEl, {
+          yPercent: 0,
+          rotateX: 0,
+          z: 0,
+          scale: 1,
+          opacity: 1,
+          transformOrigin: "50% 100%",
+        });
+
+        gsap.set(imgNextEl, {
+          yPercent: travel,   // 70 below
+          rotateX: -tilt,     // pre-bent a bit
+          z: -depth,
+          scale: 0.96,
+          opacity: 1,
+          transformOrigin: "50% 0%",
+        });
+      };
+
+      resetImagesToBase();
 
       ScrollTrigger.matchMedia({
         "(min-width: 1024px)": () => {
@@ -209,15 +264,9 @@ export const FormaServices: FC = () => {
             fsCounterCurrent,
           ];
 
-          // 0 → shrinkEnd: full-bleed shrinks
-          // shrinkEnd → slidesStart: half-width, slide 1 stays, no transitions
-          // slidesStart → 1: slide transitions
           const shrinkEnd = 0.15;
           const slidesStart = 0.3;
           const transitionsCount = serviceSlides.length - 1;
-
-          let fsLastSnapIndex = 0;
-          let fsLastDirection: 1 | -1 = 1;
 
           ScrollTrigger.create({
             trigger: fsSection,
@@ -227,30 +276,23 @@ export const FormaServices: FC = () => {
             pin: fsInner,
             snap: {
               snapTo: (value) => {
-                // No slides => no snapping
                 if (transitionsCount <= 0) return value;
 
-                // While we're before slidesStart, don't snap: let user rest anywhere
-                if (value <= slidesStart) {
-                  fsLastSnapIndex = 0;
-                  return value;
-                }
+                // No snap before slidesStart (intro zone)
+                if (value <= slidesStart) return value;
 
-                // After slidesStart, snap one slide at a time based on scroll direction
-                const direction = fsLastDirection >= 0 ? 1 : -1;
-                let nextIndex = fsLastSnapIndex + direction;
-                nextIndex = Math.max(0, Math.min(transitionsCount, nextIndex));
-                fsLastSnapIndex = nextIndex;
+                // Map [slidesStart, 1] -> [0, transitionsCount]
+                const slideRegion = (value - slidesStart) / (1 - slidesStart);
+                const rawIndex = slideRegion * transitionsCount;
+                const nearestIndex = Math.round(rawIndex); // 0..transitionsCount
 
-                const snappedRemaining = nextIndex / transitionsCount;
-                return slidesStart + snappedRemaining * (1 - slidesStart);
+                const snappedRegion = nearestIndex / transitionsCount;
+                return slidesStart + snappedRegion * (1 - slidesStart);
               },
-              duration: 0.6,
+              duration: 0.5,
               ease: "power2.inOut",
             },
             onUpdate: (self) => {
-              fsLastDirection = self.direction as 1 | -1;
-
               const p = self.progress;
 
               // --- 1) IMAGE SHRINK (0 → shrinkEnd) ---
@@ -271,7 +313,7 @@ export const FormaServices: FC = () => {
                 });
               }
 
-              // --- 2) CONTENT VISIBILITY (still tied to shrink finishing) ---
+              // --- 2) CONTENT VISIBILITY ---
               if (p > shrinkEnd + 0.02 && !fsContentVisible) {
                 fsContentVisible = true;
 
@@ -323,8 +365,7 @@ export const FormaServices: FC = () => {
                 if (serviceSlides[1]) {
                   imgNextEl.setAttribute("src", serviceSlides[1].image);
                 }
-                gsap.set(imgCurrentEl, { yPercent: 0, scale: 1, opacity: 1 });
-                gsap.set(imgNextEl, { yPercent: 0, scale: 0.25, opacity: 0 });
+                resetImagesToBase();
                 return; // no transitions yet
               }
 
@@ -340,8 +381,7 @@ export const FormaServices: FC = () => {
                   "src",
                   serviceSlides[lastIndex].image
                 );
-                gsap.set(imgCurrentEl, { yPercent: 0, scale: 1, opacity: 1 });
-                gsap.set(imgNextEl, { yPercent: 0, scale: 0.25, opacity: 0 });
+                resetImagesToBase();
 
                 if (fsTextIndex !== lastIndex) {
                   const direction =
@@ -368,7 +408,7 @@ export const FormaServices: FC = () => {
                 imgNextEl.setAttribute("src", serviceSlides[nextIndex].image);
               }
 
-              applyCenterExpand(localT);
+              applyCurvedReel(localT);
 
               const dominantIndex = localT < 0.5 ? currentIndex : nextIndex;
 
@@ -388,8 +428,6 @@ export const FormaServices: FC = () => {
           fsLastTransitionIndex = -1;
 
           const transitionsCount = serviceSlides.length - 1;
-          let fsLastSnapIndexMobile = 0;
-          let fsLastDirectionMobile: 1 | -1 = 1;
 
           ScrollTrigger.create({
             trigger: fsSection,
@@ -401,20 +439,14 @@ export const FormaServices: FC = () => {
               snapTo: (value) => {
                 if (transitionsCount <= 0) return value;
 
-                const direction = fsLastDirectionMobile >= 0 ? 1 : -1;
-
-                let nextIndex = fsLastSnapIndexMobile + direction;
-                nextIndex = Math.max(0, Math.min(transitionsCount, nextIndex));
-                fsLastSnapIndexMobile = nextIndex;
-
-                return nextIndex / transitionsCount;
+                const rawIndex = value * transitionsCount;
+                const nearestIndex = Math.round(rawIndex); // 0..transitionsCount
+                return nearestIndex / transitionsCount;
               },
               duration: 0.5,
               ease: "power1.inOut",
             },
             onUpdate: (self) => {
-              fsLastDirectionMobile = self.direction as 1 | -1;
-
               const p = self.progress;
               const clamped = Math.min(Math.max(p, 0), 1);
 
@@ -426,8 +458,7 @@ export const FormaServices: FC = () => {
                   "src",
                   serviceSlides[lastIndex].image
                 );
-                gsap.set(imgCurrentEl, { yPercent: 0, scale: 1, opacity: 1 });
-                gsap.set(imgNextEl, { yPercent: 0, scale: 0.25, opacity: 0 });
+                resetImagesToBase();
 
                 if (fsTextIndex !== lastIndex) {
                   const direction =
@@ -459,7 +490,7 @@ export const FormaServices: FC = () => {
                 left: "0%",
               });
 
-              applyCenterExpand(localT);
+              applyCurvedReel(localT);
 
               const dominantIndex = localT < 0.5 ? currentIndex : nextIndex;
 
@@ -526,10 +557,9 @@ export const FormaServices: FC = () => {
                   radius={100}
                   falloff="gaussian"
                 >
-                  {window.innerWidth >= 1600 
+                  {window.innerWidth >= 1600
                     ? `${first.description} Every brief becomes a bespoke journey—more light, better flow, layered textures, and tailored joinery that quietly elevates daily life.`
-                    : `${first.shortDescription} Every brief becomes a bespoke journey.`
-                  }
+                    : `${first.shortDescription} Every brief becomes a bespoke journey.`}
                 </HoverText>
               </div>
 

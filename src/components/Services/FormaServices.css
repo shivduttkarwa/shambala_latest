@@ -263,3 +263,18 @@
     font-size: calc(18px * 1.2) !important; /* 21.6px - 20% larger */
   }
 }
+
+.forma-services .fs-image-cover-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.forma-services .fs-reel-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
