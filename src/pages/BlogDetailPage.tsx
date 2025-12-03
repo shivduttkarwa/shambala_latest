@@ -300,7 +300,13 @@ const BlogDetailPage: React.FC = () => {
         .bd-content-text {
           display: grid;
           gap: 1rem;
-          padding: 0 2rem; /* Add padding on both sides */
+          padding: 0 1rem;
+        }
+
+        @media (min-width: 768px) {
+          .bd-content-text {
+            padding: 0 2rem;
+          }
         }
 
         .bd-content-text p {
@@ -338,13 +344,26 @@ const BlogDetailPage: React.FC = () => {
 
         .bd-gallery {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-          gap: 1.25rem;
+          grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+          gap: 1rem;
           margin-top: 2rem;
         }
 
+        @media (min-width: 768px) {
+          .bd-gallery {
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.25rem;
+          }
+        }
+
         .bd-gallery .bd-image-frame {
-          min-height: 240px;
+          min-height: 160px;
+        }
+
+        @media (min-width: 768px) {
+          .bd-gallery .bd-image-frame {
+            min-height: 240px;
+          }
         }
 
         .bd-longform {
@@ -451,28 +470,162 @@ const BlogDetailPage: React.FC = () => {
 
         @media (max-width: 768px) {
           .bd-hero {
-            min-height: 72vh;
-            align-items: flex-end;
+            min-height: calc(100vh - 15vh); /* Reduce by 10vh */
+            align-items: center;
+            padding: clamp(1rem, 4vw, 2rem);
+          }
+          .bd-hero-content {
+            gap: 1rem;
           }
           .bd-hero-title {
-            font-size: clamp(2.3rem, 8vw, 3rem);
+            font-size: clamp(2rem, 6vw, 2.8rem);
+            line-height: 1.1;
+          }
+          .bd-hero-subtitle {
+            font-size: 1rem;
+            line-height: 1.6;
+          }
+          .bd-meta {
+            gap: 0.75rem;
+            padding: 0.5rem 0.8rem;
+          }
+          .bd-meta-chip {
+            font-size: 0.7rem;
+          }
+          .bd-section {
+            padding: clamp(1.5rem, 5vw, 2rem) clamp(1rem, 4vw, 1.5rem);
+          }
+          .bd-content-grid {
+            grid-template-columns: 1fr;
+            gap: clamp(1rem, 3vw, 1.5rem);
+            max-width: 100%;
+          }
+          .bd-content-text p {
+            font-size: 1rem;
+          }
+          .bd-content-heading {
+            font-size: clamp(1.5rem, 5vw, 2rem);
+          }
+          .bd-longform {
+            padding: clamp(2rem, 6vw, 2.5rem) clamp(1rem, 4vw, 1.5rem);
+          }
+          .bd-longform h2 {
+            font-size: clamp(1.6rem, 5vw, 2.2rem);
+          }
+          .bd-longform p {
+            font-size: 1rem;
           }
           .bd-cta {
             flex-direction: column;
             align-items: flex-start;
+            padding: clamp(1.5rem, 5vw, 2rem);
+            gap: 1rem;
+          }
+          .bd-cta h3 {
+            font-size: 1.3rem;
+          }
+          .bd-cta p {
+            font-size: 0.95rem;
+          }
+          .bd-hero-back-btn {
+            position: absolute;
+            bottom: 3rem; /* Position from bottom with enough space */
+            left: 1rem;
+            z-index: 10;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .bd-hero {
+            min-height: 85vh;
+            padding: clamp(0.8rem, 3vw, 1.5rem);
+          }
+          .bd-hero-title {
+            font-size: clamp(1.8rem, 7vw, 2.5rem);
+          }
+          .bd-hero-subtitle {
+            font-size: 0.95rem;
+          }
+          .bd-meta {
+            gap: 0.5rem;
+            padding: 0.4rem 0.6rem;
+          }
+          .bd-meta-chip {
+            font-size: 0.75rem;
+          }
+          .bd-meta-dot {
+            width: 4px;
+            height: 4px;
+          }
+          .bd-section {
+            padding: clamp(1rem, 4vw, 1.5rem) clamp(0.8rem, 3vw, 1rem);
+          }
+          .bd-content-grid {
+            gap: clamp(0.8rem, 2.5vw, 1rem);
+          }
+          .bd-content-text {
+            padding: 0 0.5rem;
+          }
+          .bd-content-text p {
+            font-size: 0.95rem;
+            line-height: 1.7;
+          }
+          .bd-content-heading {
+            font-size: clamp(1.3rem, 6vw, 1.8rem);
+          }
+          .bd-gallery {
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 0.8rem;
+          }
+          .bd-gallery .bd-image-frame {
+            min-height: 120px;
+          }
+          .bd-longform {
+            padding: clamp(1.5rem, 5vw, 2rem) clamp(0.8rem, 3vw, 1rem);
+          }
+          .bd-longform h2 {
+            font-size: clamp(1.4rem, 6vw, 2rem);
+          }
+          .bd-longform p {
+            font-size: 0.95rem;
+          }
+          .bd-cta {
+            padding: clamp(1rem, 4vw, 1.5rem);
+          }
+          .bd-cta h3 {
+            font-size: 1.2rem;
+          }
+          .bd-cta p {
+            font-size: 0.9rem;
+          }
+          .bd-hero-back-btn {
+            position: absolute;
+            bottom: calc(1rem + 80px); /* Push up by 80px from bottom to be visible */
+            left: 1rem;
+            z-index: 10; /* Ensure higher z-index */
           }
         }
       `}</style>
 
       <section className="bd-hero">
         <img src={heroImage} alt={heroAlt} />
-        <GlassButton href="/blog" style={{
-          position: 'absolute',
-          bottom: 'clamp(1.5rem, 5vw, 2.5rem)',
-          left: 'clamp(1.2rem, 4vw, 2rem)',
-          zIndex: 3
-        }}>
-          ← Back to all posts
+        <GlassButton 
+          href="/blog" 
+          className="bd-hero-back-btn"
+          icon="←"
+          showIcon={true}
+          style={{
+            position: 'absolute',
+            bottom: '2rem',
+            left: '2rem',
+            zIndex: 3,
+            background: 'rgba(255, 255, 255, 0.9)',
+            color: '#000',
+            border: '1px solid rgba(255, 255, 255, 0.3)',
+            backdropFilter: 'blur(10px)'
+          }}
+        >
+          Back to All Blogs
         </GlassButton>
         <div className="bd-hero-content">
           <div className="bd-meta">
@@ -484,15 +637,6 @@ const BlogDetailPage: React.FC = () => {
           </div>
           <h1 className="bd-hero-title">{title}</h1>
           <p className="bd-hero-subtitle">{excerpt}</p>
-          <GlassButton href="/blog" style={{ 
-            marginTop: '2rem',
-            background: 'rgba(255, 255, 255, 0.9)',
-            color: '#0b0d10',
-            border: '1px solid rgba(255, 255, 255, 0.3)',
-            backdropFilter: 'blur(10px)'
-          }}>
-            View All Blogs
-          </GlassButton>
         </div>
       </section>
 

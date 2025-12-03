@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import GlassButton from "../UI/GlassButton";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -327,27 +327,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
           padding: 2rem;
         }
 
-        .pd-hero-back-btn {
-          position: absolute;
-          bottom: 2rem;
-          left: 2rem;
-          z-index: 3;
-          color: white;
-          text-decoration: none;
-          font-size: 1.05rem;
-          padding: 0.9rem 1.8rem;
-          border: 1px solid rgba(255, 255, 255, 0.3);
-          border-radius: 2px;
-          backdrop-filter: blur(10px);
-          background: rgba(255, 255, 255, 0.1);
-          transition: all 0.3s ease;
-        }
-
-        .pd-hero-back-btn:hover {
-          background: rgba(255, 255, 255, 0.2);
-          border-color: rgba(255, 255, 255, 0.5);
-        }
-
+        
         .pd-category {
           font-size: 0.9rem;
           text-transform: uppercase;
@@ -638,6 +618,10 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
         }
 
         @media (max-width: 768px) {
+          .pd-hero {
+            min-height: 100vh; /* Back to 100vh for all mobile screens */
+          }
+          
           .pd-hero h1 {
             font-size: 2.5rem;
           }
@@ -647,10 +631,10 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
           }
 
           .pd-hero-back-btn {
-            top: 1rem;
+            position: absolute;
+            bottom: calc(1rem + 30px); /* Push up by 30px from bottom */
             left: 1rem;
-            padding: 0.5rem 1rem;
-            font-size: 0.75rem;
+            z-index: 10; /* Ensure higher z-index */
           }
 
           .pd-grid-2,
@@ -686,9 +670,24 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
         <div className="pd-hero-background">
           <img src={heroImage} alt={title} />
         </div>
-        <Link to={backLink} className="pd-hero-back-btn">
-          ← Back to All Projects
-        </Link>
+        <GlassButton 
+          href={backLink} 
+          className="pd-hero-back-btn"
+          icon="←"
+          showIcon={true}
+          style={{
+            position: 'absolute',
+            bottom: '2rem',
+            left: '2rem',
+            zIndex: 3,
+            background: 'rgba(255, 255, 255, 0.9)',
+            color: '#000',
+            border: '1px solid rgba(255, 255, 255, 0.3)',
+            backdropFilter: 'blur(10px)'
+          }}
+        >
+          Back to All Projects
+        </GlassButton>
         <div className="pd-hero-content pd-animate-content">
           <div className="pd-category">{category}</div>
           <h1 className="pd-animate-title">{title}</h1>

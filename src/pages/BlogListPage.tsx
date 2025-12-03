@@ -11,7 +11,7 @@ const getVideoPath = (videoName: string) =>
   publicUrl.endsWith("/") ? `${publicUrl}images/${videoName}` : `${publicUrl}/images/${videoName}`;
 
 const BlogListPage: React.FC = () => {
-  const heroRef = useRef<HTMLElement>(null);
+  const heroRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const listRef = useRef<HTMLElement>(null);
 
@@ -84,22 +84,113 @@ const BlogListPage: React.FC = () => {
 
     const ctx = gsap.context(() => {
       const cards = list.querySelectorAll(".bl-card");
+      
+      const splitTitleChars = (el: HTMLElement | null) => {
+        if (!el) return [];
+        if (el.querySelector(".bl-title-char")) {
+          return Array.from(el.querySelectorAll(".bl-title-char"));
+        }
+        const text = el.textContent || "";
+        el.textContent = "";
+        const chars: HTMLElement[] = [];
+        [...text].forEach((char) => {
+          const isSpace = char === " ";
+          const span = document.createElement("span");
+          span.className = `bl-title-char${isSpace ? " bl-title-space" : ""}`;
+          span.textContent = isSpace ? "\u00a0" : char;
+          el.appendChild(span);
+          chars.push(span);
+        });
+        return chars;
+      };
+
       cards.forEach((card) => {
-        gsap.fromTo(
-          card,
-          { y: 30, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.9,
+        const cardEl = card as HTMLElement;
+        
+        const imgContainer = cardEl.querySelector(".bl-card-image-container") as HTMLElement | null;
+        const meta = cardEl.querySelector(".bl-meta") as HTMLElement | null;
+        const title = cardEl.querySelector(".bl-card-title") as HTMLElement | null;
+        const excerpt = cardEl.querySelector(".bl-card-excerpt") as HTMLElement | null;
+        const link = cardEl.querySelector(".bl-link") as HTMLElement | null;
+
+        // Image slide in animation using clip-path
+        if (imgContainer) {
+          gsap.set(imgContainer, { clipPath: "inset(100% 0 0 0)" });
+          gsap.to(imgContainer, {
+            clipPath: "inset(0% 0 0 0)",
             ease: "power3.out",
+            duration: 1.2,
             scrollTrigger: {
               trigger: card,
-              start: "top 80%",
+              start: "top 70%",
               toggleActions: "play none none reverse",
             },
+          });
+        }
+
+        // Content animations timeline
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: card,
+            start: "top 70%",
+            toggleActions: "play none none reverse",
+          },
+        });
+
+        if (meta) {
+          tl.fromTo(
+            meta,
+            { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }
+          );
+        }
+
+        if (title) {
+          const charEls = splitTitleChars(title);
+          if (charEls.length) {
+            gsap.set(title, { perspective: 600 });
+            gsap.set(charEls, {
+              opacity: 0,
+              rotateX: 80,
+              yPercent: 40,
+              transformOrigin: "50% 100%",
+            });
+
+            tl.to(
+              charEls,
+              {
+                opacity: 1,
+                rotateX: 0,
+                yPercent: 0,
+                duration: 0.9,
+                ease: "expo.out",
+                stagger: {
+                  each: 0.02,
+                  from: "edges",
+                },
+              },
+              "-=0.4"
+            );
           }
-        );
+        }
+
+        if (excerpt) {
+          tl.fromTo(
+            excerpt,
+            { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" },
+            "-=0.7"
+          );
+        }
+
+        if (link) {
+          tl.fromTo(
+            link,
+            { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" },
+            "-=0.5"
+          );
+        }
       });
     }, list);
 
@@ -273,6 +364,50 @@ const BlogListPage: React.FC = () => {
         .bl-link:hover {
           color: #d59f00;
         }
+
+        .bl-card-image-container {
+          overflow: hidden;
+        }
+
+        .bl-title-char {
+          display: inline-block;
+          transform-origin: 50% 100%;
+        }
+
+        .bl-title-space {
+          width: 0.28em;
+        }
+
+        @media (min-width: 1600px) {
+          .bl-grid {
+            max-width: 1440px; /* 20% increase from 1200px */
+            grid-template-columns: repeat(auto-fit, minmax(336px, 1fr)); /* 20% increase from 280px */
+          }
+          .bl-hero-meta {
+            font-size: calc(0.86rem * 1.2); /* 20% increase from 0.86rem */
+          }
+          .bl-kicker {
+            font-size: calc(0.86rem * 1.2); /* 20% increase from 0.86rem */
+          }
+          .bl-title {
+            font-size: calc(clamp(2.6rem, 6vw, 3.8rem) * 1.2); /* 20% increase */
+          }
+          .bl-subtitle {
+            font-size: calc(1.05rem * 1.2); /* 20% increase from 1.05rem */
+          }
+          .bl-meta {
+            font-size: calc(0.9rem * 1.25); /* 25% increase from 0.9rem */
+          }
+          .bl-card-title {
+            font-size: calc(1.25rem * 1.25); /* 25% increase from 1.25rem */
+          }
+          .bl-card-excerpt {
+            font-size: calc(0.98rem * 1.25); /* 25% increase from 0.98rem */
+          }
+          .bl-link {
+            font-size: calc(0.95rem * 1.25); /* 25% increase from 0.95rem */
+          }
+        }
       `}</style>
 
       <section className="bl-hero">
@@ -299,7 +434,7 @@ const BlogListPage: React.FC = () => {
       <section className="bl-grid" ref={listRef}>
         {blogPosts.slice(0, 6).map((post) => (
           <article key={post.id} className="bl-card">
-            <div>
+            <div className="bl-card-image-container">
               <img src={post.heroImage} alt={post.heroAlt} />
             </div>
             <div className="bl-card-body">
