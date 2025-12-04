@@ -1,93 +1,210 @@
-<svg width="420" height="140" viewBox="0 0 420 140" xmlns="http://www.w3.org/2000/svg">
-  <!-- Top border -->
-  <line
-    x1="5"
-    y1="5"
-    x2="415"
-    y2="5"
-    stroke="#111111"
-    stroke-width="1.4"
-  />
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title Gap Scroll Reveal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Bottom border -->
-  <line
-    x1="5"
-    y1="135"
-    x2="415"
-    y2="135"
-    stroke="#111111"
-    stroke-width="1.4"
-  />
+    <!-- GSAP + ScrollTrigger CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
-  <!-- Left border with 2 cuts (3 segments) -->
-  <!-- Top segment -->
-  <line
-    x1="5"
-    y1="5"
-    x2="5"
-    y2="40"
-    stroke="#111111"
-    stroke-width="1.4"
-  />
-  <!-- Middle segment -->
-  <line
-    x1="5"
-    y1="60"
-    x2="5"
-    y2="95"
-    stroke="#111111"
-    stroke-width="1.4"
-  />
-  <!-- Bottom segment -->
-  <line
-    x1="5"
-    y1="115"
-    x2="5"
-    y2="135"
-    stroke="#111111"
-    stroke-width="1.4"
-  />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-  <!-- Right border with 2 cuts (3 segments) -->
-  <!-- Top segment -->
-  <line
-    x1="415"
-    y1="5"
-    x2="415"
-    y2="40"
-    stroke="#111111"
-    stroke-width="1.4"
-  />
-  <!-- Middle segment -->
-  <line
-    x1="415"
-    y1="60"
-    x2="415"
-    y2="95"
-    stroke="#111111"
-    stroke-width="1.4"
-  />
-  <!-- Bottom segment -->
-  <line
-    x1="415"
-    y1="115"
-    x2="415"
-    y2="135"
-    stroke="#111111"
-    stroke-width="1.4"
-  />
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Inter",
+          sans-serif;
+        background: #050608;
+        color: #f5f5f5;
+        overflow-x: hidden;
+      }
 
-  <!-- FORMA Wordmark -->
-  <text
-    x="50%"
-    y="50%"
-    text-anchor="middle"
-    dominant-baseline="middle"
-    font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
-    font-size="46"
-    letter-spacing="10"
-    fill="#111111"
-  >
-    FORMA
-  </text>
-</svg>
+      /* Dummy section above so you can scroll into it */
+      .top-spacer {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #0b0c10;
+        color: #aaaaaa;
+        font-size: 1rem;
+      }
+
+      .tg-section {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 6rem 1.5rem;
+        background: #050608;
+        color: #f5f5f5;
+      }
+
+      .tg-inner {
+        max-width: 900px;
+        width: 100%;
+      }
+
+      .tg-title {
+        font-size: clamp(3rem, 10vw, 5.5rem);
+        letter-spacing: -0.09em; /* tighter spacing */
+
+        display: inline-flex;
+        align-items: center;
+        flex-wrap: wrap;
+
+        text-transform: uppercase;
+      }
+
+      .tg-letter {
+        display: inline-block;
+        overflow: hidden; /* mask for vertical reveal */
+      }
+
+      .tg-letter-inner {
+        display: inline-block;
+        transform-origin: center;
+      }
+
+      /* Special U mask */
+      .tg-letter--u {
+        position: relative;
+        overflow: hidden; /* mask */
+      }
+
+      .tg-letter-inner--u {
+        display: inline-block;
+      }
+
+      /* space between ABOUT and ME */
+      .tg-space {
+        width: 0.45em;
+      }
+
+      .tg-dummy-text {
+        margin-top: 1.5rem;
+        max-width: 520px;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        color: #b5b5b5;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="top-spacer">
+      <p>Scroll down to reveal the title animation ↓</p>
+    </section>
+
+    <section class="tg-section">
+      <div class="tg-inner">
+        <h2 class="tg-title">
+          <!-- A B O -->
+          <span class="tg-letter">
+            <span class="tg-letter-inner">A</span>
+          </span>
+          <span class="tg-letter">
+            <span class="tg-letter-inner">B</span>
+          </span>
+          <span class="tg-letter">
+            <span class="tg-letter-inner">O</span>
+          </span>
+
+          <!-- U (special center letter) -->
+          <span class="tg-letter tg-letter--u">
+            <span class="tg-letter-inner tg-letter-inner--u">U</span>
+          </span>
+
+          <!-- T -->
+          <span class="tg-letter">
+            <span class="tg-letter-inner">T</span>
+          </span>
+
+          <!-- space -->
+          <span class="tg-space">&nbsp;</span>
+
+          <!-- M E -->
+          <span class="tg-letter">
+            <span class="tg-letter-inner">M</span>
+          </span>
+          <span class="tg-letter">
+            <span class="tg-letter-inner">E</span>
+          </span>
+        </h2>
+
+        <p class="tg-dummy-text">
+          Replace this with your ABOUT ME content. As you scroll down, the
+          letters slide in slowly from the top. Scroll back up and they retreat
+          smoothly again.
+        </p>
+      </div>
+    </section>
+    <section class="top-spacer">
+      <p>Scroll down to reveal the title animation ↓</p>
+    </section>
+
+    <script>
+      gsap.registerPlugin(ScrollTrigger);
+
+      window.addEventListener("load", function () {
+        const section = document.querySelector(".tg-section");
+        const title = document.querySelector(".tg-title");
+
+        if (!section || !title) return;
+
+        const allLetters = Array.from(
+          title.querySelectorAll(".tg-letter-inner")
+        );
+        const centerLetter = title.querySelector(".tg-letter-inner--u");
+
+        if (!centerLetter || allLetters.length === 0) return;
+
+        // All letters start ABOVE so they slide down into place
+        gsap.set(allLetters, { yPercent: -120, opacity: 0 });
+
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: section,
+            start: "top 90%",
+            end: "bottom 40%", // full animation only when bottom gets near top
+            scrub: 1,
+          },
+        });
+
+        // U first, slow and smooth
+        tl.to(
+          centerLetter,
+          {
+            yPercent: 0,
+            opacity: 1,
+            duration: 1.5,
+            ease: "power3.out",
+          },
+          0
+        );
+
+        // Other letters, also slow + stagger
+        const otherLetters = allLetters.filter((el) => el !== centerLetter);
+
+        tl.to(
+          otherLetters,
+          {
+            yPercent: 0,
+            opacity: 1,
+            duration: 1.7,
+            ease: "power3.out",
+            stagger: {
+              each: 0.15,
+              from: "center",
+            },
+          },
+          0.2 // slightly after U
+        );
+      });
+    </script>
+  </body>
+</html>

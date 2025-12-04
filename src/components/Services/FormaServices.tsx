@@ -6,6 +6,7 @@ import "./FormaServices.css";
 import TiltTextGsap from "../UI/TiltTextGsap";
 import HoverText from "../UI/HoverText";
 import GlassButton from "../UI/GlassButton";
+import GsapSectionTitle from "../UI/GsapSectionTitle";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -97,9 +98,7 @@ export const FormaServices: FC = () => {
       const imgCurrentEl = q(".fs-image-current")[0] as
         | HTMLImageElement
         | undefined;
-      const imgNextEl = q(".fs-image-next")[0] as
-        | HTMLImageElement
-        | undefined;
+      const imgNextEl = q(".fs-image-next")[0] as HTMLImageElement | undefined;
       const fsSection = q(".fs-section")[0] as HTMLElement | undefined;
       const fsInner = q(".fs-inner")[0] as HTMLElement | undefined;
 
@@ -196,15 +195,15 @@ export const FormaServices: FC = () => {
         const t = Math.min(Math.max(localT, 0), 1);
 
         const travel = 100; // how far they move (gap between images)
-        const tilt = 40;   // rotateX degrees
-        const depth = -5;  // z shift
+        const tilt = 40; // rotateX degrees
+        const depth = -5; // z shift
 
         // Current image: move up, tilt away a bit
         gsap.set(imgCurrentEl, {
           yPercent: -travel * t, // 0 -> -70
-          rotateX: tilt * t,     // 0 -> 35deg
-          z: -depth * t,         // 0 -> -80
-          scale: 1 - 0.04 * t,   // 1 -> 0.96 (subtle)
+          rotateX: tilt * t, // 0 -> 35deg
+          z: -depth * t, // 0 -> -80
+          scale: 1 - 0.04 * t, // 1 -> 0.96 (subtle)
           transformOrigin: "50% 100%",
           opacity: 1,
         });
@@ -212,9 +211,9 @@ export const FormaServices: FC = () => {
         // Next image: comes from below, un-bends into place
         gsap.set(imgNextEl, {
           yPercent: travel - travel * t, // 70 -> 0
-          rotateX: -tilt + tilt * t,     // -35deg -> 0deg
-          z: -depth + depth * t,         // -80 -> 0
-          scale: 0.96 + 0.04 * t,        // 0.96 -> 1
+          rotateX: -tilt + tilt * t, // -35deg -> 0deg
+          z: -depth + depth * t, // -80 -> 0
+          scale: 0.96 + 0.04 * t, // 0.96 -> 1
           transformOrigin: "50% 0%",
           opacity: 1,
         });
@@ -243,8 +242,8 @@ export const FormaServices: FC = () => {
         });
 
         gsap.set(imgNextEl, {
-          yPercent: travel,   // 70 below
-          rotateX: -tilt,     // pre-bent a bit
+          yPercent: travel, // 70 below
+          rotateX: -tilt, // pre-bent a bit
           z: -depth,
           scale: 0.96,
           opacity: 1,
@@ -256,13 +255,7 @@ export const FormaServices: FC = () => {
 
       ScrollTrigger.matchMedia({
         "(min-width: 1024px)": () => {
-          const textEls = [
-            fsKicker,
-            fsTitle,
-            fsMetaEl,
-            fsDesc,
-            fsCounterCurrent,
-          ];
+          const textEls = [fsKicker, fsTitle, fsMetaEl, fsDesc, fsCounterCurrent];
 
           const shrinkEnd = 0.15;
           const slidesStart = 0.3;
@@ -516,25 +509,13 @@ export const FormaServices: FC = () => {
   return (
     <div className="forma-services" id="services-content" ref={rootRef}>
       <div className="fs-heading">
-        <TiltTextGsap
-          tag="h2"
+        <GsapSectionTitle
+          title="Services"
           className="section-title fs-heading-title"
-          startTrigger="top 75%"
-          endTrigger="bottom 0%"
-        >
-          Forma Services
-        </TiltTextGsap>
-        <HoverText
-          className="fs-heading-subtitle"
-          fromSettings="'wght' 400"
-          toSettings="'wght' 700"
-          radius={120}
-          falloff="gaussian"
-        >
-          Architecture, interiors, and landscapes crafted as one seamless story,
-          guided by calm, warm materiality and precise detailing so every space
-          feels thoughtful, livable, and enduring.
-        </HoverText>
+          fontSize="clamp(3rem, 10vw, 8rem)"
+          fontWeight={800}
+          letterSpacing="-3.0px"
+        />
       </div>
       <div className="fs-section">
         <div className="fs-inner">
@@ -542,7 +523,8 @@ export const FormaServices: FC = () => {
             <div className="fs-left">
               <div>
                 <div className="fs-kicker">FORMA SERVICES</div>
-                <h1 className="fs-title">{first.title}</h1>
+                
+                <div className="fs-title">{first.title}</div>
 
                 <div className="fs-meta">
                   <span className="fs-meta-type">{first.metaType}</span>

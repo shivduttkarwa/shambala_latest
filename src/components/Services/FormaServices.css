@@ -9,20 +9,18 @@
 .forma-services .fs-heading {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 4rem 1.5rem 2rem;
+  padding: 2rem 1.5rem 1rem;
   text-align: center;
+  line-height: 1.4;
 }
 
 .forma-services .fs-heading-title {
-  font-size: clamp(2.5rem, 4vw, 3.6rem);
-  letter-spacing: -0.02em;
-  margin: 0 0 1rem;
-  font-family: "Dream Avenue", cursive;
-  text-transform: uppercase;
+  margin: 0 0 0.5rem;
+  font-family: "Sofia Sans Condensed", sans-serif;
+  color: #312929;
 }
 
 .forma-services .fs-heading-subtitle {
-  
   margin: 0 auto;
   max-width: 680px;
   color: #4a4a4a;
@@ -72,12 +70,14 @@
 }
 
 .forma-services .fs-title {
-  font-size: 3.8rem;
+  font-size: clamp(2.4rem, 4.5vw, 3.8rem);
   line-height: 0.95;
   text-transform: uppercase;
   max-width: 18ch;
-  font-weight: 400;
+  font-weight: 200;
   font-family: "Dream Avenue", cursive;
+  margin-top: 0.5rem;
+  letter-spacing: -1px;
 }
 
 .forma-services .fs-meta {
@@ -200,7 +200,7 @@
 }
 
 .forma-services .fs-image-counter span {
-  font-weight: 500;
+  font-weight: 200;
 }
 
 @media (max-width: 1023px) {
@@ -255,9 +255,9 @@
 @media (min-width: 1560px) {
   .forma-services .fs-description {
     font-size: 21.6px !important; /* 1rem (16px) * 1.35 = 21.6px - 20% larger than 18px */
-    font-family: "Nunito", sans-serif !important;
+    font-family: "Sofia Sans Condensed", sans-serif !important;
   }
-  
+
   /* Increase heading subtitle font size by 20% */
   .forma-services .fs-heading-subtitle {
     font-size: calc(18px * 1.2) !important; /* 21.6px - 20% larger */
@@ -277,4 +277,3 @@
   height: 100%;
   display: block;
 }
-
