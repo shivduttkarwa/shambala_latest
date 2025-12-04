@@ -16,8 +16,14 @@
 
 .forma-services .fs-heading-title {
   margin: 0 0 0.5rem;
-  font-family: "Sofia Sans Condensed", sans-serif;
+  font-family: "Dream Avenue", cursive;
   color: #312929;
+  font-size: clamp(3rem, 10vw, 8rem);
+  font-weight: 200;
+  text-transform: uppercase;
+  letter-spacing: -3.0px;
+  line-height: 0.95;
+  text-align: center;
 }
 
 .forma-services .fs-heading-subtitle {
@@ -255,7 +261,7 @@
 @media (min-width: 1560px) {
   .forma-services .fs-description {
     font-size: 21.6px !important; /* 1rem (16px) * 1.35 = 21.6px - 20% larger than 18px */
-    font-family: "Sofia Sans Condensed", sans-serif !important;
+    
   }
 
   /* Increase heading subtitle font size by 20% */

@@ -5,6 +5,13 @@
   line-height: 1.6;
 }
 
+/* Increase TiltTextGsap font size by 30% on 1600px+ screens */
+@media (min-width: 1600px) {
+  .hss-services-content .tilt-text-heading {
+    font-size: clamp(2.6rem, 5.2vw, 4.16rem) !important;
+  }
+}
+
 .hss-services-container {
   max-width: 1400px;
   margin: 0 auto;

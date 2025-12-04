@@ -5,7 +5,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ScrollVelocity from "../animations/ScrollVelocity";
 import GlassButton from "../UI/GlassButton";
 import SimpleSwiper from "../UI/SimpleSwiper";
-import TiltTextGsap from "../UI/TiltTextGsap";
 import "../UI/SimpleSwiper.css";
 import HoverText from "../UI/HoverText";
 import BlogVideoCard from "../UI/BlogVideoCard";
@@ -167,13 +166,9 @@ const BlogSection: React.FC<BlogSectionProps> = ({
 
           {/* Content Half */}
           <div className="blog-featured-content">
-            <TiltTextGsap
-              tag="h1"
-              startTrigger="top 80%"
-              endTrigger="bottom -10%"
-            >
+            <h1 className="blog-featured-title">
               {featuredPost.title}
-            </TiltTextGsap>
+            </h1>
 
             <HoverText
               className="blog-featured-description"

@@ -31,12 +31,12 @@ export const blogPosts: BlogPost[] = [
   {
     id: 1,
     slug: "sustainable-havens",
-    title: "Sustainable Havens with Architectural Warmth",
+    title: "Sustainable Living",
     category: "Sustainability",
     date: "15 Nov 2025",
     readTime: "5 min read",
     excerpt:
-      "How we weave low-impact materials, passive design and crafted details into homes that feel effortlessly luxurious. Each decision is measured against longevity, comfort, and the quiet drama of daily rituals. We consider the whole lifecycle, so your space grows more soulful with every season.",
+      "How we weave low-impact materials, passive design and crafted details into homes that feel effortlessly luxurious. Each decision is measured against longevity, comfort, and the quiet drama of daily rituals. We consider the whole lifecycle, so your space grows more soulful with every season. Our approach balances environmental responsibility with refined aesthetics, creating spaces that nurture both planet and people through thoughtful design.",
     heroImage: `${publicUrl}images/port1.jpg`,
     heroAlt: "Soft sunlight across timber and stone living room",
     videoSrc: `${publicUrl}videos/architecture-showcase.mp4`, // Add video source

@@ -21,8 +21,8 @@
   font-family: "Sofia Sans Condensed", sans-serif;
   font-size: clamp(2.5rem, 8vw, 6rem);
   font-weight: 800;
-  letter-spacing: -3.0px;
-  color: #312929;
+  letter-spacing: -3px;
+  color: #090909;
   margin: 0 0 1rem;
 }
 

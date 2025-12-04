@@ -65,7 +65,7 @@ const defaultProjects: ShowcaseProject[] = [
 
 const PortfolioShowcase: React.FC<PortfolioShowcaseProps> = ({
   projects = defaultProjects,
-  heading = "OUR LATEST PROJECTS",
+  heading = "PROJECTS",
   ctaText = "See More Projects",
   ctaHref = "/projects",
 }) => {

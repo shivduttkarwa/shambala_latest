@@ -6,7 +6,6 @@ import "./FormaServices.css";
 import TiltTextGsap from "../UI/TiltTextGsap";
 import HoverText from "../UI/HoverText";
 import GlassButton from "../UI/GlassButton";
-import GsapSectionTitle from "../UI/GsapSectionTitle";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -509,13 +508,14 @@ export const FormaServices: FC = () => {
   return (
     <div className="forma-services" id="services-content" ref={rootRef}>
       <div className="fs-heading">
-        <GsapSectionTitle
-          title="Services"
-          className="section-title fs-heading-title"
-          fontSize="clamp(3rem, 10vw, 8rem)"
-          fontWeight={800}
-          letterSpacing="-3.0px"
-        />
+        <TiltTextGsap
+          tag="h2"
+          startTrigger="top 80%"
+          endTrigger="bottom -10%"
+          className="section-title fs-heading-title tilt-text-heading"
+        >
+          Services
+        </TiltTextGsap>
       </div>
       <div className="fs-section">
         <div className="fs-inner">

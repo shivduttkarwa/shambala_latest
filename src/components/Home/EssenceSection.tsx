@@ -43,6 +43,9 @@ const EssenceSection: React.FC<EssenceSectionProps> = ({
 }) => {
   const shortDescription =
     "We envision spaces that are not just lived in, but felt — where every element has been curated to inspire connection, serenity, and belonging. Our approach transcends traditional architecture, creating environments that nurture the soul and elevate everyday moments into extraordinary experiences of comfort and beauty.";
+  
+  const extraLargeDescription = 
+    "We envision spaces that are not just lived in, but felt — where every element has been curated to inspire connection, serenity, and belonging. Our approach transcends traditional architecture, creating environments that nurture the soul and elevate everyday moments into extraordinary experiences of comfort.";
 
   const sectionRef = useRef<HTMLDivElement>(null);
   const taglineRef = useRef<HTMLDivElement>(null);
@@ -163,7 +166,9 @@ const EssenceSection: React.FC<EssenceSectionProps> = ({
                 radius={100}
                 falloff="gaussian"
               >
-                {typeof window !== "undefined" && window.innerWidth < 1600
+                {typeof window !== "undefined" && window.innerWidth >= 1600
+                  ? extraLargeDescription
+                  : typeof window !== "undefined" && window.innerWidth < 1600
                   ? shortDescription
                   : description}
               </HoverText>

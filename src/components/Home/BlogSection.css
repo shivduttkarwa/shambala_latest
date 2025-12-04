@@ -165,13 +165,13 @@
 }
 
 .blog-featured-title {
-  font-family: "Dream Avenue", cursive;
+  font-family: "Nunito", sans-serif;
   font-size: clamp(2.5rem, 4vw, 3.5rem);
   font-weight: 400;
   color: var(--text);
   line-height: 1.2;
-  margin-bottom: calc(2rem + 60px);
-  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  text-transform: none;
   letter-spacing: 0.02em;
 }
 
@@ -181,7 +181,7 @@
   line-height: 1.7;
   color: rgba(0, 0, 0, 0.7);
   margin-bottom: 2.5rem;
-  margin-top: 30px;
+  margin-top: 0;
   max-width: 500px;
   /* Prevent layout shift during hover animation */
   display: block;
@@ -198,10 +198,11 @@
   min-height: 1.2em;
   transition: font-weight 0.3s ease;
   letter-spacing: 0.01em;
+  transform: none !important;
 }
 
 .blog-featured-description > *:hover {
-  transform: scale(1.001);
+  transform: none !important;
 }
 
 .blog-featured-cta {

@@ -300,3 +300,10 @@
     height: 50px;
   }
 }
+
+/* Increase TiltTextGsap font size by 30% on 1600px+ screens */
+@media (min-width: 1600px) {
+  .essence-heading .tilt-text-heading {
+    font-size: clamp(2.6rem, 5.2vw, 4.16rem) !important;
+  }
+}

@@ -48,7 +48,7 @@ section.project-feature .block-text {
   margin-bottom: clamp(2rem, 2.25352vw + 1.47183rem, 3.5rem);
   margin-left: auto;
   margin-right: auto;
-  font-size: clamp(2rem, 4vw, 4.2rem);
+  font-size: clamp(3rem, 10vw, 8rem);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -351,5 +351,12 @@ section.project-feature .cta-wrapper .pf-button:hover {
     .image-wrapper {
     width: 100%;
     max-height: 33vh;
+  }
+}
+
+/* Portfolio title sizing for screens 768px and above */
+@media (min-width: 768px) {
+  .block-text .tilt-text-heading {
+    font-size: clamp(3.12rem, 10.4vw, 8.32rem) !important;
   }
 }
