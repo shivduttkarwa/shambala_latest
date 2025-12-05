@@ -8,92 +8,102 @@ gsap.registerPlugin(ScrollTrigger);
 const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // DESKTOP: full-bleed skewed contact storytelling for Forma (architecture studio)
-  const footerColors = ["#ff6b6b", "#4ecdc4", "#ffe66d", "#a8e6cf", "#ff8b94"];
-  const newColors = ["#6c5ce7", "#fd79a8", "#fdcb6e", "#00b894"];
+  // DESKTOP: Light elegant colors for better readability
+  const elegantColors = [
+    "#ffffff", "#f8f9fa", "#f1f3f4", "#e8eaed", "#dadce0", 
+    "#bdc1c6", "#9aa0a6", "#80868b", "#5f6368", "#3c4043",
+    "#202124", "#1a73e8", "#34a853", "#fbbc04", "#ea4335"
+  ];
 
-  const allColors = [...footerColors, ...newColors];
+  // Using elegant architectural photography
+  const architecturalImages = [
+    "/images/slide1.jpg",
+    "/images/slide2.jpg", 
+    "/images/slide3.jpg",
+    "/images/slide4.jpg",
+    "/images/slide5.jpg",
+    "/images/slide6.jpg"
+  ];
 
   const pages = [
     {
-      leftBg: allColors[0],
-      rightBg: allColors[1],
-      leftHeading: "Get\nin Touch",
-      leftDesc: "",
+      leftBg: architecturalImages[0],
+      rightBg: elegantColors[0],
+      leftHeading: "Let's Create\nSomething Extraordinary",
+      leftDesc: "Every exceptional project begins with your vision.",
       leftLink: "",
-      rightHeading: "+61 3 1234 5678",
-      rightDesc: "studio@forma.archi",
+      rightHeading: "+91 98765 43210",
+      rightDesc: "info@shambala.studio\n\nMon-Sat, 10AM-7PM IST",
     },
     {
-      leftBg: allColors[2],
-      rightBg: allColors[3],
-      leftHeading: "Address",
-      leftDesc: "",
+      leftBg: elegantColors[8],
+      rightBg: architecturalImages[1],
+      leftHeading: "Visit Our\nDesign Studio",
+      leftDesc: "Experience architectural excellence in the heart of the city.",
       leftLink: "",
-      rightHeading: "Level 3, 150 Gertrude Street\nFitzroy, VIC 3065",
-      rightDesc: "",
+      rightHeading: "Shambala Design Studio\nSector 44, Gurgaon\nHaryana, India",
+      rightDesc: "15 mins from Huda City Metro",
     },
     {
-      leftBg: allColors[4],
-      rightBg: allColors[5],
-      leftHeading: "Service\n\nYou Want",
-      leftDesc: "",
+      leftBg: architecturalImages[2],
+      rightBg: elegantColors[2],
+      leftHeading: "What Can\nWe Create\nTogether?",
+      leftDesc: "From concept to completion, we transform spaces into experiences.",
       leftLink: "",
       rightHeading: "",
       rightDesc: "",
       serviceButtons: [
-        "Build a new house",
-        "Upgrade house",
-        "Commercial builds",
-        "Downsize house",
+        "Luxury Residences",
+        "Commercial Spaces", 
+        "Interior Design",
+        "Landscape Architecture",
       ],
     },
     {
-      leftBg: allColors[6],
-      rightBg: allColors[7],
-      leftHeading: "Let's Start\nYour Project",
+      leftBg: elegantColors[12],
+      rightBg: architecturalImages[3],
+      leftHeading: "Start Your\nDesign\nJourney",
       leftDesc:
-        "Tell us about your vision and we'll help bring it to life with our architectural expertise.",
+        "Share your vision with us and discover how we can transform your space into something extraordinary.",
       leftLink: "",
-      rightHeading: "Contact Form",
+      rightHeading: "Tell Us About Your Vision",
       rightDesc: "",
       showForm: true,
     },
     {
-      // Last slide – will be rendered as 2 skewed images (no text)
-      leftBg: allColors[8],
-      rightBg: allColors[0],
+      leftBg: architecturalImages[4],
+      rightBg: architecturalImages[5],
       leftHeading:
-        "Architecture is not about building\nthe impossible, but the appropriate.",
-      leftDesc: "— Alvar Aalto",
+        "Architecture is the\ntestimony of human\naspiration.",
+      leftDesc: "— Frank Lloyd Wright",
       leftLink: "",
-      rightHeading: "Ready to Create\nSomething Extraordinary?",
-      rightDesc: "",
+      rightHeading: "Ready to Begin?",
+      rightDesc: "Let's bring your vision to life",
       showRainButton: true,
     },
   ];
 
-  // MOBILE: 4 plain contact slides for Forma + form below
+  // MOBILE: Modern contact journey slides
   const mobileSlides = [
     {
-      heading: "Contact Us",
-      label: "Get in Touch",
-      desc: "We'd love to hear about your project. Reach out to start a conversation about your architectural vision.",
+      heading: "Let's Create Together",
+      label: "Welcome",
+      desc: "Transform your space with award-winning architectural design. We bring vision, innovation, and expertise to every project.",
     },
     {
-      heading: "Scope & budget",
-      label: "Project scope",
-      desc: "Is this a renovation, extension, new build or hospitality space? Include a rough budget range and any timing constraints you already know.",
+      heading: "Your Project Vision",
+      label: "Tell us about it",
+      desc: "Whether it's a new build, renovation, commercial space, or interior design - share your dreams and we'll help make them reality.",
     },
     {
-      heading: "How to reach you",
-      label: "Details",
-      desc: "Add your name, email, phone and any links to plans or inspiration boards so we can respond with something genuinely tailored.",
+      heading: "Professional Process",
+      label: "How we work",
+      desc: "From initial consultation to final completion, we guide you through every step with clear communication, expert craftsmanship, and attention to detail.",
     },
     {
-      heading: "What happens next",
-      label: "Next step",
-      desc: "We review your note, then suggest a short call or meeting and outline a clear, simple path to move forward with Forma Studio.",
+      heading: "Ready to Start?",
+      label: "Let's begin",
+      desc: "Contact us today for a consultation. We'll discuss your vision, timeline, and budget to create a tailored approach for your project.",
     },
   ];
 
@@ -103,124 +113,37 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
 
     const isMobile = window.matchMedia("(max-width: 900px)").matches;
 
-    // Desktop heading animation – now respects spaces and line breaks
-    const animateDesktopSlide = (index: number) => {
+    // Simple function to set up click handlers without animations
+    const setupDesktopSlide = (index: number) => {
       const page = container.querySelector(
         `.skew-page-${index + 1}`
       ) as HTMLDivElement | null;
       if (!page) return;
 
-      const heading = page.querySelector(
+      const phoneHeading = page.querySelector(
         ".skew-page__heading"
       ) as HTMLElement | null;
-      if (!heading) return;
+      const emailDesc = page.querySelector(
+        ".skew-page__description"
+      ) as HTMLElement | null;
 
-      const originalText = heading.getAttribute("data-heading") || heading.textContent || "";
-      heading.innerHTML = "";
-
-      const chars: HTMLSpanElement[] = [];
-
-      for (const char of originalText) {
-        if (char === "\n") {
-          // Keep manual line breaks as <br>, no animation needed
-          const br = document.createElement("br");
-          heading.appendChild(br);
-          continue;
-        }
-
-        const span = document.createElement("span");
-        span.className = "char";
-        span.textContent = char;
-        span.style.display = "inline-block";
-        heading.appendChild(span);
-        chars.push(span);
+      if (phoneHeading && phoneHeading.textContent?.includes("+91")) {
+        phoneHeading.addEventListener("click", () => {
+          window.location.href = "tel:+919876543210";
+        });
       }
 
-      // Scatter animation
-      gsap.fromTo(
-        chars,
-        {
-          x: () => gsap.utils.random(-220, 220),
-          y: () => gsap.utils.random(-140, 140),
-          rotation: () => gsap.utils.random(-40, 40),
-          scale: () => gsap.utils.random(0.6, 0.9),
-          opacity: 0,
-          filter: "blur(14px)",
-        },
-        {
-          x: 0,
-          y: 0,
-          rotation: 0,
-          scale: 1,
-          opacity: 1,
-          filter: "blur(0px)",
-          duration: 1.4,
-          ease: "expo.out",
-          stagger: { each: 0.035, from: "center" },
-        }
-      );
-
-      const otherElems = page.querySelectorAll(
-        ".skew-page__description, .skew-page__link"
-      );
-      gsap.fromTo(
-        otherElems,
-        { autoAlpha: 0, y: 24 },
-        {
-          autoAlpha: 1,
-          y: 0,
-          duration: 0.7,
-          ease: "power3.out",
-          stagger: 0.08,
-          delay: 0.5,
-          onComplete: () => {
-            const phoneHeading = page.querySelector(
-              ".skew-page__heading"
-            ) as HTMLElement | null;
-            const emailDesc = page.querySelector(
-              ".skew-page__description"
-            ) as HTMLElement | null;
-
-            if (phoneHeading && phoneHeading.textContent?.includes("+61")) {
-              phoneHeading.addEventListener("click", () => {
-                window.location.href = "tel:+61312345678";
-              });
-            }
-
-            if (emailDesc && emailDesc.textContent?.includes("@")) {
-              emailDesc.addEventListener("click", () => {
-                window.location.href = "mailto:studio@forma.archi";
-              });
-            }
-          },
-        }
-      );
+      if (emailDesc && emailDesc.textContent?.includes("@")) {
+        emailDesc.addEventListener("click", () => {
+          window.location.href = "mailto:info@shambala.studio";
+        });
+      }
     };
 
-    const animateMobileSlide = (index: number) => {
-      const mobileEl = container.querySelector(
-        ".skew-mobile"
-      ) as HTMLDivElement | null;
-      if (!mobileEl) return;
-      const slides = mobileEl.querySelectorAll(
-        ".skew-mobile__slide"
-      ) as NodeListOf<HTMLDivElement>;
-      const slide = slides[index];
-      if (!slide) return;
-      const elems = slide.querySelectorAll(
-        ".skew-mobile__label, .skew-mobile__heading, .skew-mobile__desc"
-      );
-      gsap.fromTo(
-        elems,
-        { autoAlpha: 0, y: 20 },
-        {
-          autoAlpha: 1,
-          y: 0,
-          duration: 0.6,
-          ease: "power3.out",
-          stagger: 0.06,
-        }
-      );
+    // No mobile animations - keep it simple
+    const setupMobileSlide = (index: number) => {
+      // No animations, just keep slides visible
+      return;
     };
 
     if (isMobile) {
@@ -248,7 +171,7 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
       });
 
       let currentMobile = 0;
-      animateMobileSlide(0);
+      setupMobileSlide(0);
 
       const st = ScrollTrigger.create({
         trigger: mobileEl,
@@ -270,7 +193,7 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
           const index = Math.round(raw);
           if (index !== currentMobile) {
             currentMobile = index;
-            animateMobileSlide(currentMobile);
+            setupMobileSlide(currentMobile);
           }
         },
       });
@@ -304,7 +227,7 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
     const paginate = () => {
       isAnimating = true;
       setClasses();
-      animateDesktopSlide(current);
+      setupDesktopSlide(current);
       window.setTimeout(() => {
         isAnimating = false;
       }, animTime);
@@ -373,7 +296,7 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
     window.addEventListener("keydown", keyHandler);
 
     setClasses();
-    animateDesktopSlide(0);
+    setupDesktopSlide(0);
 
     return () => {
       container.removeEventListener("wheel", wheelHandler);
@@ -389,8 +312,8 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
         .skew-container {
           position: relative;
           width: 100%;
-          background: #111;
-          font-family: "Open Sans", Helvetica, Arial, sans-serif;
+          background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+          font-family: "Nunito", -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
         /* ---------- DESKTOP SKEWED CONTACT STORY ---------- */
@@ -475,8 +398,8 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
           inset: 0;
           background: linear-gradient(
             to bottom,
-            rgba(0, 0, 0, 0.3),
-            rgba(0, 0, 0, 0.4)
+            rgba(255, 255, 255, 0.85),
+            rgba(248, 249, 250, 0.9)
           );
           mix-blend-mode: normal;
           z-index: 0;
@@ -505,19 +428,19 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
         }
 
         .skew-page__heading {
-          margin-bottom: 18px;
-          text-transform: uppercase;
-          font-size: calc(clamp(70px, 8vw, 90px) * 0.64) !important;
-          font-weight: 300;
+          margin-bottom: 30px;
+          font-size: clamp(45px, 7vw, 75px) !important;
+          font-weight: 400;
           letter-spacing: 0.08em;
           text-align: center;
-          font-family: "nunito", cursive;
-          line-height: 1.2;
-          word-break: keep-all;
-          overflow-wrap: normal;
-          white-space: pre-line; /* respect \\n */
+          font-family: "Dream Avenue", serif;
+          line-height: 1.3;
+          word-spacing: 0.2em;
+          white-space: pre-line;
           cursor: pointer;
-          transition: transform 0.3s ease, opacity 0.3s ease;
+          transition: all 0.3s ease;
+          text-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+          color: #202124;
         }
 
         .skew-page__heading:hover {
@@ -526,13 +449,19 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
         }
 
         .skew-page__description {
-          font-size: 24px;
+          font-size: 22px;
           text-align: center;
-          max-width: 30rem;
+          max-width: 32rem;
           line-height: 1.8;
+          word-spacing: 0.1em;
+          letter-spacing: 0.02em;
           white-space: pre-line;
           cursor: pointer;
           transition: transform 0.3s ease, opacity 0.3s ease;
+          color: #3c4043;
+          font-weight: 400;
+          text-shadow: none;
+          font-family: "Nunito", sans-serif;
         }
 
         .skew-page__description:hover {
@@ -542,25 +471,28 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
 
         /* Elegant large service buttons */
         .skew-page__description.service-buttons {
-          font-size: 28px;
-          font-weight: 300;
+          font-size: 26px;
+          font-weight: 500;
           letter-spacing: 0.05em;
-          line-height: 1.2;
-          padding: 25px 50px;
-          background: rgba(255, 255, 255, 0.08);
-          border: 2px solid rgba(255, 255, 255, 0.2);
-          border-radius: 16px;
+          word-spacing: 0.15em;
+          line-height: 1.4;
+          padding: 35px 45px;
+          background: rgba(32, 33, 36, 0.05);
+          border: 2px solid rgba(32, 33, 36, 0.1);
+          border-radius: 12px;
           backdrop-filter: blur(20px);
           margin: 20px 0;
           display: block;
           width: 100%;
           max-width: 400px;
           text-align: center;
-          text-transform: uppercase;
-          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
           position: relative;
           overflow: hidden;
+          color: #202124;
+          text-shadow: none;
+          font-family: "Nunito", sans-serif;
         }
 
         .skew-page__description.service-buttons::before {
@@ -573,17 +505,17 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
           background: linear-gradient(
             90deg,
             transparent,
-            rgba(255, 255, 255, 0.1),
+            rgba(32, 33, 36, 0.05),
             transparent
           );
           transition: left 0.6s;
         }
 
         .skew-page__description.service-buttons:hover {
-          background: rgba(255, 255, 255, 0.15);
-          border-color: rgba(255, 255, 255, 0.4);
-          transform: translateY(-8px) scale(1.02);
-          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+          background: rgba(32, 33, 36, 0.08);
+          border-color: rgba(32, 33, 36, 0.2);
+          transform: translateY(-6px) scale(1.02);
+          box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
         }
 
         .skew-page__description.service-buttons:hover::before {
@@ -634,7 +566,7 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
         }
 
         .skew-page__content--image-only::before {
-          background: rgba(0, 0, 0, 0.25); /* subtle overlay so images still visible, but edges skewed */
+          background: rgba(255, 255, 255, 0.7); /* light overlay so images still visible, but edges skewed */
         }
 
         /* Contact Form Styles */
@@ -643,15 +575,21 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
           justify-content: center;
           align-items: center;
           width: 100%;
-          max-width: 400px;
+          max-width: 450px;
           margin: 0 auto;
         }
 
         .contact-form-grid {
           display: flex;
           flex-direction: column;
-          gap: 1rem;
+          gap: 1.2rem;
           width: 100%;
+        }
+
+        .contact-form-row {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 1rem;
         }
 
         .contact-form-field {
@@ -661,31 +599,47 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
 
         .contact-form-input,
         .contact-form-textarea {
-          background: rgba(255, 255, 255, 0.1);
-          border: 1px solid rgba(255, 255, 255, 0.3);
+          background: rgba(248, 249, 250, 0.8);
+          border: 2px solid rgba(32, 33, 36, 0.1);
           border-radius: 8px;
-          padding: 0.8rem 1rem;
+          padding: 1.2rem 1.5rem;
           font-size: 1rem;
-          color: #fff;
+          color: #202124;
           outline: none;
-          backdrop-filter: blur(10px);
-          transition: all 0.3s ease;
+          backdrop-filter: blur(15px);
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          font-family: "Nunito", sans-serif;
+          letter-spacing: 0.02em;
         }
 
         .contact-form-input::placeholder,
         .contact-form-textarea::placeholder {
-          color: rgba(255, 255, 255, 0.6);
+          color: rgba(32, 33, 36, 0.6);
         }
 
         .contact-form-input:focus,
         .contact-form-textarea:focus {
-          border-color: rgba(255, 255, 255, 0.6);
-          background: rgba(255, 255, 255, 0.15);
+          border-color: rgba(26, 115, 232, 0.5);
+          background: rgba(255, 255, 255, 0.9);
+          transform: translateY(-2px);
+          box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1);
         }
 
         .contact-form-textarea {
           resize: vertical;
-          min-height: 100px;
+          min-height: 90px;
+          line-height: 1.6;
+        }
+
+        select.contact-form-input {
+          cursor: pointer;
+        }
+
+        @media (max-width: 600px) {
+          .contact-form-row {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+          }
         }
 
         .rain-button-container {
@@ -703,9 +657,9 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
         }
 
         .skew-mobile__form-block {
-          padding: 2.4rem 1.9rem 3rem;
-          background: #0c0c0c;
-          color: #f5f5f5;
+          padding: 3rem 2rem 3.5rem;
+          background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+          color: #202124;
         }
 
         .skew-mobile__form-heading {
@@ -713,6 +667,7 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
           text-transform: uppercase;
           letter-spacing: 0.18em;
           margin-bottom: 1.4rem;
+          font-family: "Dream Avenue", serif;
         }
 
         .skew-mobile__form-grid {
@@ -732,18 +687,20 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
           letter-spacing: 0.16em;
           text-transform: uppercase;
           opacity: 0.7;
+          font-family: "Nunito", sans-serif;
         }
 
         .skew-mobile__input,
         .skew-mobile__textarea,
         .skew-mobile__select {
-          background: #161616;
-          border: 1px solid #333;
-          border-radius: 4px;
-          padding: 0.65rem 0.75rem;
+          background: rgba(248, 249, 250, 0.8);
+          border: 1px solid rgba(32, 33, 36, 0.1);
+          border-radius: 6px;
+          padding: 0.75rem 0.9rem;
           font-size: 0.95rem;
-          color: #f5f5f5;
+          color: #202124;
           outline: none;
+          font-family: "Nunito", sans-serif;
         }
 
         .skew-mobile__textarea {
@@ -754,24 +711,30 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
         .skew-mobile__input:focus,
         .skew-mobile__textarea:focus,
         .skew-mobile__select:focus {
-          border-color: #f2c265;
+          border-color: rgba(26, 115, 232, 0.5);
+          background: rgba(255, 255, 255, 0.9);
         }
 
         .skew-mobile__submit {
-          margin-top: 0.8rem;
-          padding: 0.85rem 1.4rem;
-          border-radius: 999px;
+          margin-top: 1rem;
+          padding: 1rem 2rem;
+          border-radius: 6px;
           border: none;
           font-size: 0.95rem;
           text-transform: uppercase;
-          letter-spacing: 0.18em;
-          background: #f2c265;
-          color: #111;
+          letter-spacing: 0.1em;
+          background: #1a73e8;
+          color: #ffffff;
           cursor: pointer;
+          transition: all 0.3s ease;
+          font-weight: 600;
+          font-family: "Nunito", sans-serif;
         }
 
         .skew-mobile__submit:hover {
-          opacity: 0.9;
+          background: #1557b0;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 15px rgba(26, 115, 232, 0.3);
         }
 
         .skew-mobile__meta {
@@ -779,6 +742,7 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
           font-size: 0.9rem;
           line-height: 1.7;
           opacity: 0.85;
+          font-family: "Nunito", sans-serif;
         }
 
         @media (min-width: 901px) {
@@ -802,8 +766,8 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
             display: block;
             position: relative;
             height: 100vh;
-            background: #111111;
-            color: #f5f5f5;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            color: #202124;
             overflow: hidden;
           }
 
@@ -823,17 +787,22 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
 
           .skew-mobile__heading {
             font-size: 2rem;
-            line-height: 1.25;
+            line-height: 1.3;
             text-transform: uppercase;
-            letter-spacing: 0.18em;
+            letter-spacing: 0.1em;
+            word-spacing: 0.2em;
             margin-bottom: 1.1rem;
+            font-family: "Dream Avenue", serif;
           }
 
           .skew-mobile__desc {
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             line-height: 1.8;
-            max-width: 24rem;
-            opacity: 0.94;
+            letter-spacing: 0.02em;
+            word-spacing: 0.1em;
+            max-width: 26rem;
+            opacity: 0.9;
+            font-family: "Nunito", sans-serif;
           }
 
           .skew-hint {
@@ -924,19 +893,23 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
                       {page.showForm ? (
                         <div className="contact-form-container">
                           <div className="contact-form-grid">
-                            <div className="contact-form-field">
-                              <input
-                                className="contact-form-input"
-                                type="text"
-                                placeholder="Your Name"
-                              />
-                            </div>
-                            <div className="contact-form-field">
-                              <input
-                                className="contact-form-input"
-                                type="email"
-                                placeholder="Your Email"
-                              />
+                            <div className="contact-form-row">
+                              <div className="contact-form-field">
+                                <input
+                                  className="contact-form-input"
+                                  type="text"
+                                  placeholder="Full Name *"
+                                  required
+                                />
+                              </div>
+                              <div className="contact-form-field">
+                                <input
+                                  className="contact-form-input"
+                                  type="email"
+                                  placeholder="Email Address *"
+                                  required
+                                />
+                              </div>
                             </div>
                             <div className="contact-form-field">
                               <input
@@ -945,15 +918,36 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
                                 placeholder="Phone Number"
                               />
                             </div>
+                            <div className="contact-form-row">
+                              <div className="contact-form-field">
+                                <select className="contact-form-input" defaultValue="" required>
+                                  <option value="" disabled>Project Type *</option>
+                                  <option>Residential New Build</option>
+                                  <option>Renovation & Extension</option>
+                                  <option>Commercial Architecture</option>
+                                  <option>Interior Design</option>
+                                </select>
+                              </div>
+                              <div className="contact-form-field">
+                                <select className="contact-form-input" defaultValue="">
+                                  <option value="" disabled>Budget Range</option>
+                                  <option>Under $500K</option>
+                                  <option>$500K - $1M</option>
+                                  <option>$1M - $2M</option>
+                                  <option>Over $2M</option>
+                                </select>
+                              </div>
+                            </div>
                             <div className="contact-form-field">
                               <textarea
                                 className="contact-form-textarea"
-                                placeholder="Tell us about your project..."
-                                rows={4}
+                                placeholder="Tell us about your project vision, site location, and specific requirements..."
+                                rows={3}
+                                required
                               />
                             </div>
                             <GlassRainButton href="#">
-                              Send Message
+                              Send Project Brief
                             </GlassRainButton>
                           </div>
                         </div>
@@ -1008,50 +1002,79 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
         <h2 className="skew-mobile__form-heading">Contact Forma</h2>
         <div className="skew-mobile__form-grid">
           <div className="skew-mobile__field">
-            <label className="skew-mobile__label">Name</label>
+            <label className="skew-mobile__label">Full Name *</label>
             <input
               className="skew-mobile__input"
               type="text"
-              placeholder="Your name"
+              placeholder="Your full name"
+              required
             />
           </div>
           <div className="skew-mobile__field">
-            <label className="skew-mobile__label">Email</label>
+            <label className="skew-mobile__label">Email Address *</label>
             <input
               className="skew-mobile__input"
               type="email"
-              placeholder="you@example.com"
+              placeholder="your.email@example.com"
+              required
             />
           </div>
           <div className="skew-mobile__field">
-            <label className="skew-mobile__label">Project type</label>
-            <select className="skew-mobile__select" defaultValue="">
+            <label className="skew-mobile__label">Phone Number</label>
+            <input
+              className="skew-mobile__input"
+              type="tel"
+              placeholder="+61 xxx xxx xxx"
+            />
+          </div>
+          <div className="skew-mobile__field">
+            <label className="skew-mobile__label">Project Type *</label>
+            <select className="skew-mobile__select" defaultValue="" required>
               <option value="" disabled>
-                Select one
+                Select your project type
               </option>
-              <option>New home</option>
-              <option>Renovation / extension</option>
-              <option>Hospitality</option>
-              <option>Workspace</option>
-              <option>Multi-residential</option>
+              <option>Residential New Build</option>
+              <option>Renovation & Extension</option>
+              <option>Commercial Architecture</option>
+              <option>Interior Design</option>
+              <option>Multi-Residential</option>
+              <option>Hospitality Design</option>
               <option>Other</option>
             </select>
           </div>
           <div className="skew-mobile__field">
-            <label className="skew-mobile__label">
-              Approx. budget (optional)
-            </label>
-            <input
-              className="skew-mobile__input"
-              type="text"
-              placeholder="e.g. $600k–$900k"
-            />
+            <label className="skew-mobile__label">Budget Range</label>
+            <select className="skew-mobile__select" defaultValue="">
+              <option value="" disabled>
+                Select budget range (optional)
+              </option>
+              <option>Under $500K</option>
+              <option>$500K - $1M</option>
+              <option>$1M - $2M</option>
+              <option>$2M - $5M</option>
+              <option>Over $5M</option>
+              <option>Let's discuss</option>
+            </select>
           </div>
           <div className="skew-mobile__field">
-            <label className="skew-mobile__label">Project notes</label>
+            <label className="skew-mobile__label">Project Timeline</label>
+            <select className="skew-mobile__select" defaultValue="">
+              <option value="" disabled>
+                When would you like to start?
+              </option>
+              <option>Immediately</option>
+              <option>1-3 months</option>
+              <option>3-6 months</option>
+              <option>6-12 months</option>
+              <option>Just exploring options</option>
+            </select>
+          </div>
+          <div className="skew-mobile__field">
+            <label className="skew-mobile__label">Project Description *</label>
             <textarea
               className="skew-mobile__textarea"
-              placeholder="Where is your site? What would you like this space to become?"
+              placeholder="Tell us about your project vision, site location, specific requirements, and any inspiration you have in mind..."
+              required
             />
           </div>
         </div>
@@ -1060,11 +1083,11 @@ const SkewedSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
         </button>
 
         <div className="skew-mobile__meta">
-          Forma Studio · Melbourne & Sydney
+          Shambala Design Studio · India
           <br />
-          studio@forma.archi · +61 (0)3 9000 0000
+          info@shambala.studio · +91 98765 43210
           <br />
-          Mon–Fri · 9am–5pm AEST
+          Mon–Sat · 10am–7pm IST
         </div>
       </div>
 

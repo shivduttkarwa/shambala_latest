@@ -1,13 +1,8 @@
 import React from "react";
-import SkewedSlider from "../components/Services/SkewedSlider";
+import ContactUsPage from "../components/Contact/ContactUsPage";
 
 const NewContact: React.FC = () => {
-  return (
-    <div className="nc-container">
-      {/* SkewedSlider as the only content */}
-      <SkewedSlider />
-    </div>
-  );
+  return <ContactUsPage />;
 };
 
 export default NewContact;
