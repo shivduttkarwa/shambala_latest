@@ -82,164 +82,164 @@ export const ProcessSection: FC = () => {
   useLayoutEffect(() => {
     // Small delay to ensure proper mounting after route navigation
     const timeoutId = setTimeout(() => {
-    const ctx = gsap.context(() => {
-      const q = gsap.utils.selector(rootRef);
+      const ctx = gsap.context(() => {
+        const q = gsap.utils.selector(rootRef);
 
-      const stepEls = q(".forma-process-step");
+        const stepEls = q(".forma-process-step");
 
-      const splitTitleChars = (el: HTMLElement | null) => {
-        if (!el) return [];
-        // Avoid re-splitting if already done
-        if (el.querySelector(".forma-title-char")) {
-          return Array.from(
-            el.querySelectorAll<HTMLElement>(".forma-title-char")
-          );
-        }
+        const splitTitleChars = (el: HTMLElement | null) => {
+          if (!el) return [];
+          // Avoid re-splitting if already done
+          if (el.querySelector(".forma-title-char")) {
+            return Array.from(
+              el.querySelectorAll<HTMLElement>(".forma-title-char")
+            );
+          }
 
-        const text = el.textContent || "";
-        el.textContent = "";
+          const text = el.textContent || "";
+          el.textContent = "";
 
-        const chars: HTMLElement[] = [];
-        [...text].forEach((char) => {
-          const span = document.createElement("span");
-          const isSpace = char === " ";
-          span.className = `forma-title-char${
-            isSpace ? " forma-title-space" : ""
-          }`;
-          span.textContent = isSpace ? "\u00a0" : char;
-          el.appendChild(span);
-          chars.push(span);
-        });
-        return chars;
-      };
-
-      stepEls.forEach((stepEl) => {
-        const step = stepEl as HTMLElement;
-
-        const imgContainer = step.querySelector(
-          ".forma-process-step-image-container"
-        ) as HTMLElement | null;
-        const num = step.querySelector(
-          ".forma-process-step-number"
-        ) as HTMLElement | null;
-        const title = step.querySelector(
-          ".forma-process-step-title"
-        ) as HTMLElement | null;
-        const subtitle = step.querySelector(
-          ".forma-process-step-subtitle"
-        ) as HTMLElement | null;
-        const desc = step.querySelector(
-          ".forma-process-step-desc"
-        ) as HTMLElement | null;
-        const outcome = step.querySelector(
-          ".forma-process-outcome-box"
-        ) as HTMLElement | null;
-
-        // Image slide down reveal using clip-path
-        if (imgContainer) {
-          // Set initial state immediately to prevent black boxes
-          gsap.set(imgContainer, {
-            clipPath: "inset(100% 0 0 0)",
+          const chars: HTMLElement[] = [];
+          [...text].forEach((char) => {
+            const span = document.createElement("span");
+            const isSpace = char === " ";
+            span.className = `forma-title-char${
+              isSpace ? " forma-title-space" : ""
+            }`;
+            span.textContent = isSpace ? "\u00a0" : char;
+            el.appendChild(span);
+            chars.push(span);
           });
-          
-          gsap.to(imgContainer, {
-            clipPath: "inset(0% 0 0 0)",
-            ease: "power3.out",
-            duration: 1.2,
+          return chars;
+        };
+
+        stepEls.forEach((stepEl) => {
+          const step = stepEl as HTMLElement;
+
+          const imgContainer = step.querySelector(
+            ".forma-process-step-image-container"
+          ) as HTMLElement | null;
+          const num = step.querySelector(
+            ".forma-process-step-number"
+          ) as HTMLElement | null;
+          const title = step.querySelector(
+            ".forma-process-step-title"
+          ) as HTMLElement | null;
+          const subtitle = step.querySelector(
+            ".forma-process-step-subtitle"
+          ) as HTMLElement | null;
+          const desc = step.querySelector(
+            ".forma-process-step-desc"
+          ) as HTMLElement | null;
+          const outcome = step.querySelector(
+            ".forma-process-outcome-box"
+          ) as HTMLElement | null;
+
+          // Image slide down reveal using clip-path
+          if (imgContainer) {
+            // Set initial state immediately to prevent black boxes
+            gsap.set(imgContainer, {
+              clipPath: "inset(100% 0 0 0)",
+            });
+
+            gsap.to(imgContainer, {
+              clipPath: "inset(0% 0 0 0)",
+              ease: "power3.out",
+              duration: 1.2,
+              scrollTrigger: {
+                trigger: step,
+                start: "top 70%",
+                toggleActions: "play none none reverse",
+                onRefresh: () => {
+                  // Ensure proper state on route navigation
+                  gsap.set(imgContainer, {
+                    clipPath: "inset(100% 0 0 0)",
+                  });
+                },
+              },
+            });
+          }
+
+          // Content animations
+          const tl = gsap.timeline({
             scrollTrigger: {
               trigger: step,
               start: "top 70%",
               toggleActions: "play none none reverse",
-              onRefresh: () => {
-                // Ensure proper state on route navigation
-                gsap.set(imgContainer, {
-                  clipPath: "inset(100% 0 0 0)",
-                });
-              }
             },
           });
-        }
 
-        // Content animations
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: step,
-            start: "top 70%",
-            toggleActions: "play none none reverse",
-          },
-        });
-
-        if (num) {
-          tl.fromTo(
-            num,
-            { opacity: 0, y: 90 },
-            { opacity: 1, y: 0, duration: 0.6, ease: "back.out(2.7)" }
-          );
-        }
-
-        if (title) {
-          const charEls = splitTitleChars(title);
-          if (charEls.length) {
-            gsap.set(title, { perspective: 600 });
-            gsap.set(charEls, {
-              opacity: 0,
-              rotateX: 80,
-              yPercent: 40,
-              transformOrigin: "50% 100%",
-            });
-
-            tl.to(
-              charEls,
-              {
-                opacity: 1,
-                rotateX: 0,
-                yPercent: 0,
-                duration: 0.9,
-                ease: "expo.out",
-                stagger: {
-                  each: 0.02,
-                  from: "edges",
-                },
-              },
-              "-=0.4"
+          if (num) {
+            tl.fromTo(
+              num,
+              { opacity: 0, y: 90 },
+              { opacity: 1, y: 0, duration: 0.6, ease: "back.out(2.7)" }
             );
           }
-        }
 
-        if (subtitle) {
-          tl.fromTo(
-            subtitle,
-            { opacity: 0, y: 20 },
-            { opacity: 1, y: 0, duration: 0.2, ease: "power3.out" },
-            "-=0.5"
-          );
-        }
+          if (title) {
+            const charEls = splitTitleChars(title);
+            if (charEls.length) {
+              gsap.set(title, { perspective: 600 });
+              gsap.set(charEls, {
+                opacity: 0,
+                rotateX: 80,
+                yPercent: 40,
+                transformOrigin: "50% 100%",
+              });
 
-        if (desc) {
-          tl.fromTo(
-            desc,
-            { opacity: 0, y: 20 },
-            { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" },
-            "-=0.4"
-          );
-        }
+              tl.to(
+                charEls,
+                {
+                  opacity: 1,
+                  rotateX: 0,
+                  yPercent: 0,
+                  duration: 0.9,
+                  ease: "expo.out",
+                  stagger: {
+                    each: 0.02,
+                    from: "edges",
+                  },
+                },
+                "-=0.4"
+              );
+            }
+          }
 
-        if (outcome) {
-          tl.fromTo(
-            outcome,
-            { opacity: 0, y: 20 },
-            { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" },
-            "-=0.3"
-          );
-        }
-      });
-    }, rootRef);
+          if (subtitle) {
+            tl.fromTo(
+              subtitle,
+              { opacity: 0, y: 20 },
+              { opacity: 1, y: 0, duration: 0.3, ease: "power3.out" },
+              "-=0.8"
+            );
+          }
 
-    return () => {
-      ctx.revert();
-    };
+          if (desc) {
+            tl.fromTo(
+              desc,
+              { opacity: 0, y: 20 },
+              { opacity: 1, y: 0, duration: 0.3, ease: "power3.out" },
+              "-=0.25"
+            );
+          }
+
+          if (outcome) {
+            tl.fromTo(
+              outcome,
+              { opacity: 0, y: 20 },
+              { opacity: 1, y: 0, duration: 0.3, ease: "power3.out" },
+              "-=0.2"
+            );
+          }
+        });
+      }, rootRef);
+
+      return () => {
+        ctx.revert();
+      };
     }, 100); // 100ms delay for route navigation
-    
+
     return () => clearTimeout(timeoutId);
   }, []);
 
@@ -247,38 +247,50 @@ export const ProcessSection: FC = () => {
   useEffect(() => {
     const initializeAfterRouteNavigation = () => {
       if (!rootRef.current) return;
-      
+
       // Reset all image containers to initial state
-      const imageContainers = rootRef.current.querySelectorAll('.forma-process-step-image-container');
+      const imageContainers = rootRef.current.querySelectorAll(
+        ".forma-process-step-image-container"
+      );
       imageContainers.forEach((container) => {
         gsap.set(container, {
           clipPath: "inset(100% 0 0 0)",
         });
       });
-      
+
       // Reset all content elements to initial state
-      const nums = rootRef.current.querySelectorAll('.forma-process-step-number');
-      const titles = rootRef.current.querySelectorAll('.forma-process-step-title');
-      const subtitles = rootRef.current.querySelectorAll('.forma-process-step-subtitle');
-      const descs = rootRef.current.querySelectorAll('.forma-process-step-desc');
-      const outcomes = rootRef.current.querySelectorAll('.forma-process-outcome-box');
-      
+      const nums = rootRef.current.querySelectorAll(
+        ".forma-process-step-number"
+      );
+      const titles = rootRef.current.querySelectorAll(
+        ".forma-process-step-title"
+      );
+      const subtitles = rootRef.current.querySelectorAll(
+        ".forma-process-step-subtitle"
+      );
+      const descs = rootRef.current.querySelectorAll(
+        ".forma-process-step-desc"
+      );
+      const outcomes = rootRef.current.querySelectorAll(
+        ".forma-process-outcome-box"
+      );
+
       gsap.set(nums, { opacity: 0, y: 90 });
       gsap.set([subtitles, descs, outcomes], { opacity: 0, y: 20 });
-      
+
       // Force ScrollTrigger to recalculate and re-evaluate all triggers
       ScrollTrigger.refresh();
-      
+
       // Additional refresh after a short delay to handle any layout shifts
       setTimeout(() => {
         ScrollTrigger.refresh();
       }, 100);
     };
-    
+
     // Use multiple timing strategies to ensure initialization works
     const timeoutId1 = setTimeout(initializeAfterRouteNavigation, 50);
     const timeoutId2 = setTimeout(initializeAfterRouteNavigation, 200);
-    
+
     return () => {
       clearTimeout(timeoutId1);
       clearTimeout(timeoutId2);
