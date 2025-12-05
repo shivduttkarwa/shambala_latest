@@ -80,6 +80,8 @@ export const ProcessSection: FC = () => {
   const rootRef = useRef<HTMLDivElement | null>(null);
 
   useLayoutEffect(() => {
+    // Small delay to ensure proper mounting after route navigation
+    const timeoutId = setTimeout(() => {
     const ctx = gsap.context(() => {
       const q = gsap.utils.selector(rootRef);
 
@@ -135,6 +137,11 @@ export const ProcessSection: FC = () => {
 
         // Image slide down reveal using clip-path
         if (imgContainer) {
+          // Set initial state immediately to prevent black boxes
+          gsap.set(imgContainer, {
+            clipPath: "inset(100% 0 0 0)",
+          });
+          
           gsap.to(imgContainer, {
             clipPath: "inset(0% 0 0 0)",
             ease: "power3.out",
@@ -143,6 +150,12 @@ export const ProcessSection: FC = () => {
               trigger: step,
               start: "top 70%",
               toggleActions: "play none none reverse",
+              onRefresh: () => {
+                // Ensure proper state on route navigation
+                gsap.set(imgContainer, {
+                  clipPath: "inset(100% 0 0 0)",
+                });
+              }
             },
           });
         }
@@ -198,7 +211,7 @@ export const ProcessSection: FC = () => {
             subtitle,
             { opacity: 0, y: 20 },
             { opacity: 1, y: 0, duration: 0.2, ease: "power3.out" },
-            "-=0.7"
+            "-=0.5"
           );
         }
 
@@ -207,7 +220,7 @@ export const ProcessSection: FC = () => {
             desc,
             { opacity: 0, y: 20 },
             { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" },
-            "-=0.7"
+            "-=0.4"
           );
         }
 
@@ -216,7 +229,7 @@ export const ProcessSection: FC = () => {
             outcome,
             { opacity: 0, y: 20 },
             { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" },
-            "-=0.5"
+            "-=0.3"
           );
         }
       });
@@ -225,14 +238,51 @@ export const ProcessSection: FC = () => {
     return () => {
       ctx.revert();
     };
+    }, 100); // 100ms delay for route navigation
+    
+    return () => clearTimeout(timeoutId);
   }, []);
 
-  // Fix: ensure ScrollTrigger recalculates when section is mounted,
-  // so coming from another route doesn't leave images clipped.
+  // Fix: ensure proper initialization when navigating from another route
   useEffect(() => {
-    requestAnimationFrame(() => {
+    const initializeAfterRouteNavigation = () => {
+      if (!rootRef.current) return;
+      
+      // Reset all image containers to initial state
+      const imageContainers = rootRef.current.querySelectorAll('.forma-process-step-image-container');
+      imageContainers.forEach((container) => {
+        gsap.set(container, {
+          clipPath: "inset(100% 0 0 0)",
+        });
+      });
+      
+      // Reset all content elements to initial state
+      const nums = rootRef.current.querySelectorAll('.forma-process-step-number');
+      const titles = rootRef.current.querySelectorAll('.forma-process-step-title');
+      const subtitles = rootRef.current.querySelectorAll('.forma-process-step-subtitle');
+      const descs = rootRef.current.querySelectorAll('.forma-process-step-desc');
+      const outcomes = rootRef.current.querySelectorAll('.forma-process-outcome-box');
+      
+      gsap.set(nums, { opacity: 0, y: 90 });
+      gsap.set([subtitles, descs, outcomes], { opacity: 0, y: 20 });
+      
+      // Force ScrollTrigger to recalculate and re-evaluate all triggers
       ScrollTrigger.refresh();
-    });
+      
+      // Additional refresh after a short delay to handle any layout shifts
+      setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 100);
+    };
+    
+    // Use multiple timing strategies to ensure initialization works
+    const timeoutId1 = setTimeout(initializeAfterRouteNavigation, 50);
+    const timeoutId2 = setTimeout(initializeAfterRouteNavigation, 200);
+    
+    return () => {
+      clearTimeout(timeoutId1);
+      clearTimeout(timeoutId2);
+    };
   }, []);
 
   return (
