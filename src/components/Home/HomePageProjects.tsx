@@ -4,7 +4,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./HomePageProjects.css";
 import GlassButton from "../UI/GlassButton";
 import TiltTextGsap from "../UI/TiltTextGsap";
-import HoverText from "../UI/HoverText";
 
 const publicUrl = import.meta.env.BASE_URL;
 
@@ -191,24 +190,12 @@ const HomePageProjects: React.FC<HomePageProjectsProps> = ({
                 />
                 <div className="home-page-projects-overlay">
                   <div>
-                    <HoverText
-                      className="home-page-projects-title"
-                      fromSettings="'wght' 400"
-                      toSettings="'wght' 700"
-                      radius={80}
-                      falloff="gaussian"
-                    >
+                    <div className="home-page-projects-title">
                       {service.title}
-                    </HoverText>
-                    <HoverText
-                      className="home-page-projects-description"
-                      fromSettings="'wght' 400"
-                      toSettings="'wght' 700"
-                      radius={80}
-                      falloff="gaussian"
-                    >
+                    </div>
+                    <div className="home-page-projects-description">
                       {service.description}
-                    </HoverText>
+                    </div>
                   </div>
                   <GlassButton href={service.ctaLink || "#"}>
                     {service.ctaText || "Learn More"}
@@ -224,14 +211,7 @@ const HomePageProjects: React.FC<HomePageProjectsProps> = ({
               {`${title} ${subtitle}`}
             </TiltTextGsap>
             <div className="home-page-projects-description">
-              <HoverText
-                fromSettings="'wght' 400"
-                toSettings="'wght' 700"
-                radius={100}
-                falloff="gaussian"
-              >
-                {description}
-              </HoverText>
+              {description}
             </div>
             <GlassButton href={ctaLink}>{ctaText}</GlassButton>
           </div>

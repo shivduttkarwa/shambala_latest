@@ -4,7 +4,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./EssenceSection.css";
 import GlassButton from "../UI/GlassButton";
 import FallingTextVideoComponent from "../UI/FallingTextVideoComponent";
-import HoverText from "../UI/HoverText";
 import TiltTextGsap from "../UI/TiltTextGsap";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -160,18 +159,11 @@ const EssenceSection: React.FC<EssenceSectionProps> = ({
             </div>
 
             <div className="essence-description">
-              <HoverText
-                fromSettings="'wght' 400"
-                toSettings="'wght' 700"
-                radius={100}
-                falloff="gaussian"
-              >
-                {typeof window !== "undefined" && window.innerWidth >= 1600
-                  ? extraLargeDescription
-                  : typeof window !== "undefined" && window.innerWidth < 1600
-                  ? shortDescription
-                  : description}
-              </HoverText>
+              {typeof window !== "undefined" && window.innerWidth >= 1600
+                ? extraLargeDescription
+                : typeof window !== "undefined" && window.innerWidth < 1600
+                ? shortDescription
+                : description}
             </div>
 
             <div ref={ctaRef} className="essence-cta-desktop">

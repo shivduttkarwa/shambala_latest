@@ -6,7 +6,6 @@ import ScrollVelocity from "../animations/ScrollVelocity";
 import GlassButton from "../UI/GlassButton";
 import SimpleSwiper from "../UI/SimpleSwiper";
 import "../UI/SimpleSwiper.css";
-import HoverText from "../UI/HoverText";
 import BlogVideoCard from "../UI/BlogVideoCard";
 import { blogPosts } from "../../data/blogPosts";
 
@@ -170,15 +169,9 @@ const BlogSection: React.FC<BlogSectionProps> = ({
               {featuredPost.title}
             </h1>
 
-            <HoverText
-              className="blog-featured-description"
-              fromSettings="'wght' 400"
-              toSettings="'wght' 700"
-              radius={100}
-              falloff="gaussian"
-            >
+            <div className="blog-featured-description">
               {featuredPost.excerpt}
-            </HoverText>
+            </div>
 
             <GlassButton href={featuredPost.link}>Read More</GlassButton>
           </div>
@@ -205,15 +198,9 @@ const BlogSection: React.FC<BlogSectionProps> = ({
                 )}
               </div>
 
-              <HoverText
-                className="blog-post-description"
-                fromSettings="'wght' 400"
-                toSettings="'wght' 700"
-                radius={100}
-                falloff="gaussian"
-              >
+              <div className="blog-post-description">
                 {post.excerpt}
-              </HoverText>
+              </div>
 
               <GlassButton href={post.link}>Read More</GlassButton>
             </article>

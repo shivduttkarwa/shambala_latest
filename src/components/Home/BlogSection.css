@@ -309,13 +309,11 @@
   width: 100%;
   height: auto;
   min-height: 1.2em;
-  transition: font-weight 0.3s ease;
+  /* transition: font-weight 0.3s ease;  Removed hover animation */
   letter-spacing: 0.01em;
 }
 
-.blog-post-description > *:hover {
-  transform: scale(1.001);
-}
+/* Hover animations removed */
 
 .blog-read-more-btn {
   display: inline-block;

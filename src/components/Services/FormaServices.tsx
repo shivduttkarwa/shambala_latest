@@ -4,7 +4,6 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./FormaServices.css";
 import TiltTextGsap from "../UI/TiltTextGsap";
-import HoverText from "../UI/HoverText";
 import GlassButton from "../UI/GlassButton";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -532,17 +531,11 @@ export const FormaServices: FC = () => {
                   <span className="fs-meta-scope">{first.metaScope}</span>
                 </div>
 
-                <HoverText
-                  className="fs-description"
-                  fromSettings="'wght' 400"
-                  toSettings="'wght' 700"
-                  radius={100}
-                  falloff="gaussian"
-                >
+                <div className="fs-description">
                   {window.innerWidth >= 1600
                     ? `${first.description} Every brief becomes a bespoke journey—more light, better flow, layered textures, and tailored joinery that quietly elevates daily life.`
                     : `${first.shortDescription} Every brief becomes a bespoke journey.`}
-                </HoverText>
+                </div>
               </div>
 
               <div>

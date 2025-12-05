@@ -93,7 +93,7 @@
 
 /* Ensure the text container maintains consistent dimensions */
 .essence-description > *:hover {
-  transform: scale(1.001); /* Minimal scale to prevent jump */
+  /* transform: scale(1.001);  Removed hover animation */
 }
 
 .essence-description .mask {

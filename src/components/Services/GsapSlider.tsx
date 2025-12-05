@@ -1,9 +1,8 @@
 // GsapSlider.tsx
-import React, { FC, useLayoutEffect, useRef } from "react";
+import { FC, useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import TiltTextGsap from "../UI/TiltTextGsap";
-import HoverText from "../UI/HoverText";
 import GlassButton from "../UI/GlassButton";
 import "./GsapSlider.css";
 
@@ -101,7 +100,6 @@ const GsapSlider: FC = () => {
 
       let fsTextIndex = 0;
       let fsLastTransitionIndex = -1;
-      let fsContentVisible = false;
 
       const pad2 = (n: number) => (n < 10 ? `0${n}` : `${n}`);
 
@@ -282,17 +280,11 @@ const GsapSlider: FC = () => {
         >
           Forma Services
         </TiltTextGsap>
-        <HoverText
-          className="gs-fs-heading-subtitle"
-          fromSettings="'wght' 400"
-          toSettings="'wght' 700"
-          radius={120}
-          falloff="gaussian"
-        >
+        <div className="gs-fs-heading-subtitle">
           Architecture, interiors, and landscapes crafted as one seamless story,
           guided by calm, warm materiality and precise detailing so every space
           feels thoughtful, livable, and enduring.
-        </HoverText>
+        </div>
       </div>
       <div className="gs-fs-section">
         <div className="gs-fs-inner">
@@ -308,15 +300,9 @@ const GsapSlider: FC = () => {
                   <span className="gs-fs-meta-scope">{first.metaScope}</span>
                 </div>
 
-                <HoverText
-                  className="gs-fs-description"
-                  fromSettings="'wght' 400"
-                  toSettings="'wght' 700"
-                  radius={100}
-                  falloff="gaussian"
-                >
+                <div className="gs-fs-description">
                   {`${first.description} Every brief becomes a bespoke journey—more light, better flow, layered textures, and tailored joinery that quietly elevates daily life.`}
-                </HoverText>
+                </div>
               </div>
 
               <div>

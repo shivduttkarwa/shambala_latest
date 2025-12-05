@@ -128,13 +128,11 @@
   width: 100%;
   height: auto;
   min-height: 1.2em;
-  transition: font-weight 0.3s ease;
+  /* transition: font-weight 0.3s ease;  Removed hover animation */
   letter-spacing: 0.01em;
 }
 
-.home-page-projects-description > *:hover {
-  transform: scale(1.001);
-}
+/* Hover animations removed */
 
 /* Old home-page-projects-cta styles removed - now using GlassButton */
 

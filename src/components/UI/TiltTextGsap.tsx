@@ -25,8 +25,8 @@ const TiltTextGsap: React.FC<TiltTextGsapProps> = ({
   className = "",
   style = {},
   trigger,
-  startTrigger = "top 70%",
-  endTrigger = "bottom 100%",
+  startTrigger = "top 10%",
+  endTrigger = "top 30%",
   duration = 1.9,
   staggerTime = 0.018,
   skewAmount = 12,
@@ -101,85 +101,45 @@ const TiltTextGsap: React.FC<TiltTextGsapProps> = ({
       visibility: "hidden",
     });
 
-    // Create timeline
-    const tl = gsap.timeline({ paused: true });
+    // Create timeline with scrub
+    const tl = gsap.timeline();
     timelineRef.current = tl;
 
     tl.set(heading, { visibility: "visible" });
 
     if (isMobile) {
-      // Mobile: Hero-style line animation - 200% faster
-      tl.to(
-        charEls,
-        {
-          yPercent: 0,
-          duration: 0.6, // Reduced from 1.2s (200% faster)
-          stagger: 0.02, // Reduced from 0.3s (200% faster)
-          ease: "back.out(1.7)",
-        },
-        0.1
-      );
+      // Mobile: Hero-style line animation
+      tl.to(charEls, {
+        yPercent: 0,
+        duration: 1,
+        stagger: 0.02,
+        ease: "none",
+      });
     } else {
       // Desktop: Tilt animation
-      tl.to(
-        charEls,
-        {
-          opacity: 1,
-          scaleY: 1,
-          skewY: 0,
-          filter: "blur(0px)",
-          duration: duration,
-          ease: "power4.out",
-          stagger: {
-            each: staggerTime,
-            from: "random",
-          },
+      tl.to(charEls, {
+        opacity: 1,
+        scaleY: 1,
+        skewY: 0,
+        filter: "blur(0px)",
+        duration: 1,
+        ease: "none",
+        stagger: {
+          each: staggerTime / duration,
+          from: "random",
         },
-        0.1
-      );
+      });
     }
 
-    // Create ScrollTrigger
+    // Create ScrollTrigger with scrub
     const triggerElement = trigger || heading;
 
     ScrollTrigger.create({
       trigger: triggerElement,
-      start: isMobile ? "top 85%" : startTrigger,
-      end: endTrigger,
-      onEnter: () => tl.restart(),
-      onEnterBack: () => tl.restart(),
-      onLeave: () => {
-        // Hide heading and reset characters to hidden state when leaving
-        gsap.set(heading, { visibility: "hidden" });
-        if (isMobile) {
-          gsap.set(charEls, {
-            yPercent: 100,
-          });
-        } else {
-          gsap.set(charEls, {
-            opacity: 0,
-            scaleY: scaleY,
-            skewY: skewAmount,
-            filter: `blur(${blurAmount}px)`,
-          });
-        }
-      },
-      onLeaveBack: () => {
-        // Hide heading and reset characters to hidden state when scrolling back up past section
-        gsap.set(heading, { visibility: "hidden" });
-        if (isMobile) {
-          gsap.set(charEls, {
-            yPercent: 100,
-          });
-        } else {
-          gsap.set(charEls, {
-            opacity: 0,
-            scaleY: scaleY,
-            skewY: skewAmount,
-            filter: `blur(${blurAmount}px)`,
-          });
-        }
-      },
+      start: isMobile ? "top 90%" : "top 80%",
+      end: isMobile ? "top 60%" : "top 40%",
+      scrub: 3,
+      animation: tl,
     });
 
     // Cleanup

@@ -4,7 +4,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./ServicesSection.css";
 import GlassButton from "../UI/GlassButton";
 import TiltTextGsap from "../UI/TiltTextGsap";
-import HoverText from "../UI/HoverText";
 
 const publicUrl = import.meta.env.BASE_URL;
 
@@ -191,24 +190,12 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
                 />
                 <div className="hss-service-overlay">
                   <div>
-                    <HoverText
-                      className="hss-service-title"
-                      fromSettings="'wght' 400"
-                      toSettings="'wght' 700"
-                      radius={80}
-                      falloff="gaussian"
-                    >
+                    <div className="hss-service-title">
                       {service.title}
-                    </HoverText>
-                    <HoverText
-                      className="hss-service-description"
-                      fromSettings="'wght' 400"
-                      toSettings="'wght' 700"
-                      radius={80}
-                      falloff="gaussian"
-                    >
+                    </div>
+                    <div className="hss-service-description">
                       {service.description}
-                    </HoverText>
+                    </div>
                   </div>
                   <GlassButton href={service.ctaLink || "#"}>
                     {service.ctaText || "Learn More"}
@@ -224,14 +211,7 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
               {`${title} ${subtitle}`}
             </TiltTextGsap>
             <div className="hss-services-description">
-              <HoverText
-                fromSettings="'wght' 400"
-                toSettings="'wght' 700"
-                radius={100}
-                falloff="gaussian"
-              >
-                {typeof window !== 'undefined' && window.innerWidth < 1600 ? shortDescription : description}
-              </HoverText>
+              {typeof window !== 'undefined' && window.innerWidth < 1600 ? shortDescription : description}
             </div>
             <GlassButton href={ctaLink}>{ctaText}</GlassButton>
           </div>
