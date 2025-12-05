@@ -21,14 +21,18 @@ const imageBase = (import.meta.env.BASE_URL || "/").endsWith("/")
   ? import.meta.env.BASE_URL || "/"
   : `${import.meta.env.BASE_URL}/`;
 
-// 🔧 GLOBAL KNOBS – TUNE THESE
+// 🔧 PHASE CONFIGURATION - CLEAN SEPARATION
 const FS_ANIM_CONFIG = {
   desktop: {
-    scrollLengthPercent: 320, // total scroll for whole section
-    shrinkEnd: 0.35, // progress where image finishes shrinking (0–1)
-    slidesStart: 0.45, // progress where slide changes begin (0–1)
-    scrub: 0.08, // closer to 0 = tightly follows scroll
-    snapDuration: 0.35, // time for snapping between slides
+    scrollLengthPercent: 600, // total scroll length
+    // PHASE 1: Image shrink ONLY (0 → 0.2)
+    shrinkEnd: 0.2,
+    // PHASE 2: Content appear ONLY (0.2 → 0.3)
+    contentEnd: 0.3,
+    // PHASE 3: Slides change ONLY (0.3 → 1.0)
+    slidesStart: 0.3,
+    scrub: 1, // instant response
+    snapDuration: 0.3,
   },
   mobile: {
     scrollLengthPercent: 260,
@@ -36,9 +40,9 @@ const FS_ANIM_CONFIG = {
     snapDuration: 0.3,
   },
   images: {
-    offset: 100, // xPercent slide distance between slides
-    scaleDelta: 0.04, // how much they scale during the transition
-    opacityDelta: 0.4, // how much opacity change during transition
+    offset: 100,
+    scaleDelta: 0.04,
+    opacityDelta: 0.4,
   },
 };
 
@@ -292,74 +296,80 @@ export const FormaServices: FC = () => {
             },
             onUpdate: (self) => {
               const p = self.progress;
-              const { shrinkEnd, slidesStart } = cfg;
+              const { shrinkEnd, contentEnd, slidesStart } = cfg;
 
-              // --- 1) IMAGE SHRINK (full bleed -> right half) LINEAR with scroll ---
+              // ============ PHASE 1: IMAGE SHRINK ONLY (0 → 0.2) ============
               if (p <= shrinkEnd) {
-                const tNorm = Math.min(Math.max(p / shrinkEnd, 0), 1); // 0..1
+                const shrinkProgress = p / shrinkEnd; // 0..1
+                const smoothShrink =
+                  shrinkProgress * shrinkProgress * (3 - 2 * shrinkProgress);
 
-                // Linear interpolation tied directly to scroll progress
-                const width = gsap.utils.interpolate(100, 50, tNorm);
-                const left = gsap.utils.interpolate(0, 50, tNorm);
+                const width = 100 - 50 * smoothShrink; // 100% → 50%
+                const left = 50 * smoothShrink; // 0% → 50%
 
-                gsap.set(fsImageCover, {
-                  width: `${width}%`,
-                  left: `${left}%`,
-                });
-              } else {
-                // lock cleanly once finished
-                gsap.set(fsImageCover, {
-                  width: "50%",
-                  left: "50%",
-                });
+                fsImageCover.style.width = `${width}%`;
+                fsImageCover.style.left = `${left}%`;
+
+                // KEEP CONTENT HIDDEN during entire shrink
+                fsLeft.style.opacity = "0";
+                fsLeft.style.backgroundColor = "transparent";
+
+                if (fsContentVisible) {
+                  fsContentVisible = false;
+                  gsap.set(textEls, { opacity: 0 });
+                  gsap.set(fsImageCounter, { opacity: 0 });
+                }
+
+                return; // exit early - ONLY shrink happens
               }
 
-              // --- 2) CONTENT VISIBILITY ---
-              if (p > shrinkEnd + 0.02 && !fsContentVisible) {
-                fsContentVisible = true;
+              // ============ PHASE 2: CONTENT APPEAR RIGHT AFTER SHRINK (0.2 → 0.3) ============
+              if (p > shrinkEnd && p <= contentEnd) {
+                // Lock image at final shrunk state
+                fsImageCover.style.width = "50%";
+                fsImageCover.style.left = "50%";
 
-                gsap.set(textEls, { y: 30, opacity: 0 });
+                // Content appears IMMEDIATELY when shrink completes
+                if (!fsContentVisible) {
+                  fsContentVisible = true;
 
-                gsap.set(fsLeft, {
-                  opacity: 1,
-                  backgroundColor: "#ffffff",
-                });
+                  // Set background immediately
+                  fsLeft.style.opacity = "1";
+                  fsLeft.style.backgroundColor = "#ffffff";
 
-                gsap.to(textEls, {
-                  y: 0,
-                  opacity: 1,
-                  duration: 0.6,
-                  ease: "power3.out",
-                  stagger: 0.06,
-                });
+                  // Show content with beautiful animation
+                  gsap.set(textEls, { y: 30, opacity: 0 });
+                  gsap.to(textEls, {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.8,
+                    ease: "power3.out",
+                    stagger: 0.08,
+                  });
+                  gsap.to(fsImageCounter, {
+                    opacity: 1,
+                    duration: 0.6,
+                    ease: "power2.out",
+                    delay: 0.3,
+                  });
+                } else {
+                  // Maintain content visibility
+                  fsLeft.style.opacity = "1";
+                  fsLeft.style.backgroundColor = "#ffffff";
+                }
 
-                gsap.to(fsImageCounter, {
-                  opacity: 1,
-                  duration: 0.45,
-                  ease: "power2.out",
-                });
+                return; // exit early - ONLY content appears
               }
 
-              if (p <= shrinkEnd && fsContentVisible) {
-                fsContentVisible = false;
-
-                gsap.set(fsLeft, {
-                  opacity: 0,
-                  backgroundColor: "transparent",
-                });
-
-                gsap.set(textEls, {
-                  y: 20,
-                  opacity: 0,
-                });
-
-                gsap.set(fsImageCounter, {
-                  opacity: 0,
-                });
+              // Lock background at full opacity after content phase
+              if (p > contentEnd) {
+                fsLeft.style.opacity = "1";
+                fsLeft.style.backgroundColor = "#ffffff";
               }
 
-              // --- 3) RESET STATE UNTIL slidesStart ---
-              if (p <= slidesStart) {
+              // ============ PHASE 3: SLIDE CHANGES ONLY (0.3 → 1.0) ============
+              if (p < slidesStart) {
+                // Reset slides to first one before slide phase
                 fsTextIndex = 0;
                 fsLastTransitionIndex = -1;
                 imgCurrentEl.setAttribute("src", serviceSlides[0].image);
@@ -370,22 +380,22 @@ export const FormaServices: FC = () => {
                 return;
               }
 
-              // --- 4) SLIDE TRANSITIONS AFTER slidesStart ---
+              // Now handle slide transitions ONLY
               if (transitionsCount <= 0) return;
 
-              const region = (p - slidesStart) / (1 - slidesStart); // 0..1
-              const clampedRegion = Math.min(Math.max(region, 0), 1);
+              const slideRegion = (p - slidesStart) / (1 - slidesStart);
+              const clampedSlideRegion = Math.min(Math.max(slideRegion, 0), 1);
+              const slideProgress = clampedSlideRegion * transitionsCount;
 
-              const slideProgress = clampedRegion * transitionsCount; // 0..lastIndex
+              const currentTransition = Math.floor(slideProgress);
+              const transitionProgress = slideProgress - currentTransition;
 
-              const pairIndex = Math.floor(slideProgress); // which pair
-              const localT = slideProgress - pairIndex; // 0..1 inside pair
+              const currentIndex = currentTransition;
+              const nextIndex = Math.min(currentTransition + 1, lastIndex);
 
-              const currentIndex = pairIndex;
-              const nextIndex = Math.min(pairIndex + 1, lastIndex);
-
-              if (pairIndex !== fsLastTransitionIndex) {
-                fsLastTransitionIndex = pairIndex;
+              // Update images when transitioning between slides
+              if (currentTransition !== fsLastTransitionIndex) {
+                fsLastTransitionIndex = currentTransition;
                 imgCurrentEl.setAttribute(
                   "src",
                   serviceSlides[currentIndex].image
@@ -394,20 +404,17 @@ export const FormaServices: FC = () => {
                 resetImagesToBase();
               }
 
-              // Swiper-style image motion
-              applySwiperTransition(localT);
+              // Apply smooth image transition
+              applySwiperTransition(transitionProgress);
 
-              // active text slide = rounded position across slides
-              const activeIndex = Math.min(
-                Math.max(Math.round(slideProgress), 0),
-                lastIndex
-              );
-
-              if (activeIndex !== fsTextIndex) {
+              // Update text based on dominant slide
+              const dominantSlide =
+                transitionProgress < 0.5 ? currentIndex : nextIndex;
+              if (dominantSlide !== fsTextIndex) {
                 const direction =
-                  activeIndex > fsTextIndex ? "forward" : "backward";
-                fsTextIndex = activeIndex;
-                animateTextSlide(activeIndex, direction);
+                  dominantSlide > fsTextIndex ? "forward" : "backward";
+                fsTextIndex = dominantSlide;
+                animateTextSlide(dominantSlide, direction);
               }
             },
           });

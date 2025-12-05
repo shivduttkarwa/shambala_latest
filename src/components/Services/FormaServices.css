@@ -65,8 +65,9 @@
   flex-direction: column;
   justify-content: space-between;
   opacity: 0;
-  transform: translateY(40px);
   background: transparent;
+  transition: none; /* disable any CSS transitions to avoid conflicts */
+  will-change: opacity, background-color; /* optimize for frequent changes */
 }
 
 .forma-services .fs-kicker {
@@ -169,7 +170,8 @@
   height: 100%;
   z-index: 3;
   overflow: hidden;
-  will-change: transform; /* for scaleX shrink */
+  will-change: width, left; /* optimize for smooth resizing */
+  transition: none; /* disable any CSS transitions to avoid conflicts */
 }
 
 .forma-services .fs-image-cover-inner {
