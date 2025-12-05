@@ -6,6 +6,7 @@
   width: 100%;
 }
 
+/* Heading */
 .forma-services .fs-heading {
   max-width: 1200px;
   margin: 0 auto;
@@ -21,7 +22,7 @@
   font-size: clamp(3rem, 10vw, 8rem);
   font-weight: 200;
   text-transform: uppercase;
-  letter-spacing: -3.0px;
+  letter-spacing: -3px;
   line-height: 0.95;
   text-align: center;
 }
@@ -35,6 +36,7 @@
   font-family: "Nunito", sans-serif;
 }
 
+/* Section + inner layout */
 .forma-services .fs-section {
   position: relative;
   width: 100%;
@@ -52,6 +54,7 @@
   height: 100%;
 }
 
+/* Left column (text) */
 .forma-services .fs-left {
   position: relative;
   z-index: 5;
@@ -109,14 +112,13 @@
   line-height: 1.7;
   max-width: 34rem;
   font-family: "Nunito", sans-serif;
-  /* Prevent layout shift during hover animation */
   display: block;
   width: 100%;
   height: auto;
   min-height: 1.2em;
 }
 
-/* Prevent HoverText component from causing layout shifts */
+/* Prevent HoverText (or similar) from causing layout shifts */
 .forma-services .fs-description > * {
   display: block;
   width: 100%;
@@ -152,19 +154,22 @@
   color: #111;
 }
 
+/* Right placeholder for layout */
 .forma-services .fs-right-placeholder {
   width: 50%;
   height: 100%;
 }
 
+/* Image wrapper */
 .forma-services .fs-image-cover {
   position: absolute;
   top: 0;
-  left: 0;
-  width: 100%;
+  left: 0; /* JS overrides to left: 50%, width: 50% on desktop */
+  width: 100%; /* safe default */
   height: 100%;
   z-index: 3;
   overflow: hidden;
+  will-change: transform; /* for scaleX shrink */
 }
 
 .forma-services .fs-image-cover-inner {
@@ -173,6 +178,7 @@
   position: relative;
 }
 
+/* Images */
 .forma-services .fs-image {
   position: absolute;
   inset: 0;
@@ -192,6 +198,7 @@
   z-index: 2;
 }
 
+/* Image counter */
 .forma-services .fs-image-counter {
   position: absolute;
   right: 0;
@@ -209,6 +216,7 @@
   font-weight: 200;
 }
 
+/* Mobile */
 @media (max-width: 1023px) {
   .forma-services .fs-inner {
     height: 90vh;
@@ -220,8 +228,9 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
+    width: 100%; /* full bleed image on top for mobile */
     height: 28vh;
+    transform: none !important;
   }
 
   .forma-services .fs-layout {
@@ -251,31 +260,25 @@
   }
 }
 
+/* Large screens: adjust left padding */
 @media (min-width: 1440px) {
   .forma-services .fs-left {
     padding-left: 8.33%;
   }
 }
 
-/* Extra Large Screens - Increase left side slide description by 20% */
+/* Extra Large Screens - increase description & subtitle size */
 @media (min-width: 1560px) {
   .forma-services .fs-description {
-    font-size: 21.6px !important; /* 1rem (16px) * 1.35 = 21.6px - 20% larger than 18px */
-    
+    font-size: 21.6px !important;
   }
 
-  /* Increase heading subtitle font size by 20% */
   .forma-services .fs-heading-subtitle {
-    font-size: calc(18px * 1.2) !important; /* 21.6px - 20% larger */
+    font-size: calc(18px * 1.2) !important;
   }
 }
 
-.forma-services .fs-image-cover-inner {
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
-
+/* Optional canvas (if you ever use it) */
 .forma-services .fs-reel-canvas {
   position: absolute;
   inset: 0;

@@ -21,6 +21,27 @@ const imageBase = (import.meta.env.BASE_URL || "/").endsWith("/")
   ? import.meta.env.BASE_URL || "/"
   : `${import.meta.env.BASE_URL}/`;
 
+// 🔧 GLOBAL KNOBS – TUNE THESE
+const FS_ANIM_CONFIG = {
+  desktop: {
+    scrollLengthPercent: 320, // total scroll for whole section
+    shrinkEnd: 0.35, // progress where image finishes shrinking (0–1)
+    slidesStart: 0.45, // progress where slide changes begin (0–1)
+    scrub: 0.08, // closer to 0 = tightly follows scroll
+    snapDuration: 0.35, // time for snapping between slides
+  },
+  mobile: {
+    scrollLengthPercent: 260,
+    scrub: 0.12,
+    snapDuration: 0.3,
+  },
+  images: {
+    offset: 100, // xPercent slide distance between slides
+    scaleDelta: 0.04, // how much they scale during the transition
+    opacityDelta: 0.4, // how much opacity change during transition
+  },
+};
+
 const serviceSlides: ServiceSlide[] = [
   {
     title: "Build a new house",
@@ -121,19 +142,16 @@ export const FormaServices: FC = () => {
         return;
       }
 
-      // 3D context so rotateX + z look like a curved reel
-      gsap.set(fsImageCover, {
-        perspective: 1200,
-      });
+      // keep transforms simple & GPU friendly
       gsap.set(fsImageCoverInner, {
         transformStyle: "preserve-3d",
       });
       gsap.set([imgCurrentEl, imgNextEl], {
-        transformStyle: "preserve-3d",
+        willChange: "transform, opacity",
       });
 
-      let fsTextIndex = 0;
-      let fsLastTransitionIndex = -1;
+      let fsTextIndex = 0; // which slide text is currently active
+      let fsLastTransitionIndex = -1; // which slide pair is currently used for image transition
       let fsContentVisible = false;
 
       const pad2 = (n: number) => (n < 10 ? `0${n}` : `${n}`);
@@ -146,7 +164,7 @@ export const FormaServices: FC = () => {
         fsMetaType.textContent = slide.metaType;
         fsMetaScope.textContent = slide.metaScope;
         fsDesc.textContent =
-          window.innerWidth >= 1600
+          typeof window !== "undefined" && window.innerWidth >= 1600
             ? slide.description
             : slide.shortDescription;
 
@@ -163,57 +181,48 @@ export const FormaServices: FC = () => {
         if (!slide) return;
 
         const textEls = [fsKicker, fsTitle, fsMetaEl, fsDesc];
-        const outY = direction === "forward" ? -20 : 20;
-        const inFromY = direction === "forward" ? 20 : -20;
+        const outX = direction === "forward" ? -20 : 20;
+        const inFromX = direction === "forward" ? 20 : -20;
 
         gsap.to(textEls, {
-          y: outY,
+          x: outX,
           opacity: 0,
-          duration: 0.25,
+          duration: 0.2,
           ease: "power2.in",
           onComplete: () => {
             setTextInstant(index);
             gsap.fromTo(
               textEls,
-              { y: inFromY, opacity: 0 },
+              { x: inFromX, opacity: 0 },
               {
-                y: 0,
+                x: 0,
                 opacity: 1,
                 duration: 0.4,
                 ease: "power2.out",
-                stagger: 0.04,
+                stagger: 0.05,
               }
             );
           },
         });
       };
 
-      // Curved film-reel style slide transition (reduced gap)
-      const applyCurvedReel = (localT: number) => {
+      // Swiper-style horizontal slide transition between current and next image
+      const applySwiperTransition = (localT: number) => {
         const t = Math.min(Math.max(localT, 0), 1);
+        const { offset, scaleDelta, opacityDelta } = FS_ANIM_CONFIG.images;
 
-        const travel = 100; // how far they move (gap between images)
-        const tilt = 40; // rotateX degrees
-        const depth = -5; // z shift
-
-        // Current image: move up, tilt away a bit
+        // current slides left
         gsap.set(imgCurrentEl, {
-          yPercent: -travel * t, // 0 -> -70
-          rotateX: tilt * t, // 0 -> 35deg
-          z: -depth * t, // 0 -> -80
-          scale: 1 - 0.04 * t, // 1 -> 0.96 (subtle)
-          transformOrigin: "50% 100%",
-          opacity: 1,
+          xPercent: -offset * t, // 0 -> -100
+          scale: 1 - scaleDelta * t, // 1 -> ~0.96
+          opacity: 1 - opacityDelta * 0.5 * t, // 1 -> ~0.8
         });
 
-        // Next image: comes from below, un-bends into place
+        // next slides in from right
         gsap.set(imgNextEl, {
-          yPercent: travel - travel * t, // 70 -> 0
-          rotateX: -tilt + tilt * t, // -35deg -> 0deg
-          z: -depth + depth * t, // -80 -> 0
-          scale: 0.96 + 0.04 * t, // 0.96 -> 1
-          transformOrigin: "50% 0%",
-          opacity: 1,
+          xPercent: offset - offset * t, // 100 -> 0
+          scale: 1 - scaleDelta * (1 - t), // ~0.96 -> 1
+          opacity: 1 - opacityDelta * (1 - t), // ~0.6 -> 1
         });
       };
 
@@ -224,80 +233,81 @@ export const FormaServices: FC = () => {
         imgNextEl.setAttribute("src", serviceSlides[1].image);
       }
 
-      // Base/resting state
       const resetImagesToBase = () => {
-        const travel = 70;
-        const tilt = 35;
-        const depth = 80;
+        const { offset, scaleDelta, opacityDelta } = FS_ANIM_CONFIG.images;
 
+        // current on screen, next waiting to the right
         gsap.set(imgCurrentEl, {
-          yPercent: 0,
-          rotateX: 0,
-          z: 0,
+          xPercent: 0,
           scale: 1,
           opacity: 1,
-          transformOrigin: "50% 100%",
         });
 
         gsap.set(imgNextEl, {
-          yPercent: travel, // 70 below
-          rotateX: -tilt, // pre-bent a bit
-          z: -depth,
-          scale: 0.96,
-          opacity: 1,
-          transformOrigin: "50% 0%",
+          xPercent: offset,
+          scale: 1 - scaleDelta,
+          opacity: 1 - opacityDelta,
         });
       };
 
       resetImagesToBase();
 
+      const lastIndex = serviceSlides.length - 1;
+      const transitionsCount = lastIndex; // number of "gaps" between slides
+
       ScrollTrigger.matchMedia({
         "(min-width: 1024px)": () => {
-          const textEls = [fsKicker, fsTitle, fsMetaEl, fsDesc, fsCounterCurrent];
-
-          const shrinkEnd = 0.15;
-          const slidesStart = 0.3;
-          const transitionsCount = serviceSlides.length - 1;
+          const cfg = FS_ANIM_CONFIG.desktop;
+          const textEls = [
+            fsKicker,
+            fsTitle,
+            fsMetaEl,
+            fsDesc,
+            fsCounterCurrent,
+          ];
 
           ScrollTrigger.create({
             trigger: fsSection,
             start: "top top",
-            end: "+=650%",
-            scrub: true,
+            end: "+=" + cfg.scrollLengthPercent + "%",
+            scrub: cfg.scrub,
             pin: fsInner,
+            anticipatePin: 1,
             snap: {
               snapTo: (value) => {
                 if (transitionsCount <= 0) return value;
 
-                // No snap before slidesStart (intro zone)
-                if (value <= slidesStart) return value;
+                // no snapping before slidesStart
+                if (value <= cfg.slidesStart) return value;
 
-                // Map [slidesStart, 1] -> [0, transitionsCount]
-                const slideRegion = (value - slidesStart) / (1 - slidesStart);
-                const rawIndex = slideRegion * transitionsCount;
-                const nearestIndex = Math.round(rawIndex); // 0..transitionsCount
+                const region =
+                  (value - cfg.slidesStart) / (1 - cfg.slidesStart); // 0..1
+                const snappedIndex = Math.round(region * transitionsCount); // 0..lastIndex
+                const snappedRegion = snappedIndex / transitionsCount; // 0..1
 
-                const snappedRegion = nearestIndex / transitionsCount;
-                return slidesStart + snappedRegion * (1 - slidesStart);
+                return cfg.slidesStart + snappedRegion * (1 - cfg.slidesStart);
               },
-              duration: 0.5,
+              duration: cfg.snapDuration,
               ease: "power2.inOut",
             },
             onUpdate: (self) => {
               const p = self.progress;
+              const { shrinkEnd, slidesStart } = cfg;
 
-              // --- 1) IMAGE SHRINK (0 → shrinkEnd) ---
+              // --- 1) IMAGE SHRINK (full bleed -> right half) LINEAR with scroll ---
               if (p <= shrinkEnd) {
-                const tSplit = Math.min(Math.max(p / shrinkEnd, 0), 1);
-                const width = 100 - 50 * tSplit;
-                const left = 0 + 50 * tSplit;
+                const tNorm = Math.min(Math.max(p / shrinkEnd, 0), 1); // 0..1
+
+                // Linear interpolation tied directly to scroll progress
+                const width = gsap.utils.interpolate(100, 50, tNorm);
+                const left = gsap.utils.interpolate(0, 50, tNorm);
 
                 gsap.set(fsImageCover, {
                   width: `${width}%`,
                   left: `${left}%`,
                 });
               } else {
-                // lock at half-width once shrink finished
+                // lock cleanly once finished
                 gsap.set(fsImageCover, {
                   width: "50%",
                   left: "50%",
@@ -318,14 +328,14 @@ export const FormaServices: FC = () => {
                 gsap.to(textEls, {
                   y: 0,
                   opacity: 1,
-                  duration: 0.65,
+                  duration: 0.6,
                   ease: "power3.out",
                   stagger: 0.06,
                 });
 
                 gsap.to(fsImageCounter, {
                   opacity: 1,
-                  duration: 0.5,
+                  duration: 0.45,
                   ease: "power2.out",
                 });
               }
@@ -357,123 +367,96 @@ export const FormaServices: FC = () => {
                   imgNextEl.setAttribute("src", serviceSlides[1].image);
                 }
                 resetImagesToBase();
-                return; // no transitions yet
-              }
-
-              // --- 4) SLIDE TRANSITIONS AFTER slidesStart ---
-              const remaining = (p - slidesStart) / (1 - slidesStart);
-              const clamped = Math.min(Math.max(remaining, 0), 1);
-
-              if (transitionsCount <= 0) return;
-
-              if (clamped >= 0.999) {
-                const lastIndex = serviceSlides.length - 1;
-                imgCurrentEl.setAttribute(
-                  "src",
-                  serviceSlides[lastIndex].image
-                );
-                resetImagesToBase();
-
-                if (fsTextIndex !== lastIndex) {
-                  const direction =
-                    lastIndex > fsTextIndex ? "forward" : "backward";
-                  fsTextIndex = lastIndex;
-                  animateTextSlide(lastIndex, direction);
-                }
                 return;
               }
 
-              const slideProgress = clamped * transitionsCount;
-              const transitionIndex = Math.floor(slideProgress);
-              const localT = slideProgress - transitionIndex;
+              // --- 4) SLIDE TRANSITIONS AFTER slidesStart ---
+              if (transitionsCount <= 0) return;
 
-              const currentIndex = transitionIndex;
-              const nextIndex = transitionIndex + 1;
+              const region = (p - slidesStart) / (1 - slidesStart); // 0..1
+              const clampedRegion = Math.min(Math.max(region, 0), 1);
 
-              if (transitionIndex !== fsLastTransitionIndex) {
-                fsLastTransitionIndex = transitionIndex;
+              const slideProgress = clampedRegion * transitionsCount; // 0..lastIndex
+
+              const pairIndex = Math.floor(slideProgress); // which pair
+              const localT = slideProgress - pairIndex; // 0..1 inside pair
+
+              const currentIndex = pairIndex;
+              const nextIndex = Math.min(pairIndex + 1, lastIndex);
+
+              if (pairIndex !== fsLastTransitionIndex) {
+                fsLastTransitionIndex = pairIndex;
                 imgCurrentEl.setAttribute(
                   "src",
                   serviceSlides[currentIndex].image
                 );
                 imgNextEl.setAttribute("src", serviceSlides[nextIndex].image);
+                resetImagesToBase();
               }
 
-              applyCurvedReel(localT);
+              // Swiper-style image motion
+              applySwiperTransition(localT);
 
-              const dominantIndex = localT < 0.5 ? currentIndex : nextIndex;
+              // active text slide = rounded position across slides
+              const activeIndex = Math.min(
+                Math.max(Math.round(slideProgress), 0),
+                lastIndex
+              );
 
-              if (dominantIndex !== fsTextIndex) {
+              if (activeIndex !== fsTextIndex) {
                 const direction =
-                  dominantIndex > fsTextIndex ? "forward" : "backward";
-                fsTextIndex = dominantIndex;
-                animateTextSlide(dominantIndex, direction);
+                  activeIndex > fsTextIndex ? "forward" : "backward";
+                fsTextIndex = activeIndex;
+                animateTextSlide(activeIndex, direction);
               }
             },
           });
         },
 
         "(max-width: 1023px)": () => {
+          const cfg = FS_ANIM_CONFIG.mobile;
+
           fsContentVisible = true;
           fsTextIndex = 0;
           fsLastTransitionIndex = -1;
 
-          const transitionsCount = serviceSlides.length - 1;
-
           ScrollTrigger.create({
             trigger: fsSection,
             start: "top top",
-            end: "+=300%",
-            scrub: true,
+            end: "+=" + cfg.scrollLengthPercent + "%",
+            scrub: cfg.scrub,
             pin: fsInner,
+            anticipatePin: 1,
             snap: {
               snapTo: (value) => {
                 if (transitionsCount <= 0) return value;
-
-                const rawIndex = value * transitionsCount;
-                const nearestIndex = Math.round(rawIndex); // 0..transitionsCount
-                return nearestIndex / transitionsCount;
+                const snappedIndex = Math.round(value * transitionsCount); // 0..lastIndex
+                return snappedIndex / transitionsCount;
               },
-              duration: 0.5,
+              duration: cfg.snapDuration,
               ease: "power1.inOut",
             },
             onUpdate: (self) => {
               const p = self.progress;
-              const clamped = Math.min(Math.max(p, 0), 1);
-
               if (transitionsCount <= 0) return;
 
-              if (clamped >= 0.999) {
-                const lastIndex = serviceSlides.length - 1;
-                imgCurrentEl.setAttribute(
-                  "src",
-                  serviceSlides[lastIndex].image
-                );
-                resetImagesToBase();
+              const clamped = Math.min(Math.max(p, 0), 1);
+              const slideProgress = clamped * transitionsCount; // 0..lastIndex
 
-                if (fsTextIndex !== lastIndex) {
-                  const direction =
-                    lastIndex > fsTextIndex ? "forward" : "backward";
-                  fsTextIndex = lastIndex;
-                  animateTextSlide(lastIndex, direction);
-                }
-                return;
-              }
+              const pairIndex = Math.floor(slideProgress);
+              const localT = slideProgress - pairIndex;
 
-              const slideProgress = clamped * transitionsCount;
-              const transitionIndex = Math.floor(slideProgress);
-              const localT = slideProgress - transitionIndex;
+              const currentIndex = pairIndex;
+              const nextIndex = Math.min(pairIndex + 1, lastIndex);
 
-              const currentIndex = transitionIndex;
-              const nextIndex = transitionIndex + 1;
-
-              if (transitionIndex !== fsLastTransitionIndex) {
-                fsLastTransitionIndex = transitionIndex;
+              if (pairIndex !== fsLastTransitionIndex) {
+                fsLastTransitionIndex = pairIndex;
                 imgCurrentEl.setAttribute(
                   "src",
                   serviceSlides[currentIndex].image
                 );
                 imgNextEl.setAttribute("src", serviceSlides[nextIndex].image);
+                resetImagesToBase();
               }
 
               gsap.set(fsImageCover, {
@@ -481,15 +464,18 @@ export const FormaServices: FC = () => {
                 left: "0%",
               });
 
-              applyCurvedReel(localT);
+              applySwiperTransition(localT);
 
-              const dominantIndex = localT < 0.5 ? currentIndex : nextIndex;
+              const activeIndex = Math.min(
+                Math.max(Math.round(slideProgress), 0),
+                lastIndex
+              );
 
-              if (dominantIndex !== fsTextIndex) {
+              if (activeIndex !== fsTextIndex) {
                 const direction =
-                  dominantIndex > fsTextIndex ? "forward" : "backward";
-                fsTextIndex = dominantIndex;
-                animateTextSlide(dominantIndex, direction);
+                  activeIndex > fsTextIndex ? "forward" : "backward";
+                fsTextIndex = activeIndex;
+                animateTextSlide(activeIndex, direction);
               }
             },
           });
@@ -522,7 +508,7 @@ export const FormaServices: FC = () => {
             <div className="fs-left">
               <div>
                 <div className="fs-kicker">FORMA SERVICES</div>
-                
+
                 <div className="fs-title">{first.title}</div>
 
                 <div className="fs-meta">
@@ -532,7 +518,7 @@ export const FormaServices: FC = () => {
                 </div>
 
                 <div className="fs-description">
-                  {window.innerWidth >= 1600
+                  {typeof window !== "undefined" && window.innerWidth >= 1600
                     ? `${first.description} Every brief becomes a bespoke journey—more light, better flow, layered textures, and tailored joinery that quietly elevates daily life.`
                     : `${first.shortDescription} Every brief becomes a bespoke journey.`}
                 </div>
