@@ -431,7 +431,7 @@ const ModernHero: React.FC<ModernHeroProps> = ({ animate = true }) => {
         </div>
 
         <div className="mh-ui-cta" ref={ctaRef}>
-          <GlassRainButton href="/new-contact">Start a Project</GlassRainButton>
+          <GlassRainButton href="/projects">Start a Project</GlassRainButton>
         </div>
 
         <HomeHeroSlider ref={newsRef} />

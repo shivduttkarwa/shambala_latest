@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "./GlassRainButton.css";
 
 interface GlassRainButtonProps {
@@ -115,9 +116,9 @@ const GlassRainButton: React.FC<GlassRainButtonProps> = ({
 
   if (href) {
     return (
-      <a {...commonProps} href={href}>
+      <Link {...commonProps} to={href}>
         {content}
-      </a>
+      </Link>
     );
   }
 

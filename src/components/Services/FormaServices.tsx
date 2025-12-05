@@ -426,13 +426,28 @@ export const FormaServices: FC = () => {
           fsContentVisible = true;
           fsTextIndex = 0;
           fsLastTransitionIndex = -1;
+          let lastActiveIndex = 0; // Track previous index for direction
+          let isTransitioning = false; // Prevent multiple transitions
+          
+          // Set initial mobile image positions without reset flicker
+          const { offset, scaleDelta, opacityDelta } = FS_ANIM_CONFIG.images;
+          gsap.set(imgCurrentEl, {
+            xPercent: 0,
+            scale: 1,
+            opacity: 1,
+          });
+          gsap.set(imgNextEl, {
+            xPercent: offset,
+            scale: 1 - scaleDelta,
+            opacity: 1 - opacityDelta,
+          });
 
           ScrollTrigger.create({
-            trigger: fsSection,
+            trigger: rootRef.current, // Start trigger from the entire component
             start: "top top",
             end: "+=" + cfg.scrollLengthPercent + "%",
             scrub: cfg.scrub,
-            pin: fsInner,
+            pin: rootRef.current, // Pin the entire component including title
             anticipatePin: 1,
             snap: {
               snapTo: (value) => {
@@ -456,27 +471,77 @@ export const FormaServices: FC = () => {
               const currentIndex = pairIndex;
               const nextIndex = Math.min(pairIndex + 1, lastIndex);
 
-              if (pairIndex !== fsLastTransitionIndex) {
-                fsLastTransitionIndex = pairIndex;
-                imgCurrentEl.setAttribute(
-                  "src",
-                  serviceSlides[currentIndex].image
-                );
-                imgNextEl.setAttribute("src", serviceSlides[nextIndex].image);
-                resetImagesToBase();
+              // Mobile: Less sensitive slide detection to prevent double slides
+              const activeIndex = Math.min(
+                Math.max(Math.floor(slideProgress + 0.7), 0), // Use floor + threshold instead of round
+                lastIndex
+              );
+              
+              if (activeIndex !== fsLastTransitionIndex) {
+                // If already transitioning, skip this change but don't update fsLastTransitionIndex
+                if (isTransitioning) return;
+                
+                const isEvenSlide = activeIndex % 2 === 0;
+                const isScrollingDown = activeIndex > lastActiveIndex;
+                fsLastTransitionIndex = activeIndex;
+                isTransitioning = true; // Block further transitions
+                
+                // Determine slide direction based on scroll direction
+                const slideFrom = isScrollingDown 
+                  ? { x: -100, y: 100 }   // From left bottom (scrolling down)
+                  : { x: 100, y: -100 };  // From right top (scrolling up)
+                
+                if (isEvenSlide) {
+                  // Use imgCurrentEl as the sliding image
+                  imgCurrentEl.setAttribute("src", serviceSlides[activeIndex].image);
+                  gsap.set(imgCurrentEl, {
+                    zIndex: 10,
+                    xPercent: slideFrom.x,
+                    yPercent: slideFrom.y,
+                    scale: 1,
+                    opacity: 1,
+                  });
+                  gsap.set(imgNextEl, { zIndex: 1 }); // Behind
+                  
+                  gsap.to(imgCurrentEl, {
+                    xPercent: 0,
+                    yPercent: 0,
+                    duration: 0.5,
+                    ease: "power2.out",
+                    onComplete: () => {
+                      isTransitioning = false; // Allow next transition
+                    }
+                  });
+                } else {
+                  // Use imgNextEl as the sliding image  
+                  imgNextEl.setAttribute("src", serviceSlides[activeIndex].image);
+                  gsap.set(imgNextEl, {
+                    zIndex: 10,
+                    xPercent: slideFrom.x,
+                    yPercent: slideFrom.y,
+                    scale: 1,
+                    opacity: 1,
+                  });
+                  gsap.set(imgCurrentEl, { zIndex: 1 }); // Behind
+                  
+                  gsap.to(imgNextEl, {
+                    xPercent: 0,
+                    yPercent: 0,
+                    duration: 0.5,
+                    ease: "power2.out",
+                    onComplete: () => {
+                      isTransitioning = false; // Allow next transition
+                    }
+                  });
+                }
+                
+                lastActiveIndex = activeIndex; // Update for next direction check
               }
 
               gsap.set(fsImageCover, {
                 width: "100%",
                 left: "0%",
               });
-
-              applySwiperTransition(localT);
-
-              const activeIndex = Math.min(
-                Math.max(Math.round(slideProgress), 0),
-                lastIndex
-              );
 
               if (activeIndex !== fsTextIndex) {
                 const direction =
