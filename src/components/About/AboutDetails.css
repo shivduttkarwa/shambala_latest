@@ -159,10 +159,10 @@
 /* -------- About Rule of Thirds Layout -------- */
 .about-rule-of-thirds-grid {
   display: grid;
-  grid-template-columns: 6.5fr 2.5fr; /* Much larger image area */
+  grid-template-columns: 1fr 1fr; /* 50-50 layout */
   gap: 4rem;
   align-items: center;
-  min-height: 80vh; /* Increase overall section height */
+  min-height: 70vh; /* Slightly reduce section height */
 }
 
 @media (max-width: 1024px) {
@@ -299,6 +299,29 @@
   font-family: "Nunito", sans-serif;
   font-size: 0.9rem;
   letter-spacing: 0.5px;
+}
+
+/* -------- Reduced Hero Image -------- */
+.reduced-hero-image {
+  width: 85%; /* Reduce from 100% to 85% */
+  height: 500px; /* Increased height from 400px to 500px */
+  object-fit: cover;
+  object-position: center;
+  border-radius: 12px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.reduced-hero-image:hover {
+  transform: scale(1.02);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+  .reduced-hero-image {
+    width: 100%;
+    height: 350px; /* Increased mobile height from 300px to 350px */
+  }
 }
 
 /* -------- Enhanced Design Classes -------- */

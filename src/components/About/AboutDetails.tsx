@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import ASCIIGlitchText from "../shared/ASCIIGlitchText";
 import ArchScrollReveal from "./ArchScrollReveal";
 import "./AboutDetails.css";
 
@@ -138,8 +139,8 @@ const AboutDetails: React.FC = () => {
             <div className="w-full h-auto rounded-2xl overflow-hidden about-animate-in aboutdetail-image-container">
               <img
                 src={`${publicUrl}images/hero_poster.jpg`}
-                alt="Man with headphones and microphone"
-                className="w-full h-full object-cover"
+                alt="FORMA Architectural Excellence"
+                className="reduced-hero-image"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
                   target.src = `${publicUrl}images/sercard1.jpg`;
@@ -150,18 +151,25 @@ const AboutDetails: React.FC = () => {
             {/* Text Content (1/3) */}
             <div className="about-animate-in aboutdetail-text-container">
               <h1 className="text-4xl md:text-5xl font-black mb-4 leading-tight aboutdetail-hero-title">
-                FORMA
+                Architectural Excellence Since 1999
               </h1>
               <div className="mb-8 aboutdetail-hero-description">
-                <p className="about-interactive-element text-lg leading-relaxed">
-                  Crafting exceptional living spaces that blend luxury with nature's harmony.
-                  Our vision transforms architectural dreams into sustainable realities,
-                  creating homes that nurture both body and soul.
-                </p>
-                <p className="about-interactive-element mt-4 text-lg leading-relaxed">
-                  With over 25 years of experience, FORMA leads in sustainable luxury design,
-                  creating spaces that tell stories and contribute positively to the environment.
-                </p>
+                <ASCIIGlitchText
+                  text="Crafting exceptional living spaces that blend luxury with nature's harmony. Our vision transforms architectural dreams into sustainable realities, creating homes that nurture both body and soul."
+                  className="about-interactive-element text-lg leading-relaxed mb-4 block"
+                  duration={800}
+                  spread={0.8}
+                  chars="!?&#$@0123456789*.,·-─~+:;=*π"
+                  tag="p"
+                />
+                <ASCIIGlitchText
+                  text="With over 25 years of experience, FORMA has established itself as a pioneering force in sustainable luxury design. From intimate residential retreats to grand commercial complexes, we create spaces that honor both aesthetic excellence and environmental stewardship."
+                  className="about-interactive-element text-lg leading-relaxed"
+                  duration={900}
+                  spread={0.7}
+                  chars="!?&#$@0123456789*.,·-─~+:;=*π"
+                  tag="p"
+                />
               </div>
               {/* Buttons removed per request */}
             </div>
@@ -181,12 +189,22 @@ const AboutDetails: React.FC = () => {
             <h3 className="text-2xl md:text-3xl font-bold mb-4 text-green-primary uppercase tracking-wide">
               Years of Excellence
             </h3>
-            <p className="text-lg mb-6 leading-relaxed text-brown-tertiary">
-              Excellence in architectural design and sustainable construction. Building dreams with precision, passion, and environmental consciousness for over two decades.
-            </p>
-            <p className="text-base mb-8 leading-relaxed text-brown-tertiary">
-              Our team specializes in LEED-certified buildings and smart home integration, combining traditional craftsmanship with modern engineering to create timeless, forward-thinking spaces.
-            </p>
+            <ASCIIGlitchText
+              text="Excellence in architectural design and sustainable construction. Building dreams with precision, passion, and environmental consciousness for over two decades."
+              className="text-lg mb-6 leading-relaxed text-brown-tertiary about-interactive-element"
+              duration={850}
+              spread={0.6}
+              chars="!?&#$@0123456789*.,·-─~+:;=*π"
+              tag="p"
+            />
+            <ASCIIGlitchText
+              text="Our team specializes in LEED-certified buildings and smart home integration, combining traditional craftsmanship with modern engineering to create timeless, forward-thinking spaces."
+              className="text-base mb-8 leading-relaxed text-brown-tertiary about-interactive-element"
+              duration={900}
+              spread={0.6}
+              chars="!?&#$@0123456789*.,·-─~+:;=*π"
+              tag="p"
+            />
             <div className="stats-grid grid grid-cols-2 gap-4 mb-8">
               <div className="stat-item">
                 <div className="text-3xl font-bold text-gold">200+</div>
@@ -224,12 +242,22 @@ const AboutDetails: React.FC = () => {
             <h3 className="text-xl md:text-2xl font-semibold mb-4 text-green-primary">
               Where Nature Meets Design
             </h3>
-            <p className="text-lg mb-4 leading-relaxed">
-              Where modern elegance meets natural harmony. Our designs celebrate the seamless integration of contemporary living with environmental stewardship.
-            </p>
-            <p className="text-base mb-6 leading-relaxed">
-              We source materials ethically, prioritize energy efficiency, and ensure each project reflects our commitment to luxury that doesn't compromise environmental responsibility.
-            </p>
+            <ASCIIGlitchText
+              text="Where modern elegance meets natural harmony. Our designs celebrate the seamless integration of contemporary living with environmental stewardship."
+              className="text-lg mb-4 leading-relaxed about-interactive-element"
+              duration={850}
+              spread={0.7}
+              chars="!?&#$@0123456789*.,·-─~+:;=*π"
+              tag="p"
+            />
+            <ASCIIGlitchText
+              text="We source materials ethically, prioritize energy efficiency, and ensure each project reflects our commitment to luxury that doesn't compromise environmental responsibility."
+              className="text-base mb-6 leading-relaxed about-interactive-element"
+              duration={800}
+              spread={0.7}
+              chars="!?&#$@0123456789*.,·-─~+:;=*π"
+              tag="p"
+            />
             <div className="philosophy-points mb-8 space-y-3">
               <div className="flex items-center gap-3">
                 <i className="fas fa-check-circle text-green-primary"></i>
@@ -267,9 +295,14 @@ const AboutDetails: React.FC = () => {
           <div className="max-w-7xl mx-auto px-4">
             <div className="text-center mb-12">
               <h2 className="text-5xl md:text-6xl font-black mb-4 text-black">Our Services</h2>
-              <p className="text-xl text-brown-tertiary max-w-2xl mx-auto leading-relaxed">
-                From conceptual design to final construction, we deliver comprehensive architectural solutions
-              </p>
+              <ASCIIGlitchText
+                text="From conceptual design to final construction, we deliver comprehensive architectural solutions"
+                className="text-xl text-brown-tertiary max-w-2xl mx-auto leading-relaxed about-interactive-element"
+                duration={900}
+                spread={0.5}
+                chars="!?&#$@0123456789*.,·-─~+:;=*π"
+                tag="p"
+              />
             </div>
             <div className="grid md:grid-cols-3 gap-8">
               {/* Service 1 */}
@@ -278,9 +311,14 @@ const AboutDetails: React.FC = () => {
                   <i className="fas fa-drafting-compass text-5xl text-gold"></i>
                 </div>
                 <h3 className="text-2xl font-bold mb-4 text-black">Design & Planning</h3>
-                <p className="text-brown-tertiary mb-6 leading-relaxed">
-                  Comprehensive architectural design services from initial concepts to detailed blueprints.
-                </p>
+                <ASCIIGlitchText
+                  text="Comprehensive architectural design services from initial concepts to detailed blueprints."
+                  className="text-brown-tertiary mb-6 leading-relaxed about-interactive-element"
+                  duration={750}
+                  spread={0.6}
+                  chars="!?&#$@0123456789*.,·-─~+:;=*π"
+                  tag="p"
+                />
                 <Link to="/services" className="service-link text-green-primary font-semibold">
                   Learn More <i className="fas fa-arrow-right ml-1"></i>
                 </Link>
@@ -292,9 +330,14 @@ const AboutDetails: React.FC = () => {
                   <i className="fas fa-hammer text-5xl text-gold"></i>
                 </div>
                 <h3 className="text-2xl font-bold mb-4 text-black">Construction</h3>
-                <p className="text-brown-tertiary mb-6 leading-relaxed">
-                  Expert construction management ensuring quality, timeline, and budget adherence.
-                </p>
+                <ASCIIGlitchText
+                  text="Expert construction management ensuring quality, timeline, and budget adherence."
+                  className="text-brown-tertiary mb-6 leading-relaxed about-interactive-element"
+                  duration={750}
+                  spread={0.6}
+                  chars="!?&#$@0123456789*.,·-─~+:;=*π"
+                  tag="p"
+                />
                 <Link to="/services" className="service-link text-green-primary font-semibold">
                   Learn More <i className="fas fa-arrow-right ml-1"></i>
                 </Link>
@@ -306,9 +349,14 @@ const AboutDetails: React.FC = () => {
                   <i className="fas fa-seedling text-5xl text-gold"></i>
                 </div>
                 <h3 className="text-2xl font-bold mb-4 text-black">Sustainability</h3>
-                <p className="text-brown-tertiary mb-6 leading-relaxed">
-                  Eco-friendly solutions that reduce environmental impact while maximizing efficiency.
-                </p>
+                <ASCIIGlitchText
+                  text="Eco-friendly solutions that reduce environmental impact while maximizing efficiency."
+                  className="text-brown-tertiary mb-6 leading-relaxed about-interactive-element"
+                  duration={750}
+                  spread={0.6}
+                  chars="!?&#$@0123456789*.,·-─~+:;=*π"
+                  tag="p"
+                />
                 <Link to="/services" className="service-link text-green-primary font-semibold">
                   Learn More <i className="fas fa-arrow-right ml-1"></i>
                 </Link>
