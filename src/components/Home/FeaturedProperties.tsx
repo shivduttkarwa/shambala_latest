@@ -58,18 +58,7 @@ const defaultProperties: PropertySlide[] = [
       "Building connections, not just homes. Our vision extends beyond individual homes to creating vibrant communities that encourage interaction and wellbeing. We design neighborhoods that foster lasting relationships between residents and their environment. Spaces that bring people together.",
     link: "/projects",
   },
-  {
-    id: 4,
-    category: "",
-    title: '"EXCELLENCE\nIN EVERY\nDETAIL"',
-    leftImage: `${publicUrl}images/pexels-jvdm-1457842.jpg`,
-    rightImage: `${publicUrl}images/pr2.jpg`,
-    tabletImage: `${publicUrl}images/pr2.jpg`,
-    subtitle: "Excellence in craftsmanship",
-    description:
-      "Where quality meets artistry. Our commitment to excellence drives everything we do, from concept to final handover. We maintain the highest standards of craftsmanship, ensuring every FORMA home is a testament to durability and timeless design. Details that endure.",
-    link: "/projects",
-  },
+  
 ];
 
 interface FeaturedPropertiesProps {

@@ -1,12 +1,12 @@
 import React from "react";
-import AboutHero from "../components/About/AboutHero";
+import AboutDetails from "../components/About/AboutDetails";
 import NewHeroSection from "../components/Home/NewHeroSection";
 
 const About: React.FC = () => {
   return (
     <>
       <NewHeroSection />
-      <AboutHero />
+      <AboutDetails />
     </>
   );
 };

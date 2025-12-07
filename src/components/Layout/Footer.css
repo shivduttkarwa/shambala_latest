@@ -540,3 +540,10 @@
     font-size: calc(17.2rem * 1.2) !important; /* 20.64rem - 20% larger */
   }
 }
+
+/* Very Large Screens (1600px+) - Increase container width by 20% */
+@media (min-width: 1600px) {
+  .forma-footer-container {
+    max-width: calc(1400px * 1.2) !important; /* 1680px - 20% larger */
+  }
+}

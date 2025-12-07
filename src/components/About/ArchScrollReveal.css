@@ -2,13 +2,8 @@
 .arch-scroll-section {
   color: #121212;
   font-family: "Nunito", sans-serif;
-  background: linear-gradient(
-    180deg,
-    #f4e9de 0%,
-    #e99e3d 25%,
-    #fddf 55%,
-    #aaafce 100%
-  );
+  background-color: #ffe9e9; /* Start with light coral red */
+  transition: background-color 1.5s ease-in-out;
 }
 
 .arch-journey-heading {
@@ -70,10 +65,18 @@
 
 .arch__left .arch__info .arch-desc {
   color: rgba(18, 18, 18, 0.8);
-  font-size: 18px;
-  letter-spacing: -0.54px;
-  margin-block: 6px 28px;
-  line-height: normal;
+  font-size: 16px;
+  letter-spacing: -0.3px;
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
+
+.arch-desc-expanded {
+  margin-bottom: 28px;
+}
+
+.arch-desc-expanded .arch-desc:last-child {
+  margin-bottom: 0;
 }
 
 .arch-pill {
@@ -105,7 +108,7 @@
   flex-shrink: 1;
   height: 100vh;
   width: 100%;
-  max-width: 540px;
+  max-width: 650px; /* Increased from 540px */
   position: relative;
   display: flex;
   flex-direction: column;
@@ -116,10 +119,11 @@
   top: 50%;
   left: 0;
   transform: translateY(-50%);
-  height: 400px;
+  height: 550px; /* Increased from 400px */
   width: 100%;
   border-radius: 16px;
   overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
 }
 
 .arch__right .arch-img-wrapper img {
@@ -154,7 +158,7 @@
   .arch__right .arch-img-wrapper {
     position: static;
     transform: none;
-    height: 360px;
+    height: 450px; /* Increased from 360px */
     width: 100%;
     margin-bottom: 20px;
   }
@@ -180,6 +184,27 @@
   }
 }
 
+/* Large screens - increase container width by 20% */
+@media (min-width: 1600px) {
+  .arch-container {
+    max-width: 1728px; /* Increased from 1440px by 20% */
+    padding: 3rem;
+  }
+  
+  .arch {
+    max-width: 1320px; /* Increased from 1100px by 20% */
+    gap: 80px; /* Slightly increase gap for larger screens */
+  }
+  
+  .arch__right {
+    max-width: 780px; /* Increased from 650px by 20% */
+  }
+  
+  .arch__right .arch-img-wrapper {
+    height: 660px; /* Increased from 550px by 20% */
+  }
+}
+
 @media (max-width: 560px) {
   .arch {
     gap: 12px;
@@ -191,6 +216,6 @@
 
   .arch__right .arch-img-wrapper {
     border-radius: 10px;
-    height: 280px;
+    height: 350px; /* Increased from 280px */
   }
 }

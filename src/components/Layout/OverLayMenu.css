@@ -861,6 +861,21 @@ body.menu-open {
 
 /* Extra Large Screens - Increase buttons and social media icons by 20% */
 @media (min-width: 1560px) {
+  /* Fix menu item spacing and center alignment */
+  .olm-modern-menu-item {
+    padding: 1.5rem 0 !important; /* Reduced from 2.3rem */
+    border-bottom: none !important; /* Remove border lines */
+    display: flex !important; /* Change from inline-block to flex */
+    align-items: center !important; /* Center content vertically */
+    justify-content: flex-start !important; /* Align content to left */
+  }
+  
+  /* Ensure wrapper uses center alignment instead of space-between */
+  .olm-primary-menu .olm-menu-container .olm-wrapper {
+    justify-content: center !important; /* Center items instead of space-between */
+    gap: 0.5rem !important; /* Add consistent gap between items */
+  }
+  
   /* GlassRainButton size increase */
   .olm-secondary-menu .glass-rain-btn {
     width: calc(100% * 1.2) !important;

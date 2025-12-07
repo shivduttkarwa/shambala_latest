@@ -2,8 +2,6 @@ import React, { useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Link } from "react-router-dom";
-import ASCIIGlitchText from "../shared/ASCIIGlitchText";
-import TiltTextGsap from "../UI/TiltTextGsap";
 import "./ArchScrollReveal.css";
 
 const publicUrl = import.meta.env.BASE_URL;
@@ -64,7 +62,13 @@ const ArchScrollReveal: React.FC = () => {
     handleMobileLayout();
 
     const imgs = gsap.utils.toArray(".arch-img-wrapper img") as Element[];
-    const bgColors = ["#f4eade", "#efe3d3", "#f6eddf", "#ebdfce"]; // Paper-inspired palette for scroll states
+    // FORMA footer letter hover colors made lighter for backgrounds
+    const bgColors = [
+      "#ffe9e9", // Light coral red (#ff6b6b made lighter)
+      "#e8faf9", // Light turquoise (#4ecdc4 made lighter) 
+      "#fffae6", // Light sunny yellow (#ffe66d made lighter)
+      "#f0faf6"  // Light mint green (#a8e6cf made lighter)
+    ];
 
     // GSAP Animation with Media Query - EXACT COPY FROM ORIGINAL
     ScrollTrigger.matchMedia({
@@ -168,9 +172,9 @@ const ArchScrollReveal: React.FC = () => {
   return (
     <section className="arch-scroll-section">
       <div className="arch-journey-heading">
-        <TiltTextGsap tag="h2" className="arch-journey-title">
+        <h2 className="arch-journey-title">
           Our Journey
-        </TiltTextGsap>
+        </h2>
       </div>
       <div className="arch-container">
         <div className="arch-spacer"></div>
@@ -179,20 +183,17 @@ const ArchScrollReveal: React.FC = () => {
           <div className="arch__left">
             <div className="arch__info" id="sustainable-arch">
               <div className="arch-content">
-                <TiltTextGsap
-                  tag="h2"
-                  className="arch-header"
-                  style={{ fontFamily: '"Nunito", sans-serif' }}
-                >
+                <h2 className="arch-header" style={{ fontFamily: '"Nunito", sans-serif' }}>
                   The Early Sketches
-                </TiltTextGsap>
-                <ASCIIGlitchText
-                  text="From a small studio and a single drafting table, we launched with a promise to design mindful, human-centered spaces rooted in craft."
-                  className="arch-desc"
-                  tag="p"
-                  duration={850}
-                  spread={0.6}
-                />
+                </h2>
+                <div className="arch-desc-expanded">
+                  <p className="arch-desc">
+                    From a small studio and a single drafting table, we launched with a promise to design mindful, human-centered spaces rooted in craft. Our founding principles were simple: every line drawn should serve both beauty and purpose.
+                  </p>
+                  <p className="arch-desc">
+                    Our first award-winning project, the Hillside Retreat, established our reputation for seamlessly blending indoor and outdoor living spaces while honoring the natural landscape.
+                  </p>
+                </div>
                 <Link
                   className="arch-link"
                   to="/projects"
@@ -205,20 +206,17 @@ const ArchScrollReveal: React.FC = () => {
 
             <div className="arch__info" id="modern-arch">
               <div className="arch-content">
-                <TiltTextGsap
-                  tag="h2"
-                  className="arch-header"
-                  style={{ fontFamily: '"Nunito", sans-serif' }}
-                >
+                <h2 className="arch-header" style={{ fontFamily: '"Nunito", sans-serif' }}>
                   Modern Living Stories
-                </TiltTextGsap>
-                <ASCIIGlitchText
-                  text="Our portfolio expanded to city residences and hospitality, refining clean lines, layered light, and elegant material palettes."
-                  className="arch-desc"
-                  tag="p"
-                  duration={850}
-                  spread={0.6}
-                />
+                </h2>
+                <div className="arch-desc-expanded">
+                  <p className="arch-desc">
+                    Our portfolio expanded to city residences and hospitality, refining clean lines, layered light, and elegant material palettes. This era marked our transition from rural retreats to urban sophistication.
+                  </p>
+                  <p className="arch-desc">
+                    We developed our signature approach to light management and sustainable materials, creating the acclaimed Metropolis Loft series that maximized natural illumination in dense urban environments.
+                  </p>
+                </div>
                 <Link
                   className="arch-link"
                   to="/projects"
@@ -231,20 +229,17 @@ const ArchScrollReveal: React.FC = () => {
 
             <div className="arch__info" id="luxury-arch">
               <div className="arch-content">
-                <TiltTextGsap
-                  tag="h2"
-                  className="arch-header"
-                  style={{ fontFamily: '"Nunito", sans-serif' }}
-                >
+                <h2 className="arch-header" style={{ fontFamily: '"Nunito", sans-serif' }}>
                   Signature Interiors
-                </TiltTextGsap>
-                <ASCIIGlitchText
-                  text="Bespoke joinery, tactile fabrics, and art-forward moments defined a new era of interiors designed to feel quietly luxurious."
-                  className="arch-desc"
-                  tag="p"
-                  duration={850}
-                  spread={0.6}
-                />
+                </h2>
+                <div className="arch-desc-expanded">
+                  <p className="arch-desc">
+                    Bespoke joinery, tactile fabrics, and art-forward moments defined a new era of interiors designed to feel quietly luxurious. We partnered with master craftspeople to create custom furniture integral to each space's identity.
+                  </p>
+                  <p className="arch-desc">
+                    Our signature philosophy emerged: spaces should feel collected over time, not decorated all at once. Custom textiles from our in-house studio became hallmarks, adding warmth to our clean architectural lines.
+                  </p>
+                </div>
                 <Link
                   className="arch-link"
                   to="/projects"
@@ -257,20 +252,17 @@ const ArchScrollReveal: React.FC = () => {
 
             <div className="arch__info" id="smart-arch">
               <div className="arch-content">
-                <TiltTextGsap
-                  tag="h2"
-                  className="arch-header"
-                  style={{ fontFamily: '"Nunito", sans-serif' }}
-                >
+                <h2 className="arch-header" style={{ fontFamily: '"Nunito", sans-serif' }}>
                   Forward Momentum
-                </TiltTextGsap>
-                <ASCIIGlitchText
-                  text="We now weave sustainability, wellness tech, and immersive storytelling into every project—designing for the decades ahead."
-                  className="arch-desc"
-                  tag="p"
-                  duration={850}
-                  spread={0.6}
-                />
+                </h2>
+                <div className="arch-desc-expanded">
+                  <p className="arch-desc">
+                    We now weave sustainability, wellness technology, and immersive storytelling into every project—designing for the decades ahead. Our current work represents 25 years of learning and innovation.
+                  </p>
+                  <p className="arch-desc">
+                    Smart home integration enhances rather than dominates the living experience, while our commitment to carbon-neutral construction creates a blueprint for responsible architecture's future.
+                  </p>
+                </div>
                 <Link
                   className="arch-link"
                   to="/services"
