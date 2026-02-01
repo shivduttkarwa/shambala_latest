@@ -10,20 +10,23 @@ interface HomeLogoProps {
 const HomeLogo: React.FC<HomeLogoProps> = ({
   className = "",
   style,
-  ariaLabel = "FORMA",
+  ariaLabel = "SHAMBALA",
   onClick,
 }) => {
   const publicUrl = import.meta.env.BASE_URL || "/";
-  const logoPath = publicUrl.endsWith("/") 
-    ? `${publicUrl}images/folo_logo.png`
-    : `${publicUrl}/images/folo_logo.png`;
+  const logoPath = publicUrl.endsWith("/")
+    ? `${publicUrl}images/shambala.png`
+    : `${publicUrl}/images/shambala.png`;
 
   return (
     <img
       src={logoPath}
       alt={ariaLabel}
       className={className}
-      style={style}
+      style={{
+        ...style,
+        filter: 'brightness(0) invert(1)',
+      }}
       onClick={onClick}
       role="img"
       aria-label={ariaLabel}

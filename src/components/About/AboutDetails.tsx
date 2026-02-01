@@ -39,7 +39,7 @@ const AboutDetails: React.FC = () => {
                   duration: 1,
                   ease: "power4.out",
                 });
-              }, );
+              });
             },
             onEnterBack: () => {
               // Add 2.5s delay for page transition to complete
@@ -51,10 +51,10 @@ const AboutDetails: React.FC = () => {
                   duration: 1,
                   ease: "power4.out",
                 });
-              }, );
+              });
             },
           },
-        }
+        },
       );
     });
 
@@ -139,7 +139,7 @@ const AboutDetails: React.FC = () => {
             <div className="w-full h-auto rounded-2xl overflow-hidden about-animate-in aboutdetail-image-container">
               <img
                 src={`${publicUrl}images/hero_poster.jpg`}
-                alt="FORMA Architectural Excellence"
+                alt="Shambala Architectural Excellence"
                 className="reduced-hero-image"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
@@ -163,7 +163,7 @@ const AboutDetails: React.FC = () => {
                   tag="p"
                 />
                 <ASCIIGlitchText
-                  text="With over 25 years of experience, FORMA has established itself as a pioneering force in sustainable luxury design. From intimate residential retreats to grand commercial complexes, we create spaces that honor both aesthetic excellence and environmental stewardship."
+                  text="With over 25 years of experience, Shambala has established itself as a pioneering force in sustainable luxury design. From intimate residential retreats to grand commercial complexes, we create spaces that honor both aesthetic excellence and environmental stewardship."
                   className="about-interactive-element text-lg leading-relaxed"
                   duration={900}
                   spread={0.7}
@@ -208,11 +208,15 @@ const AboutDetails: React.FC = () => {
             <div className="stats-grid grid grid-cols-2 gap-4 mb-8">
               <div className="stat-item">
                 <div className="text-3xl font-bold text-gold">200+</div>
-                <div className="text-sm text-brown-tertiary uppercase tracking-wider">Projects</div>
+                <div className="text-sm text-brown-tertiary uppercase tracking-wider">
+                  Projects
+                </div>
               </div>
               <div className="stat-item">
                 <div className="text-3xl font-bold text-gold">50+</div>
-                <div className="text-sm text-brown-tertiary uppercase tracking-wider">Awards</div>
+                <div className="text-sm text-brown-tertiary uppercase tracking-wider">
+                  Awards
+                </div>
               </div>
             </div>
             <div className="flex gap-3 flex-wrap">
@@ -273,16 +277,10 @@ const AboutDetails: React.FC = () => {
               </div>
             </div>
             <div className="flex items-center gap-4 flex-wrap">
-              <Link
-                to="/services"
-                className="about-btn-action-enhanced"
-              >
+              <Link to="/services" className="about-btn-action-enhanced">
                 Discover More
               </Link>
-              <Link
-                to="/contact"
-                className="about-link-arrow group"
-              >
+              <Link to="/contact" className="about-link-arrow group">
                 Start Your Project
                 <i className="fas fa-arrow-right transform group-hover:translate-x-1 transition-transform ml-2"></i>
               </Link>
@@ -294,7 +292,9 @@ const AboutDetails: React.FC = () => {
         <section className="services-preview-section mb-20">
           <div className="max-w-7xl mx-auto px-4">
             <div className="text-center mb-12">
-              <h2 className="text-5xl md:text-6xl font-black mb-4 text-black">Our Services</h2>
+              <h2 className="text-5xl md:text-6xl font-black mb-4 text-black">
+                Our Services
+              </h2>
               <ASCIIGlitchText
                 text="From conceptual design to final construction, we deliver comprehensive architectural solutions"
                 className="text-xl text-brown-tertiary max-w-2xl mx-auto leading-relaxed about-interactive-element"
@@ -310,7 +310,9 @@ const AboutDetails: React.FC = () => {
                 <div className="service-icon mb-6">
                   <i className="fas fa-drafting-compass text-5xl text-gold"></i>
                 </div>
-                <h3 className="text-2xl font-bold mb-4 text-black">Design & Planning</h3>
+                <h3 className="text-2xl font-bold mb-4 text-black">
+                  Design & Planning
+                </h3>
                 <ASCIIGlitchText
                   text="Comprehensive architectural design services from initial concepts to detailed blueprints."
                   className="text-brown-tertiary mb-6 leading-relaxed about-interactive-element"
@@ -319,17 +321,22 @@ const AboutDetails: React.FC = () => {
                   chars="!?&#$@0123456789*.,·-─~+:;=*π"
                   tag="p"
                 />
-                <Link to="/services" className="service-link text-green-primary font-semibold">
+                <Link
+                  to="/services"
+                  className="service-link text-green-primary font-semibold"
+                >
                   Learn More <i className="fas fa-arrow-right ml-1"></i>
                 </Link>
               </div>
-              
+
               {/* Service 2 */}
               <div className="service-card about-animate-in about-interactive-card">
                 <div className="service-icon mb-6">
                   <i className="fas fa-hammer text-5xl text-gold"></i>
                 </div>
-                <h3 className="text-2xl font-bold mb-4 text-black">Construction</h3>
+                <h3 className="text-2xl font-bold mb-4 text-black">
+                  Construction
+                </h3>
                 <ASCIIGlitchText
                   text="Expert construction management ensuring quality, timeline, and budget adherence."
                   className="text-brown-tertiary mb-6 leading-relaxed about-interactive-element"
@@ -338,17 +345,22 @@ const AboutDetails: React.FC = () => {
                   chars="!?&#$@0123456789*.,·-─~+:;=*π"
                   tag="p"
                 />
-                <Link to="/services" className="service-link text-green-primary font-semibold">
+                <Link
+                  to="/services"
+                  className="service-link text-green-primary font-semibold"
+                >
                   Learn More <i className="fas fa-arrow-right ml-1"></i>
                 </Link>
               </div>
-              
+
               {/* Service 3 */}
               <div className="service-card about-animate-in about-interactive-card">
                 <div className="service-icon mb-6">
                   <i className="fas fa-seedling text-5xl text-gold"></i>
                 </div>
-                <h3 className="text-2xl font-bold mb-4 text-black">Sustainability</h3>
+                <h3 className="text-2xl font-bold mb-4 text-black">
+                  Sustainability
+                </h3>
                 <ASCIIGlitchText
                   text="Eco-friendly solutions that reduce environmental impact while maximizing efficiency."
                   className="text-brown-tertiary mb-6 leading-relaxed about-interactive-element"
@@ -357,7 +369,10 @@ const AboutDetails: React.FC = () => {
                   chars="!?&#$@0123456789*.,·-─~+:;=*π"
                   tag="p"
                 />
-                <Link to="/services" className="service-link text-green-primary font-semibold">
+                <Link
+                  to="/services"
+                  className="service-link text-green-primary font-semibold"
+                >
                   Learn More <i className="fas fa-arrow-right ml-1"></i>
                 </Link>
               </div>

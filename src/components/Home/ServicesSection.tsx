@@ -72,15 +72,15 @@ const defaultServices: ServiceCard[] = [
 ];
 
 const ServicesSection: React.FC<ServicesSectionProps> = ({
-  title = "FORMA PROJECTS",
+  title = "Shambala PROJECTS",
   subtitle = "",
-  description =
-    "A curated look at how we shape coastal retreats, urban sanctuaries, and country escapes—each crafted with calm, warmth, and precision. From the first sketch to final styling, our teams steward every detail so the architecture, interiors, and landscape speak the same language. Expect measured light, honest materials, and rooms that feel effortlessly livable day after day.",
+  description = "A curated look at how we shape coastal retreats, urban sanctuaries, and country escapes—each crafted with calm, warmth, and precision. From the first sketch to final styling, our teams steward every detail so the architecture, interiors, and landscape speak the same language. Expect measured light, honest materials, and rooms that feel effortlessly livable day after day.",
   ctaText = "View All Projects",
   ctaLink = "/projects",
   services = defaultServices,
 }) => {
-  const shortDescription = "A curated look at how we shape coastal retreats, urban sanctuaries, and country escapes—each crafted with calm, warmth, and precision. From the first sketch to final styling, our teams steward every detail so the architecture, interiors, and landscape speak the same language.";
+  const shortDescription =
+    "A curated look at how we shape coastal retreats, urban sanctuaries, and country escapes—each crafted with calm, warmth, and precision. From the first sketch to final styling, our teams steward every detail so the architecture, interiors, and landscape speak the same language.";
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -138,7 +138,7 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
         }
       });
 
-        // Fade in content elements on desktop only
+      // Fade in content elements on desktop only
       if (window.innerWidth > 1024) {
         gsap.from(".hss-services-description", {
           scrollTrigger: {
@@ -190,9 +190,7 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
                 />
                 <div className="hss-service-overlay">
                   <div>
-                    <div className="hss-service-title">
-                      {service.title}
-                    </div>
+                    <div className="hss-service-title">{service.title}</div>
                     <div className="hss-service-description">
                       {service.description}
                     </div>
@@ -211,7 +209,9 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
               {`${title} ${subtitle}`}
             </TiltTextGsap>
             <div className="hss-services-description">
-              {typeof window !== 'undefined' && window.innerWidth < 1600 ? shortDescription : description}
+              {typeof window !== "undefined" && window.innerWidth < 1600
+                ? shortDescription
+                : description}
             </div>
             <GlassButton href={ctaLink}>{ctaText}</GlassButton>
           </div>

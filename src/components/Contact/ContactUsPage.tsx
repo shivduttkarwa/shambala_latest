@@ -41,7 +41,7 @@ const ContactUsPage: React.FC = () => {
               start: "top 85%",
               toggleActions: "play none none reverse",
             },
-          }
+          },
         );
       });
 
@@ -70,7 +70,7 @@ const ContactUsPage: React.FC = () => {
           duration: 1,
           skewY: 0,
         },
-        "-=0.25"
+        "-=0.25",
       );
       heroTl.to(
         ".cup-hero-subtitle .cup-hero-reveal-line",
@@ -79,7 +79,7 @@ const ContactUsPage: React.FC = () => {
           autoAlpha: 1,
           duration: 0.9,
         },
-        "-=0.32"
+        "-=0.32",
       );
       heroTl.to(
         ".cup-hero-actions .glass-rain-btn",
@@ -91,7 +91,7 @@ const ContactUsPage: React.FC = () => {
           stagger: 0.12,
           ease: "back.out(1.4)",
         },
-        "-=0.35"
+        "-=0.35",
       );
 
       tiltCards.forEach((card) => {
@@ -899,7 +899,7 @@ const ContactUsPage: React.FC = () => {
         <div className="cup-hero-overlay" />
         <div className="cup-hero-content">
           <p className="cup-hero-kicker">
-            <span className="cup-hero-reveal-line">Forma Studio</span>
+            <span className="cup-hero-reveal-line">Shambala Studio</span>
           </p>
           <h1 className="cup-hero-title">
             <span className="cup-hero-reveal-line">
@@ -1039,7 +1039,7 @@ const ContactUsPage: React.FC = () => {
 
             {/* RIGHT – CONTACT INFO (FORMA) */}
             <div className="cup-info-column contact-animate contact-tilt">
-              <h3 className="cup-info-title">Forma Studio</h3>
+              <h3 className="cup-info-title">Shambala Studio</h3>
               <ul className="cup-info-list">
                 <li>
                   <strong>Projects:</strong> studio@forma.design

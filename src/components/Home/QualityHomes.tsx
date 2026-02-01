@@ -32,14 +32,14 @@ const QualityHomes: React.FC<QualityHomesProps> = ({
       icon: "✓",
       title: "Lifetime structural guarantee",
       description:
-        "Every FORMA home is backed by a Lifetime Structural Guarantee*, so you can build with confidence and peace of mind that it will stand the test of time.",
+        "Every Shambala home is backed by a Lifetime Structural Guarantee*, so you can build with confidence and peace of mind that it will stand the test of time.",
       image: `${publicUrl}images/2.jpg`,
     },
     {
       icon: "✓",
       title: "6 stage quality assurance",
       description:
-        "Our homes may have changed over the years but our commitment to excellence hasn't. Our rigorous quality assurance process ensures every FORMA home is built to the highest standard.",
+        "Our homes may have changed over the years but our commitment to excellence hasn't. Our rigorous quality assurance process ensures every Shambala home is built to the highest standard.",
       image: `${publicUrl}images/3.jpg`,
     },
     {

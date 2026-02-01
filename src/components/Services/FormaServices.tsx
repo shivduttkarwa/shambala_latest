@@ -179,7 +179,7 @@ export const FormaServices: FC = () => {
 
       const animateTextSlide = (
         index: number,
-        direction: "forward" | "backward"
+        direction: "forward" | "backward",
       ) => {
         const slide = serviceSlides[index];
         if (!slide) return;
@@ -204,7 +204,7 @@ export const FormaServices: FC = () => {
                 duration: 0.4,
                 ease: "power2.out",
                 stagger: 0.05,
-              }
+              },
             );
           },
         });
@@ -398,7 +398,7 @@ export const FormaServices: FC = () => {
                 fsLastTransitionIndex = currentTransition;
                 imgCurrentEl.setAttribute(
                   "src",
-                  serviceSlides[currentIndex].image
+                  serviceSlides[currentIndex].image,
                 );
                 imgNextEl.setAttribute("src", serviceSlides[nextIndex].image);
                 resetImagesToBase();
@@ -428,7 +428,7 @@ export const FormaServices: FC = () => {
           fsLastTransitionIndex = -1;
           let lastActiveIndex = 0; // Track previous index for direction
           let isTransitioning = false; // Prevent multiple transitions
-          
+
           // Set initial mobile image positions without reset flicker
           const { offset, scaleDelta, opacityDelta } = FS_ANIM_CONFIG.images;
           gsap.set(imgCurrentEl, {
@@ -474,26 +474,29 @@ export const FormaServices: FC = () => {
               // Mobile: Less sensitive slide detection to prevent double slides
               const activeIndex = Math.min(
                 Math.max(Math.floor(slideProgress + 0.7), 0), // Use floor + threshold instead of round
-                lastIndex
+                lastIndex,
               );
-              
+
               if (activeIndex !== fsLastTransitionIndex) {
                 // If already transitioning, skip this change but don't update fsLastTransitionIndex
                 if (isTransitioning) return;
-                
+
                 const isEvenSlide = activeIndex % 2 === 0;
                 const isScrollingDown = activeIndex > lastActiveIndex;
                 fsLastTransitionIndex = activeIndex;
                 isTransitioning = true; // Block further transitions
-                
+
                 // Determine slide direction based on scroll direction
-                const slideFrom = isScrollingDown 
-                  ? { x: -100, y: 100 }   // From left bottom (scrolling down)
-                  : { x: 100, y: -100 };  // From right top (scrolling up)
-                
+                const slideFrom = isScrollingDown
+                  ? { x: -100, y: 100 } // From left bottom (scrolling down)
+                  : { x: 100, y: -100 }; // From right top (scrolling up)
+
                 if (isEvenSlide) {
                   // Use imgCurrentEl as the sliding image
-                  imgCurrentEl.setAttribute("src", serviceSlides[activeIndex].image);
+                  imgCurrentEl.setAttribute(
+                    "src",
+                    serviceSlides[activeIndex].image,
+                  );
                   gsap.set(imgCurrentEl, {
                     zIndex: 10,
                     xPercent: slideFrom.x,
@@ -502,7 +505,7 @@ export const FormaServices: FC = () => {
                     opacity: 1,
                   });
                   gsap.set(imgNextEl, { zIndex: 1 }); // Behind
-                  
+
                   gsap.to(imgCurrentEl, {
                     xPercent: 0,
                     yPercent: 0,
@@ -510,11 +513,14 @@ export const FormaServices: FC = () => {
                     ease: "power2.out",
                     onComplete: () => {
                       isTransitioning = false; // Allow next transition
-                    }
+                    },
                   });
                 } else {
-                  // Use imgNextEl as the sliding image  
-                  imgNextEl.setAttribute("src", serviceSlides[activeIndex].image);
+                  // Use imgNextEl as the sliding image
+                  imgNextEl.setAttribute(
+                    "src",
+                    serviceSlides[activeIndex].image,
+                  );
                   gsap.set(imgNextEl, {
                     zIndex: 10,
                     xPercent: slideFrom.x,
@@ -523,7 +529,7 @@ export const FormaServices: FC = () => {
                     opacity: 1,
                   });
                   gsap.set(imgCurrentEl, { zIndex: 1 }); // Behind
-                  
+
                   gsap.to(imgNextEl, {
                     xPercent: 0,
                     yPercent: 0,
@@ -531,10 +537,10 @@ export const FormaServices: FC = () => {
                     ease: "power2.out",
                     onComplete: () => {
                       isTransitioning = false; // Allow next transition
-                    }
+                    },
                   });
                 }
-                
+
                 lastActiveIndex = activeIndex; // Update for next direction check
               }
 
@@ -579,7 +585,7 @@ export const FormaServices: FC = () => {
           <div className="fs-layout">
             <div className="fs-left">
               <div>
-                <div className="fs-kicker">FORMA SERVICES</div>
+                <div className="fs-kicker">Shambala SERVICES</div>
 
                 <div className="fs-title">{first.title}</div>
 

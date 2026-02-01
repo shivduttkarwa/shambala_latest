@@ -62,7 +62,9 @@ const GsapSlider: FC = () => {
     const ctx = gsap.context(() => {
       const q = gsap.utils.selector(rootRef);
 
-      const fsImageCover = q(".gs-fs-image-cover")[0] as HTMLDivElement | undefined;
+      const fsImageCover = q(".gs-fs-image-cover")[0] as
+        | HTMLDivElement
+        | undefined;
       const fsLeft = q(".gs-fs-left")[0] as HTMLDivElement | undefined;
       const fsKicker = q(".gs-fs-kicker")[0] as HTMLElement | undefined;
       const fsTitle = q(".gs-fs-title")[0] as HTMLElement | undefined;
@@ -70,11 +72,21 @@ const GsapSlider: FC = () => {
       const fsMetaScope = q(".gs-fs-meta-scope")[0] as HTMLElement | undefined;
       const fsDesc = q(".gs-fs-description")[0] as HTMLElement | undefined;
       const fsMetaEl = q(".gs-fs-meta")[0] as HTMLElement | undefined;
-      const fsCounterCurrent = q(".gs-fs-counter-current")[0] as HTMLElement | undefined;
-      const fsImageCounter = q(".gs-fs-image-counter")[0] as HTMLElement | undefined;
-      const fsImageCurrentText = q(".gs-fs-image-current-text")[0] as HTMLElement | undefined;
-      const imgCurrentEl = q(".gs-fs-image-current")[0] as HTMLImageElement | undefined;
-      const imgNextEl = q(".gs-fs-image-next")[0] as HTMLImageElement | undefined;
+      const fsCounterCurrent = q(".gs-fs-counter-current")[0] as
+        | HTMLElement
+        | undefined;
+      const fsImageCounter = q(".gs-fs-image-counter")[0] as
+        | HTMLElement
+        | undefined;
+      const fsImageCurrentText = q(".gs-fs-image-current-text")[0] as
+        | HTMLElement
+        | undefined;
+      const imgCurrentEl = q(".gs-fs-image-current")[0] as
+        | HTMLImageElement
+        | undefined;
+      const imgNextEl = q(".gs-fs-image-next")[0] as
+        | HTMLImageElement
+        | undefined;
       const fsSection = q(".gs-fs-section")[0] as HTMLElement | undefined;
       const fsInner = q(".gs-fs-inner")[0] as HTMLElement | undefined;
 
@@ -119,7 +131,7 @@ const GsapSlider: FC = () => {
 
       const animateTextSlide = (
         index: number,
-        direction: "forward" | "backward"
+        direction: "forward" | "backward",
       ) => {
         const slide = serviceSlides[index];
         if (!slide) return;
@@ -144,7 +156,7 @@ const GsapSlider: FC = () => {
                 duration: 0.4,
                 ease: "power2.out",
                 stagger: 0.04,
-              }
+              },
             );
           },
         });
@@ -209,7 +221,7 @@ const GsapSlider: FC = () => {
               const p = self.progress;
               const clamped = Math.min(
                 Math.max((p - slidesStart) / (1 - slidesStart), 0),
-                1
+                1,
               );
               const slideProgress = clamped * transitionsCount;
               const transitionIndex = Math.floor(slideProgress);
@@ -222,7 +234,7 @@ const GsapSlider: FC = () => {
                 fsLastTransitionIndex = transitionIndex;
                 imgCurrentEl.setAttribute(
                   "src",
-                  serviceSlides[currentIndex].image
+                  serviceSlides[currentIndex].image,
                 );
                 if (serviceSlides[nextIndex]) {
                   imgNextEl.setAttribute("src", serviceSlides[nextIndex].image);
@@ -278,7 +290,7 @@ const GsapSlider: FC = () => {
           startTrigger="top 75%"
           endTrigger="bottom 0%"
         >
-          Forma Services
+          Shambala Services
         </TiltTextGsap>
         <div className="gs-fs-heading-subtitle">
           Architecture, interiors, and landscapes crafted as one seamless story,
@@ -291,7 +303,7 @@ const GsapSlider: FC = () => {
           <div className="gs-fs-layout">
             <div className="gs-fs-left">
               <div>
-                <div className="gs-fs-kicker">FORMA SERVICES</div>
+                <div className="gs-fs-kicker">Shambala SERVICES</div>
                 <h1 className="gs-fs-title">{first.title}</h1>
 
                 <div className="gs-fs-meta">
@@ -310,7 +322,7 @@ const GsapSlider: FC = () => {
                   <GlassButton href="/projects">Talk to Forma</GlassButton>
                 </div>
                 <div className="gs-fs-counter">
-                  <span className="gs-fs-counter-current">01</span> / {" "}
+                  <span className="gs-fs-counter-current">01</span> /{" "}
                   {serviceSlides.length.toString().padStart(2, "0")}
                 </div>
               </div>

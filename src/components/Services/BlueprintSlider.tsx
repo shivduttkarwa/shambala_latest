@@ -5,7 +5,9 @@ import GlassRainButton from "../UI/GlassRainButton";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const BlueprintSlider: React.FC<{ className?: string }> = ({ className = "" }) => {
+const BlueprintSlider: React.FC<{ className?: string }> = ({
+  className = "",
+}) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   // BLUEPRINT SLIDES DATA - Each slide is a "technical drawing"
@@ -16,8 +18,13 @@ const BlueprintSlider: React.FC<{ className?: string }> = ({ className = "" }) =
       leftContent: {
         title: "INITIATE_PROJECT()",
         subtitle: "// Start new architectural consultation",
-        description: "Execute contact protocol to begin\ndigital architectural process.",
-        annotations: ["PHASE: INITIAL_CONTACT", "STATUS: READY", "PRIORITY: HIGH"]
+        description:
+          "Execute contact protocol to begin\ndigital architectural process.",
+        annotations: [
+          "PHASE: INITIAL_CONTACT",
+          "STATUS: READY",
+          "PRIORITY: HIGH",
+        ],
       },
       rightContent: {
         title: "CONTACT_ENDPOINTS",
@@ -25,19 +32,24 @@ const BlueprintSlider: React.FC<{ className?: string }> = ({ className = "" }) =
           { label: "PHONE_NUMBER", value: "+61.3.1234.5678" },
           { label: "EMAIL_ADDRESS", value: "studio@forma.archi" },
           { label: "WORK_HOURS", value: "MON-FRI 09:00-18:00 AEST" },
-          { label: "RESPONSE_TIME", value: "< 24 HOURS" }
-        ]
+          { label: "RESPONSE_TIME", value: "< 24 HOURS" },
+        ],
       },
-      wireframeElements: ["grid", "phone-icon", "email-icon"]
+      wireframeElements: ["grid", "phone-icon", "email-icon"],
     },
     {
-      drawingTitle: "LOCATION.DWG", 
+      drawingTitle: "LOCATION.DWG",
       drawingVersion: "V2.1",
       leftContent: {
         title: "STUDIO_COORDINATES",
         subtitle: "// Physical workspace location",
-        description: "Access our design laboratory\nin Melbourne's creative district.",
-        annotations: ["ZONE: FITZROY", "ACCESS: PUBLIC_TRANSPORT", "PARKING: AVAILABLE"]
+        description:
+          "Access our design laboratory\nin Melbourne's creative district.",
+        annotations: [
+          "ZONE: FITZROY",
+          "ACCESS: PUBLIC_TRANSPORT",
+          "PARKING: AVAILABLE",
+        ],
       },
       rightContent: {
         title: "SPATIAL_DATA",
@@ -45,54 +57,89 @@ const BlueprintSlider: React.FC<{ className?: string }> = ({ className = "" }) =
           { label: "ADDRESS_LINE_1", value: "Level 3, 150 Gertrude Street" },
           { label: "ADDRESS_LINE_2", value: "Fitzroy, VIC 3065" },
           { label: "COORDINATES", value: "-37.7963°S, 144.9896°E" },
-          { label: "TRANSPORT_NODE", value: "Parliament Station + 300m" }
-        ]
+          { label: "TRANSPORT_NODE", value: "Parliament Station + 300m" },
+        ],
       },
-      wireframeElements: ["building-wireframe", "map-grid", "location-pin"]
+      wireframeElements: ["building-wireframe", "map-grid", "location-pin"],
     },
     {
       drawingTitle: "SERVICES.DWG",
-      drawingVersion: "V3.0", 
+      drawingVersion: "V3.0",
       leftContent: {
         title: "ARCHITECTURAL_MODULES",
         subtitle: "// Available design services",
-        description: "Select from our comprehensive\narchitectural service matrix.",
-        annotations: ["SCALE: RESIDENTIAL-COMMERCIAL", "TYPE: FULL_SERVICE", "DELIVERY: TURNKEY"]
+        description:
+          "Select from our comprehensive\narchitectural service matrix.",
+        annotations: [
+          "SCALE: RESIDENTIAL-COMMERCIAL",
+          "TYPE: FULL_SERVICE",
+          "DELIVERY: TURNKEY",
+        ],
       },
       rightContent: {
         title: "SERVICE_ARRAY",
         services: [
-          { code: "RES_NEW", name: "Residential.New_Build", scope: "GROUND_UP_CONSTRUCTION" },
-          { code: "RES_RENO", name: "Renovation.Extension", scope: "EXISTING_STRUCTURE_MODIFY" },
-          { code: "COM_ARCH", name: "Commercial.Architecture", scope: "BUSINESS_SPACE_DESIGN" },
-          { code: "INT_DES", name: "Interior.Design", scope: "SPATIAL_EXPERIENCE_CRAFT" }
-        ]
+          {
+            code: "RES_NEW",
+            name: "Residential.New_Build",
+            scope: "GROUND_UP_CONSTRUCTION",
+          },
+          {
+            code: "RES_RENO",
+            name: "Renovation.Extension",
+            scope: "EXISTING_STRUCTURE_MODIFY",
+          },
+          {
+            code: "COM_ARCH",
+            name: "Commercial.Architecture",
+            scope: "BUSINESS_SPACE_DESIGN",
+          },
+          {
+            code: "INT_DES",
+            name: "Interior.Design",
+            scope: "SPATIAL_EXPERIENCE_CRAFT",
+          },
+        ],
       },
-      wireframeElements: ["blueprint-grid", "dimension-lines", "section-markers"]
+      wireframeElements: [
+        "blueprint-grid",
+        "dimension-lines",
+        "section-markers",
+      ],
     },
     {
       drawingTitle: "PROJECT_FORM.DWG",
       drawingVersion: "V4.5",
       leftContent: {
         title: "DATA_INPUT_INTERFACE",
-        subtitle: "// Project specification form", 
-        description: "Initialize new project record\nwith comprehensive parameters.",
-        annotations: ["INPUT: REQUIRED_FIELDS", "VALIDATION: REAL_TIME", "ENCRYPTION: AES_256"]
+        subtitle: "// Project specification form",
+        description:
+          "Initialize new project record\nwith comprehensive parameters.",
+        annotations: [
+          "INPUT: REQUIRED_FIELDS",
+          "VALIDATION: REAL_TIME",
+          "ENCRYPTION: AES_256",
+        ],
       },
       rightContent: {
         title: "FORM_CONSTRUCTOR",
-        showForm: true
+        showForm: true,
       },
-      wireframeElements: ["form-wireframe", "input-fields", "submit-button"]
+      wireframeElements: ["form-wireframe", "input-fields", "submit-button"],
     },
     {
-      drawingTitle: "EXECUTE.DWG", 
+      drawingTitle: "EXECUTE.DWG",
       drawingVersion: "V5.0",
       leftContent: {
         title: "DEPLOYMENT_READY",
         subtitle: "// System ready for project launch",
-        description: "All parameters configured.\nInitiate architectural process.",
-        annotations: ["STATUS: OPERATIONAL", "RESOURCES: ALLOCATED", "TIMELINE: OPTIMIZED"]
+        description:
+          "All parameters configured.\nInitiate architectural process.",
+        annotations: [
+          "STATUS: OPERATIONAL",
+          "RESOURCES: ALLOCATED",
+          "TIMELINE: OPTIMIZED",
+        ],
       },
       rightContent: {
         title: "LAUNCH_SEQUENCE",
@@ -100,40 +147,44 @@ const BlueprintSlider: React.FC<{ className?: string }> = ({ className = "" }) =
           { label: "STEP_01", value: "Project Brief Analysis" },
           { label: "STEP_02", value: "Design Concept Development" },
           { label: "STEP_03", value: "Technical Documentation" },
-          { label: "STEP_04", value: "Construction Administration" }
+          { label: "STEP_04", value: "Construction Administration" },
         ],
-        showButton: true
+        showButton: true,
       },
-      wireframeElements: ["rocket-wireframe", "progress-bar", "launch-button"]
-    }
+      wireframeElements: ["rocket-wireframe", "progress-bar", "launch-button"],
+    },
   ];
 
   // MOBILE BLUEPRINT SLIDES
   const mobileBlueprintSlides = [
     {
       title: "SYSTEM_INITIALIZE",
-      subtitle: "// Welcome to Forma Digital Studio",
-      description: "Advanced architectural design platform\nready for new project input.",
-      annotations: ["STATUS: ONLINE", "VERSION: 2024.1"]
+      subtitle: "// Welcome to Shambala Digital Studio",
+      description:
+        "Advanced architectural design platform\nready for new project input.",
+      annotations: ["STATUS: ONLINE", "VERSION: 2024.1"],
     },
     {
-      title: "PROJECT_PARAMETERS", 
+      title: "PROJECT_PARAMETERS",
       subtitle: "// Define your requirements",
-      description: "Specify project type, scale, budget,\nand timeline for optimal processing.",
-      annotations: ["INPUT: REQUIRED", "VALIDATION: ACTIVE"]
+      description:
+        "Specify project type, scale, budget,\nand timeline for optimal processing.",
+      annotations: ["INPUT: REQUIRED", "VALIDATION: ACTIVE"],
     },
     {
       title: "DESIGN_PROTOCOL",
-      subtitle: "// Our systematic approach", 
-      description: "Structured methodology ensures\ndelivery of exceptional results.",
-      annotations: ["PROCESS: PROVEN", "QUALITY: GUARANTEED"]
+      subtitle: "// Our systematic approach",
+      description:
+        "Structured methodology ensures\ndelivery of exceptional results.",
+      annotations: ["PROCESS: PROVEN", "QUALITY: GUARANTEED"],
     },
     {
       title: "CONTACT_EXECUTE",
       subtitle: "// Ready for deployment",
-      description: "System configured and ready\nto process your project request.",
-      annotations: ["STATUS: READY", "ACTION: SUBMIT"]
-    }
+      description:
+        "System configured and ready\nto process your project request.",
+      annotations: ["STATUS: READY", "ACTION: SUBMIT"],
+    },
   ];
 
   useEffect(() => {
@@ -144,27 +195,30 @@ const BlueprintSlider: React.FC<{ className?: string }> = ({ className = "" }) =
 
     // DESKTOP: Blueprint CAD Interface
     const animateBlueprintSlide = (index: number) => {
-      const slide = container.querySelector(`.blueprint-slide-${index + 1}`) as HTMLDivElement | null;
+      const slide = container.querySelector(
+        `.blueprint-slide-${index + 1}`,
+      ) as HTMLDivElement | null;
       if (!slide) return;
 
       // Animate grid lines drawing
-      const gridLines = slide.querySelectorAll('.blueprint-grid-line');
-      gsap.fromTo(gridLines, 
+      const gridLines = slide.querySelectorAll(".blueprint-grid-line");
+      gsap.fromTo(
+        gridLines,
         { scaleX: 0, scaleY: 0 },
-        { 
-          scaleX: 1, 
-          scaleY: 1, 
-          duration: 0.8, 
+        {
+          scaleX: 1,
+          scaleY: 1,
+          duration: 0.8,
           stagger: 0.05,
-          ease: "power2.out" 
-        }
+          ease: "power2.out",
+        },
       );
 
       // Animate text appearing with typewriter effect
-      const textElements = slide.querySelectorAll('.blueprint-text');
+      const textElements = slide.querySelectorAll(".blueprint-text");
       textElements.forEach((el) => {
-        const text = el.textContent || '';
-        el.textContent = '';
+        const text = el.textContent || "";
+        el.textContent = "";
         let i = 0;
         const typeWriter = () => {
           if (i < text.length) {
@@ -177,59 +231,72 @@ const BlueprintSlider: React.FC<{ className?: string }> = ({ className = "" }) =
       });
 
       // Animate wireframe elements with stroke-dasharray
-      const wireframes = slide.querySelectorAll('.wireframe-element');
-      gsap.fromTo(wireframes,
+      const wireframes = slide.querySelectorAll(".wireframe-element");
+      gsap.fromTo(
+        wireframes,
         { strokeDashoffset: 100, opacity: 0 },
-        { 
-          strokeDashoffset: 0, 
+        {
+          strokeDashoffset: 0,
           opacity: 1,
-          duration: 1.2, 
+          duration: 1.2,
           stagger: 0.2,
-          ease: "power2.inOut" 
-        }
+          ease: "power2.inOut",
+        },
       );
 
       // Glitch effect on title
-      const title = slide.querySelector('.blueprint-title');
+      const title = slide.querySelector(".blueprint-title");
       if (title) {
-        gsap.fromTo(title,
-          { filter: 'hue-rotate(0deg)', opacity: 0.7 },
-          { 
-            filter: 'hue-rotate(360deg)', 
+        gsap.fromTo(
+          title,
+          { filter: "hue-rotate(0deg)", opacity: 0.7 },
+          {
+            filter: "hue-rotate(360deg)",
             opacity: 1,
             duration: 0.5,
-            ease: "power2.out" 
-          }
+            ease: "power2.out",
+          },
         );
       }
     };
 
     const animateMobileBlueprintSlide = (index: number) => {
-      const mobileEl = container.querySelector('.blueprint-mobile') as HTMLDivElement | null;
+      const mobileEl = container.querySelector(
+        ".blueprint-mobile",
+      ) as HTMLDivElement | null;
       if (!mobileEl) return;
-      
-      const slide = mobileEl.querySelectorAll('.blueprint-mobile-slide')[index] as HTMLDivElement;
+
+      const slide = mobileEl.querySelectorAll(".blueprint-mobile-slide")[
+        index
+      ] as HTMLDivElement;
       if (!slide) return;
 
-      const elements = slide.querySelectorAll('.mobile-blueprint-text');
-      gsap.fromTo(elements,
-        { opacity: 0, y: 30, filter: 'blur(5px)' },
-        { 
-          opacity: 1, 
-          y: 0, 
-          filter: 'blur(0px)',
-          duration: 0.8, 
+      const elements = slide.querySelectorAll(".mobile-blueprint-text");
+      gsap.fromTo(
+        elements,
+        { opacity: 0, y: 30, filter: "blur(5px)" },
+        {
+          opacity: 1,
+          y: 0,
+          filter: "blur(0px)",
+          duration: 0.8,
           stagger: 0.1,
-          ease: "power2.out" 
-        }
+          ease: "power2.out",
+        },
       );
     };
 
     if (isMobile) {
       // MOBILE: Blueprint interface
-      const mobileEl = container.querySelector('.blueprint-mobile') as HTMLDivElement | null;
-      const inner = mobileEl?.querySelector('.blueprint-mobile-inner') as HTMLDivElement | null;
-      const slides = mobileEl?.querySelectorAll('.blueprint-mobile-slide') as NodeListOf<HTMLDivElement> | null;
+      const mobileEl = container.querySelector(
+        ".blueprint-mobile",
+      ) as HTMLDivElement | null;
+      const inner = mobileEl?.querySelector(
+        ".blueprint-mobile-inner",
+      ) as HTMLDivElement | null;
+      const slides = mobileEl?.querySelectorAll(
+        ".blueprint-mobile-slide",
+      ) as NodeListOf<HTMLDivElement> | null;
 
       if (!mobileEl || !inner || !slides || slides.length === 0) return;
 
@@ -278,7 +345,7 @@ const BlueprintSlider: React.FC<{ className?: string }> = ({ className = "" }) =
 
     // DESKTOP: Blueprint slides navigation
     const slideElements = Array.from(
-      container.querySelectorAll<HTMLDivElement>(".blueprint-slide")
+      container.querySelectorAll<HTMLDivElement>(".blueprint-slide"),
     );
 
     let current = 0;
@@ -319,7 +386,8 @@ const BlueprintSlider: React.FC<{ className?: string }> = ({ className = "" }) =
 
     const sliderInView = () => {
       const rect = container.getBoundingClientRect();
-      const viewportH = window.innerHeight || document.documentElement.clientHeight;
+      const viewportH =
+        window.innerHeight || document.documentElement.clientHeight;
       return rect.top >= -1 && rect.bottom <= viewportH + 1;
     };
 
@@ -958,12 +1026,12 @@ const BlueprintSlider: React.FC<{ className?: string }> = ({ className = "" }) =
             <div className="blueprint-grid-lines">
               {[...Array(20)].map((_, i) => (
                 <React.Fragment key={i}>
-                  <div 
-                    className="blueprint-grid-line horizontal" 
+                  <div
+                    className="blueprint-grid-line horizontal"
                     style={{ top: `${(i + 1) * 5}%` }}
                   />
-                  <div 
-                    className="blueprint-grid-line vertical" 
+                  <div
+                    className="blueprint-grid-line vertical"
                     style={{ left: `${(i + 1) * 5}%` }}
                   />
                 </React.Fragment>
@@ -973,25 +1041,79 @@ const BlueprintSlider: React.FC<{ className?: string }> = ({ className = "" }) =
             {/* Wireframe Elements */}
             <div className="wireframe-elements">
               <svg width="100%" height="100%" viewBox="0 0 200 200">
-                {slide.wireframeElements.includes('grid') && (
+                {slide.wireframeElements.includes("grid") && (
                   <>
-                    <rect className="wireframe-element" x="50" y="50" width="100" height="100" />
-                    <rect className="wireframe-element" x="75" y="75" width="50" height="50" />
+                    <rect
+                      className="wireframe-element"
+                      x="50"
+                      y="50"
+                      width="100"
+                      height="100"
+                    />
+                    <rect
+                      className="wireframe-element"
+                      x="75"
+                      y="75"
+                      width="50"
+                      height="50"
+                    />
                   </>
                 )}
-                {slide.wireframeElements.includes('phone-icon') && (
+                {slide.wireframeElements.includes("phone-icon") && (
                   <>
-                    <rect className="wireframe-element" x="80" y="80" width="40" height="60" />
-                    <line className="wireframe-element" x1="90" y1="90" x2="110" y2="90" />
-                    <line className="wireframe-element" x1="95" y1="130" x2="105" y2="130" />
+                    <rect
+                      className="wireframe-element"
+                      x="80"
+                      y="80"
+                      width="40"
+                      height="60"
+                    />
+                    <line
+                      className="wireframe-element"
+                      x1="90"
+                      y1="90"
+                      x2="110"
+                      y2="90"
+                    />
+                    <line
+                      className="wireframe-element"
+                      x1="95"
+                      y1="130"
+                      x2="105"
+                      y2="130"
+                    />
                   </>
                 )}
-                {slide.wireframeElements.includes('building-wireframe') && (
+                {slide.wireframeElements.includes("building-wireframe") && (
                   <>
-                    <rect className="wireframe-element" x="60" y="60" width="80" height="100" />
-                    <line className="wireframe-element" x1="80" y1="80" x2="120" y2="80" />
-                    <line className="wireframe-element" x1="80" y1="100" x2="120" y2="100" />
-                    <line className="wireframe-element" x1="80" y1="120" x2="120" y2="120" />
+                    <rect
+                      className="wireframe-element"
+                      x="60"
+                      y="60"
+                      width="80"
+                      height="100"
+                    />
+                    <line
+                      className="wireframe-element"
+                      x1="80"
+                      y1="80"
+                      x2="120"
+                      y2="80"
+                    />
+                    <line
+                      className="wireframe-element"
+                      x1="80"
+                      y1="100"
+                      x2="120"
+                      y2="100"
+                    />
+                    <line
+                      className="wireframe-element"
+                      x1="80"
+                      y1="120"
+                      x2="120"
+                      y2="120"
+                    />
                   </>
                 )}
               </svg>
@@ -1002,14 +1124,22 @@ const BlueprintSlider: React.FC<{ className?: string }> = ({ className = "" }) =
               <div className="blueprint-content">
                 <div className="blueprint-title-bar">
                   <span className="blueprint-title">{slide.drawingTitle}</span>
-                  <span className="blueprint-version">{slide.drawingVersion}</span>
+                  <span className="blueprint-version">
+                    {slide.drawingVersion}
+                  </span>
                 </div>
-                
+
                 <div className="blueprint-section">
-                  <h2 className="blueprint-section-title blueprint-text">{slide.leftContent.title}</h2>
-                  <p className="blueprint-subtitle blueprint-text">{slide.leftContent.subtitle}</p>
-                  <p className="blueprint-description blueprint-text">{slide.leftContent.description}</p>
-                  
+                  <h2 className="blueprint-section-title blueprint-text">
+                    {slide.leftContent.title}
+                  </h2>
+                  <p className="blueprint-subtitle blueprint-text">
+                    {slide.leftContent.subtitle}
+                  </p>
+                  <p className="blueprint-description blueprint-text">
+                    {slide.leftContent.description}
+                  </p>
+
                   <div className="blueprint-annotations">
                     {slide.leftContent.annotations.map((annotation, idx) => (
                       <div key={idx} className="blueprint-annotation">
@@ -1030,14 +1160,20 @@ const BlueprintSlider: React.FC<{ className?: string }> = ({ className = "" }) =
                 </div>
 
                 <div className="blueprint-section">
-                  <h2 className="blueprint-section-title">{slide.rightContent.title}</h2>
-                  
+                  <h2 className="blueprint-section-title">
+                    {slide.rightContent.title}
+                  </h2>
+
                   {slide.rightContent.data && (
                     <div className="blueprint-data-grid">
                       {slide.rightContent.data.map((item, idx) => (
                         <div key={idx} className="blueprint-data-item">
-                          <span className="blueprint-data-label">{item.label}:</span>
-                          <span className="blueprint-data-value">{item.value}</span>
+                          <span className="blueprint-data-label">
+                            {item.label}:
+                          </span>
+                          <span className="blueprint-data-value">
+                            {item.value}
+                          </span>
                         </div>
                       ))}
                     </div>
@@ -1047,9 +1183,15 @@ const BlueprintSlider: React.FC<{ className?: string }> = ({ className = "" }) =
                     <div className="blueprint-services-grid">
                       {slide.rightContent.services.map((service, idx) => (
                         <div key={idx} className="blueprint-service-item">
-                          <div className="blueprint-service-code">[{service.code}]</div>
-                          <div className="blueprint-service-name">{service.name}</div>
-                          <div className="blueprint-service-scope">{service.scope}</div>
+                          <div className="blueprint-service-code">
+                            [{service.code}]
+                          </div>
+                          <div className="blueprint-service-name">
+                            {service.name}
+                          </div>
+                          <div className="blueprint-service-scope">
+                            {service.scope}
+                          </div>
                         </div>
                       ))}
                     </div>
@@ -1059,35 +1201,41 @@ const BlueprintSlider: React.FC<{ className?: string }> = ({ className = "" }) =
                     <div className="blueprint-form">
                       <div className="blueprint-form-row">
                         <div className="blueprint-form-field">
-                          <input 
-                            className="blueprint-form-input" 
-                            type="text" 
-                            placeholder="FULL_NAME *" 
-                            required 
+                          <input
+                            className="blueprint-form-input"
+                            type="text"
+                            placeholder="FULL_NAME *"
+                            required
                           />
                         </div>
                         <div className="blueprint-form-field">
-                          <input 
-                            className="blueprint-form-input" 
-                            type="email" 
-                            placeholder="EMAIL_ADDRESS *" 
-                            required 
+                          <input
+                            className="blueprint-form-input"
+                            type="email"
+                            placeholder="EMAIL_ADDRESS *"
+                            required
                           />
                         </div>
                       </div>
-                      
+
                       <div className="blueprint-form-field">
-                        <input 
-                          className="blueprint-form-input" 
-                          type="tel" 
-                          placeholder="PHONE_NUMBER" 
+                        <input
+                          className="blueprint-form-input"
+                          type="tel"
+                          placeholder="PHONE_NUMBER"
                         />
                       </div>
-                      
+
                       <div className="blueprint-form-row">
                         <div className="blueprint-form-field">
-                          <select className="blueprint-form-select" defaultValue="" required>
-                            <option value="" disabled>PROJECT_TYPE *</option>
+                          <select
+                            className="blueprint-form-select"
+                            defaultValue=""
+                            required
+                          >
+                            <option value="" disabled>
+                              PROJECT_TYPE *
+                            </option>
                             <option>RESIDENTIAL_NEW_BUILD</option>
                             <option>RENOVATION_EXTENSION</option>
                             <option>COMMERCIAL_ARCHITECTURE</option>
@@ -1095,8 +1243,13 @@ const BlueprintSlider: React.FC<{ className?: string }> = ({ className = "" }) =
                           </select>
                         </div>
                         <div className="blueprint-form-field">
-                          <select className="blueprint-form-select" defaultValue="">
-                            <option value="" disabled>BUDGET_RANGE</option>
+                          <select
+                            className="blueprint-form-select"
+                            defaultValue=""
+                          >
+                            <option value="" disabled>
+                              BUDGET_RANGE
+                            </option>
                             <option>UNDER_500K</option>
                             <option>500K_TO_1M</option>
                             <option>1M_TO_2M</option>
@@ -1104,24 +1257,28 @@ const BlueprintSlider: React.FC<{ className?: string }> = ({ className = "" }) =
                           </select>
                         </div>
                       </div>
-                      
+
                       <div className="blueprint-form-field">
-                        <textarea 
-                          className="blueprint-form-textarea" 
+                        <textarea
+                          className="blueprint-form-textarea"
                           placeholder="PROJECT_DESCRIPTION *&#10;&#10;Enter detailed specifications, site location, requirements, and project vision..."
                           required
                         />
                       </div>
-                      
+
                       <div className="blueprint-button-container">
-                        <GlassRainButton href="#">EXECUTE_SUBMIT()</GlassRainButton>
+                        <GlassRainButton href="#">
+                          EXECUTE_SUBMIT()
+                        </GlassRainButton>
                       </div>
                     </div>
                   )}
 
                   {slide.rightContent.showButton && (
                     <div className="blueprint-button-container">
-                      <GlassRainButton href="/projects">LAUNCH_PROJECT()</GlassRainButton>
+                      <GlassRainButton href="/projects">
+                        LAUNCH_PROJECT()
+                      </GlassRainButton>
                     </div>
                   )}
                 </div>
@@ -1137,9 +1294,15 @@ const BlueprintSlider: React.FC<{ className?: string }> = ({ className = "" }) =
           {mobileBlueprintSlides.map((slide, index) => (
             <div key={index} className="blueprint-mobile-slide">
               <div className="mobile-blueprint-header">
-                <h2 className="mobile-blueprint-title mobile-blueprint-text">{slide.title}</h2>
-                <p className="mobile-blueprint-subtitle mobile-blueprint-text">{slide.subtitle}</p>
-                <p className="mobile-blueprint-description mobile-blueprint-text">{slide.description}</p>
+                <h2 className="mobile-blueprint-title mobile-blueprint-text">
+                  {slide.title}
+                </h2>
+                <p className="mobile-blueprint-subtitle mobile-blueprint-text">
+                  {slide.subtitle}
+                </p>
+                <p className="mobile-blueprint-description mobile-blueprint-text">
+                  {slide.description}
+                </p>
                 <div className="mobile-blueprint-annotations">
                   {slide.annotations.map((annotation, idx) => (
                     <span key={idx} className="mobile-blueprint-annotation">
@@ -1159,20 +1322,40 @@ const BlueprintSlider: React.FC<{ className?: string }> = ({ className = "" }) =
         <div className="blueprint-mobile-form-grid">
           <div className="blueprint-mobile-field">
             <label className="blueprint-mobile-label">FULL_NAME *</label>
-            <input className="blueprint-mobile-input" type="text" placeholder="Enter your full name" required />
+            <input
+              className="blueprint-mobile-input"
+              type="text"
+              placeholder="Enter your full name"
+              required
+            />
           </div>
           <div className="blueprint-mobile-field">
             <label className="blueprint-mobile-label">EMAIL_ADDRESS *</label>
-            <input className="blueprint-mobile-input" type="email" placeholder="your.email@domain.com" required />
+            <input
+              className="blueprint-mobile-input"
+              type="email"
+              placeholder="your.email@domain.com"
+              required
+            />
           </div>
           <div className="blueprint-mobile-field">
             <label className="blueprint-mobile-label">PHONE_NUMBER</label>
-            <input className="blueprint-mobile-input" type="tel" placeholder="+61 xxx xxx xxx" />
+            <input
+              className="blueprint-mobile-input"
+              type="tel"
+              placeholder="+61 xxx xxx xxx"
+            />
           </div>
           <div className="blueprint-mobile-field">
             <label className="blueprint-mobile-label">PROJECT_TYPE *</label>
-            <select className="blueprint-mobile-select" defaultValue="" required>
-              <option value="" disabled>Select project type</option>
+            <select
+              className="blueprint-mobile-select"
+              defaultValue=""
+              required
+            >
+              <option value="" disabled>
+                Select project type
+              </option>
               <option>RESIDENTIAL_NEW_BUILD</option>
               <option>RENOVATION_EXTENSION</option>
               <option>COMMERCIAL_ARCHITECTURE</option>
@@ -1182,7 +1365,9 @@ const BlueprintSlider: React.FC<{ className?: string }> = ({ className = "" }) =
           <div className="blueprint-mobile-field">
             <label className="blueprint-mobile-label">BUDGET_RANGE</label>
             <select className="blueprint-mobile-select" defaultValue="">
-              <option value="" disabled>Select budget range</option>
+              <option value="" disabled>
+                Select budget range
+              </option>
               <option>UNDER_500K</option>
               <option>500K_TO_1M</option>
               <option>1M_TO_2M</option>
@@ -1190,9 +1375,11 @@ const BlueprintSlider: React.FC<{ className?: string }> = ({ className = "" }) =
             </select>
           </div>
           <div className="blueprint-mobile-field">
-            <label className="blueprint-mobile-label">PROJECT_DESCRIPTION *</label>
-            <textarea 
-              className="blueprint-mobile-textarea" 
+            <label className="blueprint-mobile-label">
+              PROJECT_DESCRIPTION *
+            </label>
+            <textarea
+              className="blueprint-mobile-textarea"
               placeholder="Describe your project vision, site location, specific requirements, and any additional details..."
               required
             />

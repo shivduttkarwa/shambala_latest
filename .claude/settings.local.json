@@ -11,5 +11,9 @@
       "WebFetch(domain:www.olhalazarieva.com)"
     ],
     "deny": []
-  }
+  },
+  "enabledMcpjsonServers": [
+    "shadcn"
+  ],
+  "enableAllProjectMcpServers": true
 }

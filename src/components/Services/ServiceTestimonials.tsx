@@ -30,7 +30,7 @@ const ServiceTestimonials: React.FC = () => {
               start: "top 85%",
               toggleActions: "play none none reverse",
             },
-          }
+          },
         );
       });
     }, sectionEl);
@@ -89,16 +89,19 @@ const ServiceTestimonials: React.FC = () => {
           onMouseMove={handleCardMouseMove}
           onMouseLeave={handleCardMouseLeave}
         >
-          <h3 className="ser-text-4xl" style={{ fontFamily: "'Nunito', sans-serif" }}>
+          <h3
+            className="ser-text-4xl"
+            style={{ fontFamily: "'Nunito', sans-serif" }}
+          >
             "Absolutely{" "}
             <span style={{ color: "var(--ser-color-gold)" }}>exceptional</span>{" "}
             work"
           </h3>
           <p className="ser-mb-8" style={{ color: "#333" }}>
-            "Forma completely transformed our home. Every detail was considered,
-            from the natural light flow to the choice of materials. Our space
-            now feels calm, functional, and truly reflects who we are as a
-            family."
+            "Shambala completely transformed our home. Every detail was
+            considered, from the natural light flow to the choice of materials.
+            Our space now feels calm, functional, and truly reflects who we are
+            as a family."
           </p>
           <div className="ser-testimonial-author">
             <strong>Sarah &amp; Michael Chen</strong>
@@ -116,13 +119,16 @@ const ServiceTestimonials: React.FC = () => {
           onMouseMove={handleCardMouseMove}
           onMouseLeave={handleCardMouseLeave}
         >
-          <h3 className="ser-text-4xl" style={{ fontFamily: "'Nunito', sans-serif" }}>
+          <h3
+            className="ser-text-4xl"
+            style={{ fontFamily: "'Nunito', sans-serif" }}
+          >
             Beyond our
             <br />
             expectations
           </h3>
           <p className="ser-mb-8" style={{ color: "#333" }}>
-            "The team at Forma didn&apos;t just design our office space—they
+            "The team at Shambala didn&apos;t just design our office space—they
             understood our brand and created an environment where creativity
             flows naturally. Our clients are always impressed."
           </p>
@@ -142,13 +148,15 @@ const ServiceTestimonials: React.FC = () => {
           onMouseMove={handleCardMouseMove}
           onMouseLeave={handleCardMouseLeave}
         >
-          <h3 className="ser-text-4xl" style={{ fontFamily: "'Nunito', sans-serif" }}>
-            "Visionary{" "}
-            <span style={{ color: "#fff" }}>design</span>{" "}
-            meets reality"
+          <h3
+            className="ser-text-4xl"
+            style={{ fontFamily: "'Nunito', sans-serif" }}
+          >
+            "Visionary <span style={{ color: "#fff" }}>design</span> meets
+            reality"
           </h3>
           <p className="ser-mb-8" style={{ color: "#fff" }}>
-            "Forma took our vision and brought it to life in ways we never
+            "Shambala took our vision and brought it to life in ways we never
             imagined. The attention to detail and innovative solutions made our
             dream home a reality. Every day feels like a luxury retreat."
           </p>
@@ -168,13 +176,15 @@ const ServiceTestimonials: React.FC = () => {
           onMouseMove={handleCardMouseMove}
           onMouseLeave={handleCardMouseLeave}
         >
-          <h3 className="ser-text-4xl" style={{ fontFamily: "'Nunito', sans-serif" }}>
-            "Sustainable{" "}
-            <span style={{ color: "#fff" }}>elegance</span>
+          <h3
+            className="ser-text-4xl"
+            style={{ fontFamily: "'Nunito', sans-serif" }}
+          >
+            "Sustainable <span style={{ color: "#fff" }}>elegance</span>
           </h3>
           <p className="ser-mb-8" style={{ color: "#fff" }}>
             "We wanted an eco-friendly home without compromising on style.
-            Forma delivered perfectly with sustainable materials and smart
+            Shambala delivered perfectly with sustainable materials and smart
             design that reduces our environmental footprint while looking
             absolutely stunning."
           </p>

@@ -13,7 +13,8 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: radial-gradient(
+  background:
+    radial-gradient(
       circle at 20% 50%,
       rgba(255, 255, 255, 0.03) 0%,
       transparent 50%
@@ -62,7 +63,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 10px 20px rgba(0, 0, 0, 0.2),
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.3),
+    0 10px 20px rgba(0, 0, 0, 0.2),
     inset 0 1px 0 rgba(255, 255, 255, 0.3);
   position: relative;
   margin-bottom: 10px;
@@ -193,7 +196,9 @@
   font-family: "Nunito", sans-serif;
   font-size: 15px;
   font-weight: 500;
-  transition: color 0.3s ease, border-color 0.3s ease;
+  transition:
+    color 0.3s ease,
+    border-color 0.3s ease;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -304,7 +309,9 @@
   font-family: "Nunito", sans-serif;
   font-size: 15px;
   font-weight: 500;
-  transition: color 0.3s ease, border-color 0.3s ease;
+  transition:
+    color 0.3s ease,
+    border-color 0.3s ease;
   padding: 8px 0;
   border-bottom: none;
   overflow: hidden;
@@ -355,16 +362,16 @@
 
 .forma-footer-brand-text {
   font-family: "Dream Avenue", sans-serif;
-  font-size: 17.2rem;
+  font-size: 13rem;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.08);
   margin: 0;
   line-height: 1;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   user-select: none;
   white-space: nowrap;
-  transform: translateX(40px);
+  transform: translateX(20px);
 }
 
 .forma-footer-mask {
@@ -376,7 +383,9 @@
 
 .forma-footer-letter {
   display: inline-block;
-  transition: color 0.3s ease, transform 0.3s ease;
+  transition:
+    color 0.3s ease,
+    transform 0.3s ease;
   cursor: pointer;
   pointer-events: auto;
   transform: translateY(0%);
@@ -482,9 +491,9 @@
   }
 
   .forma-footer-brand-text {
-    font-size: 10.4rem;
-    transform: translateX(10px);
-    letter-spacing: 0.24em;
+    font-size: 7rem;
+    transform: translateX(5px);
+    letter-spacing: 0.14em;
   }
 }
 
@@ -528,16 +537,16 @@
   }
 
   .forma-footer-brand-text {
-    font-size: 5.85rem;
-    transform: translateX(10px);
-    letter-spacing: 0.24em;
+    font-size: 4rem;
+    transform: translateX(5px);
+    letter-spacing: 0.14em;
   }
 }
 
-/* Extra Large Screens - Increase footer FORMA text size by 20% */
+/* Extra Large Screens - Increase footer Shambala text size by 20% */
 @media (min-width: 1560px) {
   .forma-footer-brand-text {
-    font-size: calc(17.2rem * 1.2) !important; /* 20.64rem - 20% larger */
+    font-size: calc(13rem * 1.2) !important; /* 15.6rem - 20% larger */
   }
 }
 

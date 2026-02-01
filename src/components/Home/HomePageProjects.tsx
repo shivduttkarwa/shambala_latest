@@ -74,7 +74,7 @@ const defaultServices: ServiceCard[] = [
 const HomePageProjects: React.FC<HomePageProjectsProps> = ({
   title = "BUILDING EXCELLENCE",
   subtitle = "",
-  description = "FORMA delivers comprehensive construction services from new home builds to complete renovations. With decades of experience and unwavering commitment to quality, we transform architectural visions into lasting realities.",
+  description = "Shambala delivers comprehensive construction services from new home builds to complete renovations. With decades of experience and unwavering commitment to quality, we transform architectural visions into lasting realities.",
   ctaText = "View All Services",
   ctaLink = "/services",
   services = defaultServices,
@@ -122,7 +122,7 @@ const HomePageProjects: React.FC<HomePageProjectsProps> = ({
       // Parallax effect on images
       cards.forEach((card) => {
         const img = (card as Element).querySelector(
-          ".home-page-projects-card-image"
+          ".home-page-projects-card-image",
         );
         if (img) {
           gsap.to(img, {
@@ -210,9 +210,7 @@ const HomePageProjects: React.FC<HomePageProjectsProps> = ({
             <TiltTextGsap startTrigger="top 70%" endTrigger="bottom -1000%">
               {`${title} ${subtitle}`}
             </TiltTextGsap>
-            <div className="home-page-projects-description">
-              {description}
-            </div>
+            <div className="home-page-projects-description">{description}</div>
             <GlassButton href={ctaLink}>{ctaText}</GlassButton>
           </div>
         </div>

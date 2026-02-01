@@ -28,22 +28,37 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
     const topSection = topSectionRef.current;
     if (topSection) {
       const brandBox = topSection.querySelector(".forma-footer-brand-box");
-      const linksSection = topSection.querySelector(".forma-footer-links-section");
-      const contactSection = topSection.querySelector(".forma-footer-contact-section");
-      const followSection = topSection.querySelector(".forma-footer-follow-us-section");
-      const allLinks = topSection.querySelectorAll(".forma-footer-link, .forma-social-link, .forma-footer-contact-item");
-      gsap.set([brandBox, linksSection, contactSection, followSection], { opacity: 1, y: 0 });
+      const linksSection = topSection.querySelector(
+        ".forma-footer-links-section",
+      );
+      const contactSection = topSection.querySelector(
+        ".forma-footer-contact-section",
+      );
+      const followSection = topSection.querySelector(
+        ".forma-footer-follow-us-section",
+      );
+      const allLinks = topSection.querySelectorAll(
+        ".forma-footer-link, .forma-social-link, .forma-footer-contact-item",
+      );
+      gsap.set([brandBox, linksSection, contactSection, followSection], {
+        opacity: 1,
+        y: 0,
+      });
       gsap.set(allLinks, { opacity: 1, x: 0 });
     }
-    const letters = brandTextRef.current?.querySelectorAll(".forma-footer-letter");
+    const letters = brandTextRef.current?.querySelectorAll(
+      ".forma-footer-letter",
+    );
     if (letters && letters.length > 0) {
       gsap.set(letters, { yPercent: 0, opacity: 1 });
     }
   }, []);
 
-  // Big FORMA text animation (slide up + color flash)
+  // Big Shambala text animation (slide up + color flash)
   useEffect(() => {
-    const letters = brandTextRef.current?.querySelectorAll(".forma-footer-letter");
+    const letters = brandTextRef.current?.querySelectorAll(
+      ".forma-footer-letter",
+    );
     if (!letters || letters.length === 0) return;
 
     const colors = ["#ff6b6b", "#4ecdc4", "#ffe66d", "#9b59b6", "#ff8b94"];
@@ -256,7 +271,7 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
                 </span>
               </Link>
               <span className="forma-footer-copyright">
-                © 2025 FORMA. All rights reserved.
+                © 2025 SHAMBALA. All rights reserved.
               </span>
             </div>
           </div>
@@ -325,16 +340,25 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
         <div className="forma-footer-brand-large">
           <h1 className="forma-footer-brand-text" ref={brandTextRef}>
             <div className="forma-footer-mask">
-              <span className="forma-footer-letter">F</span>
+              <span className="forma-footer-letter">S</span>
             </div>
             <div className="forma-footer-mask">
-              <span className="forma-footer-letter">O</span>
+              <span className="forma-footer-letter">H</span>
             </div>
             <div className="forma-footer-mask">
-              <span className="forma-footer-letter">R</span>
+              <span className="forma-footer-letter">A</span>
             </div>
             <div className="forma-footer-mask">
               <span className="forma-footer-letter">M</span>
+            </div>
+            <div className="forma-footer-mask">
+              <span className="forma-footer-letter">B</span>
+            </div>
+            <div className="forma-footer-mask">
+              <span className="forma-footer-letter">A</span>
+            </div>
+            <div className="forma-footer-mask">
+              <span className="forma-footer-letter">L</span>
             </div>
             <div className="forma-footer-mask">
               <span className="forma-footer-letter">A</span>

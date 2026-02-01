@@ -58,7 +58,7 @@ const projectsData = {
     ],
     testimonial: {
       quote:
-        "Our Brighton villa exceeded all expectations. The ocean views are breathtaking, and the modern design perfectly complements the coastal location. FORMA delivered a masterpiece.",
+        "Our Brighton villa exceeded all expectations. The ocean views are breathtaking, and the modern design perfectly complements the coastal location. Shambala delivered a masterpiece.",
       author: "Sarah & Michael Chen",
       project: "Luxury Villa, Brighton",
     },
@@ -271,7 +271,7 @@ const projectsData = {
     ],
     testimonial: {
       quote:
-        "The restoration of our heritage estate was masterful. FORMA preserved the historical character while creating a modern, comfortable home for our family.",
+        "The restoration of our heritage estate was masterful. Shambala preserved the historical character while creating a modern, comfortable home for our family.",
       author: "Robert & Catherine Miller",
       project: "Custom Estate, Hawthorn",
     },
@@ -413,7 +413,7 @@ const projectsData = {
     ],
     testimonial: {
       quote:
-        "The Seacliff Residence is our dream home. The ocean views are breathtaking, and the indoor-outdoor living is perfect for our coastal lifestyle. FORMA understood exactly what we wanted.",
+        "The Seacliff Residence is our dream home. The ocean views are breathtaking, and the indoor-outdoor living is perfect for our coastal lifestyle. Shambala understood exactly what we wanted.",
       author: "James & Patricia Williams",
       project: "Seacliff Residence",
     },

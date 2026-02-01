@@ -31,7 +31,7 @@ const defaultProperties: PropertySlide[] = [
     tabletImage: `${publicUrl}images/zz.jpg`,
     subtitle: "Creating exceptional living spaces",
     description:
-      "Building tomorrow's homes today. Our vision is to transform how Australians live by creating homes that harmonize with nature, embrace sustainability, and foster community connections. Every FORMA home is designed to enhance your lifestyle while respecting the environment. Thoughtful design, timeless comfort.",
+      "Building tomorrow's homes today. Our vision is to transform how Australians live by creating homes that harmonize with nature, embrace sustainability, and foster community connections. Every Shambala home is designed to enhance your lifestyle while respecting the environment. Thoughtful design, timeless comfort.",
     link: "/projects",
   },
   {
@@ -58,7 +58,6 @@ const defaultProperties: PropertySlide[] = [
       "Building connections, not just homes. Our vision extends beyond individual homes to creating vibrant communities that encourage interaction and wellbeing. We design neighborhoods that foster lasting relationships between residents and their environment. Spaces that bring people together.",
     link: "/projects",
   },
-  
 ];
 
 interface FeaturedPropertiesProps {
@@ -156,7 +155,7 @@ const FeaturedProperties: React.FC<FeaturedPropertiesProps> = ({
         const padding = 10;
 
         const buttonElements = document.querySelectorAll(
-          ".fp-swiper-button-next, .fp-swiper-button-prev, .fp-left-navigation, .home-benefits-cta"
+          ".fp-swiper-button-next, .fp-swiper-button-prev, .fp-left-navigation, .home-benefits-cta",
         );
         let overButton = false;
 
@@ -213,7 +212,7 @@ const FeaturedProperties: React.FC<FeaturedPropertiesProps> = ({
     };
 
     const bucketElements = document.querySelectorAll(
-      ".fp-swiper-button-next, .fp-swiper-button-prev, .fp-left-navigation, .home-benefits-cta"
+      ".fp-swiper-button-next, .fp-swiper-button-prev, .fp-left-navigation, .home-benefits-cta",
     );
 
     bucketElements.forEach((el) => {
